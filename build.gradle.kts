@@ -3,8 +3,8 @@ plugins {
 }
 
 // Настраиваем детект для всех модулей
-allprojects{
-    apply{
+allprojects {
+    apply {
         plugin("ru.vs.convention.analyze.detekt")
     }
 }
