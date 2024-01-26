@@ -25,6 +25,7 @@ jobs:
       - name: Run gradle
         run: >-
           ./gradlew
+          -Pru.vs.core.ci=true
           :ci
           --no-daemon
           --stacktrace
