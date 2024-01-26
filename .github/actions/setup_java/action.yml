@@ -1,10 +1,13 @@
+# Usage:
+# - name: Setup java
+#   uses: ./.github/actions/setup_java
+
 name: setup_java
-description: Setup java
+description: Setup java && gradle cache
 runs:
   using: composite
   steps:
-    - name: Setup java
-      uses: actions/setup-java@v4
+    - uses: actions/setup-java@v4
       with:
         distribution: zulu
         java-version: 21
