@@ -18,14 +18,13 @@ jobs:
       - name: Setup java
         uses: ./.github/actions/setup_java
 
-      - name: Run gradle detekt
-        run: >-
-          ./gradlew
-          -Pru.vs.core.ci=true
-          :detektBuildLogic
-          detekt
-          --no-daemon
-          --stacktrace
+      - name: Run gradle
+        uses: ./.github/actions/run_gradle
+        with:
+          gradle_command: >-
+            :detektBuildLogic
+            detekt
+
   ci:
     name: ci
     runs-on: ubuntu-22.04
@@ -38,9 +37,6 @@ jobs:
         uses: ./.github/actions/setup_java
 
       - name: Run gradle
-        run: >-
-          ./gradlew
-          -Pru.vs.core.ci=true
-          :ci
-          --no-daemon
-          --stacktrace
+        uses: ./.github/actions/run_gradle
+        with:
+          gradle_command: :ci

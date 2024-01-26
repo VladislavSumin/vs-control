@@ -1,0 +1,23 @@
+# Usage:
+# - name: Run gradle
+#   uses: ./.github/actions/run_gradle
+#   with:
+#     gradle_command: ->
+#       :exampleGradleTask
+
+name: run_gradle
+description: Run gradle
+inputs:
+  gradle_command:
+    required: true
+    description: part of gradle command including tasks && properties
+runs:
+  using: composite
+  steps:
+    - shell: sh
+      run: >-
+        ./gradlew
+        -Pru.vs.core.ci=true
+        ${{ inputs.gradle_command }}
+        --no-daemon
+        --stacktrace
