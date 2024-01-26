@@ -4,7 +4,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.accessors.dm.LibrariesForLibs
 
 /**
- * Настройка gradle плагина по умолчанию. Должна подключаться ко всем модулям в которых нужен detekt.
+ * Настройка detekt плагина по умолчанию. Должна подключаться ко всем модулям в которых нужен detekt.
  */
 
 plugins {

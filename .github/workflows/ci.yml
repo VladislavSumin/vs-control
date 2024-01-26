@@ -26,6 +26,7 @@ jobs:
         run: >-
           ./gradlew
           -Pru.vs.core.ci=true
+          :detektBuildLogic
           detekt
           --no-daemon
           --stacktrace
