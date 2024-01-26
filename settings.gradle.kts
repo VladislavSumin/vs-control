@@ -41,3 +41,5 @@ gradleEnterprise {
         publishAlwaysIf(isCI)
     }
 }
+
+include(":server:jvm")
