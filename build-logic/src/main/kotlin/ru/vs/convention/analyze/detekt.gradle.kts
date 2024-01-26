@@ -22,7 +22,7 @@ tasks.withType<Detekt>().configureEach {
     autoCorrect = true
     parallel = true
     buildUponDefaultConfig = true
-    config.setFrom(project.layout.projectDirectory.file("config/analyze/detekt.yml"))
+    config.setFrom(rootProject.layout.projectDirectory.file("config/analyze/detekt.yml"))
 }
 
 // Дефолтные пути по которым detekt ищет файлы нас не устраивают, поэтому вручную проставляем пути для тасок с
