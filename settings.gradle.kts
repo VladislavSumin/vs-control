@@ -1,3 +1,7 @@
+pluginManagement {
+    includeBuild("build-logic")
+}
+
 plugins {
     // Плагин для публикации gradle scans
     id("com.gradle.enterprise") version "3.16.2"
