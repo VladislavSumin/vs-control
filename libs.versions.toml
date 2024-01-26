@@ -1,3 +1,13 @@
 [versions]
 
+# Gradle plugins
+gradlePlugins-detekt = "1.23.4"
+
 [libraries]
+
+# Gradle plugins
+gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "gradlePlugins-detekt" }
+
+# Checkstyle
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "gradlePlugins-detekt" }
+
