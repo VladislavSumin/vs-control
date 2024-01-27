@@ -10,5 +10,6 @@ plugins {
 }
 
 kotlin {
+    // Включаем автоматическую генерацию source set`ов. Подробнее читайте документацию по функции.
     applyDefaultHierarchyTemplate()
 }
