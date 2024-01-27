@@ -2,7 +2,7 @@
 
 # Gradle plugins
 gradlePlugins-detekt = "1.23.4"
-kotlin-core = "1.9.20"
+kotlin-core = "2.0.0-Beta3"
 
 [libraries]
 

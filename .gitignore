@@ -1,5 +1,7 @@
 /.gradle
+/.kotlin
 /.idea
+
 **/build
 
 /build-logic/.gradle
