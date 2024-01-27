@@ -1,6 +1,6 @@
 package ru.vs.core.logger.manager
 
-import ru.vs.core.logger.api.LogLevel
+import ru.vs.core.logger.common.LogLevel
 import ru.vs.core.logger.internal.LoggerFactory
 
 /**
@@ -19,7 +19,7 @@ object LoggerManager {
         LoggerFactory = { tag, logLevel ->
             LoggerImpl(
                 logger = externalLogger,
-                logLevel = rootLogLevel merge (logLevel as LogLevel),
+                logLevel = rootLogLevel merge logLevel,
                 tag = tag,
             )
         }

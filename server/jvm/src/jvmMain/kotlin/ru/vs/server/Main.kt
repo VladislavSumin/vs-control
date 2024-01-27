@@ -1,7 +1,7 @@
 package ru.vs.server
 
-import ru.vs.core.logger.api.LogLevel
 import ru.vs.core.logger.api.logger
+import ru.vs.core.logger.common.LogLevel
 import ru.vs.core.logger.manager.ExternalLogger
 import ru.vs.core.logger.manager.LoggerManager
 

@@ -1,4 +1,4 @@
-package ru.vs.core.logger.api
+package ru.vs.core.logger.common
 
 /**
  * Перечисление уровней логирования.
