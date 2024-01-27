@@ -11,6 +11,9 @@ plugins {
     id("ru.vs.convention.analyze.detekt")
 }
 
+// Дополнительная проверка места подключения плагина.
+check(project == rootProject) { "This plugin allowed to apply only to root project" }
+
 tasks.register<Detekt>("detektBuildLogic") {
     source = fileTree(project.projectDir) {
         include("build-logic/src/**/*")
