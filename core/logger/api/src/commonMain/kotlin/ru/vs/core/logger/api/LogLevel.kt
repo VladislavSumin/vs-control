@@ -22,7 +22,7 @@ enum class LogLevel(private val rawLevel: Int) {
     }
 
     /**
-     * Объединяет два [LogLevel] возвращая уровень с большим уровнем (более узкий)
+     * Объединяет два [LogLevel] возвращая уровень с меньшим уровнем (более узкий)
      */
     infix fun merge(logLevel: LogLevel): LogLevel {
         return if (this.rawLevel <= logLevel.rawLevel) this else logLevel
