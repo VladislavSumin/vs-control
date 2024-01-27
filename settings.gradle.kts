@@ -44,4 +44,8 @@ gradleEnterprise {
     }
 }
 
+include(":core:logger:api")
+include(":core:logger:internal")
+include(":core:logger:manager")
+
 include(":server:jvm")
