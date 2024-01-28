@@ -46,6 +46,7 @@ gradleEnterprise {
 
 include(":core:logger:api")
 include(":core:logger:common")
+include(":core:logger:default")
 include(":core:logger:internal")
 include(":core:logger:manager")
 

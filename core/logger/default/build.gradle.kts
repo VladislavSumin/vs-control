@@ -6,8 +6,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(projects.core.logger.api)
-                implementation(projects.core.logger.default)
+                api(projects.core.logger.manager)
             }
         }
     }
