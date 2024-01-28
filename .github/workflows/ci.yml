@@ -26,8 +26,8 @@ jobs:
             :detektBuildLogic
             detekt
 
-  ci:
-    name: ci
+  unit-tests:
+    name: Unit tests
     runs-on: ubuntu-22.04
     timeout-minutes: 5
     steps:
@@ -40,4 +40,4 @@ jobs:
       - name: Run gradle
         uses: ./.github/actions/run_gradle
         with:
-          gradle_command: :ci
+          gradle_command: allTests
