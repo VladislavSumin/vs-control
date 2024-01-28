@@ -4,6 +4,9 @@
 gradlePlugins-detekt = "1.23.4"
 kotlin-core = "2.0.0-Beta3"
 
+# Testing
+mockk = "1.13.9"
+
 [libraries]
 
 # Gradle plugins
@@ -13,3 +16,5 @@ gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plu
 # Checkstyle
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "gradlePlugins-detekt" }
 
+# Testing
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
