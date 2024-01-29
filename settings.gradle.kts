@@ -50,4 +50,5 @@ include(":core:logger:default")
 include(":core:logger:internal")
 include(":core:logger:manager")
 
+include("client:android")
 include(":server:jvm")
