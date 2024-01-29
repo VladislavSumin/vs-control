@@ -7,7 +7,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(projects.core.logger.api)
-                implementation(projects.core.logger.default)
+                implementation(projects.core.logger.platform)
             }
         }
     }

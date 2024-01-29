@@ -1,4 +1,4 @@
-package ru.vs.core.logger.default
+package ru.vs.core.logger.platform
 
 import ru.vs.core.logger.manager.ExternalLoggerFactory
 

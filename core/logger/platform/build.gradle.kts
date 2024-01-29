@@ -1,5 +1,5 @@
 plugins {
-    id("ru.vs.convention.kmp.jvm")
+    id("ru.vs.convention.kmp.all")
 }
 
 kotlin {

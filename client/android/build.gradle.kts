@@ -9,3 +9,8 @@ android {
         applicationId = "ru.vs.control"
     }
 }
+
+dependencies {
+    implementation(projects.core.logger.api)
+    implementation(projects.core.logger.platform)
+}

@@ -1,4 +1,4 @@
-package ru.vs.core.logger.default
+package ru.vs.core.logger.platform
 
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
