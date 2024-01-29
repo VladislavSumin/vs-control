@@ -25,10 +25,12 @@
   без привязки к конкретной имплементации (application/library/итд).
 * [base-kotlin](../../build-logic/src/main/kotlin/ru/vs/convention/android/base-kotlin.gradle.kts) расширение базовой
   android настройки, включает в себя настройку kotlin.
-* [application](../../build-logic/src/main/kotlin/ru/vs/convention/android/application.gradle.kts) Базовая настройка
+* [application](../../build-logic/src/main/kotlin/ru/vs/convention/android/application.gradle.kts) базовая настройка
   android application.
-* [library](../../build-logic/src/main/kotlin/ru/vs/convention/android/library.gradle.kts) Базовая настройка android
+* [library](../../build-logic/src/main/kotlin/ru/vs/convention/android/library.gradle.kts) базовая настройка android
   library.
+* [default-namespace](../../build-logic/src/main/kotlin/ru/vs/convention/android/default-namespace.gradle.kts)
+  устанавливает базовый namespace для android модулей вида ru.vs.***, где *** заменяются на полное имя проекта.
 
 ## `ru.vs.convention.analyze.*`
 
