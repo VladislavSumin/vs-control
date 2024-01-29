@@ -15,6 +15,7 @@ plugins {
 
 kotlin {
     androidTarget {
+        // Настраиваем версию jvm для сборки андроид модулей.
         compilations.all {
             kotlinOptions {
                 jvmTarget = project.projectConfiguration.core.jvmVersion
@@ -24,6 +25,6 @@ kotlin {
 }
 
 android {
-    // Указываем дирректорию для поиска в ней AndroidManifest.xml
+    // Указываем директорию для поиска в ней AndroidManifest.xml.
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 }
