@@ -23,6 +23,7 @@ open class ProjectConfiguration(propertyProvider: PropertyProvider) :
         /**
          * Настройки android плагина.
          */
+        @Suppress("MagicNumber") // В данном случае значение цифр понятно без пояснения.
         inner class Android : Configuration("android", this) {
             val minSdk = property("minSdk", 24)
             val targetSdk = property("targetSdk", 34)
