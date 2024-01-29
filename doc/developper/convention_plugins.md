@@ -14,6 +14,8 @@
   таргета kmp.
 * [android-library](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/android-library.gradle.kts) содержит базовую
   настройку для android-library таргета kmp.
+* [all](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/all.gradle.kts) подключает все поддерживаемые таргеты
+  kotlin kmp разом.
 
 ## `ru.vs.convention.android.*`
 
