@@ -1,6 +1,8 @@
 /.gradle
 /.kotlin
 /.idea
+/local.properties
+
 **/build
 
 /build-logic/.gradle
