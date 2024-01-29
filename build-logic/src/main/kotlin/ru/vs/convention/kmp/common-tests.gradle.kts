@@ -16,7 +16,7 @@ val libs = the<LibrariesForLibs>()
 
 kotlin {
     sourceSets {
-        named("commonTest") {
+        commonTest {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))

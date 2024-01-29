@@ -10,6 +10,7 @@ import ru.vs.utils.android
 plugins {
     id("ru.vs.convention.kmp.common")
     id("com.android.library")
+    id("ru.vs.convention.kmp.android-tests")
     // мы не можем использовать ru.vs.convention.android.library здесь, поскольку этот плагин подключат kotlin плагин,
     // а нам нужен kotlin-multiplatform плагин.
     id("ru.vs.convention.android.base")
