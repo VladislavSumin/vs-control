@@ -4,6 +4,10 @@
 gradlePlugins-detekt = "1.23.4"
 kotlin-core = "2.0.0-Beta3"
 
+# Logging
+logging-log4j = "2.22.1"
+
+
 # Testing
 mockk = "1.13.9"
 
@@ -15,6 +19,10 @@ gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plu
 
 # Checkstyle
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "gradlePlugins-detekt" }
+
+# Logging
+logging-log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "logging-log4j" }
+logging-log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "logging-log4j" }
 
 # Testing
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }

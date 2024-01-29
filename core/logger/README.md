@@ -15,7 +15,7 @@
 ```kotlin
 // Логер может быть инициализирован лишь единожды.
 LoggerManager.init(
-    externalLogger = TODO(), // передайте реализацию внешнего логера тут.
+    externalLoggerFactory = TODO(), // передайте реализацию фабрики внешнего логера тут.
     rootLogLevel = LogLevel.TRACE // опционально, TRACE по умолчанию, уровень логирования.
 )
 // Или (при использовании default модуля)

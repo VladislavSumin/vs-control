@@ -1,9 +1,9 @@
 /.gradle
 /.kotlin
 /.idea
-
 **/build
 
 /build-logic/.gradle
 
+*.log
 .DS_Store

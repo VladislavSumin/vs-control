@@ -11,16 +11,16 @@ object LoggerManager {
 
     /**
      * Инициализирует логер.
-     * @param externalLogger реализация внешнего логера в который будет переданы все логи прошедшие фильтрацию.
+     * @param externalLoggerFactory реализация фабрики внешних логеров в который будет переданы все логи прошедшие
+     * фильтрацию.
      */
-    fun init(externalLogger: ExternalLogger, rootLogLevel: LogLevel = LogLevel.TRACE) {
+    fun init(externalLoggerFactory: ExternalLoggerFactory, rootLogLevel: LogLevel = LogLevel.TRACE) {
         check(!isInitialized) { "Logger already initialized" }
         isInitialized = true
         LoggerFactory = { tag, logLevel ->
             LoggerImpl(
-                logger = externalLogger,
+                logger = externalLoggerFactory.create(tag),
                 logLevel = rootLogLevel merge logLevel,
-                tag = tag,
             )
         }
     }
