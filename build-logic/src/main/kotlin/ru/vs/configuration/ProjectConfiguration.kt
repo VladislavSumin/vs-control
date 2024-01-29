@@ -12,7 +12,23 @@ open class ProjectConfiguration(propertyProvider: PropertyProvider) :
     Configuration("ru.vs", propertyProvider) {
     val core = CoreConfiguration()
 
-    inner class CoreConfiguration : Configuration("core", this)
+    inner class CoreConfiguration : Configuration("core", this) {
+        /**
+         * Версия jvm используемая для сборки проекта
+         */
+        val jvmVersion = property("jvmVersion", "17")
+
+        val android = Android()
+
+        /**
+         * Настройки android плагина.
+         */
+        inner class Android : Configuration("android", this) {
+            val minSdk = property("minSdk", 24)
+            val targetSdk = property("targetSdk", 34)
+            val compileSdk = property("compileSdk", 34)
+        }
+    }
 }
 
 /**
