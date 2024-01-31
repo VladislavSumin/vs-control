@@ -12,6 +12,8 @@
   всех платформ.
 * [jvm](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/jvm.gradle.kts) содержит базовую настройку для jvm
   таргета kmp.
+* [ios](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/ios.gradle.kts) содержит базовую настройку для ios
+  таргета kmp.
 * [android-library](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/android-library.gradle.kts) содержит базовую
   настройку для android-library таргета kmp.
 * [android-tests](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/android-tests.gradle.kts) дополнительная
