@@ -4,11 +4,8 @@ plugins {
 
 kotlin {
     sourceSets {
-        jvmMain {
-            dependencies {
-                implementation(projects.core.logger.api)
-                implementation(projects.core.logger.platform)
-            }
+        jvmMain.dependencies {
+            implementation(projects.client.common)
         }
     }
 }
