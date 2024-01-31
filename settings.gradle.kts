@@ -51,4 +51,6 @@ include(":core:logger:manager")
 include(":core:logger:platform")
 
 include("client:android")
+include("client:jvm")
+
 include(":server:jvm")
