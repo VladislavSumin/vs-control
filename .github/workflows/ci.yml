@@ -42,6 +42,24 @@ jobs:
         with:
           gradle_command: :client:android:assembleDebug
 
+  assemble-macos-client:
+    name: Assemble macos client
+    runs-on: macos-14
+    timeout-minutes: 15
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Setup java
+        uses: ./.github/actions/setup_java
+
+      - name: Run gradle
+        uses: ./.github/actions/run_gradle
+        with:
+          gradle_command: >-
+            :client:macos:macosArm64Binaries
+            :client:macos:macosX64Binaries
+
   unit-tests:
     name: Unit tests
     runs-on: ubuntu-22.04
