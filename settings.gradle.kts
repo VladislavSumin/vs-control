@@ -53,5 +53,6 @@ include(":core:logger:platform")
 include("client:common")
 include("client:android")
 include("client:jvm")
+include("client:macos")
 
 include(":server:jvm")

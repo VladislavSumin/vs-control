@@ -14,6 +14,8 @@
   таргета kmp.
 * [ios](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/ios.gradle.kts) содержит базовую настройку для ios
   таргета kmp.
+* [macos](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/macos.gradle.kts) содержит базовую настройку для macos
+  таргета kmp.
 * [android-library](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/android-library.gradle.kts) содержит базовую
   настройку для android-library таргета kmp.
 * [android-tests](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/android-tests.gradle.kts) дополнительная
