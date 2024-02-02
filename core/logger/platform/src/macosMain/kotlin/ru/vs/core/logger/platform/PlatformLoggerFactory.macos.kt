@@ -1,6 +1,5 @@
 package ru.vs.core.logger.platform
 
-import platform.Foundation.NSLog
 import ru.vs.core.logger.common.LogLevel
 import ru.vs.core.logger.manager.ExternalLogger
 import ru.vs.core.logger.manager.ExternalLoggerFactory
