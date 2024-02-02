@@ -13,7 +13,7 @@ pluginManagement {
 
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenLocal()
         google()
@@ -52,6 +52,7 @@ include(":core:logger:platform")
 
 include("client:common")
 include("client:android")
+include("client:js")
 include("client:jvm")
 include("client:macos")
 
