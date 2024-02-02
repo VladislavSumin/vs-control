@@ -14,11 +14,11 @@ kotlin {
         nodejs()
     }
 
-//    sourceSets {
-//        named("jsTest") {
-//            dependencies {
-//                implementation(kotlin("test-js"))
-//            }
-//        }
-//    }
+    sourceSets {
+        named("jsTest") {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
+        }
+    }
 }
