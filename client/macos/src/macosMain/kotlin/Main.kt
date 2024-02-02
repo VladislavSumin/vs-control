@@ -1,3 +1,7 @@
+import ru.vs.control.InitLogger
+import ru.vs.control.preInit
+
 fun main() {
-    println("Hello macos")
+    preInit()
+    InitLogger.i("finish main()")
 }

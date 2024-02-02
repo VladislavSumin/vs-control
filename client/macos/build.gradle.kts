@@ -18,4 +18,12 @@ kotlin {
             }
         }
     }
+
+    sourceSets {
+        macosMain {
+            dependencies {
+                implementation(projects.client.common)
+            }
+        }
+    }
 }
