@@ -2,6 +2,9 @@
 
 Все convention плагины находятся в `build-logic` в пакете `ru.vs.convention`
 
+* [ru.vs.convention.compose](../../build-logic/src/main/kotlin/ru/vs/convention/compose.gradle.kts) настройки по
+  умолчанию для jetbrains compose плагина.
+
 ## `ru.vs.convention.kmp.*`
 
 В данном пакете находятся плагины связанные с настройкой kotlin multiplatform.
