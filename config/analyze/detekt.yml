@@ -1,2 +1,7 @@
 # Default config location
 # https://github.com/detekt/detekt/blob/master/detekt-core/src/main/resources/default-detekt-config.yml
+
+naming:
+  FunctionNaming:
+    # Allow start function name from upper case to use in compose
+    functionPattern: '([A-z][a-zA-Z0-9]*)|(`.*`)'
