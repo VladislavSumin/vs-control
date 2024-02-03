@@ -46,6 +46,7 @@ gradleEnterprise {
     }
 }
 
+include(":core:compose")
 include(":core:logger:api")
 include(":core:logger:common")
 include(":core:logger:internal")

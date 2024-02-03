@@ -4,7 +4,12 @@
 * [Кастомные github actions](developper/github_actions.md)
 * [Список костылей](developper/bad_decisions.md)
 
-### Build properties
+## Core библиотеки
+
+* [compose](../core/compose/README.md) базовый код compose.
+* [logger](../core/logger/README.md) общий логгер для всех модулей.
+
+## Build properties
 
 Все property, используемые при сборке доступны
 через [общую точку входа](../build-logic/src/main/kotlin/ru/vs/configuration/ProjectConfiguration.kt), там можно
