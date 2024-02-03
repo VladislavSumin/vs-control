@@ -9,6 +9,7 @@ dependencies {
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 
     implementation(libs.gradlePlugins.kotlin.core)
+    implementation(libs.gradlePlugins.jb.compose)
     implementation(libs.gradlePlugins.android)
     implementation(libs.gradlePlugins.detekt)
 }

@@ -1,7 +1,10 @@
 [versions]
 
 # Kotlin
-kotlin-core = "2.0.0-Beta3"
+kotlin-core = "2.0.0-Beta1"
+
+# Compose
+jb-compose = "1.6.0-dev1405"
 
 # Gradle plugins
 gradlePlugins-android = "8.2.2"
@@ -10,8 +13,6 @@ gradlePlugins-detekt = "1.23.4"
 # Logging
 logging-log4j = "2.22.1"
 
-
-
 # Testing
 mockk = "1.13.9"
 
@@ -19,6 +20,7 @@ mockk = "1.13.9"
 
 # Gradle plugins
 gradlePlugins-kotlin-core = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-core" }
+gradlePlugins-jb-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jb-compose" }
 gradlePlugins-android = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugins-android" }
 gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "gradlePlugins-detekt" }
 
