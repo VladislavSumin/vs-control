@@ -10,6 +10,10 @@ jb-compose = "1.6.0-dev1405"
 gradlePlugins-android = "8.2.2"
 gradlePlugins-detekt = "1.23.4"
 
+# Android
+android-activity-compose = "1.8.2"
+
+
 # Logging
 logging-log4j = "2.22.1"
 
@@ -23,6 +27,10 @@ gradlePlugins-kotlin-core = { module = "org.jetbrains.kotlin:kotlin-gradle-plugi
 gradlePlugins-jb-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jb-compose" }
 gradlePlugins-android = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugins-android" }
 gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "gradlePlugins-detekt" }
+
+# Android
+android-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "android-activity-compose" }
+
 
 # Checkstyle
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "gradlePlugins-detekt" }

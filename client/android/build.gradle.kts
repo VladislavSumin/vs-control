@@ -1,5 +1,6 @@
 plugins {
     id("ru.vs.convention.android.application")
+    id("ru.vs.convention.compose")
 }
 
 android {

@@ -21,5 +21,9 @@ kotlin {
             // TODO сделать разделение по платформам.
             api(compose.desktop.currentOs)
         }
+
+        androidMain.dependencies {
+            api(libs.android.activity.compose)
+        }
     }
 }
