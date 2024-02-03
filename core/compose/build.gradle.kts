@@ -8,6 +8,9 @@ kotlin {
         commonMain.dependencies {
             // Основной compose runtime, не тянет за собой ничего лишнего, только сам runtime
             api(compose.runtime)
+
+            // Подключает базовые ui элементы, цвета, темы и итд.
+            api(compose.material3)
         }
 
         jvmMain.dependencies {
