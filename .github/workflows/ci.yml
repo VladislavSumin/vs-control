@@ -11,7 +11,7 @@ jobs:
   check-detekt:
     name: Check detekt
     runs-on: ubuntu-22.04
-    timeout-minutes: 8
+    timeout-minutes: 15
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -29,7 +29,7 @@ jobs:
   assemble-android-debug-client:
     name: Assemble android debug client
     runs-on: ubuntu-22.04
-    timeout-minutes: 6
+    timeout-minutes: 15
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -63,7 +63,7 @@ jobs:
   unit-tests:
     name: Unit tests
     runs-on: ubuntu-22.04
-    timeout-minutes: 6
+    timeout-minutes: 15
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
