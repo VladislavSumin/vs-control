@@ -8,6 +8,7 @@ fun main() {
 
     application {
         Window(
+            title = "Control",
             onCloseRequest = ::exitApplication
         ) {
             TestCompose()

@@ -1,5 +1,6 @@
 plugins {
     id("ru.vs.convention.kmp.macos")
+    id("ru.vs.convention.compose")
 }
 
 kotlin {
