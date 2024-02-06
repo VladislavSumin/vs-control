@@ -5,7 +5,13 @@
     <title>Control</title>
 </head>
 <body>
-<script src="kotlin-kotlin-stdlib.js"></script>
-<script src="vs-control-client-js.js"></script>
+<div>
+    <canvas id="root" width="800" height="600"></canvas>
+</div>
+<!--  skiko не подключается автоматически при линковке webpack, ее нужно добавить вручную  -->
+<script src="skiko.js"></script>
+
+<!--  главный скрипт, его имя соответствует имени выбранному в build.gradle.kts в настройках webpack  -->
+<script src="main.js"></script>
 </body>
 </html>
