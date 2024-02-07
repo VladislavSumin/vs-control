@@ -9,6 +9,8 @@
 * [compose](../core/compose/README.md) базовый код compose.
 * [logger](../core/logger/README.md) общий логгер для всех модулей.
 
+## [Требования к дизайну](design/design_rules.md)
+
 ## Build properties
 
 Все property, используемые при сборке доступны
