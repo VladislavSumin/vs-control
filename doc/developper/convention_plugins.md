@@ -21,6 +21,8 @@
   таргета kmp.
 * [js](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/js.gradle.kts) содержит базовую настройку для js
   таргета kmp.
+* [wasm](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/wasm.gradle.kts) содержит базовую настройку для wasm
+  таргета kmp.
 * [android-library](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/android-library.gradle.kts) содержит базовую
   настройку для android-library таргета kmp.
 * [android-tests](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/android-tests.gradle.kts) дополнительная
