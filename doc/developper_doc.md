@@ -1,5 +1,6 @@
 # Документация для разработчиков.
 
+* [Структура модулей и пакетов](developper/module_and_package_structure.md)
 * [Core модули](../core/README.md)
 * [Convention плагины](developper/convention_plugins.md)
 * [Кастомные github actions](developper/github_actions.md)

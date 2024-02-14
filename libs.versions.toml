@@ -14,6 +14,9 @@ gradlePlugins-modulesGraphAssert = "2.5.0"
 # Android
 android-activity-compose = "1.8.2"
 
+# Other
+kodein = "7.21.2"
+
 # Logging
 logging-log4j = "2.22.1"
 
@@ -31,6 +34,10 @@ gradlePlugins-modulesGraphAssert = { module = "com.jraska.module.graph.assertion
 
 # Android
 android-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "android-activity-compose" }
+
+# Other
+kodein-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
+kodein-android = { module = "org.kodein.di:kodein-di-framework-android-x", version.ref = "kodein" }
 
 # Checkstyle
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "gradlePlugins-detekt" }
