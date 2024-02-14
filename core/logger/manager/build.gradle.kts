@@ -4,11 +4,9 @@ plugins {
 
 kotlin {
     sourceSets {
-        commonMain {
-            dependencies {
-                api(projects.core.logger.common)
-                implementation(projects.core.logger.internal)
-            }
+        commonMain.dependencies {
+            api(projects.core.logger.common)
+            implementation(projects.core.logger.internal)
         }
     }
 }

@@ -4,10 +4,8 @@ plugins {
 
 kotlin {
     sourceSets {
-        commonMain {
-            dependencies {
-                implementation(projects.core.logger.common)
-            }
+        commonMain.dependencies {
+            implementation(projects.core.logger.common)
         }
     }
 }
