@@ -12,4 +12,5 @@ dependencies {
     implementation(libs.gradlePlugins.jb.compose)
     implementation(libs.gradlePlugins.android)
     implementation(libs.gradlePlugins.detekt)
+    implementation(libs.gradlePlugins.modulesGraphAssert)
 }

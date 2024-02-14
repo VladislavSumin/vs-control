@@ -49,6 +49,8 @@
 
 В данном пакете находятся плагины для настройки анализаторов кода.
 
+* [check-module-graph](../../build-logic/src/main/kotlin/ru/vs/convention/analyze/check-module-graph.gradle.kts)
+  содержит настройки для проверки связей между gradle модулями.
 * [detekt](../../build-logic/src/main/kotlin/ru/vs/convention/analyze/detekt.gradle.kts) содержит базовую настройку
   плагина detekt.
 * [detekt-build-logic](../../build-logic/src/main/kotlin/ru/vs/convention/analyze/detekt-build-logic.gradle.kts)
