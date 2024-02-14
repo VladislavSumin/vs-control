@@ -5,7 +5,7 @@ import androidx.compose.ui.window.CanvasBasedWindow
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    // preInit()
+    preInit()
 
     CanvasBasedWindow(
         title = "Control",
@@ -13,6 +13,4 @@ fun main() {
     ) {
         TestCompose()
     }
-
-    // InitLogger.i("finish main()")
 }

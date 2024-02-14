@@ -14,6 +14,4 @@ fun main() {
             TestCompose()
         }
     }
-
-    InitLogger.i("finish main()")
 }

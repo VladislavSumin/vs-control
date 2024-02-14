@@ -17,6 +17,4 @@ fun main() {
     }
 
     NSApp?.run()
-
-    InitLogger.i("finish main()")
 }

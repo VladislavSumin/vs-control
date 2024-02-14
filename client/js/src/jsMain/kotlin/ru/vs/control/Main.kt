@@ -6,12 +6,11 @@ import org.jetbrains.skiko.wasm.onWasmReady
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    println("Hello js")
+    preInit()
+
     onWasmReady {
         CanvasBasedWindow("Control", "root") {
             TestCompose()
         }
     }
-
-    console.log("Hello js")
 }
