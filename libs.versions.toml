@@ -4,7 +4,7 @@
 kotlin-core = "2.0.0-Beta1"
 
 # Compose
-jb-compose = "1.6.0-dev1419"
+jb-compose = "1.6.0-rc01"
 
 # Gradle plugins
 gradlePlugins-android = "8.2.2"
