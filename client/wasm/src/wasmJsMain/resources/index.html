@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control</title>
+</head>
+<body>
+<div>
+    <canvas id="root" width="800" height="600"></canvas>
+</div>
+<!--  skiko не подключается автоматически при линковке webpack, ее нужно добавить вручную  -->
+<script src="skiko.js"></script>
+
+<!--  главный скрипт, его имя соответствует имени выбранному в build.gradle.kts в настройках webpack  -->
+<script src="main.js"></script>
+</body>
+</html>
