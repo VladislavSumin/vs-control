@@ -2,6 +2,7 @@
 
 * [Структура модулей и пакетов](developper/module_and_package_structure.md)
 * [Core модули](../core/README.md)
+* [Feature модули](../feature/README.md)
 * [Convention плагины](developper/convention_plugins.md)
 * [Кастомные github actions](developper/github_actions.md)
 * [Список костылей](developper/bad_decisions.md)
