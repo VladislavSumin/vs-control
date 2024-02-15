@@ -54,6 +54,9 @@ include(":core:logger:internal")
 include(":core:logger:manager")
 include(":core:logger:platform")
 
+include("feature:app-info:client-api")
+include("feature:app-info:client-impl")
+
 include("client:common")
 include("client:android")
 include("client:js")

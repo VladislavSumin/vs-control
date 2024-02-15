@@ -10,6 +10,10 @@ kotlin {
             implementation(projects.core.logger.platform)
 
             api(projects.core.compose)
+            api(projects.core.di)
+
+            // Features
+            api(projects.feature.appInfo.clientImpl)
         }
     }
 }
