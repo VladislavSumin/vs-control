@@ -7,53 +7,18 @@
 * [ru.vs.convention.impl-to-api-dependency](../../build-logic/src/main/kotlin/ru/vs/convention/impl-to-api-dependency.gradle.kts)
   автоматически прописывает *-impl модулю api зависимость на *-api модуль.
 
-## `ru.vs.convention.kmp.*`
+## [ru.vs.convention.kmp.*](../../build-logic/src/main/kotlin/ru/vs/convention/preset)
+
+В данном пакете находятся настройки по умолчанию (пресеты) для различных типовых модулей.
+
+## [ru.vs.convention.kmp.*](../../build-logic/src/main/kotlin/ru/vs/convention/kmp)
 
 В данном пакете находятся плагины связанные с настройкой kotlin multiplatform.
 
-* [common-tests](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/common-tests.gradle.kts) содержит базовую
-  настройку для поддержки unit тестов.
-* [common](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/common.gradle.kts) содержит базовую настройку kmp для
-  всех платформ.
-* [jvm](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/jvm.gradle.kts) содержит базовую настройку для jvm
-  таргета kmp.
-* [ios](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/ios.gradle.kts) содержит базовую настройку для ios
-  таргета kmp.
-* [macos](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/macos.gradle.kts) содержит базовую настройку для macos
-  таргета kmp.
-* [js](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/js.gradle.kts) содержит базовую настройку для js
-  таргета kmp.
-* [wasm](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/wasm.gradle.kts) содержит базовую настройку для wasm
-  таргета kmp.
-* [android-library](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/android-library.gradle.kts) содержит базовую
-  настройку для android-library таргета kmp.
-* [android-tests](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/android-tests.gradle.kts) дополнительная
-  настройка unit тестов для android таргета.
-* [all](../../build-logic/src/main/kotlin/ru/vs/convention/kmp/all.gradle.kts) подключает все поддерживаемые таргеты
-  kotlin kmp разом.
-
-## `ru.vs.convention.android.*`
+## [ru.vs.convention.android.*](../../build-logic/src/main/kotlin/ru/vs/convention/android)
 
 В данном пакете находятся плагины для настройки android плагина.
 
-* [base](../../build-logic/src/main/kotlin/ru/vs/convention/android/base.gradle.kts) базовая настройка android плагина
-  без привязки к конкретной имплементации (application/library/итд).
-* [base-kotlin](../../build-logic/src/main/kotlin/ru/vs/convention/android/base-kotlin.gradle.kts) расширение базовой
-  android настройки, включает в себя настройку kotlin.
-* [application](../../build-logic/src/main/kotlin/ru/vs/convention/android/application.gradle.kts) базовая настройка
-  android application.
-* [library](../../build-logic/src/main/kotlin/ru/vs/convention/android/library.gradle.kts) базовая настройка android
-  library.
-* [default-namespace](../../build-logic/src/main/kotlin/ru/vs/convention/android/default-namespace.gradle.kts)
-  устанавливает базовый namespace для android модулей вида ru.vs.***, где *** заменяются на полное имя проекта.
-
-## `ru.vs.convention.analyze.*`
+## [ru.vs.convention.analyze.*](../../build-logic/src/main/kotlin/ru/vs/convention/analyze)
 
 В данном пакете находятся плагины для настройки анализаторов кода.
-
-* [check-module-graph](../../build-logic/src/main/kotlin/ru/vs/convention/analyze/check-module-graph.gradle.kts)
-  содержит настройки для проверки связей между gradle модулями.
-* [detekt](../../build-logic/src/main/kotlin/ru/vs/convention/analyze/detekt.gradle.kts) содержит базовую настройку
-  плагина detekt.
-* [detekt-build-logic](../../build-logic/src/main/kotlin/ru/vs/convention/analyze/detekt-build-logic.gradle.kts)
-  содержит дополнительную настройку detekt для анализа build-logic модуля.
