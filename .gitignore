@@ -4,7 +4,8 @@
 
 /.idea/*
 !/.idea/dictionaries
- !/.idea/detekt.xml
+!/.idea/detekt.xml
+!/.idea/externalDependencies.xml
 
 **/build
 
