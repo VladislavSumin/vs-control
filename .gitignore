@@ -1,7 +1,9 @@
 /.gradle
 /.kotlin
-/.idea
 /local.properties
+
+/.idea/*
+!/.idea/dictionaries
 
 **/build
 
