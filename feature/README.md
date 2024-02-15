@@ -7,4 +7,4 @@
 
 ## Список фича модулей.
 
-* TODO
+* [AppInfo](app-info/README.md)
