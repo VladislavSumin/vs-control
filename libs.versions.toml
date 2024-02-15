@@ -5,6 +5,7 @@ kotlin-core = "2.0.0-Beta1"
 
 # Compose
 jb-compose = "1.6.0-rc01"
+decompose = "3.0.0-alpha06"
 
 # Gradle plugins
 gradlePlugins-android = "8.2.2"
@@ -31,6 +32,11 @@ gradlePlugins-jb-compose = { module = "org.jetbrains.compose:compose-gradle-plug
 gradlePlugins-android = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugins-android" }
 gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "gradlePlugins-detekt" }
 gradlePlugins-modulesGraphAssert = { module = "com.jraska.module.graph.assertion:plugin", version.ref = "gradlePlugins-modulesGraphAssert" }
+
+# Compose
+decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decompose-extensions-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
+decompose-extensions-android = { module = "com.arkivanov.decompose:extensions-android", version.ref = "decompose" }
 
 # Android
 android-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "android-activity-compose" }

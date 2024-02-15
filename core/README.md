@@ -8,5 +8,6 @@ Core модули могут содержать только самый базо
 ## Список core модулей.
 
 * [compose](compose/README.md) базовый код compose.
+* [decompose](decompose/README.md) базовый код decompose.
 * [di](di/README.md) базовый код di.
 * [logger](logger/README.md) общий логгер для всех модулей.
