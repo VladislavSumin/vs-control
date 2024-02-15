@@ -4,6 +4,8 @@
 
 * [ru.vs.convention.compose](../../build-logic/src/main/kotlin/ru/vs/convention/compose.gradle.kts) настройки по
   умолчанию для jetbrains compose плагина.
+* [ru.vs.convention.impl-to-api-dependency](../../build-logic/src/main/kotlin/ru/vs/convention/impl-to-api-dependency.gradle.kts)
+  автоматически прописывает *-impl модулю api зависимость на *-api модуль.
 
 ## `ru.vs.convention.kmp.*`
 
