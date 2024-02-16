@@ -8,3 +8,4 @@
 ## Список фича модулей.
 
 * [AppInfo](app-info/README.md)
+* [RootScreen](root-screen/README.md)

@@ -57,6 +57,8 @@ include(":core:logger:platform")
 
 include("feature:app-info:client-api")
 include("feature:app-info:client-impl")
+include("feature:root-screen:client-api")
+include("feature:root-screen:client-impl")
 
 include("client:common")
 include("client:android")
