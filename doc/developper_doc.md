@@ -4,6 +4,7 @@
 * [Core модули](../core/README.md)
 * [Feature модули](../feature/README.md)
 * [Convention плагины](developper/convention_plugins.md)
+* [Шаблоны для генерации кода](developper/templates.md)
 * [Кастомные github actions](developper/github_actions.md)
 * [Список костылей](developper/bad_decisions.md)
 
