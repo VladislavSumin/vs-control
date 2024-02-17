@@ -6,6 +6,8 @@
 !/.idea/dictionaries
 !/.idea/detekt.xml
 !/.idea/externalDependencies.xml
+!/.idea/file.template.settings.xml
+!/.idea/fileTemplates
 
 **/build
 

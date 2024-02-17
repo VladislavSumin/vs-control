@@ -7,17 +7,17 @@ TODO()
 ### Dash-case to PascalCase.
 
 ```
-#set( $CamelCaseName = "" )
+#set( $PascalCaseName = "" )
 #set( $part = "" )
 #foreach($part in $NAME.split("-"))
-  #set( $CamelCaseName = "${CamelCaseName}$part.substring(0,1).toUpperCase()$part.substring(1).toLowerCase()" )
+  #set( $PascalCaseName = "${PascalCaseName}$part.substring(0,1).toUpperCase()$part.substring(1).toLowerCase()" )
 #end
 ```
 
 В одну строку для путей файлов:
 
 ```
-#set( $CamelCaseName = "" )#set( $part = "" )#foreach($part in $NAME.split("-"))#set( $CamelCaseName = "${CamelCaseName}$part.substring(0,1).toUpperCase()$part.substring(1).toLowerCase()" )#end
+#set( $PascalCaseName = "" )#set( $part = "" )#foreach($part in $NAME.split("-"))#set( $PascalCaseName = "${PascalCaseName}$part.substring(0,1).toUpperCase()$part.substring(1).toLowerCase()" )#end
 ```
 
 ### Dash-case to camelCase.
@@ -34,6 +34,12 @@ TODO()
 
 ```
 #set( $CamelCaseName = "" )#set( $part = "" )#foreach($part in $NAME.split("-"))#set( $CamelCaseName = "${CamelCaseName}#if($CamelCaseName.length() == 0)$part.substring(0,1).toLowerCase()#else$part.substring(0,1).toUpperCase()#end$part.substring(1).toLowerCase()" )#end
+```
+
+### Убираем кавычки
+
+```
+#set ( $NAME = $NAME.replaceAll("`","") )
 ```
 
 ## Полезные ссылки

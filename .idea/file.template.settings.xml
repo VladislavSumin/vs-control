@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExportableFileTemplateSettings">
+    <default_templates>
+      <template name="Feature module.md" file-name="${NAME}/README" reformat="true" live-template-enabled="true">
+        <template name="Feature module.md.child.0.kt" file-name="#set( $CamelCaseName = &quot;&quot; )#set( $part = &quot;&quot; )#foreach($part in $NAME.split(&quot;-&quot;))#set( $CamelCaseName = &quot;${CamelCaseName}#if($CamelCaseName.length() == 0)$part.substring(0,1).toLowerCase()#else$part.substring(0,1).toUpperCase()#end$part.substring(1).toLowerCase()&quot; )#end${NAME}/client-impl/src/commonMain/kotlin/ru/vs/control/feature/${CamelCaseName}/Di" reformat="false" live-template-enabled="true" />
+        <template name="Feature module.md.child.2༏ext༏.gradle.kts" file-name="${NAME}/client-impl/build" reformat="true" live-template-enabled="false" />
+        <template name="Feature module.md.child.1༏ext༏.gradle.kts" file-name="${NAME}/client-api/build" reformat="true" live-template-enabled="false" />
+      </template>
+      <template name="Feature module.md.child.0.kt" file-name="#set( $CamelCaseName = &quot;&quot; )#set( $part = &quot;&quot; )#foreach($part in $NAME.split(&quot;-&quot;))#set( $CamelCaseName = &quot;${CamelCaseName}#if($CamelCaseName.length() == 0)$part.substring(0,1).toLowerCase()#else$part.substring(0,1).toUpperCase()#end$part.substring(1).toLowerCase()&quot; )#end${NAME}/client-impl/src/commonMain/kotlin/ru/vs/control/feature/${CamelCaseName}/Di" reformat="false" live-template-enabled="true" />
+      <template name="Feature module.md.child.1༏ext༏.gradle.kts" file-name="${NAME}/client-api/build" reformat="true" live-template-enabled="false" />
+      <template name="Feature module.md.child.2༏ext༏.gradle.kts" file-name="${NAME}/client-impl/build" reformat="true" live-template-enabled="false" />
+    </default_templates>
+  </component>
+</project>
