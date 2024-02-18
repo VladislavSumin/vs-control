@@ -59,6 +59,8 @@ include("feature:app-info:client-api")
 include("feature:app-info:client-impl")
 include("feature:root-screen:client-api")
 include("feature:root-screen:client-impl")
+feature("app-info")
+feature("root-screen")
 
 include("client:common")
 include("client:android")
@@ -68,3 +70,12 @@ include("client:macos")
 include("client:wasm")
 
 include(":server:jvm")
+
+/**
+ * Подключает иерархию фичи, согласно стандартному набору модулей.
+ * @param name имя фичи.
+ */
+fun feature(name: String) {
+    include(":feature:$name:client-api")
+    include(":feature:$name:client-impl")
+}
