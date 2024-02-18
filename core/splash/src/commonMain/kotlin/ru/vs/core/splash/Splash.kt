@@ -7,6 +7,7 @@ import com.arkivanov.decompose.router.children.SimpleChildNavState
 import com.arkivanov.decompose.router.children.SimpleNavigation
 import com.arkivanov.decompose.router.children.children
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.statekeeper.SerializableContainer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,14 +27,14 @@ import ru.vs.core.decompose.createCoroutineScope
  * @param contentComponentFactory фабрика для создания компонента экрана с контентом. onContentReady необходимо вызвать
  * после того как контентный компонент будет готов к отображению контента, до этого момента будет отображаться splash.
  */
+// TODO T не должно расширять ComposeComponent?
 fun <T : ComposeComponent> ComponentContext.childSplash(
     key: String = "child-splash",
     scope: CoroutineScope = lifecycle.createCoroutineScope(),
     awaitInitialization: suspend () -> Unit,
     splashComponentFactory: (context: ComponentContext) -> T,
     contentComponentFactory: (onContentReady: () -> Unit, context: ComponentContext) -> T,
-): Value<ComposeComponent> { // TODO
-
+): Value<SplashChildState<T>> {
     val navigationSource = SimpleNavigation<SplashNavEvent>()
 
     scope.launch(Dispatchers.Main.immediate) {
@@ -49,16 +50,28 @@ fun <T : ComposeComponent> ComponentContext.childSplash(
         source = navigationSource,
         key = key,
         initialState = { SplashNavState.Splash as SplashNavState },
-        saveState = { null }, // TODO
-        restoreState = { null }, // TODO
-        navTransformer = { state, event ->
+        saveState = {
+            // Мы всегда начинаем с состояния Splash и потому этому виду навигации не нужно сохранять состояние,
+            // но если мы вернем null тут, то decompose не сохранит состояние дочерних элементов (контента), поэтому,
+            // что бы состояние сохранялось мы возвращаем пустой контейнер.
+            SerializableContainer()
+        },
+        restoreState = {
+            // Всегда восстанавливаемся в состояние Splash.
+            SplashNavState.Splash
+        },
+        navTransformer = { _, event ->
             when (event) {
+                SplashNavEvent.Splash -> SplashNavState.Splash
                 SplashNavEvent.ApplicationInitialized -> SplashNavState.InitializedSplash
                 SplashNavEvent.ContentReady -> SplashNavState.Content
             }
         },
         stateMapper = { state, children ->
-            children.last().instance!!
+            // TODO при восстановлении состояния приходит неожиданная конфигурация.
+            println("QWQWQW: $state")
+            println("QWQWQW: $children")
+            SplashChildState(children.last().instance)
         },
         childFactory = { configuration, context ->
             when (configuration) {
@@ -69,7 +82,13 @@ fun <T : ComposeComponent> ComponentContext.childSplash(
     )
 }
 
+// TODO в процессе разработки, просто накинул тут что бы отрисовать как нибудь.
+data class SplashChildState<T>(
+    val current: T?
+)
+
 private sealed interface SplashNavEvent {
+    data object Splash : SplashNavEvent
     data object ApplicationInitialized : SplashNavEvent
     data object ContentReady : SplashNavEvent
 }
