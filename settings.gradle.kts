@@ -58,6 +58,7 @@ include(":core:logger:platform")
 
 feature("app-info")
 feature("initialization")
+feature("initialized-root-screen")
 feature("root-screen")
 feature("splash-screen")
 
