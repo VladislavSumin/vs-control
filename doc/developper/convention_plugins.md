@@ -6,6 +6,8 @@
   умолчанию для jetbrains compose плагина.
 * [ru.vs.convention.impl-to-api-dependency](../../build-logic/src/main/kotlin/ru/vs/convention/impl-to-api-dependency.gradle.kts)
   автоматически прописывает *-impl модулю api зависимость на *-api модуль.
+* [ru.vs.convention.atomicfu](../../build-logic/src/main/kotlin/ru/vs/convention/atomicfu.gradle.kts) настраивает
+  atomicfu.
 
 ## [ru.vs.convention.kmp.*](../../build-logic/src/main/kotlin/ru/vs/convention/preset)
 
