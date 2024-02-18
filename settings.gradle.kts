@@ -55,6 +55,7 @@ include(":core:logger:common")
 include(":core:logger:internal")
 include(":core:logger:manager")
 include(":core:logger:platform")
+include(":core:splash")
 
 feature("app-info")
 feature("initialization")
