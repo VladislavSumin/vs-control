@@ -20,6 +20,9 @@ kotlin {
             // поэтому данный код не запустится на других платформах, кроме той на которой его собрали.
             // TODO сделать разделение по платформам.
             api(compose.desktop.currentOs)
+
+            // Реализует Dispatchers.Main для Swing.
+            implementation(libs.kotlin.coroutines.swing)
         }
 
         androidMain.dependencies {
