@@ -56,11 +56,8 @@ include(":core:logger:internal")
 include(":core:logger:manager")
 include(":core:logger:platform")
 
-include("feature:app-info:client-api")
-include("feature:app-info:client-impl")
-include("feature:root-screen:client-api")
-include("feature:root-screen:client-impl")
 feature("app-info")
+feature("initialization")
 feature("root-screen")
 
 include("client:common")

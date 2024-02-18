@@ -4,6 +4,7 @@ import org.kodein.di.DI
 import org.kodein.di.DirectDI
 import org.kodein.di.direct
 import ru.vs.control.feature.appInfo.featureAppInfo
+import ru.vs.control.feature.initialization.featureInitialization
 import ru.vs.control.feature.rootScreen.featureRootScreen
 import ru.vs.core.di.Modules
 import ru.vs.core.logger.manager.LoggerManager
@@ -22,6 +23,7 @@ fun preInit(): DirectDI {
 
     val preInitDi = DI {
         importOnce(Modules.featureAppInfo())
+        importOnce(Modules.featureInitialization())
         importOnce(Modules.featureRootScreen())
     }
 
