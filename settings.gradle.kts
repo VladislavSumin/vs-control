@@ -47,6 +47,7 @@ gradleEnterprise {
 }
 
 include(":core:compose")
+include(":core:coroutines")
 include(":core:decompose")
 include(":core:di")
 include(":core:logger:api")
