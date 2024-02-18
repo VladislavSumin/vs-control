@@ -30,6 +30,6 @@ internal class RootScreenComponentImpl(
     @Composable
     override fun Render(modifier: Modifier) {
         val state by splash.subscribeAsState()
-        state.current?.Render(modifier)
+        state.current.Render(modifier)
     }
 }
