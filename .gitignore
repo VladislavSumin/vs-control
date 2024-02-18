@@ -3,6 +3,7 @@
 /local.properties
 
 /.idea/*
+!/.idea/codeStyles
 !/.idea/dictionaries
 !/.idea/detekt.xml
 !/.idea/externalDependencies.xml
