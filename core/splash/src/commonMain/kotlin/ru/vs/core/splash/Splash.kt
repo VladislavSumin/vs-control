@@ -7,6 +7,8 @@ import com.arkivanov.decompose.router.children.SimpleChildNavState
 import com.arkivanov.decompose.router.children.SimpleNavigation
 import com.arkivanov.decompose.router.children.children
 import com.arkivanov.decompose.value.Value
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.createCoroutineScope
@@ -17,6 +19,8 @@ import ru.vs.core.decompose.createCoroutineScope
  * Компонент навигации для реализации splash экрана.
  *
  * @param T тип дочернего компонента.
+ * @param key ключ навигации, должен быть уникальным в рамках компонента.
+ * @param scope [CoroutineScope] для внутренних нужд, жц должен совпадать с lifecycle компонента.
  * @param awaitInitialization функция для ожидания завершения инициализации приложения.
  * @param splashComponentFactory фабрика для создания компонента splash экрана.
  * @param contentComponentFactory фабрика для создания компонента экрана с контентом. onContentReady необходимо вызвать
@@ -24,6 +28,7 @@ import ru.vs.core.decompose.createCoroutineScope
  */
 fun <T : ComposeComponent> ComponentContext.childSplash(
     key: String = "child-splash",
+    scope: CoroutineScope = lifecycle.createCoroutineScope(),
     awaitInitialization: suspend () -> Unit,
     splashComponentFactory: (context: ComponentContext) -> T,
     contentComponentFactory: (onContentReady: () -> Unit, context: ComponentContext) -> T,
@@ -31,9 +36,7 @@ fun <T : ComposeComponent> ComponentContext.childSplash(
 
     val navigationSource = SimpleNavigation<SplashNavEvent>()
 
-    val scope = lifecycle.createCoroutineScope()
-
-    scope.launch {
+    scope.launch(Dispatchers.Main.immediate) {
         awaitInitialization()
         navigationSource.navigate(SplashNavEvent.ApplicationInitialized)
     }
