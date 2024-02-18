@@ -6,6 +6,7 @@ import org.kodein.di.direct
 import ru.vs.control.feature.appInfo.featureAppInfo
 import ru.vs.control.feature.initialization.featureInitialization
 import ru.vs.control.feature.rootScreen.featureRootScreen
+import ru.vs.control.feature.splashScreen.featureSplashScreen
 import ru.vs.core.di.Modules
 import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
@@ -25,6 +26,10 @@ fun preInit(): DirectDI {
         importOnce(Modules.featureAppInfo())
         importOnce(Modules.featureInitialization())
         importOnce(Modules.featureRootScreen())
+
+        // Модуль сплеш скрина добавляется в этот граф, так как сплеш скрин показывается еще до инициализации
+        // основного графа
+        importOnce(Modules.featureSplashScreen())
     }
 
     return preInitDi.direct

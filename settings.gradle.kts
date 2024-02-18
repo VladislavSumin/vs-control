@@ -59,6 +59,7 @@ include(":core:logger:platform")
 feature("app-info")
 feature("initialization")
 feature("root-screen")
+feature("splash-screen")
 
 include("client:common")
 include("client:android")

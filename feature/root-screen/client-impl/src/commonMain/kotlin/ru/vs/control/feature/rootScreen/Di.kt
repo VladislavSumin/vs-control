@@ -10,7 +10,7 @@ import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 
 fun Modules.featureRootScreen() = DI.Module("feature-root-screen") {
-    bindSingleton<RootScreenFactory> { RootScreenFactoryImpl(i()) }
+    bindSingleton<RootScreenFactory> { RootScreenFactoryImpl(i(), i()) }
 
     bindProvider { RootScreenViewModelFactory(i()) }
 }

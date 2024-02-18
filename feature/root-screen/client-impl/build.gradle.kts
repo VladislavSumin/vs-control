@@ -6,6 +6,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.feature.initialization.clientApi)
+            implementation(projects.feature.splashScreen.clientApi)
         }
     }
 }
