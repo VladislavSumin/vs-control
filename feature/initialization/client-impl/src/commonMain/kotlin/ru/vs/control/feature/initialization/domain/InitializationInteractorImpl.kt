@@ -10,7 +10,8 @@ import org.kodein.di.DirectDI
 import org.kodein.di.direct
 
 class InitializationInteractorImpl(
-    private val notInitializedDi: DirectDI
+    private val notInitializedDi: DirectDI,
+    private val initializedDependenciesBuilder: InitializedDependenciesBuilder,
 ) : InitializationInteractor {
     private val initLock = Mutex()
     private var initializedDi: DirectDI? = null
@@ -25,6 +26,9 @@ class InitializationInteractorImpl(
 
                 DI {
                     extend(notInitializedDi)
+                    with(initializedDependenciesBuilder) {
+                        build()
+                    }
                 }.direct
             }
             initializedDi = di
