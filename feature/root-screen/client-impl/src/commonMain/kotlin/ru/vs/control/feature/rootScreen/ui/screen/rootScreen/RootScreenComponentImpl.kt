@@ -21,8 +21,10 @@ internal class RootScreenComponentImpl(
         awaitInitialization = {
             viewModel.state.first { it is RootScreenState.Content }
         },
-        splashComponentFactory = { splashScreenFactory.create(it) },
-        contentComponentFactory = { viewModel.getContentScreenFactory().create(it) }
+        splashComponentFactory = splashScreenFactory::create,
+        contentComponentFactory = { onContentReady, context ->
+            viewModel.getContentScreenFactory().create(onContentReady, context)
+        },
     )
 
     @Composable

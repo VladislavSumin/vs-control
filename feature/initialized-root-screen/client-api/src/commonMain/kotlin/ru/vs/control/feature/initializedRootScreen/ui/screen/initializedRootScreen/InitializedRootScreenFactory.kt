@@ -3,5 +3,12 @@ package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScr
 import com.arkivanov.decompose.ComponentContext
 
 interface InitializedRootScreenFactory {
-    fun create(componentContext: ComponentContext): InitializedRootScreenComponent
+    /**
+     * @param onContentReady обратный вызов, который будет вызван, когда [InitializedRootScreenComponent] будет
+     * готов к отображению контента.
+     */
+    fun create(
+        onContentReady: () -> Unit,
+        componentContext: ComponentContext,
+    ): InitializedRootScreenComponent
 }

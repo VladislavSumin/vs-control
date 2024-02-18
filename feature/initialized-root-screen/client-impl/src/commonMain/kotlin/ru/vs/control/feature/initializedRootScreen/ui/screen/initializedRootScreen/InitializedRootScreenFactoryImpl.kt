@@ -3,7 +3,10 @@ package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScr
 import com.arkivanov.decompose.ComponentContext
 
 internal class InitializedRootScreenFactoryImpl : InitializedRootScreenFactory {
-    override fun create(componentContext: ComponentContext): InitializedRootScreenComponent {
-        return InitializedRootScreenComponentImpl(componentContext)
+    override fun create(
+        onContentReady: () -> Unit,
+        componentContext: ComponentContext,
+    ): InitializedRootScreenComponent {
+        return InitializedRootScreenComponentImpl(onContentReady, componentContext)
     }
 }

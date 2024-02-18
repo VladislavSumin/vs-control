@@ -15,16 +15,18 @@ import ru.vs.core.decompose.createCoroutineScope
  * TODO компонент пока не готов и находится в процессе разработки.
  *
  * Компонент навигации для реализации splash экрана.
+ *
  * @param T тип дочернего компонента.
  * @param awaitInitialization функция для ожидания завершения инициализации приложения.
  * @param splashComponentFactory фабрика для создания компонента splash экрана.
- * @param contentComponentFactory фабрика для создания компонента экрана с контентом.
+ * @param contentComponentFactory фабрика для создания компонента экрана с контентом. onContentReady необходимо вызвать
+ * после того как контентный компонент будет готов к отображению контента, до этого момента будет отображаться splash.
  */
 fun <T : ComposeComponent> ComponentContext.childSplash(
     key: String = "child-splash",
     awaitInitialization: suspend () -> Unit,
     splashComponentFactory: (context: ComponentContext) -> T,
-    contentComponentFactory: (context: ComponentContext) -> T,
+    contentComponentFactory: (onContentReady: () -> Unit, context: ComponentContext) -> T,
 ): Value<ComposeComponent> { // TODO
 
     val navigationSource = SimpleNavigation<SplashNavEvent>()
@@ -33,6 +35,10 @@ fun <T : ComposeComponent> ComponentContext.childSplash(
 
     scope.launch {
         awaitInitialization()
+        navigationSource.navigate(SplashNavEvent.ApplicationInitialized)
+    }
+
+    val onContentReady = {
         navigationSource.navigate(SplashNavEvent.ContentReady)
     }
 
@@ -54,7 +60,7 @@ fun <T : ComposeComponent> ComponentContext.childSplash(
         childFactory = { configuration, context ->
             when (configuration) {
                 ChildSplashConfiguration.Splash -> splashComponentFactory(context)
-                ChildSplashConfiguration.Content -> contentComponentFactory(context)
+                ChildSplashConfiguration.Content -> contentComponentFactory(onContentReady, context)
             }
         }
     )
