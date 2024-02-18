@@ -49,7 +49,10 @@ fun <T : ComposeComponent> ComponentContext.childSplash(
     return children(
         source = navigationSource,
         key = key,
-        initialState = { SplashNavState.Splash as SplashNavState },
+        initialState = {
+            println("QWQWQW: init state")
+            SplashNavState.Splash as SplashNavState
+        },
         saveState = {
             // Мы всегда начинаем с состояния Splash и потому этому виду навигации не нужно сохранять состояние,
             // но если мы вернем null тут, то decompose не сохранит состояние дочерних элементов (контента), поэтому,
@@ -71,7 +74,12 @@ fun <T : ComposeComponent> ComponentContext.childSplash(
             // TODO при восстановлении состояния приходит неожиданная конфигурация.
             println("QWQWQW: $state")
             println("QWQWQW: $children")
-            SplashChildState(children.last().instance)
+            val child = when (state) {
+                SplashNavState.Content -> children.first()
+                SplashNavState.Splash,
+                SplashNavState.InitializedSplash -> children.last()
+            }
+            SplashChildState(child.instance!!)
         },
         childFactory = { configuration, context ->
             when (configuration) {
@@ -121,6 +129,9 @@ private sealed interface SplashNavState : NavState<ChildSplashConfiguration> {
     data object Content : SplashNavState {
         override val children: List<ChildNavState<ChildSplashConfiguration>> = listOf(
             SimpleChildNavState(ChildSplashConfiguration.Content, ChildNavState.Status.RESUMED),
+
+            // TODO описать суть костыля
+            SimpleChildNavState(ChildSplashConfiguration.Splash, ChildNavState.Status.DESTROYED),
         )
     }
 }
