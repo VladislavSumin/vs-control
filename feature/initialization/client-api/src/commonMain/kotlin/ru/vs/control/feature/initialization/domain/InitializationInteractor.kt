@@ -7,7 +7,7 @@ import org.kodein.di.DirectDI
  */
 interface InitializationInteractor {
     /**
-     * Инициализирует приложение. При повторном вызове выкинет исключение.
+     * Инициализирует приложение. При повторном вызове возвращает результат из кеша.
      * @return DI граф инициализированного приложения.
      */
     suspend fun init(): DirectDI
