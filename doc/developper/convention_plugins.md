@@ -9,7 +9,7 @@
 * [ru.vs.convention.atomicfu](../../build-logic/src/main/kotlin/ru/vs/convention/atomicfu.gradle.kts) настраивает
   atomicfu.
 
-## [ru.vs.convention.kmp.*](../../build-logic/src/main/kotlin/ru/vs/convention/preset)
+## [ru.vs.convention.preset.*](../../build-logic/src/main/kotlin/ru/vs/convention/preset)
 
 В данном пакете находятся настройки по умолчанию (пресеты) для различных типовых модулей.
 

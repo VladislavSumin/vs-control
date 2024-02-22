@@ -11,4 +11,5 @@ Core модули могут содержать только самый базо
 * [decompose](decompose/README.md) базовый код decompose.
 * [di](di/README.md) базовый код di.
 * [logger](logger/README.md) общий логгер для всех модулей.
+* [navigation](navigation/README.md) фреймворк навигации.
 * [splash](splash/README.md) навигация для splash экрана.
