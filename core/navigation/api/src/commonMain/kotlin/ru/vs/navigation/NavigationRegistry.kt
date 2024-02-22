@@ -13,9 +13,10 @@ interface NavigationRegistry {
      *
      * @param P тип параметров экрана.
      * @param S тип экрана.
+     * @param screenKey ключ экрана.
      * @param factory фабрика компонента экрана.
      */
-    fun <P : ScreenParams, S : Screen> registerScreenFactory(factory: ScreenFactory<P, S>)
+    fun <P : ScreenParams, S : Screen> registerScreenFactory(screenKey: KClass<P>, factory: ScreenFactory<P, S>)
 
     /**
      * Регистрирует [navigationHost] в экране с ключом [screenKey].

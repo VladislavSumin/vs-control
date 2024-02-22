@@ -13,6 +13,7 @@ import ru.vs.control.feature.splashScreen.featureSplashScreen
 import ru.vs.core.di.Modules
 import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
+import ru.vs.navigation.coreNavigation
 
 /**
  * Вызывается на самом раннем этапе старта приложения.
@@ -26,6 +27,7 @@ fun preInit(): DirectDI {
     InitLogger.i("preInit()")
 
     val initializedDependenciesBuilder = InitializedDependenciesBuilder {
+        importOnce(Modules.coreNavigation())
         importOnce(Modules.featureInitializedRootScreen())
     }
 

@@ -12,6 +12,7 @@ kotlin {
             api(projects.core.compose)
             api(projects.core.decompose)
             api(projects.core.di)
+            api(projects.core.navigation.impl)
 
             // Features
             api(projects.feature.appInfo.clientImpl)
