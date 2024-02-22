@@ -36,8 +36,8 @@ fun preInit(): DirectDI {
         importOnce(Modules.featureInitialization())
         importOnce(Modules.featureRootScreen())
 
-        // Модуль сплеш скрина добавляется в этот граф, так как сплеш скрин показывается еще до инициализации
-        // основного графа
+        // Модуль Splash экрана добавляется в этот граф, так как Splash экран показывается еще до инициализации
+        // основного графа.
         importOnce(Modules.featureSplashScreen())
 
         bindInstance { initializedDependenciesBuilder }
