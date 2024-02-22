@@ -1,5 +1,6 @@
 package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
@@ -9,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -33,7 +35,7 @@ internal class InitializedRootScreenComponentImpl(
         val scope = lifecycle.createCoroutineScope()
         scope.launch {
             @Suppress("MagicNumber")
-            delay(3000)
+            delay(1500)
             onContentReady()
         }
     }
@@ -42,7 +44,7 @@ internal class InitializedRootScreenComponentImpl(
     override fun Render(modifier: Modifier) {
         @Suppress("MagicNumber")
         val rand2 by rememberSaveable { mutableStateOf(Random.nextInt(1_000_000)) }
-        Box(modifier) {
+        Box(modifier.background(Color.Yellow)) {
             Column(Modifier.align(Alignment.Center)) {
                 Text("Initialized root screen")
                 Text("component state: $rand")

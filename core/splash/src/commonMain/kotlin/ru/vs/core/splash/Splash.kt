@@ -1,5 +1,6 @@
 package ru.vs.core.splash
 
+import com.arkivanov.decompose.Child
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.children.ChildNavState
 import com.arkivanov.decompose.router.children.NavState
@@ -73,7 +74,7 @@ fun <T : Any> ComponentContext.childSplash(
                 SplashNavState.Content -> children.first()
             }
             // Instance не может быть null, косвенно это проверяется проверкой state.
-            ChildSplash(child.instance!!)
+            ChildSplash(child as Child.Created)
         },
         childFactory = { configuration, context ->
             when (configuration) {
@@ -84,8 +85,13 @@ fun <T : Any> ComponentContext.childSplash(
     )
 }
 
-data class ChildSplash<T>(
-    internal val current: T
+/**
+ * Состояние Splash навигации.
+ * @param child текущий активный child. Internal так как работа с ним должно осуществляться только через специальный
+ * Children объявленный в том же модуле.
+ */
+data class ChildSplash<T : Any>(
+    internal val child: Child.Created<ChildSplashConfiguration, T>,
 )
 
 private sealed interface SplashNavEvent {
@@ -128,7 +134,11 @@ private sealed interface SplashNavState : NavState<ChildSplashConfiguration> {
     }
 }
 
-private enum class ChildSplashConfiguration {
+/**
+ * Конфигурация дочерних элементов.
+ */
+// Не может быть internal из-за использования в ChildSplash
+enum class ChildSplashConfiguration {
     Splash,
     Content,
 }

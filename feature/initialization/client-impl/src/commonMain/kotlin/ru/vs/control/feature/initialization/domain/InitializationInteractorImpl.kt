@@ -22,7 +22,7 @@ class InitializationInteractorImpl(
             di = withContext(Dispatchers.Default) {
                 // Тестовая задержка для имитации долгой загрузки
                 @Suppress("MagicNumber")
-                delay(3000)
+                delay(1500)
 
                 DI {
                     extend(notInitializedDi)

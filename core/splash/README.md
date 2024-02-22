@@ -25,7 +25,11 @@ private val splash = childSplash(
 Далее в контенте можно отрисовать навигацию:
 
 ```kotlin
-Children(splash, modifier) { // it->
+Children(
+    splash, 
+    modifier,
+    contentOutAnimation = TODO() // опционально, анимация закрытия splash экрана.
+) { // it->
     // тут it будет либо контентом, либо splash экраном, необходимо отрисовать этот компонент
 }
 ```
