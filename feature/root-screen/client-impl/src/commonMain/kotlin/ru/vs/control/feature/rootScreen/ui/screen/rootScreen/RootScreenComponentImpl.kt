@@ -1,13 +1,13 @@
 package ru.vs.control.feature.rootScreen.ui.screen.rootScreen
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlinx.coroutines.flow.first
 import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenFactory
+import ru.vs.core.splash.Children
 import ru.vs.core.splash.childSplash
 
 internal class RootScreenComponentImpl(
@@ -29,7 +29,8 @@ internal class RootScreenComponentImpl(
 
     @Composable
     override fun Render(modifier: Modifier) {
-        val state by splash.subscribeAsState()
-        state.current.Render(modifier)
+        Children(splash, modifier) {
+            it.Render(Modifier.fillMaxSize())
+        }
     }
 }

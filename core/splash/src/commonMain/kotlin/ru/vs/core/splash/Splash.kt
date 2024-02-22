@@ -14,8 +14,6 @@ import kotlinx.coroutines.launch
 import ru.vs.core.decompose.createCoroutineScope
 
 /**
- * TODO компонент пока не готов и находится в процессе разработки.
- *
  * Компонент навигации для реализации splash экрана.
  *
  * @param T тип дочернего компонента.
@@ -32,7 +30,7 @@ fun <T : Any> ComponentContext.childSplash(
     awaitInitialization: suspend () -> Unit,
     splashComponentFactory: (context: ComponentContext) -> T,
     contentComponentFactory: (onContentReady: () -> Unit, context: ComponentContext) -> T,
-): Value<SplashChildState<T>> {
+): Value<ChildSplash<T>> {
     val navigationSource = SimpleNavigation<SplashNavEvent>()
 
     scope.launch(Dispatchers.Main.immediate) {
@@ -63,7 +61,6 @@ fun <T : Any> ComponentContext.childSplash(
         },
         navTransformer = { _, event ->
             when (event) {
-                SplashNavEvent.Splash -> SplashNavState.Splash
                 SplashNavEvent.ApplicationInitialized -> SplashNavState.InitializedSplash
                 SplashNavEvent.ContentReady -> SplashNavState.Content
             }
@@ -76,7 +73,7 @@ fun <T : Any> ComponentContext.childSplash(
                 SplashNavState.Content -> children.first()
             }
             // Instance не может быть null, косвенно это проверяется проверкой state.
-            SplashChildState(child.instance!!)
+            ChildSplash(child.instance!!)
         },
         childFactory = { configuration, context ->
             when (configuration) {
@@ -87,13 +84,11 @@ fun <T : Any> ComponentContext.childSplash(
     )
 }
 
-// TODO в процессе разработки, просто накинул тут что бы отрисовать как нибудь.
-data class SplashChildState<T>(
-    val current: T
+data class ChildSplash<T>(
+    internal val current: T
 )
 
 private sealed interface SplashNavEvent {
-    data object Splash : SplashNavEvent
     data object ApplicationInitialized : SplashNavEvent
     data object ContentReady : SplashNavEvent
 }
