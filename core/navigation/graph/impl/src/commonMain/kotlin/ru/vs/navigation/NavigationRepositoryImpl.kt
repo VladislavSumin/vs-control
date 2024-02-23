@@ -20,7 +20,7 @@ internal class NavigationRepositoryImpl(
      */
     private var isFinalized = false
 
-    private val registry: NavigationRegistry = NavigationRegistryImpl()
+    private val registry = NavigationRegistryImpl()
 
     init {
         NavigationLogger.d {
@@ -28,14 +28,18 @@ internal class NavigationRepositoryImpl(
                 prefix = "[",
                 postfix = "]",
                 separator = ",\n",
-            ) { it::class.simpleName ?: "NO_NAME" }
+            ) { it::class.qualifiedName ?: "NO_NAME" }
             "Initializing NavigationRegistry, registrars:\n$registrarsString"
         }
-        registrars.forEach { it.register(registry) }
+        registrars.forEach { registry.register(it) }
         isFinalized = true
     }
 
     private inner class NavigationRegistryImpl : NavigationRegistry {
+        fun register(registrar: NavigationRegistrar) {
+            with(registrar) { register() }
+        }
+
         override fun <P : ScreenParams, S : Screen> registerScreenFactory(
             screenKey: KClass<P>,
             factory: ScreenFactory<P, S>

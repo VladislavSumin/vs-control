@@ -11,5 +11,5 @@ interface NavigationRegistrar {
     /**
      * Регистрирует фабрики, хосты навигации и экраны в хостах.
      */
-    fun register(registry: NavigationRegistry)
+    fun NavigationRegistry.register()
 }

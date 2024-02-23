@@ -5,4 +5,4 @@ import ru.vs.core.decompose.ComposeComponent
 /**
  * Экран.
  */
-interface Screen : ComposeComponent
+interface Screen : ComposeComponent, ScreenContext
