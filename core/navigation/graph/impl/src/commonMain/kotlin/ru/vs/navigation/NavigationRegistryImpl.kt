@@ -9,9 +9,9 @@ import kotlin.reflect.KClass
 internal class NavigationRegistryImpl(
     registrars: Set<NavigationRegistrar>,
 ) : NavigationRegistry {
-    private val screenFactories = mutableMapOf<KClass<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>()
-    private val navigationHosts = mutableMapOf<KClass<out ScreenParams>, NavigationHost>()
-    private val endpoints = mutableMapOf<NavigationHost, MutableSet<KClass<ScreenParams>>>()
+    val screenFactories = mutableMapOf<KClass<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>()
+    val navigationHosts = mutableMapOf<KClass<out ScreenParams>, NavigationHost>()
+    val endpoints = mutableMapOf<NavigationHost, MutableSet<KClass<ScreenParams>>>()
 
     /**
      * Состояние финализации [NavigationRegistry]. После создания [NavigationRegistryImpl] добавлять новые элементы

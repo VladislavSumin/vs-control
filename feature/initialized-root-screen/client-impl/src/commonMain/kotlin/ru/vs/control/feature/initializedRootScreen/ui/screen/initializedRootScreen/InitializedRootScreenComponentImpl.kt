@@ -16,6 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.builtins.serializer
 import ru.vs.core.decompose.createCoroutineScope
+import ru.vs.navigation.NavigationGraph
 import kotlin.random.Random
 
 /**
@@ -23,6 +24,9 @@ import kotlin.random.Random
  * splash экран на время загрузки контента.
  */
 internal class InitializedRootScreenComponentImpl(
+    // TODO пока не используется, на будущее.
+    @Suppress("UnusedPrivateProperty")
+    private val navigationGraph: NavigationGraph,
     onContentReady: () -> Unit,
     context: ComponentContext,
 ) : InitializedRootScreenComponent, ComponentContext by context {
