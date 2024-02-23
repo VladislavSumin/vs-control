@@ -5,5 +5,5 @@ internal class NavigationGraphImpl(
 ) : NavigationGraph {
     // TODO пока не используется, на будущее.
     @Suppress("UnusedPrivateProperty")
-    private val registry = NavigationRegistryImpl(registrars)
+    private val repository: NavigationRepository = NavigationRepositoryImpl(registrars)
 }
