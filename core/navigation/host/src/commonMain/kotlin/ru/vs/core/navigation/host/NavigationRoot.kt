@@ -6,6 +6,8 @@ import com.arkivanov.essenty.lifecycle.Lifecycle
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.navigation.NavigationGraph
 import ru.vs.navigation.ScreenContext
+import ru.vs.navigation.ScreenParams
+import kotlin.reflect.KClass
 
 /**
  * Корневая точка входа в навигацию.
@@ -17,8 +19,12 @@ fun ComponentContext.childNavigationRoot(
     navigationGraph: NavigationGraph,
     key: String = "navigation-root",
 ): ComposeComponent {
-    val rootScreenParams = navigationGraph.getRootScreenParams()
-    val rootScreenFactory = navigationGraph.findFactory(rootScreenParams::class)
+    val rootScreenParams: ScreenParams = navigationGraph.getRootScreenParams()
+
+    @Suppress("UNCHECKED_CAST") // Безопасность каста обеспечивается контрактом графа навигации.
+    val rootScreenKey: KClass<ScreenParams> = rootScreenParams::class as KClass<ScreenParams>
+
+    val rootScreenFactory = navigationGraph.findFactory(rootScreenKey)
     check(rootScreenFactory != null) { "Factory for $rootScreenParams not found" }
     val rootScreenContext = childScreenContext(key)
     return rootScreenFactory.create(rootScreenContext, rootScreenParams)
