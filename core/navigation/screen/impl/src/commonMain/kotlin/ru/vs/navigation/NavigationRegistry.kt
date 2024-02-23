@@ -1,7 +1,5 @@
 package ru.vs.navigation
 
-import kotlin.reflect.KClass
-
 /**
  * Позволяет регистрировать компоненты навигации.
  * Использовать напрямую этот интерфейс нельзя так как его состояние финализируется в процессе инициализации приложения.
@@ -16,7 +14,7 @@ interface NavigationRegistry {
      * @param screenKey ключ экрана.
      * @param factory фабрика компонента экрана.
      */
-    fun <P : ScreenParams, S : Screen> registerScreenFactory(screenKey: KClass<P>, factory: ScreenFactory<P, S>)
+    fun <P : ScreenParams, S : Screen> registerScreenFactory(screenKey: ScreenKey<P>, factory: ScreenFactory<P, S>)
 
     /**
      * Регистрирует параметры для экрана по умолчанию. Если параметры экрана не переданы явно, будут применены эти
@@ -32,7 +30,7 @@ interface NavigationRegistry {
      * @param screenKey ключ экрана.
      * @param navigationHost хост навигации.
      */
-    fun registerNavigationHost(screenKey: KClass<ScreenParams>, navigationHost: NavigationHost)
+    fun registerNavigationHost(screenKey: ScreenKey<ScreenParams>, navigationHost: NavigationHost)
 
     /**
      * Регистрирует экран с ключом [screenKey] в [navigationHost], это означает что данный экран сможет быть открыть в
@@ -41,5 +39,5 @@ interface NavigationRegistry {
      * @param screenKey ключ экрана.
      * @param navigationHost хост навигации.
      */
-    fun registerScreenNavigation(navigationHost: NavigationHost, screenKey: KClass<ScreenParams>)
+    fun registerScreenNavigation(navigationHost: NavigationHost, screenKey: ScreenKey<ScreenParams>)
 }

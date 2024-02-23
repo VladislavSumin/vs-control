@@ -1,7 +1,5 @@
 package ru.vs.navigation
 
-import kotlin.reflect.KClass
-
 /**
  * Регистрирует все компоненты навигации.
  * @param registrars множество регистраторов экранов.
@@ -9,10 +7,11 @@ import kotlin.reflect.KClass
 internal class NavigationRepositoryImpl(
     registrars: Set<NavigationRegistrar>,
 ) : NavigationRepository {
-    override val screenFactories = mutableMapOf<KClass<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>()
-    override val defaultScreenParams = mutableMapOf<KClass<out ScreenParams>, ScreenParams>()
-    override val navigationHosts = mutableMapOf<KClass<out ScreenParams>, NavigationHost>()
-    override val endpoints = mutableMapOf<NavigationHost, MutableSet<KClass<ScreenParams>>>()
+    override val screenFactories =
+        mutableMapOf<ScreenKey<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>()
+    override val defaultScreenParams = mutableMapOf<ScreenKey<out ScreenParams>, ScreenParams>()
+    override val navigationHosts = mutableMapOf<ScreenKey<out ScreenParams>, NavigationHost>()
+    override val endpoints = mutableMapOf<NavigationHost, MutableSet<ScreenKey<ScreenParams>>>()
 
     /**
      * Состояние финализации [NavigationRegistry]. После создания [NavigationRepositoryImpl] добавлять новые элементы
@@ -41,7 +40,7 @@ internal class NavigationRepositoryImpl(
         }
 
         override fun <P : ScreenParams, S : Screen> registerScreenFactory(
-            screenKey: KClass<P>,
+            screenKey: ScreenKey<P>,
             factory: ScreenFactory<P, S>
         ) {
             checkFinalization()
@@ -51,17 +50,17 @@ internal class NavigationRepositoryImpl(
 
         override fun <P : ScreenParams> registerDefaultScreenParams(screenParams: P) {
             checkFinalization()
-            val oldDefaultScreenParams = defaultScreenParams.put(screenParams::class, screenParams)
+            val oldDefaultScreenParams = defaultScreenParams.put(ScreenKey(screenParams::class), screenParams)
             check(oldDefaultScreenParams == null) { "Double registration for screenParams = $screenParams" }
         }
 
-        override fun registerNavigationHost(screenKey: KClass<ScreenParams>, navigationHost: NavigationHost) {
+        override fun registerNavigationHost(screenKey: ScreenKey<ScreenParams>, navigationHost: NavigationHost) {
             checkFinalization()
             val oldHost = navigationHosts.put(screenKey, navigationHost)
             check(oldHost == null) { "Double registration for screenKey=$screenKey, navigationHost=$navigationHost" }
         }
 
-        override fun registerScreenNavigation(navigationHost: NavigationHost, screenKey: KClass<ScreenParams>) {
+        override fun registerScreenNavigation(navigationHost: NavigationHost, screenKey: ScreenKey<ScreenParams>) {
             checkFinalization()
             val navigationHostEndpoints = endpoints.getOrPut(navigationHost) { mutableSetOf() }
             val isAdded = navigationHostEndpoints.add(screenKey)

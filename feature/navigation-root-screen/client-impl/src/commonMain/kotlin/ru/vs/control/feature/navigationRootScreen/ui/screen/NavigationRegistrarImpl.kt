@@ -4,10 +4,11 @@ import ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen
 import ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen.RootNavigationScreenParams
 import ru.vs.navigation.NavigationRegistrar
 import ru.vs.navigation.NavigationRegistry
+import ru.vs.navigation.ScreenKey
 
 class NavigationRegistrarImpl : NavigationRegistrar {
     override fun NavigationRegistry.register() {
-        registerScreenFactory(RootNavigationScreenParams::class, RootNavigationScreenFactory())
+        registerScreenFactory(ScreenKey(RootNavigationScreenParams::class), RootNavigationScreenFactory())
         registerDefaultScreenParams(RootNavigationScreenParams)
     }
 }
