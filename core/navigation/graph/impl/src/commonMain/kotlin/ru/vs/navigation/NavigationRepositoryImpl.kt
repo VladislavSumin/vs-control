@@ -10,6 +10,7 @@ internal class NavigationRepositoryImpl(
     registrars: Set<NavigationRegistrar>,
 ) : NavigationRepository {
     override val screenFactories = mutableMapOf<KClass<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>()
+    override val defaultScreenParams = mutableMapOf<KClass<out ScreenParams>, ScreenParams>()
     override val navigationHosts = mutableMapOf<KClass<out ScreenParams>, NavigationHost>()
     override val endpoints = mutableMapOf<NavigationHost, MutableSet<KClass<ScreenParams>>>()
 
@@ -42,6 +43,12 @@ internal class NavigationRepositoryImpl(
             checkFinalization()
             val oldFactory = screenFactories.put(screenKey, factory)
             check(oldFactory == null) { "Double registration for screenKey=$screenKey" }
+        }
+
+        override fun <P : ScreenParams> registerDefaultScreenParams(screenParams: P) {
+            checkFinalization()
+            val oldDefaultScreenParams = defaultScreenParams.put(screenParams::class, screenParams)
+            check(oldDefaultScreenParams == null) { "Double registration for screenParams = $screenParams" }
         }
 
         override fun registerNavigationHost(screenKey: KClass<ScreenParams>, navigationHost: NavigationHost) {

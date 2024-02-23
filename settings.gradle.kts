@@ -65,6 +65,7 @@ include(":core:splash")
 feature("app-info")
 feature("initialization")
 feature("initialized-root-screen")
+feature("navigation-root-screen")
 feature("root-screen")
 feature("splash-screen")
 

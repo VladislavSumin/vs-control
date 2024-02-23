@@ -18,6 +18,7 @@ kotlin {
             api(projects.feature.appInfo.clientImpl)
             api(projects.feature.initialization.clientImpl)
             api(projects.feature.initializedRootScreen.clientImpl)
+            api(projects.feature.navigationRootScreen.clientImpl)
             api(projects.feature.rootScreen.clientImpl)
             api(projects.feature.splashScreen.clientImpl)
         }

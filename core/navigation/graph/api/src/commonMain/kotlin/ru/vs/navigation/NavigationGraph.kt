@@ -9,7 +9,7 @@ interface NavigationGraph {
     /**
      * Ищет фабрику для экрана соответствующего ключу [screenKey].
      */
-    fun findFactory(screenKey: KClass<out ScreenParams>): ScreenFactory<ScreenParams, Screen>?
+    fun <P : ScreenParams> findFactory(screenKey: KClass<P>): ScreenFactory<P, out Screen>?
 
     /**
      * Возвращает параметры корневого экрана

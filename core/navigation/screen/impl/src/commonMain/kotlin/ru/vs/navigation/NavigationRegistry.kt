@@ -19,6 +19,14 @@ interface NavigationRegistry {
     fun <P : ScreenParams, S : Screen> registerScreenFactory(screenKey: KClass<P>, factory: ScreenFactory<P, S>)
 
     /**
+     * Регистрирует параметры для экрана по умолчанию. Если параметры экрана не переданы явно, будут применены эти
+     * параметры.
+     *
+     * @param screenParams параметры экрана.
+     */
+    fun <P : ScreenParams> registerDefaultScreenParams(screenParams: P)
+
+    /**
      * Регистрирует [navigationHost] в экране с ключом [screenKey].
      *
      * @param screenKey ключ экрана.
