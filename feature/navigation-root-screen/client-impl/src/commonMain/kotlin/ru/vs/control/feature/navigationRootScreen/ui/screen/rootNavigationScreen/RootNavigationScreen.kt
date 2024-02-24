@@ -11,13 +11,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.arkivanov.decompose.router.slot.ChildSlot
+import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.builtins.serializer
+import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
+import ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen.WelcomeScreenParams
+import ru.vs.core.navigation.host.childNavigationSlot
 import ru.vs.navigation.Screen
 import ru.vs.navigation.ScreenContext
 import ru.vs.navigation.ScreenFactory
+import ru.vs.navigation.ScreenParams
 import kotlin.random.Random
-import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
-import ru.vs.core.navigation.host.childNavigationSlot
 
 internal class RootNavigationScreenFactory : ScreenFactory<RootNavigationScreenParams, RootNavigationScreen> {
     override fun create(context: ScreenContext, params: RootNavigationScreenParams): RootNavigationScreen {
@@ -27,9 +31,17 @@ internal class RootNavigationScreenFactory : ScreenFactory<RootNavigationScreenP
 
 internal class RootNavigationScreen(context: ScreenContext) : Screen, ScreenContext by context {
 
-    private val childSlotNavigation = childNavigationSlot(
+    private val childSlotNavigation: Value<ChildSlot<ScreenParams, Screen>> = childNavigationSlot(
+        initialConfiguration = { getInitialConfiguration() },
         navigationHost = RootNavigationHost,
     )
+
+    /**
+     * Возвращает дефолтные параметры для экрана.
+     */
+    private fun getInitialConfiguration(): ScreenParams {
+        return WelcomeScreenParams
+    }
 
     @Suppress("MagicNumber")
     private val rand = stateKeeper.consume("rand", Int.serializer()) ?: Random.nextInt(1_000_000)
@@ -47,6 +59,9 @@ internal class RootNavigationScreen(context: ScreenContext) : Screen, ScreenCont
                 Text("RootNavigationScreen")
                 Text("component state: $rand")
                 Text("compose state: $rand2")
+
+                val child = childSlotNavigation.value.child
+                child?.instance?.Render(Modifier)
             }
         }
     }
