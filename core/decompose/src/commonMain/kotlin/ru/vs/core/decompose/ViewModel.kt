@@ -20,7 +20,12 @@ import kotlin.coroutines.EmptyCoroutineContext
  * Так же обладает полезными функциями-расширениями для удобного решения типовых задач встречающихся в viewModel.
  */
 abstract class ViewModel : InstanceKeeper.Instance {
-    protected val viewModelScope = CoroutineScope(Dispatchers.Main.immediate)
+    /**
+     * [CoroutineScope] с viewmodel lifecycle.
+     *
+     * Пока сделал приватным, кажется экстеншен функций должно хватать, если что можно сделать protected.
+     */
+    private val viewModelScope = CoroutineScope(Dispatchers.Main.immediate)
 
     /**
      * Укороченная версия [stateIn] с использованием [viewModelScope] и [SharingStarted.Eagerly] по умолчанию.
