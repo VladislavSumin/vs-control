@@ -27,7 +27,7 @@ fun ComponentContext.childNavigationRoot(
 
     val rootScreenFactory = navigationGraph.findFactory(ScreenKey(rootScreenKey))
     check(rootScreenFactory != null) { "Factory for $rootScreenParams not found" }
-    val rootScreenContext = childScreenContext(key)
+    val rootScreenContext = childScreenContext(navigationGraph, key)
     return rootScreenFactory.create(rootScreenContext, rootScreenParams)
 }
 
@@ -35,8 +35,12 @@ fun ComponentContext.childNavigationRoot(
  * Создает рутовый контекст навигации.
  */
 private fun ComponentContext.childScreenContext(
+    navigationGraph: NavigationGraph,
     key: String,
     lifecycle: Lifecycle? = null,
-): ScreenContext = DefaultScreenContext(childContext(key, lifecycle))
+): ScreenContext = DefaultScreenContext(navigationGraph, childContext(key, lifecycle))
 
-private class DefaultScreenContext(context: ComponentContext) : ScreenContext, ComponentContext by context
+private class DefaultScreenContext(
+    override val navigationGraph: NavigationGraph,
+    context: ComponentContext
+) : ScreenContext, ComponentContext by context

@@ -5,9 +5,8 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            api(projects.core.navigation.graph.api)
+            api(projects.core.navigation.screen.impl)
 
-            implementation(projects.core.navigation.screen.impl)
             implementation(projects.core.decompose)
             implementation(projects.core.di)
             implementation(projects.core.logger.api)
