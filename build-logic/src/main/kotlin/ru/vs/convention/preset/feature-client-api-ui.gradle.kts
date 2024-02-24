@@ -13,6 +13,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core:decompose"))
+            implementation(project(":core:navigation:screen:api"))
         }
     }
 }
