@@ -3,7 +3,9 @@ package ru.vs.navigation
 /**
  * Этот интерфейс необходимо реализовать в вашем модуле и вернуть его в графе навигации в виде:
  * ```kotlin
- * // TODO добавить пример DI.
+ * inBindSet<NavigationRegistrar> {
+ *     add { singleton { NavigationRegistrarImpl() } }
+ * }
  * ```
  * После чего можно зарегистрировать компоненты навигации получив [NavigationRegistry] в методе [register].
  */
