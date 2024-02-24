@@ -10,6 +10,10 @@
       <template name="Feature module.md.child.0.kt" file-name="#set( $CamelCaseName = &quot;&quot; )#set( $part = &quot;&quot; )#foreach($part in $NAME.split(&quot;-&quot;))#set( $CamelCaseName = &quot;${CamelCaseName}#if($CamelCaseName.length() == 0)$part.substring(0,1).toLowerCase()#else$part.substring(0,1).toUpperCase()#end$part.substring(1).toLowerCase()&quot; )#end${NAME}/client-impl/src/commonMain/kotlin/ru/vs/control/feature/${CamelCaseName}/Di" reformat="false" live-template-enabled="true" />
       <template name="Feature module.md.child.1༏ext༏.gradle.kts" file-name="${NAME}/client-impl/build" reformat="true" live-template-enabled="false" />
       <template name="Feature module.md.child.2༏ext༏.gradle.kts" file-name="${NAME}/client-api/build" reformat="true" live-template-enabled="false" />
+      <template name="Screen.kt" file-name="${NAME}Screen" reformat="true" live-template-enabled="false">
+        <template name="Screen.kt.child.0.kt" file-name="${NAME}ScreenParams" reformat="true" live-template-enabled="false" />
+      </template>
+      <template name="Screen.kt.child.0.kt" file-name="${NAME}ScreenParams" reformat="true" live-template-enabled="false" />
     </default_templates>
   </component>
 </project>
