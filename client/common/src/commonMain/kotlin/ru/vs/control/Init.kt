@@ -9,6 +9,7 @@ import ru.vs.control.feature.initialization.domain.InitializedDependenciesBuilde
 import ru.vs.control.feature.initialization.featureInitialization
 import ru.vs.control.feature.initializedRootScreen.featureInitializedRootScreen
 import ru.vs.control.feature.navigationRootScreen.featureNavigationRootScreen
+import ru.vs.control.feature.rootContentScreen.featureRootContentScreen
 import ru.vs.control.feature.rootScreen.featureRootScreen
 import ru.vs.control.feature.splashScreen.featureSplashScreen
 import ru.vs.control.feature.welcomeScreen.featureWelcomeScreen
@@ -32,6 +33,7 @@ fun preInit(): DirectDI {
         importOnce(Modules.coreNavigation())
         importOnce(Modules.featureInitializedRootScreen())
         importOnce(Modules.featureNavigationRootScreen())
+        importOnce(Modules.featureRootContentScreen())
         importOnce(Modules.featureWelcomeScreen())
     }
 
