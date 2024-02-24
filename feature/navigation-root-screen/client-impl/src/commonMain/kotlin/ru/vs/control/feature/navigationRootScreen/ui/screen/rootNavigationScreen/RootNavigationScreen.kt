@@ -16,6 +16,8 @@ import ru.vs.navigation.Screen
 import ru.vs.navigation.ScreenContext
 import ru.vs.navigation.ScreenFactory
 import kotlin.random.Random
+import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
+import ru.vs.core.navigation.host.childNavigationSlot
 
 internal class RootNavigationScreenFactory : ScreenFactory<RootNavigationScreenParams, RootNavigationScreen> {
     override fun create(context: ScreenContext, params: RootNavigationScreenParams): RootNavigationScreen {
@@ -24,6 +26,11 @@ internal class RootNavigationScreenFactory : ScreenFactory<RootNavigationScreenP
 }
 
 internal class RootNavigationScreen(context: ScreenContext) : Screen, ScreenContext by context {
+
+    private val childSlotNavigation = childNavigationSlot(
+        navigationHost = RootNavigationHost,
+    )
+
     @Suppress("MagicNumber")
     private val rand = stateKeeper.consume("rand", Int.serializer()) ?: Random.nextInt(1_000_000)
 
