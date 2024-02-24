@@ -21,6 +21,7 @@ kotlin {
             api(projects.feature.navigationRootScreen.clientImpl)
             api(projects.feature.rootScreen.clientImpl)
             api(projects.feature.splashScreen.clientImpl)
+            api(projects.feature.welcomeScreen.clientImpl)
         }
     }
 }

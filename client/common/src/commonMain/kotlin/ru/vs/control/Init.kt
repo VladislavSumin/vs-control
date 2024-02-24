@@ -11,6 +11,7 @@ import ru.vs.control.feature.initializedRootScreen.featureInitializedRootScreen
 import ru.vs.control.feature.navigationRootScreen.featureNavigationRootScreen
 import ru.vs.control.feature.rootScreen.featureRootScreen
 import ru.vs.control.feature.splashScreen.featureSplashScreen
+import ru.vs.control.feature.welcomeScreen.featureWelcomeScreen
 import ru.vs.core.di.Modules
 import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
@@ -31,6 +32,7 @@ fun preInit(): DirectDI {
         importOnce(Modules.coreNavigation())
         importOnce(Modules.featureInitializedRootScreen())
         importOnce(Modules.featureNavigationRootScreen())
+        importOnce(Modules.featureWelcomeScreen())
     }
 
     val preInitDi = DI {

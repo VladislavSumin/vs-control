@@ -68,6 +68,7 @@ feature("initialized-root-screen")
 feature("navigation-root-screen")
 feature("root-screen")
 feature("splash-screen")
+feature("welcome-screen")
 
 include("client:common")
 include("client:android")
