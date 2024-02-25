@@ -2,8 +2,8 @@ package ru.vs.core.navigation.host
 
 import com.arkivanov.decompose.ComponentContext
 import ru.vs.core.decompose.ComposeComponent
-import ru.vs.core.navigation.NavigationGraph
 import ru.vs.core.navigation.ScreenParams
+import ru.vs.core.navigation.graph.NavigationGraph
 import ru.vs.core.navigation.screen.ScreenKey
 import kotlin.reflect.KClass
 

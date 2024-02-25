@@ -9,7 +9,7 @@ import ru.vs.core.navigation.screen.ScreenKey
 internal interface NavigationRepository {
     val screenFactories: Map<ScreenKey<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>
     val defaultScreenParams: Map<ScreenKey<out ScreenParams>, ScreenParams>
-    val navigationHosts: Map<ScreenKey<out ScreenParams>, NavigationHost>
+    val navigationHosts: Map<ScreenKey<out ScreenParams>, Set<NavigationHost>>
     val endpoints: Map<NavigationHost, Set<ScreenKey<out ScreenParams>>>
 }
 
@@ -23,7 +23,7 @@ internal class NavigationRepositoryImpl(
     override val screenFactories =
         mutableMapOf<ScreenKey<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>()
     override val defaultScreenParams = mutableMapOf<ScreenKey<out ScreenParams>, ScreenParams>()
-    override val navigationHosts = mutableMapOf<ScreenKey<out ScreenParams>, NavigationHost>()
+    override val navigationHosts = mutableMapOf<ScreenKey<out ScreenParams>, MutableSet<NavigationHost>>()
     override val endpoints = mutableMapOf<NavigationHost, MutableSet<ScreenKey<out ScreenParams>>>()
 
     /**
@@ -69,8 +69,9 @@ internal class NavigationRepositoryImpl(
 
         override fun registerNavigationHost(screenKey: ScreenKey<ScreenParams>, navigationHost: NavigationHost) {
             checkFinalization()
-            val oldHost = navigationHosts.put(screenKey, navigationHost)
-            check(oldHost == null) { "Double registration for screenKey=$screenKey, navigationHost=$navigationHost" }
+            val hostSet = navigationHosts.getOrPut(screenKey) { mutableSetOf() }
+            val isAdded = hostSet.add(navigationHost)
+            check(isAdded) { "Double registration for screenKey=$screenKey, navigationHost=$navigationHost" }
         }
 
         override fun <P : ScreenParams> registerScreenNavigation(

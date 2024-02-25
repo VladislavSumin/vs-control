@@ -2,7 +2,7 @@ package ru.vs.core.navigation.navigator
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnDestroy
-import ru.vs.core.navigation.NavigationGraph
+import ru.vs.core.navigation.graph.NavigationGraph
 import ru.vs.core.navigation.screen.ScreenPath
 
 /**

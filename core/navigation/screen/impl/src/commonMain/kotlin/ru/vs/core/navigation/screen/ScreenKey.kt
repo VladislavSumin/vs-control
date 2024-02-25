@@ -11,3 +11,5 @@ import kotlin.reflect.KClass
  */
 @JvmInline
 value class ScreenKey<P : ScreenParams>(val key: KClass<P>)
+
+internal typealias DefaultScreenKey = ScreenKey<out ScreenParams>

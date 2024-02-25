@@ -1,5 +1,8 @@
-package ru.vs.core.navigation
+package ru.vs.core.navigation.graph
 
+import ru.vs.core.navigation.NavigationRepository
+import ru.vs.core.navigation.NavigationRepositoryImpl
+import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenFactory
@@ -13,7 +16,7 @@ class NavigationGraph internal constructor(
     registrars: Set<NavigationRegistrar>,
 ) {
     private val repository: NavigationRepository = NavigationRepositoryImpl(registrars)
-    private val rootScreen = findRootScreen(repository)
+    private val tree = NavigationTree(repository)
 
     /**
      * Ищет фабрику для экрана соответствующего ключу [screenKey].
@@ -28,20 +31,6 @@ class NavigationGraph internal constructor(
      * Возвращает параметры корневого экрана
      */
     internal fun getRootScreenParams(): ScreenParams {
-        return repository.defaultScreenParams[rootScreen] ?: error("Root screen must have default params")
-    }
-
-    /**
-     * Ищет root screen, этим экраном является такой экран который невозможно открыть из другой точки графа.
-     */
-    private fun findRootScreen(repository: NavigationRepository): ScreenKey<out ScreenParams> {
-        val roots = repository.screenFactories.keys - repository.endpoints.values.flatten().toSet()
-        check(roots.size == 1) {
-            val formatedRoots = roots.joinToString(separator = ",\n") {
-                it.key.qualifiedName ?: "NO_NAME"
-            }
-            "Found more than one root, roots:\n$formatedRoots"
-        }
-        return roots.first()
+        return repository.defaultScreenParams[tree.rootScreenKey] ?: error("Root screen must have default params")
     }
 }

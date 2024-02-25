@@ -6,7 +6,7 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.vs.core.decompose.createCoroutineScope
-import ru.vs.core.navigation.NavigationGraph
+import ru.vs.core.navigation.graph.NavigationGraph
 import ru.vs.core.navigation.host.childNavigationRoot
 
 /**
