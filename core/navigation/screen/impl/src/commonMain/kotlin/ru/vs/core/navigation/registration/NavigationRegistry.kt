@@ -45,5 +45,5 @@ interface NavigationRegistry {
      * @param screenKey ключ экрана.
      * @param navigationHost хост навигации.
      */
-    fun registerScreenNavigation(navigationHost: NavigationHost, screenKey: ScreenKey<ScreenParams>)
+    fun <P : ScreenParams> registerScreenNavigation(navigationHost: NavigationHost, screenKey: ScreenKey<P>)
 }

@@ -35,7 +35,13 @@ class NavigationGraph internal constructor(
      * Ищет root screen, этим экраном является такой экран который невозможно открыть из другой точки графа.
      */
     private fun findRootScreen(repository: NavigationRepository): ScreenKey<out ScreenParams> {
-        // TODO супер временное решение, пока просто берем первый экран из репозитория
-        return repository.screenFactories.keys.first()
+        val roots = repository.screenFactories.keys - repository.endpoints.values.flatten().toSet()
+        check(roots.size == 1) {
+            val formatedRoots = roots.joinToString(separator = ",\n") {
+                it.key.qualifiedName ?: "NO_NAME"
+            }
+            "Found more than one root, roots:\n$formatedRoots"
+        }
+        return roots.first()
     }
 }
