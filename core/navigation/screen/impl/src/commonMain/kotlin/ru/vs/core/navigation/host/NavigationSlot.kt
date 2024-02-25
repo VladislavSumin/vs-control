@@ -10,7 +10,6 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.HostNavigator
-import ru.vs.core.navigation.navigator.ScreenNavigator
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
@@ -32,7 +31,7 @@ fun ScreenContext.childNavigationSlot(
         initialConfiguration = initialConfiguration,
         handleBackButton = handleBackButton,
         childFactory = { screenParams: ScreenParams, context: ComponentContext ->
-            val screenContext = SlotScreenContext(screenNavigator, context)
+            val screenContext = context.wrapWithScreenContext(screenNavigator, screenParams)
             // TODO описать сейвовость, и подумать над другим строение generics
             val screenKey = ScreenKey(screenParams::class) as ScreenKey<ScreenParams>
             val screenFactory = screenNavigator.navigationGraph.findFactory(screenKey) ?: error("TODO")
@@ -91,9 +90,3 @@ private class SlotHostNavigator(
         return isSuccess ?: error("unreachable")
     }
 }
-
-// TODO это конечно временное решение, наследование контекстов будет работать не так.
-private class SlotScreenContext(
-    override val screenNavigator: ScreenNavigator,
-    context: ComponentContext,
-) : ScreenContext, ComponentContext by context

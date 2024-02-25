@@ -2,9 +2,14 @@ package ru.vs.core.navigation.navigator
 
 import ru.vs.core.navigation.NavigationGraph
 import ru.vs.core.navigation.NavigationHost
+import ru.vs.core.navigation.screen.ScreenPath
 
+/**
+ * @param screenPath путь до экрана соответствующего данному навигатору.
+ */
 class ScreenNavigator internal constructor(
     internal val navigationGraph: NavigationGraph,
+    internal val screenPath: ScreenPath
 ) {
     private val navigationHosts = mutableMapOf<NavigationHost, HostNavigator>()
 

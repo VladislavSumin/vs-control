@@ -1,13 +1,9 @@
 package ru.vs.core.navigation.host
 
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.childContext
-import com.arkivanov.essenty.lifecycle.Lifecycle
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.navigation.NavigationGraph
 import ru.vs.core.navigation.ScreenParams
-import ru.vs.core.navigation.navigator.ScreenNavigator
-import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
 import kotlin.reflect.KClass
 
@@ -28,23 +24,6 @@ fun ComponentContext.childNavigationRoot(
 
     val rootScreenFactory = navigationGraph.findFactory(ScreenKey(rootScreenKey))
     check(rootScreenFactory != null) { "Factory for $rootScreenParams not found" }
-    val rootScreenContext = childScreenContext(navigationGraph, key)
+    val rootScreenContext = childRootScreenContext(navigationGraph, key)
     return rootScreenFactory.create(rootScreenContext, rootScreenParams)
 }
-
-/**
- * Создает рутовый контекст навигации.
- */
-private fun ComponentContext.childScreenContext(
-    navigationGraph: NavigationGraph,
-    key: String,
-    lifecycle: Lifecycle? = null,
-): ScreenContext = DefaultScreenContext(
-    ScreenNavigator(navigationGraph),
-    childContext(key, lifecycle),
-)
-
-private class DefaultScreenContext(
-    override val screenNavigator: ScreenNavigator,
-    context: ComponentContext
-) : ScreenContext, ComponentContext by context
