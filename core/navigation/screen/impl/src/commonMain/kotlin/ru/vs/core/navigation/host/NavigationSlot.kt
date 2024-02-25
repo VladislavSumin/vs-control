@@ -6,7 +6,6 @@ import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.navigate
 import com.arkivanov.decompose.value.Value
-import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.HostNavigator
@@ -34,15 +33,13 @@ fun ScreenContext.childNavigationSlot(
             val screenContext = context.wrapWithScreenContext(screenNavigator, screenParams)
             // TODO описать сейвовость, и подумать над другим строение generics
             val screenKey = ScreenKey(screenParams::class) as ScreenKey<ScreenParams>
-            val screenFactory = screenNavigator.navigationGraph.findFactory(screenKey) ?: error("TODO")
+            val screenFactory = screenNavigator.globalNavigator.navigationGraph.findFactory(screenKey) ?: error("TODO")
             screenFactory.create(screenContext, screenParams)
         }
     )
 
     val hostNavigator = SlotHostNavigator(source)
     screenNavigator.registerHostNavigator(navigationHost, hostNavigator)
-    lifecycle.doOnDestroy { screenNavigator.unregisterHostNavigator(navigationHost) }
-
     return slot
 }
 

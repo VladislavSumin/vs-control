@@ -1,5 +1,6 @@
 plugins {
     id("ru.vs.convention.kmp.all")
+    id("ru.vs.convention.kmp.context-receivers")
 }
 
 kotlin {
