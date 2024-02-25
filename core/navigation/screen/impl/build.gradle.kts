@@ -4,11 +4,6 @@ plugins {
 
 kotlin {
     sourceSets {
-        all {
-            languageSettings {
-                optIn("ru.vs.core.navigation.NavigationInternalApi")
-            }
-        }
         commonMain.dependencies {
             api(projects.core.navigation.screen.api)
             implementation(projects.core.decompose)
