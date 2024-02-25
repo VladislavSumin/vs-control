@@ -5,7 +5,7 @@ import org.kodein.di.inBindSet
 import org.kodein.di.singleton
 import ru.vs.control.feature.welcomeScreen.ui.screen.NavigationRegistrarImpl
 import ru.vs.core.di.Modules
-import ru.vs.core.navigation.NavigationRegistrar
+import ru.vs.core.navigation.registration.NavigationRegistrar
 
 fun Modules.featureWelcomeScreen() = DI.Module("feature-welcome-screen") {
     inBindSet<NavigationRegistrar> {

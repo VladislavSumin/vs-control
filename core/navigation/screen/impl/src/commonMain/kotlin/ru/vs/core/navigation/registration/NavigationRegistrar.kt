@@ -1,4 +1,4 @@
-package ru.vs.core.navigation
+package ru.vs.core.navigation.registration
 
 /**
  * Этот интерфейс необходимо реализовать в вашем модуле и вернуть его в графе навигации в виде:

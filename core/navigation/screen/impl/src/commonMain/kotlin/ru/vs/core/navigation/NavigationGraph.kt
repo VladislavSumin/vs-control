@@ -1,5 +1,7 @@
 package ru.vs.core.navigation
 
+import ru.vs.core.navigation.registration.NavigationRegistrar
+
 /**
  * Предоставляет доступ к основному графу навигации.
  * Прямое использование графа не предусмотрено фреймворком, необходимо только передать его в корневой хост навигации.

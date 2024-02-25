@@ -1,5 +1,8 @@
 package ru.vs.core.navigation
 
+import ru.vs.core.navigation.registration.NavigationRegistrar
+import ru.vs.core.navigation.registration.NavigationRegistry
+
 internal interface NavigationRepository {
     val screenFactories: Map<ScreenKey<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>
     val defaultScreenParams: Map<ScreenKey<out ScreenParams>, ScreenParams>

@@ -1,4 +1,10 @@
-package ru.vs.core.navigation
+package ru.vs.core.navigation.registration
+
+import ru.vs.core.navigation.NavigationHost
+import ru.vs.core.navigation.Screen
+import ru.vs.core.navigation.ScreenFactory
+import ru.vs.core.navigation.ScreenKey
+import ru.vs.core.navigation.ScreenParams
 
 /**
  * Позволяет регистрировать компоненты навигации.
