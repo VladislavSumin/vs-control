@@ -23,7 +23,7 @@ class ScreenNavigator internal constructor(
     }
 
     /**
-     * Регистрирует [HostNavigator] для [NavigationHost] навигации. Учитывает lifecycle [ScreenContext]
+     * Регистрирует [HostNavigator] для [NavigationHost] навигации. Учитывает lifecycle [ScreenContext].
      */
     internal fun registerHostNavigator(navigationHost: NavigationHost, hostNavigator: HostNavigator) {
         val oldHost = navigationHosts.put(navigationHost, hostNavigator)

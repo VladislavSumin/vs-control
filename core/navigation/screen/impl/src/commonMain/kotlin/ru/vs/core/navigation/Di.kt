@@ -7,10 +7,12 @@ import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.core.navigation.graph.NavigationGraph
 import ru.vs.core.navigation.registration.NavigationRegistrar
+import ru.vs.core.navigation.ui.debug.NavigationGraphUmlDiagramComponentFactory
 
 fun Modules.coreNavigation() = DI.Module("core-navigation") {
     // Декларируем множество в которое будут собраны все регистраторы навигации в приложении.
     bindSet<NavigationRegistrar>()
 
     bindSingleton { NavigationGraph(i()) }
+    bindSingleton { NavigationGraphUmlDiagramComponentFactory() }
 }

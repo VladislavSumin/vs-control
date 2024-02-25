@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import ru.vs.core.navigation.Screen
-import ru.vs.core.navigation.ScreenContext
-import ru.vs.core.navigation.ScreenFactory
+import ru.vs.core.navigation.screen.Screen
+import ru.vs.core.navigation.screen.ScreenContext
+import ru.vs.core.navigation.screen.ScreenFactory
 
 internal class ${NAME}ScreenFactory : ScreenFactory<${NAME}ScreenParams, ${NAME}Screen> {
     override fun create(context: ScreenContext, params: ${NAME}ScreenParams): ${NAME}Screen {

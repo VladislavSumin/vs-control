@@ -16,6 +16,7 @@ kotlin {
 
             // Features
             api(projects.feature.appInfo.clientImpl)
+            api(projects.feature.debugScreen.clientImpl)
             api(projects.feature.initialization.clientImpl)
             api(projects.feature.initializedRootScreen.clientImpl)
             api(projects.feature.navigationRootScreen.clientImpl)

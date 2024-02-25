@@ -60,6 +60,7 @@ include(":core:navigation:screen:impl")
 include(":core:splash")
 
 feature("app-info")
+feature("debug-screen")
 feature("initialization")
 feature("initialized-root-screen")
 feature("navigation-root-screen")
