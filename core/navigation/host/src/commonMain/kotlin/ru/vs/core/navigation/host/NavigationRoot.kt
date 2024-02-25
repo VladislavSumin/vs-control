@@ -4,6 +4,8 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import ru.vs.core.decompose.ComposeComponent
+import ru.vs.core.navigation.GlobalNavigator
+import ru.vs.core.navigation.GlobalNavigatorImpl
 import ru.vs.core.navigation.NavigationGraph
 import ru.vs.core.navigation.ScreenContext
 import ru.vs.core.navigation.ScreenKey
@@ -38,9 +40,12 @@ private fun ComponentContext.childScreenContext(
     navigationGraph: NavigationGraph,
     key: String,
     lifecycle: Lifecycle? = null,
-): ScreenContext = DefaultScreenContext(navigationGraph, childContext(key, lifecycle))
+): ScreenContext = DefaultScreenContext(
+    GlobalNavigatorImpl(navigationGraph),
+    childContext(key, lifecycle),
+)
 
 private class DefaultScreenContext(
-    override val navigationGraph: NavigationGraph,
+    override val globalNavigator: GlobalNavigator,
     context: ComponentContext
 ) : ScreenContext, ComponentContext by context

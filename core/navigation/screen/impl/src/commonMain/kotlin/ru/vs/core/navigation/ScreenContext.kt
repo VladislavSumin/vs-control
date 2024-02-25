@@ -7,6 +7,11 @@ import com.arkivanov.decompose.ComponentContext
  * Расширение [ComponentContext] предоставляющее доступ к специфичным для экрана api.
  */
 interface ScreenContext : ComponentContext {
+    /**
+     * Глобальный навигатор через который осуществляется коммуникация между [Screen], [NavigationGraph] и
+     * хостами навигации.
+     * Вы не должны использовать это api напрямую.
+     */
     @NavigationInternalApi
-    val navigationGraph: NavigationGraph
+    val globalNavigator: GlobalNavigator
 }

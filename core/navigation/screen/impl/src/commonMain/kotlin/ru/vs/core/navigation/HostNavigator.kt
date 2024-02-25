@@ -3,7 +3,8 @@ package ru.vs.core.navigation
 /**
  * Навигатор, который может производить навигацию в пределах одного хоста навигации.
  */
-internal interface HostNavigator {
+@NavigationInternalApi
+interface HostNavigator {
     /**
      * Открывает экран с переданными параметрами, или возвращается в нему в соответствии с правилами навигации,
      * если такой экран уже открыт.
