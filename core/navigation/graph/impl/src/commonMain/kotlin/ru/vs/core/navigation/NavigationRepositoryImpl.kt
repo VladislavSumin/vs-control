@@ -1,4 +1,4 @@
-package ru.vs.navigation
+package ru.vs.core.navigation
 
 /**
  * Регистрирует все компоненты навигации.

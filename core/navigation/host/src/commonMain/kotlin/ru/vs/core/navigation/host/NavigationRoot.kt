@@ -4,10 +4,10 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import ru.vs.core.decompose.ComposeComponent
-import ru.vs.navigation.NavigationGraph
-import ru.vs.navigation.ScreenContext
-import ru.vs.navigation.ScreenKey
-import ru.vs.navigation.ScreenParams
+import ru.vs.core.navigation.NavigationGraph
+import ru.vs.core.navigation.ScreenContext
+import ru.vs.core.navigation.ScreenKey
+import ru.vs.core.navigation.ScreenParams
 import kotlin.reflect.KClass
 
 /**

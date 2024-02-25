@@ -1,4 +1,4 @@
-package ru.vs.navigation
+package ru.vs.core.navigation
 
 /**
  * Фабрика для создания компонента экрана.

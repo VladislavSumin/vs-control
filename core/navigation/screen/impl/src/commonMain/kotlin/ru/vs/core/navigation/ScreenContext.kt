@@ -1,4 +1,4 @@
-package ru.vs.navigation
+package ru.vs.core.navigation
 
 import com.arkivanov.decompose.ComponentContext
 
@@ -7,6 +7,6 @@ import com.arkivanov.decompose.ComponentContext
  * Расширение [ComponentContext] предоставляющее доступ к специфичным для экрана api.
  */
 interface ScreenContext : ComponentContext {
-    // TODO подумать как бы сделать это internal
+    @NavigationInternalApi
     val navigationGraph: NavigationGraph
 }

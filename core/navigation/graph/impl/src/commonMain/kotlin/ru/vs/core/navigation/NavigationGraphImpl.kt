@@ -1,4 +1,4 @@
-package ru.vs.navigation
+package ru.vs.core.navigation
 
 internal class NavigationGraphImpl(
     registrars: Set<NavigationRegistrar>,

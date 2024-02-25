@@ -1,4 +1,4 @@
-package ru.vs.navigation
+package ru.vs.core.navigation
 
 import kotlin.jvm.JvmInline
 import kotlin.reflect.KClass

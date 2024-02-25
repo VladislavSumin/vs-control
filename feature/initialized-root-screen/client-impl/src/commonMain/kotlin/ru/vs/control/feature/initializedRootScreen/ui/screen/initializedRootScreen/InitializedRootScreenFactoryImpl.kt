@@ -1,7 +1,7 @@
 package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScreen
 
 import com.arkivanov.decompose.ComponentContext
-import ru.vs.navigation.NavigationGraph
+import ru.vs.core.navigation.NavigationGraph
 
 internal class InitializedRootScreenFactoryImpl(
     private val navigationGraph: NavigationGraph,

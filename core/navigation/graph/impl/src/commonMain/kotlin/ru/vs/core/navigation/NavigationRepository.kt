@@ -1,4 +1,4 @@
-package ru.vs.navigation
+package ru.vs.core.navigation
 
 interface NavigationRepository {
     val screenFactories: Map<ScreenKey<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>

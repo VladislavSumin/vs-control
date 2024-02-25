@@ -6,8 +6,8 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.vs.core.decompose.createCoroutineScope
+import ru.vs.core.navigation.NavigationGraph
 import ru.vs.core.navigation.host.childNavigationRoot
-import ru.vs.navigation.NavigationGraph
 
 /**
  * @param onContentReady необходимо вызвать после готовности к отображению контента. Таким образом можно придержать

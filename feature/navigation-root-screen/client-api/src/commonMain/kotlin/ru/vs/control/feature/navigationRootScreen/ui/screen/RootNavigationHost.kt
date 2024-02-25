@@ -1,6 +1,6 @@
 package ru.vs.control.feature.navigationRootScreen.ui.screen
 
-import ru.vs.navigation.NavigationHost
+import ru.vs.core.navigation.NavigationHost
 
 /**
  * TODO
