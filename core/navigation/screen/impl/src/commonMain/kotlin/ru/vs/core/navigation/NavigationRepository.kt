@@ -67,7 +67,10 @@ internal class NavigationRepositoryImpl(
             check(oldDefaultScreenParams == null) { "Double registration for screenParams = $screenParams" }
         }
 
-        override fun registerNavigationHost(screenKey: ScreenKey<ScreenParams>, navigationHost: NavigationHost) {
+        override fun <P : ScreenParams> registerNavigationHost(
+            screenKey: ScreenKey<P>,
+            navigationHost: NavigationHost,
+        ) {
             checkFinalization()
             val hostSet = navigationHosts.getOrPut(screenKey) { mutableSetOf() }
             val isAdded = hostSet.add(navigationHost)

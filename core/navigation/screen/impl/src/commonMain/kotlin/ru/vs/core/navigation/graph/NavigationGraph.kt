@@ -15,8 +15,8 @@ import ru.vs.core.navigation.screen.ScreenKey
 class NavigationGraph internal constructor(
     registrars: Set<NavigationRegistrar>,
 ) {
-    private val repository: NavigationRepository = NavigationRepositoryImpl(registrars)
-    private val tree = NavigationTree(repository)
+    internal val repository: NavigationRepository = NavigationRepositoryImpl(registrars)
+    internal val tree = NavigationTree(repository)
 
     /**
      * Ищет фабрику для экрана соответствующего ключу [screenKey].

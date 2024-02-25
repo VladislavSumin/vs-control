@@ -30,16 +30,16 @@ fun ScreenContext.childNavigationSlot(
         initialConfiguration = initialConfiguration,
         handleBackButton = handleBackButton,
         childFactory = { screenParams: ScreenParams, context: ComponentContext ->
-            val screenContext = context.wrapWithScreenContext(screenNavigator, screenParams)
+            val screenContext = context.wrapWithScreenContext(navigator, screenParams)
             // TODO описать сейвовость, и подумать над другим строение generics
             val screenKey = ScreenKey(screenParams::class) as ScreenKey<ScreenParams>
-            val screenFactory = screenNavigator.globalNavigator.navigationGraph.findFactory(screenKey) ?: error("TODO")
+            val screenFactory = navigator.globalNavigator.navigationGraph.findFactory(screenKey) ?: error("TODO")
             screenFactory.create(screenContext, screenParams)
         }
     )
 
     val hostNavigator = SlotHostNavigator(source)
-    screenNavigator.registerHostNavigator(navigationHost, hostNavigator)
+    navigator.registerHostNavigator(navigationHost, hostNavigator)
     return slot
 }
 

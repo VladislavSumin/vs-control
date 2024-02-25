@@ -10,5 +10,6 @@ class NavigationRegistrarImpl : NavigationRegistrar {
     override fun NavigationRegistry.register() {
         registerScreenFactory(ScreenKey(RootNavigationScreenParams::class), RootNavigationScreenFactory())
         registerDefaultScreenParams(RootNavigationScreenParams)
+        registerNavigationHost(ScreenKey(RootNavigationScreenParams::class), RootNavigationHost)
     }
 }

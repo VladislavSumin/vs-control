@@ -9,5 +9,5 @@ import ru.vs.core.navigation.navigator.ScreenNavigator
  */
 interface ScreenContext : ComponentContext {
     // TODO доку.
-    val screenNavigator: ScreenNavigator
+    val navigator: ScreenNavigator
 }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.builtins.serializer
@@ -60,7 +61,7 @@ internal class RootNavigationScreen(context: ScreenContext) : Screen, ScreenCont
                 Text("component state: $rand")
                 Text("compose state: $rand2")
 
-                val child = childSlotNavigation.value.child
+                val child = childSlotNavigation.subscribeAsState().value.child
                 child?.instance?.Render(Modifier)
             }
         }

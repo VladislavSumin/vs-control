@@ -18,7 +18,10 @@ internal fun ComponentContext.childRootScreenContext(
     val childContext = childContext(key, lifecycle)
     with(childContext) {
         return DefaultScreenContext(
-            ScreenNavigator(GlobalNavigator(navigationGraph), ScreenPath(listOf())),
+            ScreenNavigator(
+                GlobalNavigator(navigationGraph),
+                ScreenPath(listOf(navigationGraph.getRootScreenParams())),
+            ),
             childContext,
         )
     }
@@ -38,6 +41,6 @@ internal fun ComponentContext.wrapWithScreenContext(
 }
 
 private class DefaultScreenContext(
-    override val screenNavigator: ScreenNavigator,
+    override val navigator: ScreenNavigator,
     context: ComponentContext
 ) : ScreenContext, ComponentContext by context

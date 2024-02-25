@@ -3,7 +3,9 @@ package ru.vs.core.navigation.navigator
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.NavigationHost
+import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.ScreenContext
+import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
 
 /**
@@ -30,5 +32,24 @@ class ScreenNavigator internal constructor(
             val host = navigationHosts.remove(navigationHost)
             check(host != null) { "Navigation host $navigationHost not found" }
         }
+    }
+
+    internal fun openInside(screenParams: ScreenParams) {
+        val screenKey = ScreenKey(screenParams::class)
+        var found = false
+        // TODO тут однозначно переписать
+        navigationHosts.forEach { (navigationHost, navigator) ->
+            if (!found &&
+                globalNavigator.navigationGraph.repository.endpoints[navigationHost]?.contains(screenKey) == true
+            ) {
+                found = true
+                navigator.open(screenParams)
+            }
+        }
+        check(found)
+    }
+
+    fun open(screenParams: ScreenParams) {
+        globalNavigator.open(screenPath, screenParams)
     }
 }

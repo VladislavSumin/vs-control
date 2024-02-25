@@ -36,7 +36,7 @@ interface NavigationRegistry {
      * @param screenKey ключ экрана.
      * @param navigationHost хост навигации.
      */
-    fun registerNavigationHost(screenKey: ScreenKey<ScreenParams>, navigationHost: NavigationHost)
+    fun <P : ScreenParams> registerNavigationHost(screenKey: ScreenKey<P>, navigationHost: NavigationHost)
 
     /**
      * Регистрирует экран с ключом [screenKey] в [navigationHost], это означает что данный экран сможет быть открыть в

@@ -1,7 +1,10 @@
 package ru.vs.core.navigation.graph
 
 import ru.vs.core.navigation.NavigationRepository
+import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.DefaultScreenKey
+import ru.vs.core.navigation.screen.ScreenKey
+import ru.vs.core.navigation.screen.ScreenPath
 
 internal class NavigationTree(
     private val repository: NavigationRepository,
@@ -10,6 +13,34 @@ internal class NavigationTree(
     private val root = buildNavGraph()
 
     val rootScreenKey = root.screenKey
+
+    /**
+     * TODO доку.
+     */
+    fun getDestinationsForPath(
+        startPath: ScreenPath,
+        screenParams: ScreenParams,
+    ): Sequence<ScreenPath> = sequence {
+        // TODO парента временно берем пока поиска нет
+        val startNode = findNode(startPath).parent!!
+
+        // TODO реализовать полный поиск.
+
+        // TODO это пока демо решение, естественно это будет переписано.
+        startNode.children[ScreenKey(screenParams::class)]!!.screenKey
+        val path = startPath.path.dropLast(1) + screenParams
+        yield(ScreenPath(path))
+    }
+
+    private fun findNode(screenPath: ScreenPath): Node {
+        var node = root
+        check(root.screenKey == ScreenKey(screenPath.path.first()::class))
+        screenPath.path.asSequence().drop(1).forEach { screenParams ->
+            // TODO обработать ошибки.
+            node = node.children[ScreenKey(screenParams::class)]!!
+        }
+        return node
+    }
 
     private fun buildNavGraph(): Node {
         val rootScreen = findRootScreen()
