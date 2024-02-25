@@ -1,17 +1,13 @@
 package ru.vs.core.navigation
 
 import com.arkivanov.decompose.ComponentContext
+import ru.vs.core.navigation.navigator.ScreenNavigator
 
 /**
  * Контекст экрана.
  * Расширение [ComponentContext] предоставляющее доступ к специфичным для экрана api.
  */
 interface ScreenContext : ComponentContext {
-    /**
-     * Глобальный навигатор через который осуществляется коммуникация между [Screen], [NavigationGraph] и
-     * хостами навигации.
-     * Вы не должны использовать это api напрямую.
-     */
-    @NavigationInternalApi
-    val globalNavigator: GlobalNavigator
+    // TODO доку.
+    val screenNavigator: ScreenNavigator
 }

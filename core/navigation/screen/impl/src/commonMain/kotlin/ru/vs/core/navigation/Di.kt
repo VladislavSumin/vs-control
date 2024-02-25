@@ -10,5 +10,5 @@ fun Modules.coreNavigation() = DI.Module("core-navigation") {
     // Декларируем множество в которое будут собраны все регистраторы навигации в приложении.
     bindSet<NavigationRegistrar>()
 
-    bindSingleton<NavigationGraph> { NavigationGraphImpl(i()) }
+    bindSingleton { NavigationGraph(i()) }
 }

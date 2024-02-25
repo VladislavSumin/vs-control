@@ -7,13 +7,13 @@ import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.navigate
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnDestroy
-import ru.vs.core.navigation.GlobalNavigator
-import ru.vs.core.navigation.HostNavigator
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.Screen
 import ru.vs.core.navigation.ScreenContext
 import ru.vs.core.navigation.ScreenKey
 import ru.vs.core.navigation.ScreenParams
+import ru.vs.core.navigation.navigator.HostNavigator
+import ru.vs.core.navigation.navigator.ScreenNavigator
 
 /**
  * TODO
@@ -32,17 +32,17 @@ fun ScreenContext.childNavigationSlot(
         initialConfiguration = initialConfiguration,
         handleBackButton = handleBackButton,
         childFactory = { screenParams: ScreenParams, context: ComponentContext ->
-            val screenContext = SlotScreenContext(globalNavigator, context)
+            val screenContext = SlotScreenContext(screenNavigator, context)
             // TODO описать сейвовость, и подумать над другим строение generics
             val screenKey = ScreenKey(screenParams::class) as ScreenKey<ScreenParams>
-            val screenFactory = globalNavigator.navigationGraph.findFactory(screenKey) ?: error("TODO")
+            val screenFactory = screenNavigator.navigationGraph.findFactory(screenKey) ?: error("TODO")
             screenFactory.create(screenContext, screenParams)
         }
     )
 
     val hostNavigator = SlotHostNavigator(source)
-    globalNavigator.registerHostNavigator(hostNavigator)
-    lifecycle.doOnDestroy { globalNavigator.unregisterHostNavigator(hostNavigator) }
+    screenNavigator.registerHostNavigator(navigationHost, hostNavigator)
+    lifecycle.doOnDestroy { screenNavigator.unregisterHostNavigator(navigationHost) }
 
     return slot
 }
@@ -94,6 +94,6 @@ private class SlotHostNavigator(
 
 // TODO это конечно временное решение, наследование контекстов будет работать не так.
 private class SlotScreenContext(
-    override val globalNavigator: GlobalNavigator,
+    override val screenNavigator: ScreenNavigator,
     context: ComponentContext,
 ) : ScreenContext, ComponentContext by context

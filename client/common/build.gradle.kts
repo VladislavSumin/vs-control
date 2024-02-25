@@ -12,7 +12,7 @@ kotlin {
             api(projects.core.compose)
             api(projects.core.decompose)
             api(projects.core.di)
-            api(projects.core.navigation.graph.impl)
+            api(projects.core.navigation.screen.impl)
 
             // Features
             api(projects.feature.appInfo.clientImpl)

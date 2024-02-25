@@ -1,10 +1,12 @@
-package ru.vs.core.navigation
+package ru.vs.core.navigation.navigator
+
+import ru.vs.core.navigation.ScreenKey
+import ru.vs.core.navigation.ScreenParams
 
 /**
  * Навигатор, который может производить навигацию в пределах одного хоста навигации.
  */
-@NavigationInternalApi
-interface HostNavigator {
+internal interface HostNavigator {
     /**
      * Открывает экран с переданными параметрами, или возвращается в нему в соответствии с правилами навигации,
      * если такой экран уже открыт.
