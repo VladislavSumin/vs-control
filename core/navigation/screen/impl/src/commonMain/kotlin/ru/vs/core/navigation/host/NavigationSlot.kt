@@ -8,12 +8,12 @@ import com.arkivanov.decompose.router.slot.navigate
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.NavigationHost
-import ru.vs.core.navigation.Screen
-import ru.vs.core.navigation.ScreenContext
-import ru.vs.core.navigation.ScreenKey
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.HostNavigator
 import ru.vs.core.navigation.navigator.ScreenNavigator
+import ru.vs.core.navigation.screen.Screen
+import ru.vs.core.navigation.screen.ScreenContext
+import ru.vs.core.navigation.screen.ScreenKey
 
 /**
  * TODO

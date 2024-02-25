@@ -1,4 +1,4 @@
-package ru.vs.core.navigation
+package ru.vs.core.navigation.screen
 
 import com.arkivanov.decompose.ComponentContext
 import ru.vs.core.navigation.navigator.ScreenNavigator

@@ -1,4 +1,4 @@
-package ru.vs.core.navigation
+package ru.vs.core.navigation.screen
 
 import ru.vs.core.decompose.ComposeComponent
 

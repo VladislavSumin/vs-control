@@ -1,6 +1,9 @@
 package ru.vs.core.navigation
 
 import ru.vs.core.navigation.registration.NavigationRegistrar
+import ru.vs.core.navigation.screen.Screen
+import ru.vs.core.navigation.screen.ScreenFactory
+import ru.vs.core.navigation.screen.ScreenKey
 
 /**
  * Предоставляет доступ к основному графу навигации.

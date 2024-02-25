@@ -16,11 +16,11 @@ import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.builtins.serializer
 import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
 import ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen.WelcomeScreenParams
-import ru.vs.core.navigation.Screen
-import ru.vs.core.navigation.ScreenContext
-import ru.vs.core.navigation.ScreenFactory
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.host.childNavigationSlot
+import ru.vs.core.navigation.screen.Screen
+import ru.vs.core.navigation.screen.ScreenContext
+import ru.vs.core.navigation.screen.ScreenFactory
 import kotlin.random.Random
 
 internal class RootNavigationScreenFactory : ScreenFactory<RootNavigationScreenParams, RootNavigationScreen> {

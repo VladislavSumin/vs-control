@@ -1,7 +1,7 @@
 package ru.vs.core.navigation.navigator
 
-import ru.vs.core.navigation.ScreenKey
 import ru.vs.core.navigation.ScreenParams
+import ru.vs.core.navigation.screen.ScreenKey
 
 /**
  * Навигатор, который может производить навигацию в пределах одного хоста навигации.
