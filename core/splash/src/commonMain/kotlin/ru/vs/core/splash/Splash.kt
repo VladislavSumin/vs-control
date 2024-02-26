@@ -34,16 +34,11 @@ fun <T : Any> ComponentContext.childSplash(
 ): Value<ChildSplash<T>> {
     val navigationSource = SimpleNavigation<SplashNavEvent>()
 
-    scope.launch(Dispatchers.Main.immediate) {
-        awaitInitialization()
-        navigationSource.navigate(SplashNavEvent.ApplicationInitialized)
-    }
-
     val onContentReady = {
         navigationSource.navigate(SplashNavEvent.ContentReady)
     }
 
-    return children(
+    val children = children(
         source = navigationSource,
         key = key,
         initialState = { SplashNavState.Splash as SplashNavState },
@@ -83,6 +78,17 @@ fun <T : Any> ComponentContext.childSplash(
             }
         }
     )
+
+    // Запускаем процесс ожидания инициализации только после создания children, так как decompose navigationSource не
+    // содержит буфер команд. Таким образом если разместить ожидание инициализации до создания children (который
+    // подпишется на навигацию) и само ожидание, за счет Main.immediate диспатчера, окажется мгновенным, то мы потеряем
+    // событие навигации.
+    scope.launch(Dispatchers.Main.immediate) {
+        awaitInitialization()
+        navigationSource.navigate(SplashNavEvent.ApplicationInitialized)
+    }
+
+    return children
 }
 
 /**

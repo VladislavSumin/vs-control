@@ -7,6 +7,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core.compose)
+            implementation(projects.core.coroutines)
             implementation(projects.core.decompose)
         }
     }
