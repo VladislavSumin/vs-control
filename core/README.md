@@ -12,4 +12,5 @@ Core модули могут содержать только самый базо
 * [di](di/README.md) базовый код di.
 * [logger](logger/README.md) общий логгер для всех модулей.
 * [navigation](navigation/README.md) фреймворк навигации.
+* [properties](properties/README.md) фреймворк для работы с сохранением пар ключ-значение.
 * [splash](splash/README.md) навигация для splash экрана.
