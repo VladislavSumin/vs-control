@@ -64,7 +64,7 @@ internal class NavigationTree(
         val roots = repository.screenFactories.keys - repository.endpoints.values.flatten().toSet()
         check(roots.size == 1) {
             val formatedRoots = roots.joinToString(separator = ",\n") {
-                it.key.qualifiedName ?: "NO_NAME"
+                it.key.toString()
             }
             "Found more than one root, roots:\n$formatedRoots"
         }
