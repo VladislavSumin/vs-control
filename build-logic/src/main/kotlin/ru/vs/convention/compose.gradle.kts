@@ -10,8 +10,8 @@ plugins {
 
 compose {
     // Версия compose compiler плагина (должна соответствовать версии языка)
-    kotlinCompilerPlugin.set(dependencies.compiler.forKotlin("2.0.0-Beta1"))
+    kotlinCompilerPlugin.set(dependencies.compiler.forKotlin("2.0.0-Beta4"))
 
     // Игнорирование возможной несовместимости версий compose и версии языка kotlin
-    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=2.0.0-Beta1")
+    // kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=2.0.0-Beta4")
 }
