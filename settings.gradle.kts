@@ -58,6 +58,7 @@ include(":core:logger:platform")
 include(":core:navigation:screen:api")
 include(":core:navigation:screen:impl")
 include(":core:properties:api")
+include(":core:serialization:json")
 include(":core:splash")
 
 feature("app-info")

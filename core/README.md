@@ -13,4 +13,5 @@ Core модули могут содержать только самый базо
 * [logger](logger/README.md) общий логгер для всех модулей.
 * [navigation](navigation/README.md) фреймворк навигации.
 * [properties](properties/README.md) фреймворк для работы с сохранением пар ключ-значение.
+* [serialization](serialization/README.md) фреймворк для работы с сериализацией данных.
 * [splash](splash/README.md) навигация для splash экрана.
