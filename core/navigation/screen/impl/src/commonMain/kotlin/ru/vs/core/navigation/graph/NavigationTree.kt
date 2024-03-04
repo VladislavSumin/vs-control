@@ -1,7 +1,7 @@
 package ru.vs.core.navigation.graph
 
-import ru.vs.core.navigation.NavigationRepository
 import ru.vs.core.navigation.ScreenParams
+import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.screen.DefaultScreenKey
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
@@ -49,7 +49,7 @@ internal class NavigationTree(
 
     private fun buildNode(parent: Node?, screenKey: DefaultScreenKey): Node {
         val node = MutableNode(parent, screenKey)
-        repository.navigationHosts[screenKey]?.forEach { navHost ->
+        repository.screens[screenKey]?.navigationHosts?.forEach { navHost ->
             repository.endpoints[navHost]?.forEach { screenKey ->
                 node.children[screenKey] = buildNode(node, screenKey)
             }
@@ -61,7 +61,7 @@ internal class NavigationTree(
      * Ищет root screen, этим экраном является такой экран который невозможно открыть из другой точки графа.
      */
     private fun findRootScreen(): DefaultScreenKey {
-        val roots = repository.screenFactories.keys - repository.endpoints.values.flatten().toSet()
+        val roots = repository.screens.keys - repository.endpoints.values.flatten().toSet()
         check(roots.size == 1) {
             val formatedRoots = roots.joinToString(separator = ",\n") {
                 it.key.qualifiedName ?: "NO_NAME"

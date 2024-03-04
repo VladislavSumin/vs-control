@@ -1,9 +1,9 @@
 package ru.vs.core.navigation.graph
 
-import ru.vs.core.navigation.NavigationRepository
-import ru.vs.core.navigation.NavigationRepositoryImpl
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
+import ru.vs.core.navigation.repository.NavigationRepository
+import ru.vs.core.navigation.repository.NavigationRepositoryImpl
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
@@ -24,13 +24,13 @@ class NavigationGraph internal constructor(
     internal fun <P : ScreenParams> findFactory(screenKey: ScreenKey<P>): ScreenFactory<P, out Screen>? {
         // Успешность каста гарантирована контрактом репозитория.
         @Suppress("UNCHECKED_CAST")
-        return repository.screenFactories[screenKey] as ScreenFactory<P, out Screen>?
+        return repository.screens[screenKey]?.factory as ScreenFactory<P, out Screen>?
     }
 
     /**
      * Возвращает параметры корневого экрана
      */
     internal fun getRootScreenParams(): ScreenParams {
-        return repository.defaultScreenParams[tree.rootScreenKey] ?: error("Root screen must have default params")
+        return repository.screens[tree.rootScreenKey]?.defaultParams ?: error("Root screen must have default params")
     }
 }

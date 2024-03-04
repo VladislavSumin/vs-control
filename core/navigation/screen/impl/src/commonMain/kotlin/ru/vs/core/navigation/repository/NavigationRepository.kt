@@ -1,15 +1,17 @@
-package ru.vs.core.navigation
+package ru.vs.core.navigation.repository
 
+import ru.vs.core.navigation.NavigationHost
+import ru.vs.core.navigation.NavigationLogger
+import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
+import ru.vs.core.navigation.screen.DefaultScreenKey
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
 
 internal interface NavigationRepository {
-    val screenFactories: Map<ScreenKey<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>
-    val defaultScreenParams: Map<ScreenKey<out ScreenParams>, ScreenParams>
-    val navigationHosts: Map<ScreenKey<out ScreenParams>, Set<NavigationHost>>
+    val screens: Map<DefaultScreenKey, ScreenRegistration<out ScreenParams, out Screen>>
     val endpoints: Map<NavigationHost, Set<ScreenKey<out ScreenParams>>>
 }
 
@@ -20,10 +22,7 @@ internal interface NavigationRepository {
 internal class NavigationRepositoryImpl(
     registrars: Set<NavigationRegistrar>,
 ) : NavigationRepository {
-    override val screenFactories =
-        mutableMapOf<ScreenKey<out ScreenParams>, ScreenFactory<out ScreenParams, out Screen>>()
-    override val defaultScreenParams = mutableMapOf<ScreenKey<out ScreenParams>, ScreenParams>()
-    override val navigationHosts = mutableMapOf<ScreenKey<out ScreenParams>, MutableSet<NavigationHost>>()
+    override val screens = mutableMapOf<DefaultScreenKey, ScreenRegistration<out ScreenParams, out Screen>>()
     override val endpoints = mutableMapOf<NavigationHost, MutableSet<ScreenKey<out ScreenParams>>>()
 
     /**
@@ -58,36 +57,9 @@ internal class NavigationRepositoryImpl(
             defaultParams: P?,
             navigationHosts: List<NavigationHost>,
         ) {
-            registerScreenFactory(key, factory)
-            if (defaultParams != null) {
-                registerDefaultScreenParams(defaultParams)
-            }
-            navigationHosts.forEach { registerNavigationHost(key, it) }
-        }
-
-        private fun <P : ScreenParams, S : Screen> registerScreenFactory(
-            screenKey: ScreenKey<P>,
-            factory: ScreenFactory<P, S>
-        ) {
-            checkFinalization()
-            val oldFactory = screenFactories.put(screenKey, factory)
-            check(oldFactory == null) { "Double registration for screenKey=$screenKey" }
-        }
-
-        private fun <P : ScreenParams> registerDefaultScreenParams(screenParams: P) {
-            checkFinalization()
-            val oldDefaultScreenParams = defaultScreenParams.put(ScreenKey(screenParams::class), screenParams)
-            check(oldDefaultScreenParams == null) { "Double registration for screenParams = $screenParams" }
-        }
-
-        private fun <P : ScreenParams> registerNavigationHost(
-            screenKey: ScreenKey<P>,
-            navigationHost: NavigationHost,
-        ) {
-            checkFinalization()
-            val hostSet = navigationHosts.getOrPut(screenKey) { mutableSetOf() }
-            val isAdded = hostSet.add(navigationHost)
-            check(isAdded) { "Double registration for screenKey=$screenKey, navigationHost=$navigationHost" }
+            val screenRegistration = ScreenRegistration(factory, defaultParams, navigationHosts)
+            val oldRegistration = screens.put(key, screenRegistration)
+            check(oldRegistration == null) { "Double registration for key=$key" }
         }
 
         override fun <P : ScreenParams> registerScreenNavigation(
