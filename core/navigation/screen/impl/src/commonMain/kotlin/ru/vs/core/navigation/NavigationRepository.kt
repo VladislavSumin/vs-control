@@ -52,7 +52,20 @@ internal class NavigationRepositoryImpl(
             with(registrar) { register() }
         }
 
-        override fun <P : ScreenParams, S : Screen> registerScreenFactory(
+        override fun <P : ScreenParams, S : Screen> registerScreen(
+            key: ScreenKey<P>,
+            factory: ScreenFactory<P, S>,
+            defaultParams: P?,
+            navigationHosts: List<NavigationHost>,
+        ) {
+            registerScreenFactory(key, factory)
+            if (defaultParams != null) {
+                registerDefaultScreenParams(defaultParams)
+            }
+            navigationHosts.forEach { registerNavigationHost(key, it) }
+        }
+
+        private fun <P : ScreenParams, S : Screen> registerScreenFactory(
             screenKey: ScreenKey<P>,
             factory: ScreenFactory<P, S>
         ) {
@@ -61,13 +74,13 @@ internal class NavigationRepositoryImpl(
             check(oldFactory == null) { "Double registration for screenKey=$screenKey" }
         }
 
-        override fun <P : ScreenParams> registerDefaultScreenParams(screenParams: P) {
+        private fun <P : ScreenParams> registerDefaultScreenParams(screenParams: P) {
             checkFinalization()
             val oldDefaultScreenParams = defaultScreenParams.put(ScreenKey(screenParams::class), screenParams)
             check(oldDefaultScreenParams == null) { "Double registration for screenParams = $screenParams" }
         }
 
-        override fun <P : ScreenParams> registerNavigationHost(
+        private fun <P : ScreenParams> registerNavigationHost(
             screenKey: ScreenKey<P>,
             navigationHost: NavigationHost,
         ) {

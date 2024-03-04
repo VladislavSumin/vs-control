@@ -12,31 +12,23 @@ import ru.vs.core.navigation.screen.ScreenKey
  * Для доступа к [NavigationRegistry] воспользуйтесь [NavigationRegistrar].
  */
 interface NavigationRegistry {
+
     /**
-     * Регистрирует фабрику компонента экрана.
+     * Регистрирует экран.
      *
      * @param P тип параметров экрана.
      * @param S тип экрана.
-     * @param screenKey ключ экрана.
+     * @param key ключ экрана.
      * @param factory фабрика компонента экрана.
+     * @param defaultParams параметры экрана по умолчанию.
+     * @param navigationHosts хосты навигации расположенные на этом экране
      */
-    fun <P : ScreenParams, S : Screen> registerScreenFactory(screenKey: ScreenKey<P>, factory: ScreenFactory<P, S>)
-
-    /**
-     * Регистрирует параметры для экрана по умолчанию. Если параметры экрана не переданы явно, будут применены эти
-     * параметры.
-     *
-     * @param screenParams параметры экрана.
-     */
-    fun <P : ScreenParams> registerDefaultScreenParams(screenParams: P)
-
-    /**
-     * Регистрирует [navigationHost] в экране с ключом [screenKey].
-     *
-     * @param screenKey ключ экрана.
-     * @param navigationHost хост навигации.
-     */
-    fun <P : ScreenParams> registerNavigationHost(screenKey: ScreenKey<P>, navigationHost: NavigationHost)
+    fun <P : ScreenParams, S : Screen> registerScreen(
+        key: ScreenKey<P>,
+        factory: ScreenFactory<P, S>,
+        defaultParams: P? = null,
+        navigationHosts: List<NavigationHost> = emptyList(),
+    )
 
     /**
      * Регистрирует экран с ключом [screenKey] в [navigationHost], это означает что данный экран сможет быть открыть в

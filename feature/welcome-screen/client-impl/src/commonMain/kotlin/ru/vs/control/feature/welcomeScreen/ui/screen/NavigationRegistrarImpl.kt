@@ -9,8 +9,11 @@ import ru.vs.core.navigation.screen.ScreenKey
 
 class NavigationRegistrarImpl : NavigationRegistrar {
     override fun NavigationRegistry.register() {
-        registerScreenFactory(ScreenKey(WelcomeScreenParams::class), WelcomeScreenFactory())
-        registerDefaultScreenParams(WelcomeScreenParams)
+        registerScreen(
+            key = ScreenKey(WelcomeScreenParams::class),
+            factory = WelcomeScreenFactory(),
+            defaultParams = WelcomeScreenParams,
+        )
         registerScreenNavigation(RootNavigationHost, ScreenKey(WelcomeScreenParams::class))
     }
 }

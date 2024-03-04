@@ -11,8 +11,11 @@ internal class NavigationRegistrarImpl(
     private val debugScreenFactory: DebugScreenFactory,
 ) : NavigationRegistrar {
     override fun NavigationRegistry.register() {
-        registerScreenFactory(ScreenKey(DebugScreenParams::class), debugScreenFactory)
-        registerDefaultScreenParams(DebugScreenParams)
+        registerScreen(
+            key = ScreenKey(DebugScreenParams::class),
+            factory = debugScreenFactory,
+            defaultParams = DebugScreenParams,
+        )
         registerScreenNavigation(RootNavigationHost, ScreenKey(DebugScreenParams::class))
     }
 }
