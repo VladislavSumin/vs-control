@@ -13,3 +13,5 @@ internal data class ScreenRegistration<P : ScreenParams, S : Screen>(
     val defaultParams: P?,
     val navigationHosts: List<NavigationHost>,
 )
+
+internal typealias DefaultScreenRegistration = ScreenRegistration<out ScreenParams, out Screen>

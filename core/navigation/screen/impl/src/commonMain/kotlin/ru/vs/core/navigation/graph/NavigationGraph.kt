@@ -31,6 +31,6 @@ class NavigationGraph internal constructor(
      * Возвращает параметры корневого экрана
      */
     internal fun getRootScreenParams(): ScreenParams {
-        return repository.screens[tree.rootScreenKey]?.defaultParams ?: error("Root screen must have default params")
+        return tree.rootScreenRegistration.defaultParams ?: error("Root screen must have default params")
     }
 }

@@ -9,6 +9,9 @@ import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
 
 /**
+ * Навигатор уровня экрана.
+ *
+ * @param globalNavigator ссылка на глобальный навигатор.
  * @param screenPath путь до экрана соответствующего данному навигатору.
  */
 context(ComponentContext)
@@ -16,6 +19,9 @@ class ScreenNavigator internal constructor(
     internal val globalNavigator: GlobalNavigator,
     internal val screenPath: ScreenPath
 ) {
+    /**
+     * Список зарегистрированных на этом экране [HostNavigator].
+     */
     private val navigationHosts = mutableMapOf<NavigationHost, HostNavigator>()
 
     init {
@@ -49,6 +55,10 @@ class ScreenNavigator internal constructor(
         check(found)
     }
 
+    /**
+     * Открывает экран соответствующий переданным [screenParams], при этом, при поиске места открытия экрана учитывается
+     * текущее место. (подробнее про приоритет выбора места написано в документации).
+     */
     fun open(screenParams: ScreenParams) {
         globalNavigator.open(screenPath, screenParams)
     }

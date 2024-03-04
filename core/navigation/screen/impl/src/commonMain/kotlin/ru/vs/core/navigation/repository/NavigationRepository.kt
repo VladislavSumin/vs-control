@@ -10,9 +10,19 @@ import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
 
+/**
+ * Репозиторий навигации.
+ */
 internal interface NavigationRepository {
-    val screens: Map<DefaultScreenKey, ScreenRegistration<out ScreenParams, out Screen>>
-    val endpoints: Map<NavigationHost, Set<ScreenKey<out ScreenParams>>>
+    /**
+     * Список всех зарегистрированных экранов.
+     */
+    val screens: Map<DefaultScreenKey, DefaultScreenRegistration>
+
+    /**
+     * Список экранов которые могут открываться внутри определенных [NavigationHost].
+     */
+    val endpoints: Map<NavigationHost, Set<DefaultScreenKey>>
 }
 
 /**
@@ -22,8 +32,8 @@ internal interface NavigationRepository {
 internal class NavigationRepositoryImpl(
     registrars: Set<NavigationRegistrar>,
 ) : NavigationRepository {
-    override val screens = mutableMapOf<DefaultScreenKey, ScreenRegistration<out ScreenParams, out Screen>>()
-    override val endpoints = mutableMapOf<NavigationHost, MutableSet<ScreenKey<out ScreenParams>>>()
+    override val screens = mutableMapOf<DefaultScreenKey, DefaultScreenRegistration>()
+    override val endpoints = mutableMapOf<NavigationHost, MutableSet<DefaultScreenKey>>()
 
     /**
      * Состояние финализации [NavigationRegistry]. После создания [NavigationRepositoryImpl] добавлять новые элементы

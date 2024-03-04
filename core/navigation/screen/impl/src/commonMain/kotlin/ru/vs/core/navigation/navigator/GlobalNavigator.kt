@@ -15,7 +15,7 @@ internal class GlobalNavigator(
     private val screenNavigators = mutableMapOf<ScreenPath, ScreenNavigator>()
 
     /**
-     * Регистрирует [screenNavigator] с учетом жизненного цикла [ComponentContext]
+     * Регистрирует [screenNavigator] с учетом жизненного цикла [ComponentContext].
      */
     context(ComponentContext)
     fun registerScreenNavigator(screenNavigator: ScreenNavigator) {
@@ -25,10 +25,14 @@ internal class GlobalNavigator(
         }
         lifecycle.doOnDestroy {
             val navigator = screenNavigators.remove(screenNavigator.screenPath)
-            check(navigator != null) { "Screen navigator fro ${screenNavigator.screenPath} not found" }
+            check(navigator != null) { "Screen navigator for ${screenNavigator.screenPath} not found" }
         }
     }
 
+    /**
+     * Открывает экран соответствующий переданным [screenParams], при этом поиск пути производится относительно
+     * переданного [screenPath]. (подробнее про поиск пути до экрана можно прочитать в документации).
+     */
     fun open(screenPath: ScreenPath, screenParams: ScreenParams) {
         // TODO временное решение, нужно пройтись по всем путям.
         val path = navigationGraph.tree.getDestinationsForPath(screenPath, screenParams).first()
