@@ -4,8 +4,8 @@ import com.arkivanov.decompose.ComponentContext
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.graph.NavigationGraph
-import ru.vs.core.navigation.screen.ScreenKey
-import kotlin.reflect.KClass
+import ru.vs.core.navigation.screen.Screen
+import ru.vs.core.navigation.screen.ScreenFactory
 
 /**
  * Корневая точка входа в навигацию.
@@ -17,13 +17,10 @@ fun ComponentContext.childNavigationRoot(
     navigationGraph: NavigationGraph,
     key: String = "navigation-root",
 ): ComposeComponent {
-    val rootScreenParams: ScreenParams = navigationGraph.getRootScreenParams()
-
-    @Suppress("UNCHECKED_CAST") // Безопасность каста обеспечивается контрактом графа навигации.
-    val rootScreenKey: KClass<ScreenParams> = rootScreenParams::class as KClass<ScreenParams>
-
-    val rootScreenFactory = navigationGraph.findFactory(ScreenKey(rootScreenKey))
-    check(rootScreenFactory != null) { "Factory for $rootScreenParams not found" }
-    val rootScreenContext = childRootScreenContext(navigationGraph, key)
-    return rootScreenFactory.create(rootScreenContext, rootScreenParams)
+    val node = navigationGraph.tree.root
+    val params = node.screenRegistration.defaultParams ?: error("Root screen must have default params")
+    val rootScreenFactory = node.screenRegistration.factory as ScreenFactory<ScreenParams, out Screen>?
+    check(rootScreenFactory != null) { "Factory for $params not found" }
+    val rootScreenContext = childRootScreenContext(navigationGraph, node, params, key)
+    return rootScreenFactory.create(rootScreenContext, params)
 }

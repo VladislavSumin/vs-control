@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
+import ru.vs.core.navigation.graph.NavigationTree
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
@@ -13,11 +14,13 @@ import ru.vs.core.navigation.screen.ScreenPath
  *
  * @param globalNavigator ссылка на глобальный навигатор.
  * @param screenPath путь до экрана соответствующего данному навигатору.
+ * @param node нода соответствующая [screenPath] в графе навигации.
  */
 context(ComponentContext)
 class ScreenNavigator internal constructor(
     internal val globalNavigator: GlobalNavigator,
-    internal val screenPath: ScreenPath
+    internal val screenPath: ScreenPath,
+    internal val node: NavigationTree.Node,
 ) {
     /**
      * Список зарегистрированных на этом экране [HostNavigator].

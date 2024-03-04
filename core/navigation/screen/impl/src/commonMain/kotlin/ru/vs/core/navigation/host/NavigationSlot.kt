@@ -11,6 +11,7 @@ import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.HostNavigator
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
+import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
 
 /**
@@ -33,7 +34,8 @@ fun ScreenContext.childNavigationSlot(
             val screenContext = context.wrapWithScreenContext(navigator, screenParams)
             // TODO описать сейвовость, и подумать над другим строение generics
             val screenKey = ScreenKey(screenParams::class) as ScreenKey<ScreenParams>
-            val screenFactory = navigator.globalNavigator.navigationGraph.findFactory(screenKey) ?: error("TODO")
+            val screenFactory = navigator.node.children[screenKey]!!.screenRegistration.factory
+                as ScreenFactory<ScreenParams, out Screen>
             screenFactory.create(screenContext, screenParams)
         }
     )

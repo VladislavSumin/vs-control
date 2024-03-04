@@ -5,13 +5,17 @@ import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.graph.NavigationGraph
+import ru.vs.core.navigation.graph.NavigationTree
 import ru.vs.core.navigation.navigator.GlobalNavigator
 import ru.vs.core.navigation.navigator.ScreenNavigator
 import ru.vs.core.navigation.screen.ScreenContext
+import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
 
 internal fun ComponentContext.childRootScreenContext(
     navigationGraph: NavigationGraph,
+    node: NavigationTree.Node,
+    params: ScreenParams,
     key: String,
     lifecycle: Lifecycle? = null,
 ): ScreenContext {
@@ -20,7 +24,8 @@ internal fun ComponentContext.childRootScreenContext(
         return DefaultScreenContext(
             ScreenNavigator(
                 GlobalNavigator(navigationGraph),
-                ScreenPath(listOf(navigationGraph.getRootScreenParams())),
+                ScreenPath(listOf(params)),
+                node,
             ),
             childContext,
         )
@@ -31,10 +36,12 @@ internal fun ComponentContext.wrapWithScreenContext(
     parentNavigator: ScreenNavigator,
     screenParams: ScreenParams,
 ): ScreenContext {
+    val screenKey = ScreenKey(screenParams::class)
     return DefaultScreenContext(
         ScreenNavigator(
             parentNavigator.globalNavigator,
             parentNavigator.screenPath + screenParams,
+            parentNavigator.node.children[screenKey]!!,
         ),
         this,
     )

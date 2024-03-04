@@ -11,9 +11,7 @@ internal class NavigationTree(
     private val repository: NavigationRepository,
 ) {
 
-    private val root = buildNavGraph()
-
-    val rootScreenRegistration = root.screenRegistration
+    val root = buildNavGraph()
 
     /**
      * TODO доку.
@@ -101,7 +99,7 @@ internal class NavigationTree(
      * @property screenRegistration параметры регистрации соответствующего экрана.
      * @property children список дочерних нод (экраны в которые возможна навигация из этой ноды).
      */
-    private interface Node {
+    interface Node {
         val parent: Node?
         val screenKey: DefaultScreenKey
         val screenRegistration: DefaultScreenRegistration
