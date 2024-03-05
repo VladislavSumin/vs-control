@@ -55,24 +55,24 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.core.logger.api)
+            implementation(projects.core.logger.api)
             implementation(projects.core.logger.platform)
 
-            api(projects.core.compose)
-            api(projects.core.decompose)
-            api(projects.core.di)
-            api(projects.core.navigation.impl)
+            implementation(projects.core.compose)
+            implementation(projects.core.decompose)
+            implementation(projects.core.di)
+            implementation(projects.core.navigation.impl)
 
             // Features
-            api(projects.feature.appInfo.clientImpl)
-            api(projects.feature.debugScreen.clientImpl)
-            api(projects.feature.initialization.clientImpl)
-            api(projects.feature.initializedRootScreen.clientImpl)
-            api(projects.feature.navigationRootScreen.clientImpl)
-            api(projects.feature.rootContentScreen.clientImpl)
-            api(projects.feature.rootScreen.clientImpl)
-            api(projects.feature.splashScreen.clientImpl)
-            api(projects.feature.welcomeScreen.clientImpl)
+            implementation(projects.feature.appInfo.clientImpl)
+            implementation(projects.feature.debugScreen.clientImpl)
+            implementation(projects.feature.initialization.clientImpl)
+            implementation(projects.feature.initializedRootScreen.clientImpl)
+            implementation(projects.feature.navigationRootScreen.clientImpl)
+            implementation(projects.feature.rootContentScreen.clientImpl)
+            implementation(projects.feature.rootScreen.clientImpl)
+            implementation(projects.feature.splashScreen.clientImpl)
+            implementation(projects.feature.welcomeScreen.clientImpl)
         }
     }
 }
