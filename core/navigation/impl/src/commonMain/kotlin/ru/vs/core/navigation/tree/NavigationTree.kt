@@ -15,16 +15,22 @@ import ru.vs.core.navigation.screen.ScreenPath
 import kotlin.reflect.KClass
 
 /**
- * TODO доку
+ * Главное древо навигации, описывает связи между экранами, то какие экраны открывают внутри себя другие экраны.
+ *
+ * @param repository репозиторий с исходными данными для построения дерева.
  */
 class NavigationTree internal constructor(
     private val repository: NavigationRepository,
 ) {
 
+    /**
+     * Указатель на вершину дерева навигации.
+     */
     internal val root = buildNavGraph()
 
     /**
-     * TODO доку
+     * Сериализатор для всех зарегистрированных [ScreenParams], используется внутри decompose для сохранения и
+     * восстановления состояния приложения.
      */
     internal val serializer = polymorphicSerializer(
         ScreenParams::class,
@@ -40,8 +46,7 @@ class NavigationTree internal constructor(
     /**
      * TODO доку.
      */
-
-    fun getDestinationsForPath(
+    internal fun getDestinationsForPath(
         startPath: ScreenPath,
         screenParams: ScreenParams,
     ): Sequence<ScreenPath> = sequence {
