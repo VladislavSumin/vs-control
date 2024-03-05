@@ -36,6 +36,11 @@ TODO()
 #set( $CamelCaseName = "" )#set( $part = "" )#foreach($part in $NAME.split("-"))#set( $CamelCaseName = "${CamelCaseName}#if($CamelCaseName.length() == 0)$part.substring(0,1).toLowerCase()#else$part.substring(0,1).toUpperCase()#end$part.substring(1).toLowerCase()" )#end
 ```
 
+### To lower case
+```
+#set($name = $NAME.substring(0,1).toLowerCase() + $NAME.substring(1))
+```
+
 ### Убираем кавычки
 
 ```
