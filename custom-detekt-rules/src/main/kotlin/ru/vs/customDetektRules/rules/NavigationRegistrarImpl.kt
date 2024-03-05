@@ -7,6 +7,7 @@ import io.gitlab.arturbosch.detekt.api.Entity
 import io.gitlab.arturbosch.detekt.api.Issue
 import io.gitlab.arturbosch.detekt.api.Rule
 import io.gitlab.arturbosch.detekt.api.Severity
+import io.gitlab.arturbosch.detekt.rules.isInternal
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.getSuperNames
 
@@ -36,6 +37,15 @@ class NavigationRegistrarImpl(config: Config = Config.empty) : Rule(config) {
                     entity = Entity.from(klass, 0),
                     message = "NavigationRegistrarImpl должен лежать в пакете " +
                         "'ru.vs.control.feature.<featureName>.ui.screen",
+                ),
+            )
+        }
+        if (!klass.isInternal()) {
+            report(
+                CodeSmell(
+                    issue = issue,
+                    entity = Entity.from(klass, 0),
+                    message = "NavigationRegistrarImpl должен быть internal",
                 ),
             )
         }

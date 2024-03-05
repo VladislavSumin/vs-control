@@ -6,7 +6,7 @@ import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
 import ru.vs.core.navigation.screen.ScreenKey
 
-class NavigationRegistrarImpl : NavigationRegistrar {
+internal class NavigationRegistrarImpl : NavigationRegistrar {
     override fun NavigationRegistry.register() {
         registerScreen(
             key = ScreenKey(RootNavigationScreenParams::class),
