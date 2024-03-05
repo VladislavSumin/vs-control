@@ -1,11 +1,20 @@
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
-    id("ru.vs.convention.kmp.all")
+    id("ru.vs.convention.kmp.all-non-android")
+    id("ru.vs.convention.kmp.android-application")
     id("ru.vs.convention.compose")
 }
 
 compose.experimental.web.application {}
+
+android {
+    namespace = "ru.vs.control"
+
+    defaultConfig {
+        applicationId = "ru.vs.control"
+    }
+}
 
 kotlin {
     js {

@@ -72,7 +72,7 @@ feature("splash-screen")
 feature("welcome-screen")
 
 include("client:common")
-include("client:android")
+//include("client:android")
 
 include(":server:jvm")
 
