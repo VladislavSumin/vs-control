@@ -46,6 +46,8 @@ gradleEnterprise {
     }
 }
 
+include(":custom-detekt-rules")
+
 include(":core:compose")
 include(":core:coroutines")
 include(":core:decompose")

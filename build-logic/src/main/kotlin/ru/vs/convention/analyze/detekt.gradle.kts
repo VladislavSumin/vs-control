@@ -37,6 +37,8 @@ tasks.named<Detekt>("detekt").configure {
 
 val libs = rootProject.the<LibrariesForLibs>()
 dependencies {
-    // Плагин детекта, добавляет проверку форматирования кода.
+    // Добавляет проверку форматирования кода.
     detektPlugins(libs.detekt.formatting)
+    // Кастомные правила.
+    detekt(project(":custom-detekt-rules"))
 }

@@ -1,0 +1,3 @@
+control:
+  navigationRegistrarImpl:
+    active: true
