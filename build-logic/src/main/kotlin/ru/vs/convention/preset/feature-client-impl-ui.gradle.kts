@@ -15,7 +15,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core:compose"))
-            implementation(project(":core:navigation:screen:impl"))
+            implementation(project(":core:navigation:impl"))
         }
     }
 }

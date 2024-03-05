@@ -23,6 +23,9 @@ class NavigationTree internal constructor(
 
     internal val root = buildNavGraph()
 
+    /**
+     * TODO доку
+     */
     internal val serializer = polymorphicSerializer(
         ScreenParams::class,
         SerializersModule {
