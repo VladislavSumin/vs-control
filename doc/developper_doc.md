@@ -6,6 +6,7 @@
 * [Convention плагины](developper/convention_plugins.md)
 * [Шаблоны для генерации кода](developper/templates.md)
 * [Кастомные github actions](developper/github_actions.md)
+* [Кастомные правила detekt](../custom-detekt-rules/README.md)
 * [Список костылей](developper/bad_decisions.md)
 * [Client](../client/README.md)
 
