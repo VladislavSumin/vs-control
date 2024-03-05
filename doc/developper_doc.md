@@ -7,6 +7,7 @@
 * [Шаблоны для генерации кода](developper/templates.md)
 * [Кастомные github actions](developper/github_actions.md)
 * [Список костылей](developper/bad_decisions.md)
+* [Client](../client/README.md)
 
 ## [Требования к дизайну](design/design_rules.md)
 
