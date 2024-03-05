@@ -1,5 +1,10 @@
 package ru.vs.core.navigation.tree
 
+import com.arkivanov.essenty.statekeeper.polymorphicSerializer
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.repository.DefaultScreenRegistration
@@ -7,6 +12,7 @@ import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.screen.DefaultScreenKey
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
+import kotlin.reflect.KClass
 
 /**
  * TODO доку
@@ -17,9 +23,21 @@ class NavigationTree internal constructor(
 
     internal val root = buildNavGraph()
 
+    internal val serializer = polymorphicSerializer(
+        ScreenParams::class,
+        SerializersModule {
+            polymorphic(ScreenParams::class) {
+                repository.serializers.forEach { (clazz, serializer) ->
+                    subclass(clazz.key as KClass<ScreenParams>, serializer as KSerializer<ScreenParams>)
+                }
+            }
+        },
+    )
+
     /**
      * TODO доку.
      */
+
     fun getDestinationsForPath(
         startPath: ScreenPath,
         screenParams: ScreenParams,

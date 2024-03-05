@@ -14,6 +14,7 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = ScreenKey(DebugScreenParams::class),
             factory = debugScreenFactory,
+            paramsSerializer = DebugScreenParams.serializer(),
             defaultParams = DebugScreenParams,
         )
         registerScreenNavigation(RootNavigationHost, ScreenKey(DebugScreenParams::class))

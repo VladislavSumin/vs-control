@@ -11,6 +11,7 @@ class NavigationRegistrarImpl : NavigationRegistrar {
         registerScreen(
             key = ScreenKey(RootNavigationScreenParams::class),
             factory = RootNavigationScreenFactory(),
+            paramsSerializer = RootNavigationScreenParams.serializer(),
             defaultParams = RootNavigationScreenParams,
             navigationHosts = listOf(RootNavigationHost),
         )

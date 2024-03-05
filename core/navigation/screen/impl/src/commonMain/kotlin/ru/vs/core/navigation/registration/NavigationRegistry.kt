@@ -1,5 +1,6 @@
 package ru.vs.core.navigation.registration
 
+import kotlinx.serialization.KSerializer
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.Screen
@@ -20,12 +21,14 @@ interface NavigationRegistry {
      * @param S тип экрана.
      * @param key ключ экрана.
      * @param factory фабрика компонента экрана.
+     * @param paramsSerializer сериализатор для [P].
      * @param defaultParams параметры экрана по умолчанию.
      * @param navigationHosts хосты навигации расположенные на этом экране
      */
     fun <P : ScreenParams, S : Screen> registerScreen(
         key: ScreenKey<P>,
         factory: ScreenFactory<P, S>,
+        paramsSerializer: KSerializer<P>,
         defaultParams: P? = null,
         navigationHosts: List<NavigationHost> = emptyList(),
     )

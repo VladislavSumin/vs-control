@@ -25,8 +25,7 @@ fun ScreenContext.childNavigationSlot(
     val source = SlotNavigation<ScreenParams>()
     val slot = childSlot(
         source = source,
-        saveConfiguration = { null }, // TODO
-        restoreConfiguration = { null }, // TODO
+        serializer = navigator.globalNavigator.navigationTree.serializer,
         key = navigationHost::class.qualifiedName!!,
         initialConfiguration = initialConfiguration,
         handleBackButton = handleBackButton,

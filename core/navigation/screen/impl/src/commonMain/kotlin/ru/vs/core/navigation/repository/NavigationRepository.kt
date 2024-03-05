@@ -1,5 +1,6 @@
 package ru.vs.core.navigation.repository
 
+import kotlinx.serialization.KSerializer
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.NavigationLogger
 import ru.vs.core.navigation.ScreenParams
@@ -23,6 +24,11 @@ internal interface NavigationRepository {
      * Список экранов которые могут открываться внутри определенных [NavigationHost].
      */
     val endpoints: Map<NavigationHost, Set<DefaultScreenKey>>
+
+    /**
+     * Множество [KSerializer] для сериализации [ScreenParams].
+     */
+    val serializers: Map<DefaultScreenKey, KSerializer<out ScreenParams>>
 }
 
 /**
@@ -34,6 +40,7 @@ internal class NavigationRepositoryImpl(
 ) : NavigationRepository {
     override val screens = mutableMapOf<DefaultScreenKey, DefaultScreenRegistration>()
     override val endpoints = mutableMapOf<NavigationHost, MutableSet<DefaultScreenKey>>()
+    override val serializers = mutableMapOf<DefaultScreenKey, KSerializer<out ScreenParams>>()
 
     /**
      * Состояние финализации [NavigationRegistry]. После создания [NavigationRepositoryImpl] добавлять новые элементы
@@ -64,9 +71,11 @@ internal class NavigationRepositoryImpl(
         override fun <P : ScreenParams, S : Screen> registerScreen(
             key: ScreenKey<P>,
             factory: ScreenFactory<P, S>,
+            paramsSerializer: KSerializer<P>,
             defaultParams: P?,
             navigationHosts: List<NavigationHost>,
         ) {
+            serializers[key] = paramsSerializer
             val screenRegistration = ScreenRegistration(factory, defaultParams, navigationHosts)
             val oldRegistration = screens.put(key, screenRegistration)
             check(oldRegistration == null) { "Double registration for key=$key" }
