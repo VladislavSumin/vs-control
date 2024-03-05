@@ -4,16 +4,16 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import ru.vs.core.navigation.ScreenParams
-import ru.vs.core.navigation.graph.NavigationGraph
-import ru.vs.core.navigation.graph.NavigationTree
 import ru.vs.core.navigation.navigator.GlobalNavigator
 import ru.vs.core.navigation.navigator.ScreenNavigator
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
+import ru.vs.core.navigation.tree.NavigationTree
 
+// TODO удалить
 internal fun ComponentContext.childRootScreenContext(
-    navigationGraph: NavigationGraph,
+    navigationTree: NavigationTree,
     node: NavigationTree.Node,
     params: ScreenParams,
     key: String,
@@ -23,7 +23,7 @@ internal fun ComponentContext.childRootScreenContext(
     with(childContext) {
         return DefaultScreenContext(
             ScreenNavigator(
-                GlobalNavigator(navigationGraph),
+                GlobalNavigator(navigationTree),
                 ScreenPath(listOf(params)),
                 node,
             ),

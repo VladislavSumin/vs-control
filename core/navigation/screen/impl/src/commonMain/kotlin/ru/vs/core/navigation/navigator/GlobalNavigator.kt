@@ -3,14 +3,14 @@ package ru.vs.core.navigation.navigator
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.ScreenParams
-import ru.vs.core.navigation.graph.NavigationGraph
 import ru.vs.core.navigation.screen.ScreenPath
+import ru.vs.core.navigation.tree.NavigationTree
 
 /**
  * Глобальный навигатор.
  */
 internal class GlobalNavigator(
-    internal val navigationGraph: NavigationGraph,
+    internal val navigationTree: NavigationTree,
 ) {
     private val screenNavigators = mutableMapOf<ScreenPath, ScreenNavigator>()
 
@@ -35,7 +35,7 @@ internal class GlobalNavigator(
      */
     fun open(screenPath: ScreenPath, screenParams: ScreenParams) {
         // TODO временное решение, нужно пройтись по всем путям.
-        val path = navigationGraph.tree.getDestinationsForPath(screenPath, screenParams).first()
+        val path = navigationTree.getDestinationsForPath(screenPath, screenParams).first()
 
         // TODO тоже что то на временном.
         path.path.indices.drop(1).forEach { index ->

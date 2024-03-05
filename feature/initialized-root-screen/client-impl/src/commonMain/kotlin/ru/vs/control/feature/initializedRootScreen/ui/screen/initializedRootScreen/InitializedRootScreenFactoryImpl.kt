@@ -1,15 +1,15 @@
 package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScreen
 
 import com.arkivanov.decompose.ComponentContext
-import ru.vs.core.navigation.graph.NavigationGraph
+import ru.vs.core.navigation.tree.NavigationTree
 
 internal class InitializedRootScreenFactoryImpl(
-    private val navigationGraph: NavigationGraph,
+    private val navigationTree: NavigationTree,
 ) : InitializedRootScreenFactory {
     override fun create(
         onContentReady: () -> Unit,
         componentContext: ComponentContext,
     ): InitializedRootScreenComponent {
-        return InitializedRootScreenComponentImpl(navigationGraph, onContentReady, componentContext)
+        return InitializedRootScreenComponentImpl(navigationTree, onContentReady, componentContext)
     }
 }

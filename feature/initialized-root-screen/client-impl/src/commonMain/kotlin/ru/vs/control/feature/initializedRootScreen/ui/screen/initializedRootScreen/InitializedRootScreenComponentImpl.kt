@@ -6,22 +6,20 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.vs.core.decompose.createCoroutineScope
-import ru.vs.core.navigation.graph.NavigationGraph
 import ru.vs.core.navigation.host.childNavigationRoot
+import ru.vs.core.navigation.tree.NavigationTree
 
 /**
  * @param onContentReady необходимо вызвать после готовности к отображению контента. Таким образом можно придержать
  * splash экран на время загрузки контента.
  */
 internal class InitializedRootScreenComponentImpl(
-    // TODO пока не используется, на будущее.
-    @Suppress("UnusedPrivateProperty")
-    private val navigationGraph: NavigationGraph,
+    private val navigationTree: NavigationTree,
     onContentReady: () -> Unit,
     context: ComponentContext,
 ) : InitializedRootScreenComponent, ComponentContext by context {
 
-    private val rootNavigation = childNavigationRoot(navigationGraph)
+    private val rootNavigation = childNavigationRoot(navigationTree)
 
     init {
         val scope = lifecycle.createCoroutineScope()

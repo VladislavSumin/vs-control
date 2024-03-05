@@ -1,5 +1,6 @@
-package ru.vs.core.navigation.graph
+package ru.vs.core.navigation.tree
 
+import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.repository.DefaultScreenRegistration
 import ru.vs.core.navigation.repository.NavigationRepository
@@ -7,11 +8,14 @@ import ru.vs.core.navigation.screen.DefaultScreenKey
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
 
-internal class NavigationTree(
+/**
+ * TODO доку
+ */
+class NavigationTree internal constructor(
     private val repository: NavigationRepository,
 ) {
 
-    val root = buildNavGraph()
+    internal val root = buildNavGraph()
 
     /**
      * TODO доку.
@@ -48,7 +52,7 @@ internal class NavigationTree(
      */
     private fun buildNavGraph(): Node {
         val rootScreen = findRootScreen()
-        return buildNode(parent = null, rootScreen)
+        return buildNode(parent = null, hostInParent = null, rootScreen)
     }
 
     /**
@@ -58,16 +62,16 @@ internal class NavigationTree(
      * ноды дерева.
      * @param screenKey ключ соответствующий [Node] которую нужно создать.
      */
-    private fun buildNode(parent: Node?, screenKey: DefaultScreenKey): Node {
+    private fun buildNode(parent: Node?, hostInParent: NavigationHost?, screenKey: DefaultScreenKey): Node {
         val screenRegistration = repository.screens[screenKey] ?: error("Unreachable")
-        val node = MutableNode(parent, screenKey, screenRegistration)
+        val node = MutableNode(parent, hostInParent, screenKey, screenRegistration)
 
         // Пробегаемся по всем навигационным хостам объявленным для данной ноды.
         screenRegistration.navigationHosts.forEach { navHost ->
             // Пробегаемся по всем экранам которые могут быть открыты в данном navHost
             repository.endpoints[navHost]?.forEach { screenKey ->
                 // Строим дочерние экраны для таких нод
-                val oldChildren = node.children.put(screenKey, buildNode(node, screenKey))
+                val oldChildren = node.children.put(screenKey, buildNode(node, navHost, screenKey))
                 // Может возникнуть ситуация когда один screenKey зарегистрирован для двух и более navHost которые
                 // зарегистрированы для обработки текущим экраном, эта ситуация недопустима, так как не ясно в каком
                 // navHost открывать экран.
@@ -95,12 +99,14 @@ internal class NavigationTree(
      * Узел навигационного дерева.
      *
      * @property parent родительская нода, null только для корневой ноды графа.
+     * @property hostInParent хост, который занимает данная нода в родительском экране, null для root ноды.
      * @property screenKey ключ экрана за который отвечает эта нода.
      * @property screenRegistration параметры регистрации соответствующего экрана.
      * @property children список дочерних нод (экраны в которые возможна навигация из этой ноды).
      */
-    interface Node {
+    internal interface Node {
         val parent: Node?
+        val hostInParent: NavigationHost?
         val screenKey: DefaultScreenKey
         val screenRegistration: DefaultScreenRegistration
         val children: Map<DefaultScreenKey, Node>
@@ -112,6 +118,7 @@ internal class NavigationTree(
      */
     private class MutableNode(
         override val parent: Node?,
+        override val hostInParent: NavigationHost?,
         override val screenKey: DefaultScreenKey,
         override val screenRegistration: DefaultScreenRegistration,
         override val children: MutableMap<DefaultScreenKey, Node> = mutableMapOf(),

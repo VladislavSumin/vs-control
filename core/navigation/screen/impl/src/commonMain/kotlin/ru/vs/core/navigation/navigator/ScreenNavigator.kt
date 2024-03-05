@@ -4,10 +4,10 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
-import ru.vs.core.navigation.graph.NavigationTree
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
+import ru.vs.core.navigation.tree.NavigationTree
 
 /**
  * Навигатор уровня экрана.
@@ -43,19 +43,15 @@ class ScreenNavigator internal constructor(
         }
     }
 
+    /**
+     * TODO доку
+     */
     internal fun openInside(screenParams: ScreenParams) {
         val screenKey = ScreenKey(screenParams::class)
-        var found = false
-        // TODO тут однозначно переписать
-        navigationHosts.forEach { (navigationHost, navigator) ->
-            if (!found &&
-                globalNavigator.navigationGraph.repository.endpoints[navigationHost]?.contains(screenKey) == true
-            ) {
-                found = true
-                navigator.open(screenParams)
-            }
-        }
-        check(found)
+        val childNode = node.children[screenKey] ?: error("Child node with screenKey=$screenKey not found")
+        val hostNavigator = navigationHosts[childNode.hostInParent]
+            ?: error("Host navigator for host=${childNode.hostInParent} not found")
+        hostNavigator.open(screenParams)
     }
 
     /**
