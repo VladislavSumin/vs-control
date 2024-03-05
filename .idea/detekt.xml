@@ -8,6 +8,11 @@
     </option>
     <option name="enableDetekt" value="true" />
     <option name="enableFormatting" value="true" />
+    <option name="pluginJars">
+      <list>
+        <option value="$PROJECT_DIR$/custom-detekt-rules/build/libs/custom-detekt-rules.jar" />
+      </list>
+    </option>
     <option name="treatAsErrors" value="true" />
   </component>
 </project>
