@@ -59,6 +59,8 @@ kodein-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
 kodein-android = { module = "org.kodein.di:kodein-di-framework-android-x", version.ref = "kodein" }
 
 # Checkstyle
+detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "gradlePlugins-detekt" }
+detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "gradlePlugins-detekt" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "gradlePlugins-detekt" }
 
 # Logging
