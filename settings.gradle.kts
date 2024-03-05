@@ -73,10 +73,6 @@ feature("welcome-screen")
 
 include("client:common")
 include("client:android")
-include("client:js")
-include("client:jvm")
-include("client:macos")
-include("client:wasm")
 
 include(":server:jvm")
 

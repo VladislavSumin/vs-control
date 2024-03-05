@@ -1,9 +1,49 @@
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
     id("ru.vs.convention.kmp.all")
     id("ru.vs.convention.compose")
 }
 
+compose.experimental.web.application {}
+
 kotlin {
+    js {
+        binaries.executable()
+
+        browser {
+            commonWebpackConfig {
+                outputFileName = "main.js"
+            }
+        }
+    }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        binaries.executable()
+        browser {
+            commonWebpackConfig {
+                outputFileName = "main.js"
+            }
+        }
+    }
+
+    macosX64 {
+        binaries {
+            executable {
+                entryPoint = "main"
+            }
+        }
+    }
+
+    macosArm64 {
+        binaries {
+            executable {
+                entryPoint = "main"
+            }
+        }
+    }
+
     sourceSets {
         commonMain.dependencies {
             api(projects.core.logger.api)
