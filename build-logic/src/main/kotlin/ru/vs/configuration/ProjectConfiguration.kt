@@ -39,5 +39,5 @@ val Project.projectConfiguration: ProjectConfiguration
     get() = rootProject.extensions.findByType()
         ?: rootProject.extensions.create(
             ProjectConfiguration::class.java.simpleName,
-            PropertyProvider { project.findProperty(it)?.toString() }
+            PropertyProvider { project.findProperty(it)?.toString() },
         )

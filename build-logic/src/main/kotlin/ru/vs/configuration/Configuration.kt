@@ -20,7 +20,7 @@ abstract class Configuration(
      */
     constructor(relativePath: String, parent: Configuration) : this(
         "${parent.basePath}.$relativePath",
-        parent.propertyProvider
+        parent.propertyProvider,
     )
 
     protected inline fun <reified T : Any> property(relativePath: String, defaultValue: T): T =

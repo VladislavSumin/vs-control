@@ -114,6 +114,6 @@ internal class NavigationTree(
         override val parent: Node?,
         override val screenKey: DefaultScreenKey,
         override val screenRegistration: DefaultScreenRegistration,
-        override val children: MutableMap<DefaultScreenKey, Node> = mutableMapOf()
+        override val children: MutableMap<DefaultScreenKey, Node> = mutableMapOf(),
     ) : Node
 }

@@ -16,7 +16,7 @@ interface JsonFactory {
  * по умолчанию через [createDefault].
  */
 internal class JsonFactoryImpl(
-    private val serializersModulesSet: Set<SerializersModule>
+    private val serializersModulesSet: Set<SerializersModule>,
 ) : JsonFactory {
 
     private val mergedModule: SerializersModule by lazy {

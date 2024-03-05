@@ -74,7 +74,7 @@ internal class NavigationRepositoryImpl(
 
         override fun <P : ScreenParams> registerScreenNavigation(
             navigationHost: NavigationHost,
-            screenKey: ScreenKey<P>
+            screenKey: ScreenKey<P>,
         ) {
             checkFinalization()
             val navigationHostEndpoints = endpoints.getOrPut(navigationHost) { mutableSetOf() }

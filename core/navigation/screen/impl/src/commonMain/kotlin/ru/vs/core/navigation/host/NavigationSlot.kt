@@ -37,7 +37,7 @@ fun ScreenContext.childNavigationSlot(
             val screenFactory = navigator.node.children[screenKey]!!.screenRegistration.factory
                 as ScreenFactory<ScreenParams, out Screen>
             screenFactory.create(screenContext, screenParams)
-        }
+        },
     )
 
     val hostNavigator = SlotHostNavigator(source)

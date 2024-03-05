@@ -49,5 +49,5 @@ internal fun ComponentContext.wrapWithScreenContext(
 
 private class DefaultScreenContext(
     override val navigator: ScreenNavigator,
-    context: ComponentContext
+    context: ComponentContext,
 ) : ScreenContext, ComponentContext by context

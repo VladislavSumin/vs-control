@@ -50,13 +50,13 @@ internal class NavigationGraphUmlDiagramComponent(
                     scaleY = scale,
                     rotationZ = rotation,
                     translationX = offset.x,
-                    translationY = offset.y
+                    translationY = offset.y,
                 )
                 // add transformable to listen to multitouch transformation events
                 // after offset
                 .transformable(state = state)
                 .background(Color.Blue)
-                .fillMaxSize()
+                .fillMaxSize(),
         ) {
             Text("TEST")
         }

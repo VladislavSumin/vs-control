@@ -64,7 +64,8 @@ fun <T : Any> ComponentContext.childSplash(
         stateMapper = { state, children ->
             val child = when (state) {
                 SplashNavState.Splash,
-                SplashNavState.InitializedSplash -> children.last()
+                SplashNavState.InitializedSplash,
+                -> children.last()
 
                 SplashNavState.Content -> children.first()
             }
@@ -76,7 +77,7 @@ fun <T : Any> ComponentContext.childSplash(
                 ChildSplashConfiguration.Splash -> splashComponentFactory(context)
                 ChildSplashConfiguration.Content -> contentComponentFactory(onContentReady, context)
             }
-        }
+        },
     )
 
     // Запускаем процесс ожидания инициализации только после создания children, так как decompose navigationSource не

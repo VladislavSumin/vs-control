@@ -52,7 +52,7 @@ abstract class ViewModel : InstanceKeeper.Instance {
     protected fun launch(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
-        block: suspend CoroutineScope.() -> Unit
+        block: suspend CoroutineScope.() -> Unit,
     ) {
         viewModelScope.launch(context, start, block)
     }
