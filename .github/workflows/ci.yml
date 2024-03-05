@@ -73,8 +73,8 @@ jobs:
         uses: ./.github/actions/run_gradle
         with:
           gradle_command: >-
-            :client:macos:macosArm64Binaries
-            :client:macos:macosX64Binaries
+            :client:common:macosArm64Binaries
+            :client:common:macosX64Binaries
 
   unit-tests:
     name: Unit tests
