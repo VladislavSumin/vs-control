@@ -56,7 +56,7 @@ jobs:
       - name: Run gradle
         uses: ./.github/actions/run_gradle
         with:
-          gradle_command: :client:android:assembleDebug
+          gradle_command: :client:assembleDebug
 
   assemble-macos-client:
     name: Assemble macos client
@@ -73,8 +73,8 @@ jobs:
         uses: ./.github/actions/run_gradle
         with:
           gradle_command: >-
-            :client:common:macosArm64Binaries
-            :client:common:macosX64Binaries
+            :client:macosArm64Binaries
+            :client:macosX64Binaries
 
   unit-tests:
     name: Unit tests

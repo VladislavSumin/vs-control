@@ -71,8 +71,7 @@ feature("root-screen")
 feature("splash-screen")
 feature("welcome-screen")
 
-include("client:common")
-//include("client:android")
+include("client")
 
 include(":server:jvm")
 
