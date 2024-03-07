@@ -5,6 +5,7 @@ import io.gitlab.arturbosch.detekt.api.RuleSet
 import io.gitlab.arturbosch.detekt.api.RuleSetProvider
 import ru.vs.customDetektRules.rules.NavigationRegistrarImpl
 import ru.vs.customDetektRules.rules.Screen
+import ru.vs.customDetektRules.rules.ScreenFactory
 
 /**
  * Предоставляет конфигурацию и список правил для detekt
@@ -19,6 +20,7 @@ class CustomDetektRuleSetProvider : RuleSetProvider {
             listOf(
                 NavigationRegistrarImpl(config),
                 Screen(config),
+                ScreenFactory(config),
             ),
         )
     }

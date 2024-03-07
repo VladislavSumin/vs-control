@@ -3,3 +3,5 @@ control:
     active: true
   screen:
     active: true
+  screenFactory:
+    active: true
