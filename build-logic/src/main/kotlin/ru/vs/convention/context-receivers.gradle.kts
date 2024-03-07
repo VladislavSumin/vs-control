@@ -1,4 +1,4 @@
-package ru.vs.convention.kmp
+package ru.vs.convention
 
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
@@ -6,10 +6,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 /**
  * Включает kotlin context-receivers.
  */
-
-plugins {
-    id("kotlin-multiplatform")
-}
 
 tasks.withType<KotlinCompilationTask<*>>().configureEach {
     compilerOptions {

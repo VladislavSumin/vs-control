@@ -8,6 +8,8 @@
   автоматически прописывает *-impl модулю api зависимость на *-api модуль.
 * [ru.vs.convention.atomicfu](../../build-logic/src/main/kotlin/ru/vs/convention/atomicfu.gradle.kts) настраивает
   atomicfu.
+* [ru.vs.convention.context-receivers](../../build-logic/src/main/kotlin/ru/vs/convention/context-receivers.gradle.kts)
+  настраивает kotlin context receivers.
 
 ## [ru.vs.convention.preset.*](../../build-logic/src/main/kotlin/ru/vs/convention/preset)
 
