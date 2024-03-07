@@ -11,32 +11,35 @@ import io.gitlab.arturbosch.detekt.rules.isInternal
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.getSuperNames
 
-class NavigationRegistrarImpl(config: Config = Config.empty) : Rule(config) {
+class Screen(config: Config = Config.empty) : Rule(config) {
     override val issue = Issue(
-        id = "navigationRegistrarImpl",
-        description = "Проверка что все классы наследующиеся от NavigationRegistrar правильно названы и расположены",
+        id = "screen",
+        description = "Проверки для наследников Screen",
         severity = Severity.CodeSmell,
         debt = Debt.FIVE_MINS,
     )
 
     override fun visitClass(klass: KtClass) {
-        if (NAVIGATION_REGISTRAR_NAME !in klass.getSuperNames()) return
-        if (klass.name != NAVIGATION_REGISTRAR_IMPL_NAME) {
+        if (SCREEN_NAME !in klass.getSuperNames()) return
+
+        if (!SCREEN_IMPL_NAME_REGEX.matches(klass.name!!)) {
             report(
                 CodeSmell(
                     issue = issue,
                     entity = Entity.from(klass.nameIdentifier!!, 0),
-                    message = "Наследники NavigationRegistrar должны называться NavigationRegistrarImpl",
+                    message = "Наследники Screen должны иметь постфикс Screen",
                 ),
             )
         }
-        if (!PACKAGE_REGEX.matches(klass.fqName!!.parent().asString())) {
+
+        val packageMatches = PACKAGE_REGEX.matchEntire(klass.fqName!!.parent().asString())
+        if (packageMatches == null || packageMatches.groups[1]?.value != klass.name!!.decapitalize()) {
             report(
                 CodeSmell(
                     issue = issue,
                     entity = Entity.from(klass, 0),
-                    message = "NavigationRegistrarImpl должен лежать в пакете " +
-                        "'ru.vs.control.feature.<featureName>.ui.screen",
+                    message = "${klass.name!!} должен лежать в пакете " +
+                        "'ru.vs.control.feature.<featureName>.ui.screen.${klass.name!!.decapitalize()}",
                 ),
             )
         }
@@ -45,15 +48,15 @@ class NavigationRegistrarImpl(config: Config = Config.empty) : Rule(config) {
                 CodeSmell(
                     issue = issue,
                     entity = Entity.from(klass, 0),
-                    message = "NavigationRegistrarImpl должен быть internal",
+                    message = "${klass.name} должен быть internal",
                 ),
             )
         }
     }
 
     companion object {
-        private const val NAVIGATION_REGISTRAR_NAME = "NavigationRegistrar"
-        private const val NAVIGATION_REGISTRAR_IMPL_NAME = "NavigationRegistrarImpl"
-        private val PACKAGE_REGEX = "ru\\.vs\\.control\\.feature\\..*\\.ui\\.screen".toRegex()
+        private const val SCREEN_NAME = "Screen"
+        private val SCREEN_IMPL_NAME_REGEX = ".*Screen".toRegex()
+        private val PACKAGE_REGEX = "ru\\.vs\\.control\\.feature\\..*\\.ui\\.screen\\.(.*)".toRegex()
     }
 }

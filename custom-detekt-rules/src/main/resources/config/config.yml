@@ -1,3 +1,5 @@
 control:
   navigationRegistrarImpl:
     active: true
+  screen:
+    active: true
