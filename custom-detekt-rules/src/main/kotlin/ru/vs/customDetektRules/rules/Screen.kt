@@ -10,6 +10,7 @@ import io.gitlab.arturbosch.detekt.api.Severity
 import io.gitlab.arturbosch.detekt.rules.isInternal
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.getSuperNames
+import ru.vs.customDetektRules.check.checkName
 
 class Screen(config: Config = Config.empty) : Rule(config) {
     override val issue = Issue(
@@ -21,16 +22,7 @@ class Screen(config: Config = Config.empty) : Rule(config) {
 
     override fun visitClass(klass: KtClass) {
         if (SCREEN_NAME !in klass.getSuperNames()) return
-
-        if (!SCREEN_IMPL_NAME_REGEX.matches(klass.name!!)) {
-            report(
-                CodeSmell(
-                    issue = issue,
-                    entity = Entity.from(klass.nameIdentifier!!, 0),
-                    message = "Наследники Screen должны иметь постфикс Screen",
-                ),
-            )
-        }
+        klass.checkName(SCREEN_IMPL_NAME_REGEX) { "Наследники Screen должны иметь постфикс Screen" }
 
         val packageMatches = PACKAGE_REGEX.matchEntire(klass.fqName!!.parent().asString())
         if (packageMatches == null || packageMatches.groups[1]?.value != klass.name!!.decapitalize()) {

@@ -10,6 +10,7 @@ import io.gitlab.arturbosch.detekt.api.Severity
 import io.gitlab.arturbosch.detekt.rules.isInternal
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.getSuperNames
+import ru.vs.customDetektRules.check.checkName
 
 class NavigationRegistrarImpl(config: Config = Config.empty) : Rule(config) {
     override val issue = Issue(
@@ -21,15 +22,10 @@ class NavigationRegistrarImpl(config: Config = Config.empty) : Rule(config) {
 
     override fun visitClass(klass: KtClass) {
         if (NAVIGATION_REGISTRAR_NAME !in klass.getSuperNames()) return
-        if (klass.name != NAVIGATION_REGISTRAR_IMPL_NAME) {
-            report(
-                CodeSmell(
-                    issue = issue,
-                    entity = Entity.from(klass.nameIdentifier!!, 0),
-                    message = "Наследники NavigationRegistrar должны называться NavigationRegistrarImpl",
-                ),
-            )
+        klass.checkName(NAVIGATION_REGISTRAR_IMPL_NAME_REGEX) {
+            "Наследники NavigationRegistrar должны называться NavigationRegistrarImpl"
         }
+
         if (!PACKAGE_REGEX.matches(klass.fqName!!.parent().asString())) {
             report(
                 CodeSmell(
@@ -53,7 +49,7 @@ class NavigationRegistrarImpl(config: Config = Config.empty) : Rule(config) {
 
     companion object {
         private const val NAVIGATION_REGISTRAR_NAME = "NavigationRegistrar"
-        private const val NAVIGATION_REGISTRAR_IMPL_NAME = "NavigationRegistrarImpl"
+        private val NAVIGATION_REGISTRAR_IMPL_NAME_REGEX = "NavigationRegistrarImpl".toRegex()
         private val PACKAGE_REGEX = "ru\\.vs\\.control\\.feature\\..*\\.ui\\.screen".toRegex()
     }
 }

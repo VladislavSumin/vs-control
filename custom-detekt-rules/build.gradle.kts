@@ -1,5 +1,6 @@
 plugins {
     id("kotlin")
+    id("ru.vs.convention.context-receivers")
 }
 
 dependencies {
