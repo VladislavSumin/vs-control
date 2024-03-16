@@ -5,3 +5,5 @@ control:
     active: true
   screenFactory:
     active: true
+  screenComponent:
+    active: true
