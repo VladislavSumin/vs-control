@@ -22,16 +22,18 @@ class ScreenComponent(config: Config = Config.empty) : Rule(config) {
 
     override fun visitClass(klass: KtClass) {
         if (SCREEN_COMPONENT_NAME !in klass.getSuperNames()) return
-        klass.checkName(SCREEN_COMPONENT_IMPL_NAME_REGEX) { "Наследники ScreenComponent должны иметь постфикс ScreenComponent" }
+        klass.checkName(SCREEN_COMPONENT_IMPL_NAME_REGEX) {
+            "Наследники ScreenComponent должны иметь постфикс ScreenComponent"
+        }
 
         val packageMatches = PACKAGE_REGEX.matchEntire(klass.fqName!!.parent().asString())
-        if (packageMatches == null || packageMatches.groups[1]?.value != klass.name!!.decapitalize()) {
+        if (packageMatches == null || packageMatches.groups[1]?.value != klass.name?.decapitalize()) {
             report(
                 CodeSmell(
                     issue = issue,
                     entity = Entity.from(klass, 0),
                     message = "${klass.name!!} должен лежать в пакете " +
-                        "'ru.vs.control.feature.<featureName>.ui.screen.${klass.name!!.decapitalize()}",
+                        "'ru.vs.control.feature.<featureName>.ui.screen.${klass.name?.decapitalize()}",
                 ),
             )
         }
