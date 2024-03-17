@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/custom-detekt-rules/build/libs/custom-detekt-rules.jar" />
       </list>
     </option>
+    <option name="redirectChannels" value="true" />
     <option name="treatAsErrors" value="true" />
   </component>
 </project>
