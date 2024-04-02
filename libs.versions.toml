@@ -8,7 +8,7 @@ kotlin-atomicfu = "0.23.2"
 
 # Compose
 jb-compose = "1.6.0"
-decompose = "3.0.0-alpha07"
+decompose = "3.0.0-alpha08"
 
 # Gradle plugins
 gradlePlugins-android = "8.2.2"
@@ -25,7 +25,7 @@ kodein = "7.21.2"
 logging-log4j = "2.22.1"
 
 # Testing
-mockk = "1.13.9"
+mockk = "1.13.10"
 
 [libraries]
 
