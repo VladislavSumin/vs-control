@@ -12,7 +12,7 @@ decompose = "3.0.0-alpha07"
 
 # Gradle plugins
 gradlePlugins-android = "8.2.2"
-gradlePlugins-detekt = "1.23.4"
+gradlePlugins-detekt = "1.23.6"
 gradlePlugins-modulesGraphAssert = "2.5.0"
 
 # Android
