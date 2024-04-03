@@ -62,6 +62,7 @@ include(":core:navigation:impl")
 include(":core:properties:api")
 include(":core:serialization:json")
 include(":core:splash")
+include(":core:uikit:icons")
 
 feature("app-info")
 feature("debug-screen")

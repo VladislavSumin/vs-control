@@ -15,3 +15,4 @@ Core модули могут содержать только самый базо
 * [properties](properties/README.md) фреймворк для работы с сохранением пар ключ-значение.
 * [serialization](serialization/README.md) фреймворк для работы с сериализацией данных.
 * [splash](splash/README.md) навигация для splash экрана.
+* [uikit](uikit/README.md) дизайн система.
