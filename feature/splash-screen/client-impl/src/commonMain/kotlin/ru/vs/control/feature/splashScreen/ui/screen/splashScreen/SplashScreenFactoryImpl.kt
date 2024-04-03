@@ -4,8 +4,13 @@ import com.arkivanov.decompose.ComponentContext
 import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenComponent
 import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenFactory
 
-internal class SplashScreenFactoryImpl : SplashScreenFactory {
+internal class SplashScreenFactoryImpl(
+    private val splashScreenViewModelFactory: SplashScreenViewModelFactory,
+) : SplashScreenFactory {
     override fun create(context: ComponentContext): SplashScreenComponent {
-        return SplashScreenComponentImpl(context)
+        return SplashScreenComponentImpl(
+            splashScreenViewModelFactory,
+            context,
+        )
     }
 }
