@@ -44,6 +44,12 @@ internal fun SplashScreenContent(viewModel: SplashScreenViewModel, modifier: Mod
 
 @Preview
 @Composable
-internal fun SplashScreenContentPreview() {
+internal fun SplashScreenContentFastLoadingPreview() {
+    SplashScreenContent(SplashScreenViewModelPreview(false), Modifier.fillMaxSize())
+}
+
+@Preview
+@Composable
+internal fun SplashScreenContentLongLoadingPreview() {
     SplashScreenContent(SplashScreenViewModelPreview(true), Modifier.fillMaxSize())
 }
