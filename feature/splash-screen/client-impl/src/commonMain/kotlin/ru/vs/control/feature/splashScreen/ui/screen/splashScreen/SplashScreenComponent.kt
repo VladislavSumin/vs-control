@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
-import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenComponent
+import ru.vs.core.decompose.ComposeComponent
 
-internal class SplashScreenComponentImpl(
+internal class SplashScreenComponent(
     splashScreenViewModelFactory: SplashScreenViewModelFactory,
     context: ComponentContext,
-) : SplashScreenComponent, ComponentContext by context {
+) : ComposeComponent, ComponentContext by context {
     private val viewModel = instanceKeeper.getOrCreate { splashScreenViewModelFactory.create() }
 
     @Composable

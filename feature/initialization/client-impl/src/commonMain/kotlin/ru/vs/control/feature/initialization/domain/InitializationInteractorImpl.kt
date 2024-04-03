@@ -1,7 +1,6 @@
 package ru.vs.control.feature.initialization.domain
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -13,26 +12,29 @@ class InitializationInteractorImpl(
     private val notInitializedDi: DirectDI,
     private val initializedDependenciesBuilder: InitializedDependenciesBuilder,
 ) : InitializationInteractor {
+    /**
+     * [Mutex] для защиты от двойной инициализации.
+     */
     private val initLock = Mutex()
+
+    /**
+     * Граф инициализированного приложения.
+     */
     private var initializedDi: DirectDI? = null
 
     override suspend fun init(): DirectDI = initLock.withLock {
         var di = initializedDi
         if (di == null) {
-            di = withContext(Dispatchers.Default) {
-                // Тестовая задержка для имитации долгой загрузки
-                @Suppress("MagicNumber")
-                delay(1500)
-
-                DI {
-                    extend(notInitializedDi)
-                    with(initializedDependenciesBuilder) {
-                        build()
-                    }
-                }.direct
-            }
+            di = initUnsafe()
             initializedDi = di
         }
         di
+    }
+
+    private suspend fun initUnsafe(): DirectDI = withContext(Dispatchers.Default) {
+        DI {
+            extend(notInitializedDi)
+            with(initializedDependenciesBuilder) { build() }
+        }.direct
     }
 }
