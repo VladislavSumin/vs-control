@@ -1,8 +1,10 @@
 package ru.vs.control.feature.splashScreen.ui.screen.splashScreen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -38,4 +40,10 @@ internal fun SplashScreenContent(viewModel: SplashScreenViewModel, modifier: Mod
             }
         }
     }
+}
+
+@Preview
+@Composable
+internal fun SplashScreenContentPreview() {
+    SplashScreenContent(SplashScreenViewModelPreview(true), Modifier.fillMaxSize())
 }
