@@ -10,13 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.vs.core.composeSharedElement.SharedElement
 import ru.vs.core.uikit.icons.Logo
 
 @Composable
 internal fun WelcomeScreenContent(viewModel: WelcomeScreenViewModel, modifier: Modifier) {
     Box(modifier) {
-        Column(Modifier.align(Alignment.Center)) {
-            Icon(Logo, contentDescription = null, Modifier.size(128.dp))
+        Column(Modifier.align(Alignment.TopStart)) {
+            SharedElement(id = "splash_icon") {
+                Icon(Logo, contentDescription = null, Modifier.size(128.dp))
+            }
             Text("Welcome to Control")
             Button(onClick = viewModel::onClickContinue) {
                 Text("to content")

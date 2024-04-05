@@ -15,6 +15,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core:compose"))
+            implementation(project(":core:compose-shared-element"))
             implementation(project(":core:navigation:impl"))
             implementation(project(":core:uikit:icons"))
         }

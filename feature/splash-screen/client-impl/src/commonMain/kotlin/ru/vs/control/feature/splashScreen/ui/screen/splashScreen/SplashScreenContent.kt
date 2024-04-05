@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.vs.core.composeSharedElement.SharedElement
 import ru.vs.core.uikit.icons.Logo
 
 @Composable
@@ -24,11 +25,13 @@ internal fun SplashScreenContent(viewModel: SplashScreenViewModel, modifier: Mod
             Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Icon(
-                Logo,
-                contentDescription = null,
-                Modifier.size(128.dp),
-            )
+            SharedElement(id = "splash_icon") {
+                Icon(
+                    Logo,
+                    contentDescription = null,
+                    Modifier.size(128.dp),
+                )
+            }
 
             val isProgressVisible = when (state) {
                 SplashScreenViewState.FastLoading -> false

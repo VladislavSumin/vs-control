@@ -7,6 +7,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlinx.coroutines.flow.first
 import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenFactory
+import ru.vs.core.composeSharedElement.SharedElementHost
 import ru.vs.core.splash.Children
 import ru.vs.core.splash.childSplash
 
@@ -29,8 +30,10 @@ internal class RootScreenComponentImpl(
 
     @Composable
     override fun Render(modifier: Modifier) {
-        Children(splash, modifier) {
-            it.Render(Modifier.fillMaxSize())
+        SharedElementHost {
+            Children(splash, modifier) {
+                it.Render(Modifier.fillMaxSize())
+            }
         }
     }
 }

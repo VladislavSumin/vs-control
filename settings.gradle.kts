@@ -49,6 +49,7 @@ gradleEnterprise {
 include(":custom-detekt-rules")
 
 include(":core:compose")
+include(":core:compose-shared-element")
 include(":core:coroutines")
 include(":core:decompose")
 include(":core:di")
