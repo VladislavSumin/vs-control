@@ -7,11 +7,13 @@ import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
 import ru.vs.core.navigation.screen.ScreenKey
 
-internal class NavigationRegistrarImpl : NavigationRegistrar {
+internal class NavigationRegistrarImpl(
+    private val welcomeScreenFactory: WelcomeScreenFactory,
+) : NavigationRegistrar {
     override fun NavigationRegistry.register() {
         registerScreen(
             key = ScreenKey(WelcomeScreenParams::class),
-            factory = WelcomeScreenFactory(),
+            factory = welcomeScreenFactory,
             paramsSerializer = WelcomeScreenParams.serializer(),
             defaultParams = WelcomeScreenParams,
         )

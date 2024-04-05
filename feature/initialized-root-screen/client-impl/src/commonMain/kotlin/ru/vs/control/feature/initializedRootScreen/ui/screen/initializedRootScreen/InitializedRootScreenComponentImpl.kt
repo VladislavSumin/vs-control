@@ -14,7 +14,7 @@ import ru.vs.core.navigation.tree.NavigationTree
  * splash экран на время загрузки контента.
  */
 internal class InitializedRootScreenComponentImpl(
-    private val navigationTree: NavigationTree,
+    navigationTree: NavigationTree,
     onContentReady: () -> Unit,
     context: ComponentContext,
 ) : InitializedRootScreenComponent, ComponentContext by context {
@@ -25,7 +25,7 @@ internal class InitializedRootScreenComponentImpl(
         val scope = lifecycle.createCoroutineScope()
         scope.launch {
             @Suppress("MagicNumber")
-            delay(1500)
+            delay(500)
             onContentReady()
         }
     }
