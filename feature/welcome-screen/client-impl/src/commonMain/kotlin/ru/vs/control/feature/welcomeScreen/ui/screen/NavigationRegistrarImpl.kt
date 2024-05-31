@@ -17,6 +17,7 @@ internal class NavigationRegistrarImpl(
             key = ScreenKey(WelcomeScreenParams::class),
             factory = welcomeScreenFactory,
             paramsSerializer = WelcomeScreenParams.serializer(),
+            nameForLogs = "WelcomeScreenParams",
             defaultParams = WelcomeScreenParams,
         )
         registerScreenNavigation(RootNavigationHost, ScreenKey(WelcomeScreenParams::class))

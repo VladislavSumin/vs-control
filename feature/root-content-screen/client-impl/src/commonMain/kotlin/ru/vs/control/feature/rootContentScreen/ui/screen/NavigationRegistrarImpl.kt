@@ -15,6 +15,7 @@ internal class NavigationRegistrarImpl : NavigationRegistrar {
             key = ScreenKey(RootContentScreenParams::class),
             factory = RootContentScreenFactory(),
             paramsSerializer = RootContentScreenParams.serializer(),
+            nameForLogs = "RootContentScreenParams",
             defaultParams = RootContentScreenParams,
         )
         registerScreenNavigation(RootNavigationHost, ScreenKey(RootContentScreenParams::class))

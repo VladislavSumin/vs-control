@@ -12,6 +12,7 @@ import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.screen.DefaultScreenKey
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
+import ru.vs.core.utils.joinToStingFormatted
 import kotlin.reflect.KClass
 
 /**
@@ -20,13 +21,13 @@ import kotlin.reflect.KClass
  * @param repository репозиторий с исходными данными для построения дерева.
  */
 class NavigationTree internal constructor(
-    private val repository: NavigationRepository,
+    repository: NavigationRepository,
 ) {
 
     /**
      * Указатель на вершину дерева навигации.
      */
-    internal val root = buildNavGraph()
+    internal val root: Node = buildNavGraph(repository)
 
     /**
      * Сериализатор для всех зарегистрированных [ScreenParams], используется внутри decompose для сохранения и
@@ -76,9 +77,14 @@ class NavigationTree internal constructor(
      *
      * @return возвращает головную [Node] полученного дерева.
      */
-    private fun buildNavGraph(): Node {
-        val rootScreen = findRootScreen()
-        return buildNode(parent = null, hostInParent = null, rootScreen)
+    private fun buildNavGraph(repository: NavigationRepository): Node {
+        val rootScreen = findRootScreen(repository)
+        return buildNode(
+            parent = null,
+            hostInParent = null,
+            screenKey = rootScreen,
+            repository = repository,
+        )
     }
 
     /**
@@ -86,9 +92,16 @@ class NavigationTree internal constructor(
      *
      * @param parent родительская нода, нужна для создания дерева с возможностью перемещаться вверх, null для головной
      * ноды дерева.
+     * @param hostInParent родительский хост внутри которого находится данная нода.
      * @param screenKey ключ соответствующий [Node] которую нужно создать.
+     * @param repository ссылка на репозиторий всех экранов для поиска нод.
      */
-    private fun buildNode(parent: Node?, hostInParent: NavigationHost?, screenKey: DefaultScreenKey): Node {
+    private fun buildNode(
+        parent: Node?,
+        hostInParent: NavigationHost?,
+        screenKey: DefaultScreenKey,
+        repository: NavigationRepository,
+    ): Node {
         val screenRegistration = repository.screens[screenKey] ?: error("Unreachable")
         val node = MutableNode(parent, hostInParent, screenKey, screenRegistration)
 
@@ -97,7 +110,7 @@ class NavigationTree internal constructor(
             // Пробегаемся по всем экранам которые могут быть открыты в данном navHost
             repository.endpoints[navHost]?.forEach { screenKey ->
                 // Строим дочерние экраны для таких нод
-                val oldChildren = node.children.put(screenKey, buildNode(node, navHost, screenKey))
+                val oldChildren = node.children.put(screenKey, buildNode(node, navHost, screenKey, repository))
                 // Может возникнуть ситуация когда один screenKey зарегистрирован для двух и более navHost которые
                 // зарегистрированы для обработки текущим экраном, эта ситуация недопустима, так как не ясно в каком
                 // navHost открывать экран.
@@ -110,15 +123,13 @@ class NavigationTree internal constructor(
     /**
      * Ищет root screen, этим экраном является такой экран который невозможно открыть из другой точки графа.
      */
-    private fun findRootScreen(): DefaultScreenKey {
-        val roots = repository.screens.keys - repository.endpoints.values.flatten().toSet()
+    private fun findRootScreen(repository: NavigationRepository): DefaultScreenKey {
+        // Множество экранов у которых нет точек входа (множество рутовых экранов)
+        val roots: Set<DefaultScreenKey> = repository.screens.keys - repository.endpoints.values.flatten().toSet()
+
         check(roots.size == 1) {
-            val formatedRoots = roots.joinToString(separator = ",\n") {
-                // TODO пока не поддерживается к котлине для js.
-                // it.key.qualifiedName ?: "NO_NAME"
-                "NOT_SUPPORTED_NOW"
-            }
-            "Found more than one root, roots:\n$formatedRoots"
+            val formattedRoots = roots.joinToStingFormatted { repository.screens[it]!!.nameForLogs }
+            "Found more than one root or no root found, roots:\n$formattedRoots"
         }
         return roots.first()
     }

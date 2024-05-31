@@ -22,6 +22,8 @@ interface NavigationRegistry {
      * @param key ключ экрана.
      * @param factory фабрика компонента экрана.
      * @param paramsSerializer сериализатор для [P].
+     * @param nameForLogs название экрана для логирования. Нужно так как мы не можем использовать class.qualifiedName
+     * в js.
      * @param defaultParams параметры экрана по умолчанию.
      * @param navigationHosts хосты навигации расположенные на этом экране
      */
@@ -29,6 +31,7 @@ interface NavigationRegistry {
         key: ScreenKey<P>,
         factory: ScreenFactory<P, S>,
         paramsSerializer: KSerializer<P>,
+        nameForLogs: String,
         defaultParams: P? = null,
         navigationHosts: List<NavigationHost> = emptyList(),
     )

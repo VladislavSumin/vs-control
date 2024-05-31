@@ -71,11 +71,12 @@ internal class NavigationRepositoryImpl(
             key: ScreenKey<P>,
             factory: ScreenFactory<P, S>,
             paramsSerializer: KSerializer<P>,
+            nameForLogs: String,
             defaultParams: P?,
             navigationHosts: List<NavigationHost>,
         ) {
             serializers[key] = paramsSerializer
-            val screenRegistration = ScreenRegistration(factory, defaultParams, navigationHosts)
+            val screenRegistration = ScreenRegistration(factory, defaultParams, navigationHosts, nameForLogs)
             val oldRegistration = screens.put(key, screenRegistration)
             check(oldRegistration == null) { "Double registration for key=$key" }
         }
