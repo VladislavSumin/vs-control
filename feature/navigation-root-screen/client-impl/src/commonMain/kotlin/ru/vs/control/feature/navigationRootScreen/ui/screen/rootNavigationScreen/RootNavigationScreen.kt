@@ -24,6 +24,7 @@ internal class RootNavigationScreen(context: ScreenContext) : Screen, ScreenCont
     private val childSlotNavigation: Value<ChildSlot<ScreenParams, Screen>> = childNavigationSlot(
         initialConfiguration = { getInitialConfiguration() },
         navigationHost = RootNavigationHost,
+        key = "RootNavigationHost",
     )
 
     /**

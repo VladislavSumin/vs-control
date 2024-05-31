@@ -114,7 +114,9 @@ class NavigationTree internal constructor(
         val roots = repository.screens.keys - repository.endpoints.values.flatten().toSet()
         check(roots.size == 1) {
             val formatedRoots = roots.joinToString(separator = ",\n") {
-                it.key.qualifiedName ?: "NO_NAME"
+                // TODO пока не поддерживается к котлине для js.
+                // it.key.qualifiedName ?: "NO_NAME"
+                "NOT_SUPPORTED_NOW"
             }
             "Found more than one root, roots:\n$formatedRoots"
         }

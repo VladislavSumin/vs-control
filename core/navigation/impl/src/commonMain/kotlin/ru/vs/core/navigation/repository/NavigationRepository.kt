@@ -56,7 +56,11 @@ internal class NavigationRepositoryImpl(
                 prefix = "[",
                 postfix = "]",
                 separator = ",\n",
-            ) { it::class.qualifiedName ?: "NO_NAME" }
+            ) {
+                // TODO пока не поддерживается к котлине для js.
+                // it::class.qualifiedName ?: "NO_NAME"
+                "NOT_SUPPORTED_NOW"
+            }
             "Initializing NavigationRegistry, registrars:\n$registrarsString"
         }
         registrars.forEach { registry.register(it) }

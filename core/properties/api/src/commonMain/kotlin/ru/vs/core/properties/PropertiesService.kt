@@ -18,9 +18,12 @@ interface PropertiesService {
      * **Обратите внимание!** При изменении пакета, названия класса или названия поля изменится и ключ.
      */
     operator fun getValue(thisRef: Any, property: KProperty<*>): Properties {
-        val className = thisRef::class.qualifiedName
-        check(className != null) { "Properties delegate not allowed for unnamed classes" }
-        val name = "${className.replace(".", "_")}_${property.name}"
-        return getProperties(PropertiesKey(name))
+        // TODO пока не поддерживается к котлине для js.
+        error("NOT_SUPPORTED")
+
+        // val className = thisRef::class.qualifiedName
+        // check(className != null) { "Properties delegate not allowed for unnamed classes" }
+        // val name = "${className.replace(".", "_")}_${property.name}"
+        // return getProperties(PropertiesKey(name))
     }
 }

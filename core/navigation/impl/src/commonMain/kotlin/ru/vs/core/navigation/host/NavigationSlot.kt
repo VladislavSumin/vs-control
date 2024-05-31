@@ -16,17 +16,23 @@ import ru.vs.core.navigation.screen.ScreenKey
 
 /**
  * TODO
+ * @param key уникальный в пределах экрана ключ для навигации.
+ *
+ * TODO мы не можем использовать navigationHost::class.qualifiedName!! в качестве имени экрана, так как такой вызов
+ * рефлексии пока не поддерживается в котлине (версия 2.0.0)
+ *
  */
 fun ScreenContext.childNavigationSlot(
     navigationHost: NavigationHost,
     initialConfiguration: () -> ScreenParams? = { null },
+    key: String,
     handleBackButton: Boolean = false,
 ): Value<ChildSlot<ScreenParams, Screen>> {
     val source = SlotNavigation<ScreenParams>()
     val slot = childSlot(
         source = source,
         serializer = navigator.globalNavigator.navigationTree.serializer,
-        key = navigationHost::class.qualifiedName!!,
+        key = key,
         initialConfiguration = initialConfiguration,
         handleBackButton = handleBackButton,
         childFactory = { screenParams: ScreenParams, context: ComponentContext ->
@@ -34,7 +40,7 @@ fun ScreenContext.childNavigationSlot(
             // TODO описать сейвовость, и подумать над другим строение generics
             val screenKey = ScreenKey(screenParams::class) as ScreenKey<ScreenParams>
             val screenFactory = navigator.node.children[screenKey]!!.screenRegistration.factory
-                as ScreenFactory<ScreenParams, out Screen>
+                    as ScreenFactory<ScreenParams, out Screen>
             screenFactory.create(screenContext, screenParams)
         },
     )
