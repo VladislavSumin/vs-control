@@ -13,3 +13,7 @@ formatting:
   TrailingCommaOnDeclarationSite:
     active: true
     useTrailingCommaOnDeclarationSite: true
+
+complexity:
+  LongParameterList:
+    active: false
