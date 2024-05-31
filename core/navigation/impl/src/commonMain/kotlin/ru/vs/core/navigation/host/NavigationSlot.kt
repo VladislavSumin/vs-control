@@ -40,7 +40,7 @@ fun ScreenContext.childNavigationSlot(
             // TODO описать сейвовость, и подумать над другим строение generics
             val screenKey = ScreenKey(screenParams::class) as ScreenKey<ScreenParams>
             val screenFactory = navigator.node.children[screenKey]!!.screenRegistration.factory
-                    as ScreenFactory<ScreenParams, out Screen>
+                as ScreenFactory<ScreenParams, out Screen>
             screenFactory.create(screenContext, screenParams)
         },
     )
