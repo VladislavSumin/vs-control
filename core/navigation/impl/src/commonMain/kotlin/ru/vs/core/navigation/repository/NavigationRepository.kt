@@ -10,9 +10,11 @@ import ru.vs.core.navigation.screen.DefaultScreenKey
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
+import ru.vs.core.navigation.tree.NavigationTree
+import ru.vs.core.utils.joinToStingFormatted
 
 /**
- * Репозиторий навигации.
+ * Репозиторий навигации, используется для построения [NavigationTree].
  */
 internal interface NavigationRepository {
     /**
@@ -33,6 +35,7 @@ internal interface NavigationRepository {
 
 /**
  * Регистрирует все компоненты навигации.
+ *
  * @param registrars множество регистраторов экранов.
  */
 internal class NavigationRepositoryImpl(
@@ -52,15 +55,7 @@ internal class NavigationRepositoryImpl(
 
     init {
         NavigationLogger.d {
-            val registrarsString = registrars.joinToString(
-                prefix = "[",
-                postfix = "]",
-                separator = ",\n",
-            ) {
-                // TODO пока не поддерживается к котлине для js.
-                // it::class.qualifiedName ?: "NO_NAME"
-                "NOT_SUPPORTED_NOW"
-            }
+            val registrarsString = registrars.joinToStingFormatted { it.nameForLogs }
             "Initializing NavigationRegistry, registrars:\n$registrarsString"
         }
         registrars.forEach { registry.register(it) }

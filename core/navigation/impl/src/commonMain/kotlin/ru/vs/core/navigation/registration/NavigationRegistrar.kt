@@ -11,6 +11,12 @@ package ru.vs.core.navigation.registration
  */
 interface NavigationRegistrar {
     /**
+     * Название класса для логов. В js мы не можем использовать рефлексию class.qualifiedName поэтому вынуждены
+     * пока использовать этот костыль.
+     */
+    val nameForLogs: String
+
+    /**
      * Регистрирует фабрики, хосты навигации и экраны в хостах.
      */
     fun NavigationRegistry.register()
