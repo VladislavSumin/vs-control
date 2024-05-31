@@ -12,6 +12,7 @@ kotlin {
             implementation(projects.core.decompose)
             implementation(projects.core.di)
             implementation(projects.core.logger.api)
+            implementation(projects.core.utils)
         }
     }
 }

@@ -16,3 +16,4 @@ Core модули могут содержать только самый базо
 * [serialization](serialization/README.md) фреймворк для работы с сериализацией данных.
 * [splash](splash/README.md) навигация для splash экрана.
 * [uikit](uikit/README.md) дизайн система.
+* [utils](utils/README.md) базовые утилиты.
