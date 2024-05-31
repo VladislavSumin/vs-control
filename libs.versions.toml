@@ -1,14 +1,14 @@
 [versions]
 
 # Kotlin
-kotlin-core = "2.0.0-Beta1"
-kotlin-coroutines = "1.8.0"
-kotlin-serialization = "1.6.3"
-kotlin-atomicfu = "0.23.2"
+kotlin-core = "2.0.0"
+kotlin-coroutines = "1.9.0-RC"
+kotlin-serialization = "1.7.0-RC"
+kotlin-atomicfu = "0.24.0"
 
 # Compose
-jb-compose = "1.6.2"
-decompose = "3.0.0-beta01"
+jb-compose = "1.6.10"
+decompose = "3.0.0"
 
 # Gradle plugins
 gradlePlugins-android = "8.2.2"
@@ -31,6 +31,7 @@ mockk = "1.13.10"
 
 # Gradle plugins
 gradlePlugins-kotlin-core = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-core" }
+gradlePlugins-kotlin-compose-compiler = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin-core" }
 gradlePlugins-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin-core" }
 gradlePlugins-kotlin-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "kotlin-atomicfu" }
 gradlePlugins-jb-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jb-compose" }
