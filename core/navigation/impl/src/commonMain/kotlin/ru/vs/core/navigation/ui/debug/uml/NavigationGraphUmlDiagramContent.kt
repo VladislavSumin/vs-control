@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import kotlin.math.max
 
 @Composable
@@ -55,35 +57,49 @@ internal fun NavigationGraphUmlDiagramContent(
     }
 }
 
+/**
+ * @param verticalSpace вертикальное расстояние между дочерними нодами.
+ * @param horizontalSpace горизонтальное расстояние между списком родительских нод и дочерними
+ */
 @Composable
-private fun RecursiveElementGroup(node: NavigationGraphUmlDiagramViewState.Node) {
-    SubcomposeLayout { constraints ->
+private fun RecursiveElementGroup(
+    node: NavigationGraphUmlDiagramViewState.Node,
+    verticalSpace: Dp = 8.dp,
+    horizontalSpace: Dp = 16.dp,
+) {
+    SubcomposeLayout { _ ->
         // Так как RecursiveElementGroup должна помещаться в scale контейнер, то мы никак не ограничиваем
         // размеры дочерних элементов
         val infiniteWrapContentConstraints = Constraints()
 
-        val children: List<Measurable> = subcompose("children") {
+        // Главный элемент, представляет собой переданную node. Всегда строго один.
+        val rootMeasurable = subcompose("root") {
+            NavigationGraphUmlDiagramElementContent(node.name)
+        }.single()
+        val root = rootMeasurable.measure(infiniteWrapContentConstraints)
+
+        // Дочерние элементы.
+        val childrenMeasurable: List<Measurable> = subcompose("children") {
             node.children.forEach { child ->
                 RecursiveElementGroup(child)
             }
         }
+        val children = childrenMeasurable.map { it.measure(infiniteWrapContentConstraints) }
 
-        val root = subcompose("root") {
-            NavigationGraphUmlDiagramElementContent(node.name)
-        }.single()
-
-        val childrenPlaceable = children.map { it.measure(infiniteWrapContentConstraints) }
-        val rootPlaceable = root.measure(infiniteWrapContentConstraints)
+        // Вычисляем всякие отступы.
+        val horizontalSpacePx = if (children.isEmpty()) 0 else horizontalSpace.toPx().toInt()
+        val verticalSpacePx = verticalSpace.toPx().toInt()
+        val childrenTotalSpacePx = max(verticalSpacePx * (children.size - 1), 0)
 
         layout(
-            width = rootPlaceable.width + (childrenPlaceable.maxOfOrNull { it.width } ?: 0),
-            height = max(rootPlaceable.height, childrenPlaceable.sumOf { it.height }),
+            width = root.width + (children.maxOfOrNull { it.width } ?: 0) + childrenTotalSpacePx,
+            height = max(root.height, children.sumOf { it.height }) + horizontalSpacePx,
         ) {
-            rootPlaceable.place(0, 0)
+            root.place(0, 0)
             var currentHeight = 0
-            childrenPlaceable.forEach {
-                it.place(rootPlaceable.width, currentHeight)
-                currentHeight += it.height
+            children.forEach {
+                it.place(root.width + horizontalSpacePx, currentHeight)
+                currentHeight += it.height + verticalSpacePx
             }
         }
     }
