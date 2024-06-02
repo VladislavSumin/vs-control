@@ -1,11 +1,9 @@
 package ru.vs.core.navigation.ui.debug.uml
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,9 +17,8 @@ internal fun NavigationGraphUmlDiagramElementContent(
     info: NavigationGraphUmlDiagramViewState.NodeInfo,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    OutlinedCard(
         modifier,
-        border = BorderStroke(2.dp, color = LocalContentColor.current),
     ) {
         Column(
             Modifier.padding(
@@ -32,6 +29,16 @@ internal fun NavigationGraphUmlDiagramElementContent(
             Text(
                 info.name,
                 style = MaterialTheme.typography.titleMedium,
+            )
+            Text(
+                "hasDefaultParams=${info.hasDefaultParams}",
+                style = if (info.hasDefaultParams) {
+                    MaterialTheme.typography.bodyMedium
+                } else {
+                    MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                },
             )
         }
     }

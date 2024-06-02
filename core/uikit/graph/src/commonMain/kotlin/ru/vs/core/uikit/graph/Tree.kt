@@ -1,7 +1,7 @@
 package ru.vs.core.uikit.graph
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -32,8 +32,8 @@ fun <T> Tree(
     childSelector: (T) -> List<T>,
     verticalSpace: Dp = 24.dp,
     horizontalSpace: Dp = 16.dp,
-    lineColor: Color = LocalContentColor.current,
-    lineWidth: Dp = 2.dp,
+    lineColor: Color = MaterialTheme.colorScheme.outlineVariant,
+    lineWidth: Dp = 1.dp,
     content: @Composable (T) -> Unit,
 ) {
     val drawState = remember { mutableStateOf<Points?>(null) }

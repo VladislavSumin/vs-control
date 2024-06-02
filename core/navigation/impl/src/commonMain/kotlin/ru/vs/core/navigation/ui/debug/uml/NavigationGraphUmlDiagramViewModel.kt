@@ -33,6 +33,7 @@ internal class NavigationGraphUmlDiagramViewModel(
         val initializedRootScreenNode = NavigationGraphUmlDiagramViewState.Node(
             info = NavigationGraphUmlDiagramViewState.NodeInfo(
                 name = "InitializedRootScreenComponent",
+                hasDefaultParams = false,
                 isPartOfMainGraph = false,
             ),
             children = listOf(normalGraph),
@@ -41,6 +42,7 @@ internal class NavigationGraphUmlDiagramViewModel(
         val splashScreenNode = NavigationGraphUmlDiagramViewState.Node(
             info = NavigationGraphUmlDiagramViewState.NodeInfo(
                 name = "SplashScreenComponent",
+                hasDefaultParams = false,
                 isPartOfMainGraph = false,
             ),
             children = emptyList(),
@@ -49,6 +51,7 @@ internal class NavigationGraphUmlDiagramViewModel(
         val rootScreenNode = NavigationGraphUmlDiagramViewState.Node(
             info = NavigationGraphUmlDiagramViewState.NodeInfo(
                 name = "RootScreenComponent",
+                hasDefaultParams = false,
                 isPartOfMainGraph = false,
             ),
             children = listOf(
@@ -64,6 +67,7 @@ internal class NavigationGraphUmlDiagramViewModel(
         return NavigationGraphUmlDiagramViewState.Node(
             info = NavigationGraphUmlDiagramViewState.NodeInfo(
                 name = node.screenRegistration.nameForLogs,
+                hasDefaultParams = node.screenRegistration.defaultParams != null,
                 isPartOfMainGraph = true,
             ),
             children = node.children.map { mapNodesRecursively(it.value) },

@@ -15,6 +15,7 @@ internal data class NavigationGraphUmlDiagramViewState(
 
     data class NodeInfo(
         val name: String,
+        val hasDefaultParams: Boolean,
         val isPartOfMainGraph: Boolean,
     )
 }
