@@ -14,8 +14,19 @@ internal class NavigationGraphUmlDiagramViewModelFactory(
 internal class NavigationGraphUmlDiagramViewModel(
     private val navigationTree: NavigationTree,
 ) : ViewModel() {
-    /**
-     * Временная штука протестировать отображение.
-     */
-    val test = navigationTree.root
+
+    val graph = createDebugGraph()
+
+    private fun createDebugGraph(): NavigationGraphUmlDiagramViewState {
+        return NavigationGraphUmlDiagramViewState(
+            root = MutableChildren(
+                navigationTree.root.screenRegistration.nameForLogs,
+            ),
+        )
+    }
+
+    private data class MutableChildren(
+        override val name: String,
+        override val children: MutableList<NavigationGraphUmlDiagramViewState.Element> = mutableListOf(),
+    ) : NavigationGraphUmlDiagramViewState.Element
 }
