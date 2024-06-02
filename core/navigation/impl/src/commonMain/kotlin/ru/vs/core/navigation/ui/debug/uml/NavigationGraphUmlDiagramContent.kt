@@ -1,14 +1,10 @@
 package ru.vs.core.navigation.ui.debug.uml
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,7 +41,6 @@ internal fun NavigationGraphUmlDiagramContent(
             .transformable(state = state)
             .background(Color.Magenta),
     ) {
-
         Box(
             modifier = Modifier
                 .graphicsLayer(
@@ -79,7 +74,6 @@ private fun RecursiveElementGroup(
             )
             node.children.forEach { RecursiveElementGroup(it) }
         },
-        modifier = Modifier.border(2.dp, Color.Red),
         measurePolicy = { children, constraints ->
             val hasChildNodes = children.size > 1
 
