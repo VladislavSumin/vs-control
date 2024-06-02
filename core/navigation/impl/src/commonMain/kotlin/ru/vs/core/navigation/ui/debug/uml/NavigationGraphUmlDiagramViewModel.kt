@@ -19,14 +19,14 @@ internal class NavigationGraphUmlDiagramViewModel(
 
     private fun createDebugGraph(): NavigationGraphUmlDiagramViewState {
         return NavigationGraphUmlDiagramViewState(
-            root = MutableChildren(
-                navigationTree.root.screenRegistration.nameForLogs,
-            ),
+            root = mapNodesRecursively(navigationTree.root),
         )
     }
 
-    private data class MutableChildren(
-        override val name: String,
-        override val children: MutableList<NavigationGraphUmlDiagramViewState.Element> = mutableListOf(),
-    ) : NavigationGraphUmlDiagramViewState.Element
+    private fun mapNodesRecursively(node: NavigationTree.Node): NavigationGraphUmlDiagramViewState.Node {
+        return NavigationGraphUmlDiagramViewState.Node(
+            node.screenRegistration.nameForLogs,
+            node.children.map { mapNodesRecursively(it.value) },
+        )
+    }
 }

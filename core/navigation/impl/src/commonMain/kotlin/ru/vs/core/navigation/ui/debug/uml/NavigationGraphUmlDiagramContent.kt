@@ -17,6 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.unit.Constraints
+import kotlin.math.max
 
 @Composable
 internal fun NavigationGraphUmlDiagramContent(
@@ -36,7 +38,7 @@ internal fun NavigationGraphUmlDiagramContent(
             offset += offsetChange * scale
         }
 
-        SubcomposeLayout(
+        Box(
             modifier = Modifier
                 .graphicsLayer(
                     scaleX = scale,
@@ -47,20 +49,41 @@ internal fun NavigationGraphUmlDiagramContent(
                 .transformable(state = state)
                 .background(Color.Blue)
                 .fillMaxSize(),
-        ) { constraints ->
-            val wrapContentConstraints = constraints.copy(minWidth = 0, minHeight = 0)
+        ) {
+            RecursiveElementGroup(viewModel.graph.root)
+        }
+    }
+}
 
-            val elements: List<Measurable> = subcompose(null) {
-                NavigationGraphUmlDiagramElementContent(viewModel.graph.root.name)
+@Composable
+private fun RecursiveElementGroup(node: NavigationGraphUmlDiagramViewState.Node) {
+    SubcomposeLayout { constraints ->
+        // Так как RecursiveElementGroup должна помещаться в scale контейнер, то мы никак не ограничиваем
+        // размеры дочерних элементов
+        val infiniteWrapContentConstraints = Constraints()
+
+        val children: List<Measurable> = subcompose("children") {
+            node.children.forEach { child ->
+                RecursiveElementGroup(child)
             }
+        }
 
-            val placeables = elements.map { it.measure(wrapContentConstraints) }
+        val root = subcompose("root") {
+            NavigationGraphUmlDiagramElementContent(node.name)
+        }.single()
 
-            layout(
-                width = constraints.maxWidth,
-                height = constraints.maxHeight,
-            ) {
-                placeables.forEach { it.place(0, 0) }
+        val childrenPlaceable = children.map { it.measure(infiniteWrapContentConstraints) }
+        val rootPlaceable = root.measure(infiniteWrapContentConstraints)
+
+        layout(
+            width = rootPlaceable.width + (childrenPlaceable.maxOfOrNull { it.width } ?: 0),
+            height = max(rootPlaceable.height, childrenPlaceable.sumOf { it.height }),
+        ) {
+            rootPlaceable.place(0, 0)
+            var currentHeight = 0
+            childrenPlaceable.forEach {
+                it.place(rootPlaceable.width, currentHeight)
+                currentHeight += it.height
             }
         }
     }

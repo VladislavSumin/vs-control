@@ -4,12 +4,12 @@ import androidx.compose.runtime.Stable
 
 @Stable
 internal data class NavigationGraphUmlDiagramViewState(
-    val root: Element,
+    val root: Node,
 ) {
 
     @Stable
-    interface Element {
-        val name: String
-        val children: List<Element>
-    }
+    data class Node(
+        val name: String,
+        val children: List<Node>,
+    )
 }
