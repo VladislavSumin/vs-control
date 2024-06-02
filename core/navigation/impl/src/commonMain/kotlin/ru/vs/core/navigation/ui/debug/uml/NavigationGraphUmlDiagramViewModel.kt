@@ -19,8 +19,36 @@ internal class NavigationGraphUmlDiagramViewModel(
 
     private fun createDebugGraph(): NavigationGraphUmlDiagramViewState {
         return NavigationGraphUmlDiagramViewState(
-            root = mapNodesRecursively(navigationTree.root),
+            root = generateFakeNavigationNodesFist(),
         )
+    }
+
+    /**
+     * Не все пути навигации содержаться в графе навигации. Несколько первых экранов туда не попадают, поэтому
+     * добавляем их вручную.
+     */
+    private fun generateFakeNavigationNodesFist(): NavigationGraphUmlDiagramViewState.Node {
+        val normalGraph = mapNodesRecursively(navigationTree.root)
+
+        val initializedRootScreenNode = NavigationGraphUmlDiagramViewState.Node(
+            name = "InitializedRootScreenComponent",
+            children = listOf(normalGraph),
+        )
+
+        val splashScreenNode = NavigationGraphUmlDiagramViewState.Node(
+            name = "SplashScreenComponent",
+            children = emptyList(),
+        )
+
+        val rootScreenNode = NavigationGraphUmlDiagramViewState.Node(
+            name = "RootScreenComponent",
+            children = listOf(
+                splashScreenNode,
+                initializedRootScreenNode,
+            ),
+        )
+
+        return rootScreenNode
     }
 
     private fun mapNodesRecursively(node: NavigationTree.Node): NavigationGraphUmlDiagramViewState.Node {
