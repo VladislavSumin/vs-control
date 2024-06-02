@@ -1,4 +1,4 @@
-package ru.vs.core.navigation.ui.debug
+package ru.vs.core.navigation.ui.debug.uml
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.rememberTransformableState

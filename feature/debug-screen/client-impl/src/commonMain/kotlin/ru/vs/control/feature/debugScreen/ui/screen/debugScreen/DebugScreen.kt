@@ -13,7 +13,7 @@ import com.arkivanov.decompose.childContext
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory
-import ru.vs.core.navigation.ui.debug.NavigationGraphUmlDiagramComponentFactory
+import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFactory
 
 internal class DebugScreenFactory(
     private val umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,

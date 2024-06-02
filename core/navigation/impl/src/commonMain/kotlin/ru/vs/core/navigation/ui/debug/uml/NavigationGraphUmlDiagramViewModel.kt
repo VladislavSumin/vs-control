@@ -1,4 +1,4 @@
-package ru.vs.core.navigation.ui.debug
+package ru.vs.core.navigation.ui.debug.uml
 
 import ru.vs.core.decompose.ViewModel
 import ru.vs.core.navigation.tree.NavigationTree
