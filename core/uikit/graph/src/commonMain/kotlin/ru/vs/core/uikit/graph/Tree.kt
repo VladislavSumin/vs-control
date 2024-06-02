@@ -22,15 +22,14 @@ import kotlin.math.max
  * @param rootNode голова дерева.
  * @param childSelector селектор для поиска дочерних нод в родительской.
  * @param content контент одной ноды.
- * @param verticalSpace вертикальное расстояние между дочерними нодами.
- * @param horizontalSpace горизонтальное расстояние между списком родительских нод и дочерними
- *
+ * @param verticalSpace вертикальное расстояние между родительской нодой и дочерними.
+ * @param horizontalSpace горизонтальное расстояние между дочерними нодами.
  */
 @Composable
 fun <T> Tree(
     rootNode: T,
     childSelector: (T) -> List<T>,
-    verticalSpace: Dp = 8.dp,
+    verticalSpace: Dp = 24.dp,
     horizontalSpace: Dp = 16.dp,
     lineColor: Color = MaterialTheme.colorScheme.onPrimary,
     lineWidth: Float = 6f,
@@ -70,17 +69,18 @@ fun <T> Tree(
             val childNodesMeasurable: List<Measurable> = children.drop(2)
 
             val childNodesConstraints = Constraints(
-                minWidth = (childNodesMeasurable.maxOfOrNull { it.maxIntrinsicWidth(Int.MAX_VALUE) } ?: 0),
+                // minWidth = (childNodesMeasurable.maxOfOrNull { it.maxIntrinsicWidth(Int.MAX_VALUE) } ?: 0),
+                minHeight = (childNodesMeasurable.maxOfOrNull { it.minIntrinsicHeight(Int.MAX_VALUE) } ?: 0),
             )
             val childNodes = childNodesMeasurable.map { it.measure(childNodesConstraints) }
 
             // Вычисляем всякие отступы.
-            val horizontalSpacePx = if (childNodes.isEmpty()) 0 else horizontalSpace.toPx().toInt()
-            val verticalSpacePx = verticalSpace.toPx().toInt()
-            val childrenTotalSpacePx = max(verticalSpacePx * (childNodes.size - 1), 0)
+            val horizontalSpacePx = horizontalSpace.toPx().toInt()
+            val childrenTotalSpacePx = max(horizontalSpacePx * (childNodes.size - 1), 0)
+            val verticalSpacePx = if (childNodes.isEmpty()) 0 else verticalSpace.toPx().toInt()
 
-            val width = root.width + (childNodes.maxOfOrNull { it.width } ?: 0) + childrenTotalSpacePx
-            val height = max(root.height, childNodes.sumOf { it.height }) + horizontalSpacePx
+            val width = max(root.width, childNodes.sumOf { it.width }) + childrenTotalSpacePx
+            val height = root.height + (childNodes.maxOfOrNull { it.height } ?: 0) + verticalSpacePx
 
             val canvas = canvasMeasurable.measure(Constraints.fixed(width, height))
 
@@ -88,21 +88,21 @@ fun <T> Tree(
                 width = width,
                 height = height,
             ) {
-                root.place(0, height / 2 - root.height / 2)
+                root.place(width / 2 - root.width / 2, 0)
                 canvas.place(0, 0)
-                var currentHeight = 0
-                val childCentersY = childNodes.map {
-                    it.place(root.width + horizontalSpacePx, currentHeight)
-                    val centerY = currentHeight + it.height / 2
-                    currentHeight += it.height + verticalSpacePx
-                    centerY
+                var currentWidth = 0
+                val childCentersX = childNodes.map {
+                    it.place(currentWidth, root.height + verticalSpacePx)
+                    val centerX = currentWidth + it.width / 2
+                    currentWidth += it.width + horizontalSpacePx
+                    centerX
                 }
                 if (hasChildNodes) {
                     drawState.value = Points(
-                        endRootX = root.width,
-                        centerRootY = height / 2,
-                        startChildX = root.width + horizontalSpacePx,
-                        childCentersY = childCentersY,
+                        endRootY = root.height,
+                        centerRootX = width / 2,
+                        startChildY = root.height + verticalSpacePx,
+                        childCentersX = childCentersX,
                     )
                 }
             }
@@ -125,36 +125,42 @@ private fun Lines(
             // Линия от главного к центру
             drawLine(
                 color = lineColor,
-                start = Offset(endRootX.toFloat(), centerRootY.toFloat()),
+                start = Offset(
+                    x = centerRootX.toFloat(),
+                    y = endRootY.toFloat()
+                ),
                 end = Offset(
-                    x = endRootX.toFloat() + (startChildX - endRootX) / 2,
-                    y = centerRootY.toFloat(),
+                    x = centerRootX.toFloat(),
+                    y = endRootY.toFloat() + (startChildY - endRootY) / 2,
                 ),
                 strokeWidth = lineWidth,
             )
 
-            // Вертикальная линия
+            // Горизонтальная линия
             drawLine(
                 color = lineColor,
                 start = Offset(
-                    x = endRootX.toFloat() + (startChildX - endRootX) / 2,
-                    y = childCentersY.first().toFloat(),
+                    x = childCentersX.first().toFloat(),
+                    y = endRootY.toFloat() + (startChildY - endRootY) / 2,
                 ),
                 end = Offset(
-                    x = endRootX.toFloat() + (startChildX - endRootX) / 2,
-                    y = childCentersY.last().toFloat(),
+                    x = childCentersX.last().toFloat(),
+                    y = endRootY.toFloat() + (startChildY - endRootY) / 2,
                 ),
                 strokeWidth = lineWidth,
             )
 
-            // Горизонтальные линии к дочерним элементам
-            childCentersY.forEach { childCenterY ->
+            // Вертикальные линии к дочерним элементам
+            childCentersX.forEach { childCenterX ->
                 drawLine(
                     color = lineColor,
-                    start = Offset(startChildX.toFloat(), childCenterY.toFloat()),
+                    start = Offset(
+                        x = childCenterX.toFloat(),
+                        y = endRootY.toFloat() + (startChildY - endRootY) / 2,
+                    ),
                     end = Offset(
-                        x = endRootX.toFloat() + (startChildX - endRootX) / 2,
-                        y = childCenterY.toFloat(),
+                        x = childCenterX.toFloat(),
+                        y = startChildY.toFloat(),
                     ),
                     strokeWidth = lineWidth,
                 )
@@ -168,8 +174,8 @@ private fun Lines(
  * фазу draw.
  */
 private data class Points(
-    val endRootX: Int,
-    val centerRootY: Int,
-    val startChildX: Int,
-    val childCentersY: List<Int>,
+    val endRootY: Int,
+    val centerRootX: Int,
+    val startChildY: Int,
+    val childCentersX: List<Int>,
 )
