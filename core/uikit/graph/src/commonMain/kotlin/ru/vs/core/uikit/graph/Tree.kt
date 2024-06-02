@@ -51,7 +51,7 @@ fun <T> Tree(
                 )
             }
         },
-        measurePolicy = { children, constraints ->
+        measurePolicy = { children, _ ->
             val hasChildNodes = children.size > 2
 
             // Так как RecursiveElementGroup должна помещаться в scale контейнер, то мы никак не ограничиваем
@@ -63,16 +63,12 @@ fun <T> Tree(
 
             // Главный элемент, представляет собой переданную node. Всегда строго один.
             val rootMeasurable = children[1]
-            val root = rootMeasurable.measure(if (hasChildNodes) infiniteWrapContentConstraints else constraints)
+            val root = rootMeasurable.measure(infiniteWrapContentConstraints)
 
             // Дочерние элементы.
             val childNodesMeasurable: List<Measurable> = children.drop(2)
 
-            val childNodesConstraints = Constraints(
-                // minWidth = (childNodesMeasurable.maxOfOrNull { it.maxIntrinsicWidth(Int.MAX_VALUE) } ?: 0),
-                minHeight = (childNodesMeasurable.maxOfOrNull { it.minIntrinsicHeight(Int.MAX_VALUE) } ?: 0),
-            )
-            val childNodes = childNodesMeasurable.map { it.measure(childNodesConstraints) }
+            val childNodes = childNodesMeasurable.map { it.measure(infiniteWrapContentConstraints) }
 
             // Вычисляем всякие отступы.
             val horizontalSpacePx = horizontalSpace.toPx().toInt()
@@ -127,7 +123,7 @@ private fun Lines(
                 color = lineColor,
                 start = Offset(
                     x = centerRootX.toFloat(),
-                    y = endRootY.toFloat()
+                    y = endRootY.toFloat(),
                 ),
                 end = Offset(
                     x = centerRootX.toFloat(),
