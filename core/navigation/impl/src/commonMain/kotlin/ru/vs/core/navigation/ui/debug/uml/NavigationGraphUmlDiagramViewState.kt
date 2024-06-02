@@ -9,7 +9,12 @@ internal data class NavigationGraphUmlDiagramViewState(
 
     @Stable
     data class Node(
-        val name: String,
+        val info: NodeInfo,
         val children: List<Node>,
+    )
+
+    data class NodeInfo(
+        val name: String,
+        val isPartOfMainGraph: Boolean,
     )
 }

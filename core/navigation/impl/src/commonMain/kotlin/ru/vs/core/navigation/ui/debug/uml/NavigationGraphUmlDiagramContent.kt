@@ -1,6 +1,5 @@
 package ru.vs.core.navigation.ui.debug.uml
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
@@ -13,7 +12,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import ru.vs.core.uikit.graph.Tree
 
@@ -33,8 +31,7 @@ internal fun NavigationGraphUmlDiagramContent(
     Box(
         modifier
             .clipToBounds()
-            .transformable(state = state)
-            .background(Color.Magenta),
+            .transformable(state = state),
     ) {
         Box(
             modifier = Modifier
@@ -44,16 +41,13 @@ internal fun NavigationGraphUmlDiagramContent(
                     translationX = offset.x,
                     translationY = offset.y,
                 )
-                .background(Color.Blue)
                 .fillMaxSize(),
         ) {
             Tree(
                 rootNode = viewModel.graph.root,
                 childSelector = { it.children },
             ) {
-                NavigationGraphUmlDiagramElementContent(
-                    name = it.name,
-                )
+                NavigationGraphUmlDiagramElementContent(it.info)
             }
         }
     }

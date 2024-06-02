@@ -1,7 +1,7 @@
 package ru.vs.core.uikit.graph
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.unit.Constraints
@@ -31,8 +32,8 @@ fun <T> Tree(
     childSelector: (T) -> List<T>,
     verticalSpace: Dp = 24.dp,
     horizontalSpace: Dp = 16.dp,
-    lineColor: Color = MaterialTheme.colorScheme.onPrimary,
-    lineWidth: Float = 6f,
+    lineColor: Color = LocalContentColor.current,
+    lineWidth: Dp = 2.dp,
     content: @Composable (T) -> Unit,
 ) {
     val drawState = remember { mutableStateOf<Points?>(null) }
@@ -113,9 +114,10 @@ fun <T> Tree(
 private fun Lines(
     points: State<Points?>,
     lineColor: Color,
-    lineWidth: Float,
+    lineWidth: Dp,
 ) {
     Canvas(Modifier) {
+        val lineWidthPx = lineWidth.toPx()
         val state = points.value ?: return@Canvas
         with(state) {
             // Линия от главного к центру
@@ -129,7 +131,8 @@ private fun Lines(
                     x = centerRootX.toFloat(),
                     y = endRootY.toFloat() + (startChildY - endRootY) / 2,
                 ),
-                strokeWidth = lineWidth,
+                strokeWidth = lineWidthPx,
+                cap = StrokeCap.Round,
             )
 
             // Горизонтальная линия
@@ -143,7 +146,8 @@ private fun Lines(
                     x = childCentersX.last().toFloat(),
                     y = endRootY.toFloat() + (startChildY - endRootY) / 2,
                 ),
-                strokeWidth = lineWidth,
+                strokeWidth = lineWidthPx,
+                cap = StrokeCap.Round,
             )
 
             // Вертикальные линии к дочерним элементам
@@ -158,7 +162,8 @@ private fun Lines(
                         x = childCenterX.toFloat(),
                         y = startChildY.toFloat(),
                     ),
-                    strokeWidth = lineWidth,
+                    strokeWidth = lineWidthPx,
+                    cap = StrokeCap.Round,
                 )
             }
         }
