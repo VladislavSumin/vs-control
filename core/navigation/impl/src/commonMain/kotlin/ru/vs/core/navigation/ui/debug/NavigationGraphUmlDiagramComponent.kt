@@ -16,20 +16,29 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.essenty.instancekeeper.getOrCreate
 import ru.vs.core.decompose.ComposeComponent
 
-class NavigationGraphUmlDiagramComponentFactory {
+class NavigationGraphUmlDiagramComponentFactory internal constructor(
+    private val viewModelFactory: NavigationGraphUmlDiagramViewModelFactory,
+) {
     fun create(context: ComponentContext): ComposeComponent {
-        return NavigationGraphUmlDiagramComponent(context)
+        return NavigationGraphUmlDiagramComponent(
+            viewModelFactory,
+            context,
+        )
     }
 }
 
 /**
- * TODO доку.
+ * Отображает текущий граф навигации в удобной для человека форме.
  */
 internal class NavigationGraphUmlDiagramComponent(
+    viewModelFactory: NavigationGraphUmlDiagramViewModelFactory,
     context: ComponentContext,
 ) : ComponentContext by context, ComposeComponent {
+    private val viewModel: NavigationGraphUmlDiagramViewModel = instanceKeeper.getOrCreate { viewModelFactory.create() }
+
     @Composable
     override fun Render(modifier: Modifier) {
         // set up all transformation states
@@ -58,7 +67,7 @@ internal class NavigationGraphUmlDiagramComponent(
                 .background(Color.Blue)
                 .fillMaxSize(),
         ) {
-            Text("TEST")
+            Text(viewModel.test.screenRegistration.nameForLogs)
         }
     }
 }

@@ -46,6 +46,7 @@ class NavigationTree internal constructor(
 
     /**
      * TODO доку.
+     * TODO тут пока просто на скорую руку всякий мусор накидан.
      */
     internal fun getDestinationsForPath(
         startPath: ScreenPath,
@@ -62,12 +63,17 @@ class NavigationTree internal constructor(
         yield(ScreenPath(path))
     }
 
+    /**
+     * Находит [Node] по переданному [screenPath].
+     */
     private fun findNode(screenPath: ScreenPath): Node {
         var node = root
-        check(root.screenKey == ScreenKey(screenPath.path.first()::class))
+        check(root.screenKey == ScreenKey(screenPath.path.first()::class)) {
+            "Screen path root not equals root node, root node = $node, path = $screenPath"
+        }
         screenPath.path.asSequence().drop(1).forEach { screenParams ->
-            // TODO обработать ошибки.
-            node = node.children[ScreenKey(screenParams::class)]!!
+            node = node.children[ScreenKey(screenParams::class)]
+                ?: error("incorrect path, path = $screenPath, lastFoundNode = $node")
         }
         return node
     }

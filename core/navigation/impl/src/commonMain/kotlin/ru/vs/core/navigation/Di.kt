@@ -11,6 +11,7 @@ import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.repository.NavigationRepositoryImpl
 import ru.vs.core.navigation.tree.NavigationTree
 import ru.vs.core.navigation.ui.debug.NavigationGraphUmlDiagramComponentFactory
+import ru.vs.core.navigation.ui.debug.NavigationGraphUmlDiagramViewModelFactory
 
 fun Modules.coreNavigation() = DI.Module("core-navigation") {
     // Декларируем множество в которое будут собраны все регистраторы навигации в приложении.
@@ -18,6 +19,18 @@ fun Modules.coreNavigation() = DI.Module("core-navigation") {
 
     // Репозиторий используется только для построения NavigationTree, и далее не нужен.
     bindProvider<NavigationRepository> { NavigationRepositoryImpl(i()) }
-    bindSingleton { NavigationTree(i()) }
-    bindSingleton { NavigationGraphUmlDiagramComponentFactory() }
+
+    // Я не нашел как нормально разорвать цикл зависимостей в kodein поэтому пришлось добавить
+    // такой костыль.
+    var navigationTree: NavigationTree? = null
+    bindSingleton {
+        navigationTree = NavigationTree(i())
+        navigationTree!!
+    }
+
+    // Debug
+    bindProvider {
+        NavigationGraphUmlDiagramViewModelFactory { navigationTree!! }
+    }
+    bindSingleton { NavigationGraphUmlDiagramComponentFactory(i()) }
 }

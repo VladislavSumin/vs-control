@@ -19,7 +19,7 @@ gradlePlugins-modulesGraphAssert = "2.5.0"
 android-activity-compose = "1.8.2"
 
 # Other
-kodein = "7.21.2"
+kodein = "7.22.0"
 
 # Logging
 logging-log4j = "2.22.1"
