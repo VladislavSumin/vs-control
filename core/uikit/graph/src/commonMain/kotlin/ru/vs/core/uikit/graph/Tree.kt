@@ -88,7 +88,7 @@ fun <T> Tree(
                 width = width,
                 height = height,
             ) {
-                root.place(0, 0)
+                root.place(0, height / 2 - root.height / 2)
                 canvas.place(0, 0)
                 var currentHeight = 0
                 val childCentersY = childNodes.map {
@@ -100,7 +100,7 @@ fun <T> Tree(
                 if (hasChildNodes) {
                     drawState.value = Points(
                         endRootX = root.width,
-                        centerRootY = root.height / 2,
+                        centerRootY = height / 2,
                         startChildX = root.width + horizontalSpacePx,
                         childCentersY = childCentersY,
                     )
@@ -138,7 +138,7 @@ private fun Lines(
                 color = lineColor,
                 start = Offset(
                     x = endRootX.toFloat() + (startChildX - endRootX) / 2,
-                    y = centerRootY.toFloat(),
+                    y = childCentersY.first().toFloat(),
                 ),
                 end = Offset(
                     x = endRootX.toFloat() + (startChildX - endRootX) / 2,
