@@ -85,8 +85,13 @@ fun <T> Tree(
                 width = width,
                 height = height,
             ) {
+                // Главный элемент размещаем сверху по центру.
                 root.place(width / 2 - root.width / 2, 0)
+
+                // Canvas занимает всю область рисования.
                 canvas.place(0, 0)
+
+                // Далее дочерние элементы расставляем в строчку под родительским с учетом всех отступов.
                 var currentWidth = 0
                 val childCentersX = childNodes.map {
                     it.place(currentWidth, root.height + verticalSpacePx)
