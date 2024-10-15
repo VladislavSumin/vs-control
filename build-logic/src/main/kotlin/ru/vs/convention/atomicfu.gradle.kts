@@ -8,7 +8,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
     id("kotlin-multiplatform")
-    id("kotlinx-atomicfu")
+    id("org.jetbrains.kotlinx.atomicfu")
 }
 
 val libs = the<LibrariesForLibs>()
