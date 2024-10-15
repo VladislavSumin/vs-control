@@ -7,8 +7,8 @@ kotlin-serialization = "1.7.3"
 kotlin-atomicfu = "0.25.0"
 
 # Compose
-jb-compose = "1.6.11"
-decompose = "3.0.0"
+jb-compose = "1.7.0-rc01"
+decompose = "3.2.0-beta02"
 
 # Gradle plugins
 gradlePlugins-android = "8.5.2" # last supported by kotlin 2.0.21
