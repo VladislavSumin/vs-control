@@ -1,31 +1,9 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+apply { from("build-logic/common-settings.gradle.kts") }
+
 pluginManagement {
     includeBuild("build-logic")
-
-    repositories {
-        mavenLocal()
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
-}
-
-@Suppress("UnstableApiUsage")
-dependencyResolutionManagement {
-    // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
-    versionCatalogs {
-        create("libs") {
-            from(files("libs.versions.toml"))
-        }
-    }
 }
 
 plugins {

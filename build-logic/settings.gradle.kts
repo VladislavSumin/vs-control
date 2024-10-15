@@ -1,19 +1,2 @@
-@Suppress("UnstableApiUsage")
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        google()
-        gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
-
-    versionCatalogs {
-        create("libs") {
-            from(files("../libs.versions.toml"))
-        }
-    }
-}
-
+apply { from("common-settings.gradle.kts") }
 rootProject.name = "build-logic"
