@@ -7,7 +7,7 @@ kotlin-serialization = "1.7.0-RC"
 kotlin-atomicfu = "0.24.0"
 
 # Compose
-jb-compose = "1.6.10"
+jb-compose = "1.6.11"
 decompose = "3.0.0"
 
 # Gradle plugins
