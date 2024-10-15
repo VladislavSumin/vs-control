@@ -22,10 +22,10 @@ android-activity-compose = "1.8.2"
 kodein = "7.22.0"
 
 # Logging
-logging-log4j = "2.22.1"
+logging-log4j = "2.24.1"
 
 # Testing
-mockk = "1.13.10"
+mockk = "1.13.13"
 
 [libraries]
 
