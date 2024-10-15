@@ -74,7 +74,6 @@ jobs:
         with:
           gradle_command: >-
             :client:macosArm64Binaries
-            :client:macosX64Binaries
 
   unit-tests:
     name: Unit tests
