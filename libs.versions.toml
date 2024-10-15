@@ -1,7 +1,7 @@
 [versions]
 
 # Kotlin
-kotlin-core = "2.0.0"
+kotlin-core = "2.0.21"
 kotlin-coroutines = "1.9.0-RC"
 kotlin-serialization = "1.7.0-RC"
 kotlin-atomicfu = "0.24.0"
