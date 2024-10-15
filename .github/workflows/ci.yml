@@ -10,7 +10,7 @@ on:
 jobs:
   check-gradle-modules-graph:
     name: Check gradle modules graph
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - name: Clone repository
@@ -26,7 +26,7 @@ jobs:
 
   check-detekt:
     name: Check detekt
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - name: Clone repository
@@ -44,7 +44,7 @@ jobs:
 
   assemble-android-debug-client:
     name: Assemble android debug client
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - name: Clone repository
@@ -77,7 +77,7 @@ jobs:
 
   unit-tests:
     name: Unit tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - name: Clone repository
