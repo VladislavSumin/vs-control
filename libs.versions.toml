@@ -13,7 +13,7 @@ decompose = "3.0.0"
 # Gradle plugins
 gradlePlugins-android = "8.5.2" # last supported by kotlin 2.0.21
 gradlePlugins-detekt = "1.23.7"
-gradlePlugins-modulesGraphAssert = "2.6.0"
+gradlePlugins-modulesGraphAssert = "2.7.1"
 
 # Android
 android-activity-compose = "1.9.2"
