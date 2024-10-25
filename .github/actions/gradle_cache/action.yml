@@ -4,10 +4,14 @@
 
 name: gradle_cache
 description: Gradle gradle
+inputs:
+  key:
+    required: true
+    description: primary cache key
 runs:
   using: composite
   steps:
     - uses: actions/cache@v4
       with:
         path: ~/.gradle
-        key: ${{ runner.os }}-${{ hashFiles('~/.gradle/**') }}
+        key: ${{ inputs.key }}-${{ runner.os }}-${{ github.sha }}

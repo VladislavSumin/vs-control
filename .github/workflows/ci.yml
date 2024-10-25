@@ -21,6 +21,8 @@ jobs:
 
       - name: Gradle cache
         uses: ./.github/actions/gradle_cache
+        with:
+          key: "check-gradle-modules-graph"
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
@@ -40,6 +42,8 @@ jobs:
 
       - name: Gradle cache
         uses: ./.github/actions/gradle_cache
+        with:
+          key: "check-detekt"
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
@@ -61,6 +65,8 @@ jobs:
 
       - name: Gradle cache
         uses: ./.github/actions/gradle_cache
+        with:
+          key: "assemble-android-debug-client"
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
@@ -80,6 +86,8 @@ jobs:
 
       - name: Gradle cache
         uses: ./.github/actions/gradle_cache
+        with:
+          key: "assemble-macos-client"
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
@@ -100,6 +108,8 @@ jobs:
 
       - name: Gradle cache
         uses: ./.github/actions/gradle_cache
+        with:
+          key: "unit-tests"
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
