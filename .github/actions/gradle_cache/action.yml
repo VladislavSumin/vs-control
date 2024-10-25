@@ -4,16 +4,10 @@
 
 name: gradle_cache
 description: Gradle gradle
-inputs:
-  cache_id:
-    required: false
-    description: cache_id
-    default: gradle-cache
 runs:
   using: composite
   steps:
     - uses: actions/cache@v4
-      id: ${{ inputs.cache_id }}
       with:
         path: ~/.gradle
         key: ${{ runner.os }}-${{ hashFiles('~/.gradle/**') }}
