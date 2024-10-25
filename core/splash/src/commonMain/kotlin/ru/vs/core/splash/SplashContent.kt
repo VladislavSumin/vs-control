@@ -19,7 +19,7 @@ import com.arkivanov.decompose.value.Value
  * Контейнер для отображения [childSplash] навигации.
  * @param stack состояние навигации.
  * @param modifier этого контейнера.
- * @param contentOutAnimation анимация с которой будет пропадать Splash экран. Тут пока не стал усложнять, кажется такой
+ * @param splashOutAnimation анимация с которой будет пропадать Splash экран. Тут пока не стал усложнять, кажется такой
  * анимации хватит, если перестанет хватать, то всегда можно переписать этот момент.
  * @param content контент навигации (Splash/Content) экраны.
  */
@@ -27,11 +27,11 @@ import com.arkivanov.decompose.value.Value
 fun <T : Any> Children(
     stack: Value<ChildSplash<T>>,
     modifier: Modifier = Modifier,
-    contentOutAnimation: ExitTransition = scaleOut(targetScale = 1.3f) + fadeOut(),
+    splashOutAnimation: ExitTransition = scaleOut(targetScale = 1.3f) + fadeOut(),
     content: @Composable (T) -> Unit,
 ) {
     val state by stack.subscribeAsState()
-    Children(state, modifier, contentOutAnimation, content)
+    Children(state, modifier, splashOutAnimation, content)
 }
 
 @Composable
@@ -44,17 +44,15 @@ private fun <T : Any> Children(
     val child = stack.child
 
     // Сохраняет "текущее" состояние навигации (при изменении stack в аргументе, это состояние будет предыдущим).
-    var currentState by remember { mutableStateOf(child) }
+    var previousState by remember { mutableStateOf(child) }
 
     // Сохраняет текущую стопку детей. В ней Content (если присутствует), то всегда находится первым, так как должен
     // рисоваться под Splash в момент анимации.
-    val currentChildrenList by remember { mutableStateOf(mutableListOf(stack.child)) }
+    val currentChildrenList by remember { mutableStateOf(mutableListOf(child)) }
 
-    if (currentState != child) {
-        check(child.configuration == ChildSplashConfiguration.Content) {
-            "Allowed only Splash to Content navigation"
-        }
-        currentState = child
+    if (previousState != child) {
+        check(child.configuration == ChildSplashConfiguration.Content) { "Allowed only Splash to Content navigation" }
+        previousState = child
         // Content добавляем в начало списка чтобы он был нарисован под splash экраном
         currentChildrenList.add(0, child)
     }

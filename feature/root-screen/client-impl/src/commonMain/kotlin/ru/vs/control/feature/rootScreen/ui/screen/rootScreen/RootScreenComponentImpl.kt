@@ -18,9 +18,7 @@ internal class RootScreenComponentImpl(
     private val viewModel = instanceKeeper.getOrCreate { rootScreenViewModelFactory.create() }
 
     private val splash = childSplash(
-        awaitInitialization = {
-            viewModel.state.first { it is RootScreenState.Content }
-        },
+        awaitInitialization = { viewModel.state.first { it is RootScreenState.Content } },
         splashComponentFactory = splashScreenFactory::create,
         contentComponentFactory = { onContentReady, context ->
             viewModel.getContentScreenFactory().create(onContentReady, context)
