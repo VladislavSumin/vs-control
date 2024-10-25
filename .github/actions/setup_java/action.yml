@@ -11,4 +11,3 @@ runs:
       with:
         distribution: zulu
         java-version: 21
-        cache: gradle
