@@ -8,12 +8,12 @@ import androidx.compose.ui.test.runComposeUiTest
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
-import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
 import ru.vs.core.coroutines.setMain
+import kotlin.test.Test
 
 private const val FAKE_DELAY = 10_000L
 
