@@ -1,11 +1,11 @@
 package ru.vs.core.coroutines
 
-import kotlin.coroutines.ContinuationInterceptor
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.setMain
+import kotlin.coroutines.ContinuationInterceptor
 
 /**
  * Устанавливает dispatcher [TestScope] в качестве Main dispatcher.
