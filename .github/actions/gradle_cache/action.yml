@@ -15,3 +15,5 @@ runs:
       with:
         path: ~/.gradle
         key: ${{ inputs.key }}-${{ runner.os }}-${{ github.sha }}
+        restore-keys: |
+          ${{ inputs.key }}-${{ runner.os }}-
