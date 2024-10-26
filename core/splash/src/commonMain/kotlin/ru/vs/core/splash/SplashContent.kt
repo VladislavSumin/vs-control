@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -38,7 +39,7 @@ fun <T : Any> Children(
 private fun <T : Any> Children(
     stack: ChildSplash<T>,
     modifier: Modifier = Modifier,
-    contentOutAnimation: ExitTransition,
+    splashOutAnimation: ExitTransition,
     content: @Composable (T) -> Unit,
 ) {
     val child = stack.child
@@ -57,30 +58,42 @@ private fun <T : Any> Children(
         currentChildrenList.add(0, child)
     }
 
-    Box(modifier) {
-        currentChildrenList.forEach {
-            when (it.configuration) {
-                ChildSplashConfiguration.Splash -> {
-                    // Splash показываем с анимацией.
-                    AnimatedVisibility(
-                        visible = child.configuration == ChildSplashConfiguration.Splash,
-                        exit = contentOutAnimation,
-                    ) {
-                        content(it.instance)
+    // Splash всегда рисуется над контентом, поэтому в момент инициализации контента, происходит перемещение splash в
+    // слот таблице compose, из-за чего нода splash будет удалена и создана повторно. Что бы избежать такой ситуации
+    // мы используем movableContentOf.
+    val splashContent = remember {
+        movableContentOf<T, Boolean> { instance, isVisible ->
+            // Splash показываем с анимацией.
+            AnimatedVisibility(
+                visible = isVisible,
+                exit = splashOutAnimation,
+            ) {
+                content(instance)
 
-                        // При exit анимации после того как компонент перестанет быть виден его композиция будет
-                        // уничтожена, тогда мы должны удалить эту конфигурацию из памяти.
-                        DisposableEffect(Unit) {
-                            onDispose {
-                                // Тут нужна проверка так как в экран может быть закрыт еще в состоянии splash.
-                                if (currentChildrenList.size > 1) {
-                                    // Splash всегда лежит вторым элементом в листе.
-                                    currentChildrenList.removeAt(1)
-                                }
-                            }
+                // При exit анимации после того как компонент перестанет быть виден его композиция будет
+                // уничтожена, тогда мы должны удалить эту конфигурацию из памяти.
+                DisposableEffect(Unit) {
+                    println("qwqw: Show")
+                    onDispose {
+                        println("qwqw: Dispose")
+                        // Тут нужна проверка так как в экран может быть закрыт еще в состоянии splash.
+                        if (currentChildrenList.size > 1) {
+                            // Splash всегда лежит вторым элементом в листе.
+                            currentChildrenList.removeAt(1)
                         }
                     }
                 }
+            }
+        }
+    }
+
+    Box(modifier) {
+        currentChildrenList.forEach {
+            when (it.configuration) {
+                ChildSplashConfiguration.Splash -> splashContent(
+                    it.instance,
+                    child.configuration == ChildSplashConfiguration.Splash,
+                )
 
                 ChildSplashConfiguration.Content -> {
                     // Оригинально Аркадий использует сложную систему для правильного сохранения состояния композиции
