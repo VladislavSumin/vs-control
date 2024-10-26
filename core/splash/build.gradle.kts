@@ -10,5 +10,8 @@ kotlin {
             implementation(projects.core.coroutines)
             implementation(projects.core.decompose)
         }
+        commonTest.dependencies {
+            implementation(projects.core.coroutinesTest)
+        }
     }
 }

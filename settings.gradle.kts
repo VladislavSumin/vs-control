@@ -28,6 +28,7 @@ include(":custom-detekt-rules")
 
 include(":core:compose")
 include(":core:coroutines")
+include(":core:coroutines-test")
 include(":core:decompose")
 include(":core:di")
 include(":core:logger:api")

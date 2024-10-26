@@ -5,18 +5,17 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.destroy
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.statekeeper.StateKeeperDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.advanceTimeBy
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import kotlinx.serialization.builtins.serializer
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.runCurrent
+import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.builtins.serializer
+import ru.vs.core.coroutines.setMain
 
 private const val FAKE_DELAY = 1000L
 private const val TEST_KEY = "test-key"
@@ -29,9 +28,7 @@ class SplashTest {
      */
     @Test
     fun testStateMachine() = runTest {
-        // TODO вынести в экстеншен?
-        val testDispatcher = UnconfinedTestDispatcher(testScheduler)
-        Dispatchers.setMain(testDispatcher)
+        setMain()
 
         // TODO вынести в экстеншен?
         val lifecycle = LifecycleRegistry()
@@ -56,7 +53,7 @@ class SplashTest {
         testScheduler.runCurrent()
         assertEquals(ChildSplashConfiguration.Splash, splash.value.child.configuration)
         assertNotNull(leakingOnContentReady)
-        leakingOnContentReady!!()
+        leakingOnContentReady()
         assertEquals(ChildSplashConfiguration.Content, splash.value.child.configuration)
     }
 
@@ -65,9 +62,7 @@ class SplashTest {
      */
     @Test
     fun testImmediatelyInitialize() = runTest {
-        // TODO вынести в экстеншен?
-        val testDispatcher = UnconfinedTestDispatcher(testScheduler)
-        Dispatchers.setMain(testDispatcher)
+        setMain()
 
         // TODO вынести в экстеншен?
         val lifecycle = LifecycleRegistry()
@@ -83,14 +78,18 @@ class SplashTest {
             },
         )
 
+        runCurrent()
+
         assertEquals(ChildSplashConfiguration.Content, splash.value.child.configuration)
     }
 
+    /**
+     * Тест проверяет корректное восстановление состояние после смерти процесса или иных обстоятельствах, когда
+     * [com.arkivanov.essenty.statekeeper.StateKeeper] сохранил состояние.
+     */
     @Test
     fun testStateRestore() = runTest {
-        // TODO вынести в экстеншен?
-        val testDispatcher = UnconfinedTestDispatcher(testScheduler)
-        Dispatchers.setMain(testDispatcher)
+        setMain()
 
         // TODO вынести в экстеншен?
         val lifecycle = LifecycleRegistry()
@@ -107,6 +106,9 @@ class SplashTest {
                 context.stateKeeper.register(TEST_KEY, String.serializer()) { TEST_VALUE }
             },
         )
+
+        // Что бы вызвалось переключение на content.
+        runCurrent()
 
         val savedState = stateKeeper.save()
         lifecycle.destroy()

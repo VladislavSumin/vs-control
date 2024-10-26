@@ -72,8 +72,11 @@ private fun <T : Any> Children(
                         // уничтожена, тогда мы должны удалить эту конфигурацию из памяти.
                         DisposableEffect(Unit) {
                             onDispose {
-                                // Splash всегда лежит вторым элементом в листе.
-                                currentChildrenList.removeAt(1)
+                                // Тут нужна проверка так как в экран может быть закрыт еще в состоянии splash.
+                                if (currentChildrenList.size > 1) {
+                                    // Splash всегда лежит вторым элементом в листе.
+                                    currentChildrenList.removeAt(1)
+                                }
                             }
                         }
                     }
