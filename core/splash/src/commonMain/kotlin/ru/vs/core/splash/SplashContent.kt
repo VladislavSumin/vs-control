@@ -73,9 +73,7 @@ private fun <T : Any> Children(
                 // При exit анимации после того как компонент перестанет быть виден его композиция будет
                 // уничтожена, тогда мы должны удалить эту конфигурацию из памяти.
                 DisposableEffect(Unit) {
-                    println("qwqw: Show")
                     onDispose {
-                        println("qwqw: Dispose")
                         // Тут нужна проверка так как в экран может быть закрыт еще в состоянии splash.
                         if (currentChildrenList.size > 1) {
                             // Splash всегда лежит вторым элементом в листе.

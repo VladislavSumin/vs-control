@@ -3,11 +3,17 @@ package ru.vs.core.splash
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.saveable.LocalSaveableStateRegistry
+import androidx.compose.runtime.saveable.SaveableStateRegistry
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
 import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,7 +21,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
 import ru.vs.core.coroutines.setMain
+import ru.vs.core.decompose.ComposeComponent
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 private const val FAKE_DELAY = 10_000L
 private const val ANIMATION_DURATION = 5_000
@@ -89,7 +98,7 @@ class SplashTestUi {
             setContent {
                 Children(
                     splash,
-                    splashOutAnimation = fadeOut(tween(durationMillis = ANIMATION_DURATION))
+                    splashOutAnimation = fadeOut(tween(durationMillis = ANIMATION_DURATION)),
                 ) {
                     it.Render(Modifier.fillMaxSize())
                 }
@@ -117,6 +126,105 @@ class SplashTestUi {
             // Проверяем состояние Content
             onNodeWithTag(SplashScreenComponent.TAG).assertDoesNotExist()
             onNodeWithTag(ContentScreenComponent.TAG).assertExists()
+        }
+    }
+
+    /**
+     * Тест проверяет восстановление состояния контента после пересоздания композиции.
+     */
+    @Test
+    fun testRestoreState() = runTest {
+        setMain()
+
+        val registry1 = SaveableStateRegistry(emptyMap()) { true }
+        var data: Map<String, List<Any?>>? = null
+
+        // Тестируемое состояние, при первом запуске генерируется случайно, при повторном должно восстановиться.
+        var randomValue: CharSequence? = null
+
+        runComposeUiTest {
+            // TODO вынести в экстеншен?
+            val lifecycle = LifecycleRegistry()
+            val defaultContext = DefaultComponentContext(lifecycle)
+            lifecycle.resume()
+
+            val splash = defaultContext.childSplash(
+                scope = this@runTest,
+                awaitInitialization = { delay(FAKE_DELAY) },
+                splashComponentFactory = { SplashScreenComponent(it) },
+                contentComponentFactory = { onContentReady, context ->
+                    onContentReady()
+                    ContentScreenComponent(context)
+                },
+            )
+
+            setTestContent(splash, registry1)
+
+            // Тут крутим main часики, так как awaitInitialization запускается на Dispatchers Main.
+            advanceTimeBy(FAKE_DELAY)
+
+            randomValue = onNodeWithTag(ContentScreenComponent.SAVEABLE_CONTENT_TAG)
+                .fetchSemanticsNode()
+                .config[SemanticsProperties.Text].first()
+
+            // Сохранять нужно внутри runComposeUiTest, иначе composer уничтожится и сохранять будет нечего.
+            data = registry1.performSave()
+        }
+
+        assertTrue(data!!.isNotEmpty(), "No saved data")
+
+        val registry2 = SaveableStateRegistry(data) { true }
+
+        runComposeUiTest {
+            // TODO вынести в экстеншен?
+            val lifecycle = LifecycleRegistry()
+            val defaultContext = DefaultComponentContext(lifecycle)
+            lifecycle.resume()
+
+            val splash = defaultContext.childSplash(
+                scope = this@runTest,
+                awaitInitialization = { delay(FAKE_DELAY) },
+                splashComponentFactory = { SplashScreenComponent(it) },
+                contentComponentFactory = { onContentReady, context ->
+                    onContentReady()
+                    ContentScreenComponent(context)
+                },
+            )
+
+            setTestContent(splash, registry2)
+
+            // Тут крутим main часики, так как awaitInitialization запускается на Dispatchers Main.
+            advanceTimeBy(FAKE_DELAY)
+
+            val restoredValue = onNodeWithTag(ContentScreenComponent.SAVEABLE_CONTENT_TAG)
+                .fetchSemanticsNode()
+                .config[SemanticsProperties.Text].first()
+
+            assertEquals(randomValue, restoredValue)
+        }
+    }
+}
+
+/**
+ * Так как тест должен проходить даже при использовании автоматически сгенерированных ключей, то мы должны заставить
+ * compose генерировать одинаковые хеши в нужных нам местах. Для этого ВЕСЬ compose код в обеих частях теста должен быть
+ * одинаковым, причем буквально это должен быть один и тот же код, иначе компилятор создаст для него разные хеши.
+ *
+ * Лямбда внутри [ComposeUiTest.setContent] тоже считается, поэтому выносим весь код в общую функцию, тогда все хеши
+ * генерируются единообразно.
+ */
+@OptIn(ExperimentalTestApi::class)
+private fun <T : ComposeComponent> ComposeUiTest.setTestContent(
+    splash: Value<ChildSplash<T>>,
+    registry: SaveableStateRegistry,
+) {
+    setContent {
+        CompositionLocalProvider(
+            LocalSaveableStateRegistry provides registry,
+        ) {
+            Children(splash) {
+                it.Render(Modifier.fillMaxSize())
+            }
         }
     }
 }
