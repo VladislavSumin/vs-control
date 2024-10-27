@@ -98,7 +98,7 @@ class SplashTestUi {
             setContent {
                 Children(
                     splash,
-                    splashOutAnimation = fadeOut(tween(durationMillis = ANIMATION_DURATION)),
+                    splashExitTransition = fadeOut(tween(durationMillis = ANIMATION_DURATION)),
                 ) {
                     it.Render(Modifier.fillMaxSize())
                 }
