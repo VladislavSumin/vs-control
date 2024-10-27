@@ -16,6 +16,7 @@ Core модули могут содержать только самый базо
 * [navigation](navigation/README.md) фреймворк навигации.
 * [properties](properties/README.md) фреймворк для работы с сохранением пар ключ-значение.
 * [serialization](serialization/README.md) фреймворк для работы с сериализацией данных.
+* [shared-element-transition](shared-element-transition/README.md) утилиты для работы с shared element transition.
 * [splash](splash/README.md) навигация для splash экрана.
 * [uikit](uikit/README.md) дизайн система.
 * [utils](utils/README.md) базовые утилиты.
