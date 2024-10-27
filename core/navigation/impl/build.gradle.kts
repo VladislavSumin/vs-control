@@ -1,6 +1,5 @@
 plugins {
     id("ru.vs.convention.kmp.all")
-    id("ru.vs.convention.context-receivers")
     id("ru.vs.convention.compose")
 }
 
