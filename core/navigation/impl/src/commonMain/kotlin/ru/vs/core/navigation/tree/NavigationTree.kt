@@ -9,7 +9,6 @@ import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.repository.DefaultScreenRegistration
 import ru.vs.core.navigation.repository.NavigationRepository
-import ru.vs.core.navigation.screen.DefaultScreenKey
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
 import ru.vs.core.utils.joinToStingFormatted
@@ -105,7 +104,7 @@ class NavigationTree internal constructor(
     private fun buildNode(
         parent: Node?,
         hostInParent: NavigationHost?,
-        screenKey: DefaultScreenKey,
+        screenKey: ScreenKey<*>,
         repository: NavigationRepository,
     ): Node {
         val screenRegistration = repository.screens[screenKey] ?: error("Unreachable")
@@ -129,9 +128,9 @@ class NavigationTree internal constructor(
     /**
      * Ищет root screen, этим экраном является такой экран который невозможно открыть из другой точки графа.
      */
-    private fun findRootScreen(repository: NavigationRepository): DefaultScreenKey {
+    private fun findRootScreen(repository: NavigationRepository): ScreenKey<*> {
         // Множество экранов у которых нет точек входа (множество рутовых экранов)
-        val roots: Set<DefaultScreenKey> = repository.screens.keys - repository.endpoints.values.flatten().toSet()
+        val roots: Set<ScreenKey<*>> = repository.screens.keys - repository.endpoints.values.flatten().toSet()
 
         check(roots.size == 1) {
             val formattedRoots = roots.joinToStingFormatted { repository.screens[it]!!.nameForLogs }
@@ -152,9 +151,9 @@ class NavigationTree internal constructor(
     internal interface Node {
         val parent: Node?
         val hostInParent: NavigationHost?
-        val screenKey: DefaultScreenKey
+        val screenKey: ScreenKey<*>
         val screenRegistration: DefaultScreenRegistration
-        val children: Map<DefaultScreenKey, Node>
+        val children: Map<ScreenKey<*>, Node>
     }
 
     /**
@@ -164,8 +163,8 @@ class NavigationTree internal constructor(
     private class MutableNode(
         override val parent: Node?,
         override val hostInParent: NavigationHost?,
-        override val screenKey: DefaultScreenKey,
+        override val screenKey: ScreenKey<*>,
         override val screenRegistration: DefaultScreenRegistration,
-        override val children: MutableMap<DefaultScreenKey, Node> = mutableMapOf(),
+        override val children: MutableMap<ScreenKey<*>, Node> = mutableMapOf(),
     ) : Node
 }

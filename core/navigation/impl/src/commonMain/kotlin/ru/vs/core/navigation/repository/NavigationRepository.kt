@@ -6,7 +6,6 @@ import ru.vs.core.navigation.NavigationLogger
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.DefaultScreenKey
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
@@ -20,17 +19,17 @@ internal interface NavigationRepository {
     /**
      * Список всех зарегистрированных экранов.
      */
-    val screens: Map<DefaultScreenKey, DefaultScreenRegistration>
+    val screens: Map<ScreenKey<*>, DefaultScreenRegistration>
 
     /**
      * Список экранов которые могут открываться внутри определенных [NavigationHost].
      */
-    val endpoints: Map<NavigationHost, Set<DefaultScreenKey>>
+    val endpoints: Map<NavigationHost, Set<ScreenKey<*>>>
 
     /**
      * Множество [KSerializer] для сериализации [ScreenParams].
      */
-    val serializers: Map<DefaultScreenKey, KSerializer<out ScreenParams>>
+    val serializers: Map<ScreenKey<*>, KSerializer<out ScreenParams>>
 }
 
 /**
@@ -41,9 +40,9 @@ internal interface NavigationRepository {
 internal class NavigationRepositoryImpl(
     registrars: Set<NavigationRegistrar>,
 ) : NavigationRepository {
-    override val screens = mutableMapOf<DefaultScreenKey, DefaultScreenRegistration>()
-    override val endpoints = mutableMapOf<NavigationHost, MutableSet<DefaultScreenKey>>()
-    override val serializers = mutableMapOf<DefaultScreenKey, KSerializer<out ScreenParams>>()
+    override val screens = mutableMapOf<ScreenKey<*>, DefaultScreenRegistration>()
+    override val endpoints = mutableMapOf<NavigationHost, MutableSet<ScreenKey<*>>>()
+    override val serializers = mutableMapOf<ScreenKey<*>, KSerializer<out ScreenParams>>()
 
     /**
      * Состояние финализации [NavigationRegistry]. После создания [NavigationRepositoryImpl] добавлять новые элементы
