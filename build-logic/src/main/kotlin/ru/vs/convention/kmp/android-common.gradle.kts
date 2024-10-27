@@ -30,4 +30,15 @@ kotlin {
 android {
     // Указываем директорию для поиска в ней AndroidManifest.xml.
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    testOptions {
+        unitTests {
+            all {
+                // Compose тесты сейчас не работают в android(local) режиме.
+                // TODO дождаться поддержки
+                // https://slack-chats.kotlinlang.org/t/18784429/hi-there-i-m-trying-to-run-an-ui-test-in-shared-commontest-a
+                it.exclude("**/*Ui*")
+            }
+        }
+    }
 }
