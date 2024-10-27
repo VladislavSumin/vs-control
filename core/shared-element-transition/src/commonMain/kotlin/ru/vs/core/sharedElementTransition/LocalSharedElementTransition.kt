@@ -25,6 +25,13 @@ private data class TransitionData(
 /**
  * Сохраняет состояние для работы с shared element transition.
  * Сохраненное состояние в дальнейшем можно использовать с помощью [WithLocalSharedElementTransition].
+ *
+ * Обратите внимание, shared transition работают только вместе [AnimatedContentScope], то есть нельзя просто
+ * объявить root shared element, так это работать не будет, необходимо, чтобы элементы были в разных состояниях
+ * аниматора.
+ *
+ * Так же стоит иметь в виду, что добавляя новый provide вы можете разорвать старую цепочку и часть переходов потеряют
+ * анимацию.
  */
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
