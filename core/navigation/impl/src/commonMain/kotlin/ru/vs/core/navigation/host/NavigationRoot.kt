@@ -38,6 +38,7 @@ fun ComponentContext.childNavigationRoot(
             globalNavigator = globalNavigator,
             screenPath = ScreenPath(params),
             node = node,
+            lifecycle = childContext.lifecycle,
         ),
         childContext,
     )

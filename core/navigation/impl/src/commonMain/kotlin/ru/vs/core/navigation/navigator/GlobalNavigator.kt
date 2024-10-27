@@ -1,6 +1,7 @@
 package ru.vs.core.navigation.navigator
 
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import kotlinx.serialization.KSerializer
 import ru.vs.core.navigation.ScreenParams
@@ -22,8 +23,7 @@ internal class GlobalNavigator(
     /**
      * Регистрирует [screenNavigator] с учетом жизненного цикла [ComponentContext].
      */
-    context(ComponentContext)
-    fun registerScreenNavigator(screenNavigator: ScreenNavigator) {
+    fun registerScreenNavigator(screenNavigator: ScreenNavigator, lifecycle: Lifecycle) {
         val oldScreenNavigator = screenNavigators.put(screenNavigator.screenPath, screenNavigator)
         check(oldScreenNavigator == null) {
             "Screen navigator for ${screenNavigator.screenPath} already registered"

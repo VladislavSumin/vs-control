@@ -1,6 +1,6 @@
 package ru.vs.core.navigation.navigator
 
-import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
@@ -16,12 +16,13 @@ import ru.vs.core.navigation.tree.NavigationTree
  * @param globalNavigator ссылка на global навигатор.
  * @param screenPath путь до экрана соответствующего данному навигатору.
  * @param node нода соответствующая этому экрану в графе навигации.
+ * @param lifecycle жизненный цикл компонента к которому привязан этот навигатор.
  */
-context(ComponentContext)
 class ScreenNavigator internal constructor(
     internal val globalNavigator: GlobalNavigator,
     internal val screenPath: ScreenPath,
     internal val node: NavigationTree.Node,
+    private val lifecycle: Lifecycle,
 ) {
     /**
      * Список зарегистрированных на этом экране [HostNavigator].
@@ -29,7 +30,8 @@ class ScreenNavigator internal constructor(
     private val navigationHosts = mutableMapOf<NavigationHost, HostNavigator>()
 
     init {
-        globalNavigator.registerScreenNavigator(this)
+        // Регистрируем этот навигатор в глобальном
+        globalNavigator.registerScreenNavigator(this, lifecycle)
     }
 
     /**

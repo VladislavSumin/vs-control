@@ -23,6 +23,7 @@ internal fun ComponentContext.wrapWithScreenContext(
             parentNavigator.globalNavigator,
             parentNavigator.screenPath + screenParams,
             parentNavigator.node.children[screenKey]!!,
+            lifecycle,
         ),
         this,
     )
