@@ -1,11 +1,18 @@
 package ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,27 +25,52 @@ import ru.vs.core.uikit.icons.Logo
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 internal fun WelcomeScreenContent(viewModel: WelcomeScreenViewModel, modifier: Modifier) {
-    Box(modifier) {
-        Column(Modifier.align(Alignment.Center)) {
-            WithLocalSharedElementTransition {
-                Icon(
-                    Logo,
-                    contentDescription = null,
-                    Modifier
-                        .size(128.dp)
-                        .sharedElement(
-                            rememberSharedContentState(SplashScreenSharedTransition.LOGO_ID),
-                            it,
-                        ),
-                )
-            }
-            Text("Welcome to Control")
+    Column(
+        modifier
+            .safeDrawingPadding()
+            .padding(
+                vertical = 24.dp,
+                horizontal = 16.dp,
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(Modifier.weight(1f))
+
+        WithLocalSharedElementTransition {
+            Icon(
+                Logo,
+                contentDescription = null,
+                Modifier
+                    .size(128.dp)
+                    .sharedElement(
+                        rememberSharedContentState(SplashScreenSharedTransition.LOGO_ID),
+                        it,
+                    ),
+            )
+        }
+
+        Text(
+            "Welcome to Control",
+            style = MaterialTheme.typography.headlineMedium,
+        )
+        Text(
+            "Давайте добавим первое подключение?",
+            Modifier.padding(top = 2.dp),
+            style = MaterialTheme.typography.bodyMedium,
+        )
+
+        Spacer(Modifier.weight(1f))
+
+        Column(Modifier.width(IntrinsicSize.Min)) {
             Button(
                 onClick = viewModel::onClickContinue,
-                Modifier.align(Alignment.CenterHorizontally),
-            ) {
-                Text("to content")
-            }
+                Modifier.fillMaxWidth(),
+            ) { Text("Добавить") }
+
+            OutlinedButton(
+                onClick = viewModel::onClickSkip,
+                Modifier.fillMaxWidth(),
+            ) { Text("Пропустить") }
         }
     }
 }

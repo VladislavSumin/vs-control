@@ -16,4 +16,8 @@ internal class WelcomeScreenViewModel : ViewModel() {
     fun onClickContinue() {
         navigationChannel.trySend(RootContentScreenParams)
     }
+
+    fun onClickSkip() {
+        navigationChannel.trySend(RootContentScreenParams)
+    }
 }
