@@ -18,7 +18,10 @@ internal fun WelcomeScreenContent(viewModel: WelcomeScreenViewModel, modifier: M
         Column(Modifier.align(Alignment.Center)) {
             Icon(Logo, contentDescription = null, Modifier.size(128.dp))
             Text("Welcome to Control")
-            Button(onClick = viewModel::onClickContinue) {
+            Button(
+                onClick = viewModel::onClickContinue,
+                Modifier.align(Alignment.CenterHorizontally),
+            ) {
                 Text("to content")
             }
         }
