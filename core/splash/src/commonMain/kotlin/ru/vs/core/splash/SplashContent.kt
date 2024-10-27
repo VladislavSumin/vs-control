@@ -65,13 +65,8 @@ private fun <T : Any> Children(
         transitionSpec = transitionSpec,
     ) { child ->
         when (child.configuration) {
-            ChildSplashConfiguration.Splash -> {
-                content(child.instance)
-            }
-
-            ChildSplashConfiguration.Content -> {
-                savedContent(child.instance)
-            }
+            ChildSplashConfiguration.Splash -> content(child.instance)
+            ChildSplashConfiguration.Content -> savedContent(child.instance)
         }
     }
 }
