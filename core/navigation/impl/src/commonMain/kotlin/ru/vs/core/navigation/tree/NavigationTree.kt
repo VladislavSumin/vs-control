@@ -1,6 +1,8 @@
 package ru.vs.core.navigation.tree
 
+import com.arkivanov.essenty.statekeeper.ExperimentalStateKeeperApi
 import com.arkivanov.essenty.statekeeper.polymorphicSerializer
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -31,6 +33,7 @@ class NavigationTree internal constructor(
      * Сериализатор для всех зарегистрированных [ScreenParams], используется внутри decompose для сохранения и
      * восстановления состояния приложения.
      */
+    @OptIn(ExperimentalSerializationApi::class, ExperimentalStateKeeperApi::class)
     internal val serializer = polymorphicSerializer(
         ScreenParams::class,
         SerializersModule {

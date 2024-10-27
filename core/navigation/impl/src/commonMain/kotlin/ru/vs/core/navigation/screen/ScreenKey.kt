@@ -11,3 +11,5 @@ import kotlin.reflect.KClass
  */
 @JvmInline
 value class ScreenKey<P : ScreenParams>(val key: KClass<P>)
+
+internal fun ScreenParams.asKey(): ScreenKey<ScreenParams> = ScreenKey(this::class) as ScreenKey<ScreenParams>

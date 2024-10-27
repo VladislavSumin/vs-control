@@ -5,6 +5,7 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.ScreenContext
+import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
 import ru.vs.core.navigation.tree.NavigationTree
@@ -12,9 +13,9 @@ import ru.vs.core.navigation.tree.NavigationTree
 /**
  * Навигатор уровня экрана.
  *
- * @param globalNavigator ссылка на глобальный навигатор.
+ * @param globalNavigator ссылка на global навигатор.
  * @param screenPath путь до экрана соответствующего данному навигатору.
- * @param node нода соответствующая [screenPath] в графе навигации.
+ * @param node нода соответствующая этому экрану в графе навигации.
  */
 context(ComponentContext)
 class ScreenNavigator internal constructor(
@@ -44,14 +45,24 @@ class ScreenNavigator internal constructor(
     }
 
     /**
-     * TODO доку
+     * Внутренняя функция предназначенная для использования глобальным навигатором.
+     * После нахождения пути к экрану открываемому через вызов [open], навигатор последовательно вызывает эту
+     * функцию на **каждом** экране в пути, тем самым переключая состояние на требуемое.
      */
-    internal fun openInside(screenParams: ScreenParams) {
+    internal fun openInsideThisScreen(screenParams: ScreenParams) {
         val screenKey = ScreenKey(screenParams::class)
         val childNode = node.children[screenKey] ?: error("Child node with screenKey=$screenKey not found")
         val hostNavigator = navigationHosts[childNode.hostInParent]
             ?: error("Host navigator for host=${childNode.hostInParent} not found")
         hostNavigator.open(screenParams)
+    }
+
+    /**
+     * Возвращает фабрику для создания дочернего экрана.
+     */
+    @Suppress("UNCHECKED_CAST")
+    internal fun getChildScreenFactory(screenKey: ScreenKey<ScreenParams>): ScreenFactory<ScreenParams, *> {
+        return node.children[screenKey]!!.screenRegistration.factory as ScreenFactory<ScreenParams, *>
     }
 
     /**

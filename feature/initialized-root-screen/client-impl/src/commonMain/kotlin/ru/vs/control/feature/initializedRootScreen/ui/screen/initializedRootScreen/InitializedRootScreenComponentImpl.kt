@@ -22,6 +22,8 @@ internal class InitializedRootScreenComponentImpl(
     private val rootNavigation = childNavigationRoot(navigationTree)
 
     init {
+        // TODO временный код для эмитации долгой загрузки.
+        // TODO передавать эту лябду в навигацию.
         val scope = lifecycle.createCoroutineScope()
         scope.launch {
             @Suppress("MagicNumber")
