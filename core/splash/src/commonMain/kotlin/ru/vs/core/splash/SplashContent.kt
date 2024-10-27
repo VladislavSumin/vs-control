@@ -6,6 +6,7 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
@@ -31,7 +32,7 @@ fun <T : Any> Children(
     stack: Value<ChildSplash<T>>,
     modifier: Modifier = Modifier,
     splashExitTransition: ExitTransition = scaleOut(targetScale = 1.3f) + fadeOut(),
-    contentEnterTransition: EnterTransition = EnterTransition.None,
+    contentEnterTransition: EnterTransition = fadeIn(),
     content: @Composable AnimatedContentScope.(T) -> Unit,
 ) {
     val state by stack.subscribeAsState()
