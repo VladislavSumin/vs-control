@@ -1,5 +1,7 @@
 package ru.vs.control.feature.rootScreen.ui.screen.rootScreen
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -7,6 +9,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlinx.coroutines.flow.first
 import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenFactory
+import ru.vs.core.sharedElementTransition.ProvideLocalSharedElementTransition
 import ru.vs.core.splash.Children
 import ru.vs.core.splash.childSplash
 
@@ -25,10 +28,15 @@ internal class RootScreenComponentImpl(
         },
     )
 
+    @OptIn(ExperimentalSharedTransitionApi::class)
     @Composable
     override fun Render(modifier: Modifier) {
-        Children(splash, modifier) {
-            it.Render(Modifier.fillMaxSize())
+        SharedTransitionLayout(modifier) {
+            Children(splash) {
+                ProvideLocalSharedElementTransition(this) {
+                    it.Render(Modifier.fillMaxSize())
+                }
+            }
         }
     }
 }

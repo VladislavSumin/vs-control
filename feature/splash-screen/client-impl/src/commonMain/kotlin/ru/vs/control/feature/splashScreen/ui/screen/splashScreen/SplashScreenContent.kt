@@ -1,6 +1,7 @@
 package ru.vs.control.feature.splashScreen.ui.screen.splashScreen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,8 +17,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenSharedTransition
+import ru.vs.core.sharedElementTransition.WithLocalSharedElementTransition
 import ru.vs.core.uikit.icons.Logo
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 internal fun SplashScreenContent(viewModel: SplashScreenViewModel, modifier: Modifier) {
     val state by viewModel.state.collectAsState()
@@ -26,11 +30,18 @@ internal fun SplashScreenContent(viewModel: SplashScreenViewModel, modifier: Mod
             Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Icon(
-                Logo,
-                contentDescription = null,
-                Modifier.size(128.dp),
-            )
+            WithLocalSharedElementTransition {
+                Icon(
+                    Logo,
+                    contentDescription = null,
+                    Modifier
+                        .size(128.dp)
+                        .sharedElement(
+                            rememberSharedContentState(SplashScreenSharedTransition.LOGO_ID),
+                            it,
+                        ),
+                )
+            }
 
             val isProgressVisible = when (state) {
                 SplashScreenViewState.FastLoading -> false
