@@ -4,11 +4,10 @@ import com.arkivanov.essenty.statekeeper.polymorphicSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
-import kotlinx.serialization.modules.subclass
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
-import ru.vs.core.navigation.repository.DefaultScreenRegistration
 import ru.vs.core.navigation.repository.NavigationRepository
+import ru.vs.core.navigation.repository.ScreenRegistration
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
 import ru.vs.core.utils.joinToStingFormatted
@@ -152,7 +151,7 @@ class NavigationTree internal constructor(
         val parent: Node?
         val hostInParent: NavigationHost?
         val screenKey: ScreenKey<*>
-        val screenRegistration: DefaultScreenRegistration
+        val screenRegistration: ScreenRegistration<*, *>
         val children: Map<ScreenKey<*>, Node>
     }
 
@@ -164,7 +163,7 @@ class NavigationTree internal constructor(
         override val parent: Node?,
         override val hostInParent: NavigationHost?,
         override val screenKey: ScreenKey<*>,
-        override val screenRegistration: DefaultScreenRegistration,
+        override val screenRegistration: ScreenRegistration<*, *>,
         override val children: MutableMap<ScreenKey<*>, Node> = mutableMapOf(),
     ) : Node
 }

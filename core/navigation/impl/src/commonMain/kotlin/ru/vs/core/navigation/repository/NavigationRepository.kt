@@ -19,7 +19,7 @@ internal interface NavigationRepository {
     /**
      * Список всех зарегистрированных экранов.
      */
-    val screens: Map<ScreenKey<*>, DefaultScreenRegistration>
+    val screens: Map<ScreenKey<*>, ScreenRegistration<*, *>>
 
     /**
      * Список экранов которые могут открываться внутри определенных [NavigationHost].
@@ -40,7 +40,7 @@ internal interface NavigationRepository {
 internal class NavigationRepositoryImpl(
     registrars: Set<NavigationRegistrar>,
 ) : NavigationRepository {
-    override val screens = mutableMapOf<ScreenKey<*>, DefaultScreenRegistration>()
+    override val screens = mutableMapOf<ScreenKey<*>, ScreenRegistration<*, *>>()
     override val endpoints = mutableMapOf<NavigationHost, MutableSet<ScreenKey<*>>>()
     override val serializers = mutableMapOf<ScreenKey<*>, KSerializer<out ScreenParams>>()
 
