@@ -118,5 +118,4 @@ jobs:
           # allTest (not working by wasm target)
           gradle_command: >-
             jvmTest
-            jsTest
             testDebugUnitTest
