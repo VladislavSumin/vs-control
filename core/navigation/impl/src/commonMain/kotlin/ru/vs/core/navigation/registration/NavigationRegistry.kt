@@ -26,6 +26,7 @@ interface NavigationRegistry {
      * в js.
      * @param defaultParams параметры экрана по умолчанию.
      * @param navigationHosts хосты навигации расположенные на этом экране
+     * @param description опциональное описание экрана, используется только для дебага, при отображении графа навигации
      */
     fun <P : ScreenParams, S : Screen> registerScreen(
         key: ScreenKey<P>,
@@ -34,6 +35,7 @@ interface NavigationRegistry {
         nameForLogs: String,
         defaultParams: P? = null,
         navigationHosts: List<NavigationHost> = emptyList(),
+        description: String? = null,
     )
 
     /**

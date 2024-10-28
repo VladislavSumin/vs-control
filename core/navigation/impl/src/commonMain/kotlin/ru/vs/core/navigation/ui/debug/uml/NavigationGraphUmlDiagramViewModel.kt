@@ -35,6 +35,7 @@ internal class NavigationGraphUmlDiagramViewModel(
                 name = node.screenRegistration.nameForLogs,
                 hasDefaultParams = node.screenRegistration.defaultParams != null,
                 isPartOfMainGraph = true,
+                description = node.screenRegistration.description,
             ),
             children = node.children.map { mapNodesRecursively(it.value) },
         )

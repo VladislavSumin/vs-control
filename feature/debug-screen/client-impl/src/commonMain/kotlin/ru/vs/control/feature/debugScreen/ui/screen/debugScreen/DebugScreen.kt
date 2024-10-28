@@ -46,7 +46,7 @@ internal class DebugScreen(
                 description = """
                     Отображается после инициализации приложения. 
                     Является точкой входа в полноценную навигацию.
-                """.trimIndent()
+                """.trimIndent(),
             ),
             children = listOf(originalNode),
         )
