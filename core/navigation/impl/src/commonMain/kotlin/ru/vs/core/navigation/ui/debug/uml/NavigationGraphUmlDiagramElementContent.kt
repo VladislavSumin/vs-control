@@ -46,8 +46,8 @@ internal fun NavigationGraphUmlDiagramElementContent(
             Modifier
                 .width(IntrinsicSize.Min)
                 .padding(
-                    horizontal = 16.dp,
-                    vertical = 8.dp,
+                    horizontal = 12.dp,
+                    vertical = 6.dp,
                 ),
         ) {
             Text(

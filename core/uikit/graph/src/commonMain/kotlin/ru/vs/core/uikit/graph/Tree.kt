@@ -78,7 +78,8 @@ fun <T> Tree(
             val childrenTotalSpacePx = max(horizontalSpacePx * (childNodes.size - 1), 0)
             val verticalSpacePx = if (childNodes.isEmpty()) 0 else verticalSpace.toPx().toInt()
 
-            val width = max(root.width, childNodes.sumOf { it.width }) + childrenTotalSpacePx
+            val childTotalWidth = childNodes.sumOf { it.width } + childrenTotalSpacePx
+            val width = max(root.width, childTotalWidth)
             val height = root.height + (childNodes.maxOfOrNull { it.height } ?: 0) + verticalSpacePx
 
             val canvas = canvasMeasurable.measure(Constraints.fixed(width, height))
@@ -93,8 +94,10 @@ fun <T> Tree(
                 // Canvas занимает всю область рисования.
                 canvas.place(0, 0)
 
+                // Бывает что дочерние элементы уже родительского, тогда они должны быть выровнены по центру
+                // относительно родительского. Учитываем этот момент при вычислении начального отступа по ширине.
+                var currentWidth = (width - childTotalWidth) / 2
                 // Далее дочерние элементы расставляем в строчку под родительским с учетом всех отступов.
-                var currentWidth = 0
                 val childCentersX = childNodes.map {
                     it.place(currentWidth, root.height + verticalSpacePx)
                     val centerX = currentWidth + it.width / 2
