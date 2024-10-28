@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("ru.vs.convention.kmp.all-non-android")
@@ -68,6 +68,7 @@ kotlin {
             implementation(projects.feature.debugScreen.clientImpl)
             implementation(projects.feature.initialization.clientImpl)
             implementation(projects.feature.initializedRootScreen.clientImpl)
+            implementation(projects.feature.mainScreen.clientImpl)
             implementation(projects.feature.navigationRootScreen.clientImpl)
             implementation(projects.feature.rootContentScreen.clientImpl)
             implementation(projects.feature.rootScreen.clientImpl)
