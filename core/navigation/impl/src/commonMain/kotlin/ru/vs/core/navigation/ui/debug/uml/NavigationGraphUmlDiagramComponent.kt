@@ -9,10 +9,19 @@ import ru.vs.core.decompose.ComposeComponent
 class NavigationGraphUmlDiagramComponentFactory internal constructor(
     private val viewModelFactory: NavigationGraphUmlDiagramViewModelFactory,
 ) {
-    fun create(context: ComponentContext): ComposeComponent {
+    /**
+     * @param navigationTreeInterceptor перехватывает ноды созданные из графа навигации и позволяет внести в полученный
+     * граф любые изменения, например добавить экраны инициализации которые не являются частью графа. **Внимание** этот
+     * параметр передается в viewModel и имеет отличный от компонента lifecycle.
+     */
+    fun create(
+        context: ComponentContext,
+        navigationTreeInterceptor: (NavigationGraphUmlNode) -> NavigationGraphUmlNode = { it },
+    ): ComposeComponent {
         return NavigationGraphUmlDiagramComponent(
             viewModelFactory,
             context,
+            navigationTreeInterceptor,
         )
     }
 }
@@ -23,8 +32,11 @@ class NavigationGraphUmlDiagramComponentFactory internal constructor(
 internal class NavigationGraphUmlDiagramComponent(
     viewModelFactory: NavigationGraphUmlDiagramViewModelFactory,
     context: ComponentContext,
+    navigationTreeInterceptor: (NavigationGraphUmlNode) -> NavigationGraphUmlNode,
 ) : ComponentContext by context, ComposeComponent {
-    private val viewModel: NavigationGraphUmlDiagramViewModel = instanceKeeper.getOrCreate { viewModelFactory.create() }
+    private val viewModel: NavigationGraphUmlDiagramViewModel = instanceKeeper.getOrCreate {
+        viewModelFactory.create(navigationTreeInterceptor)
+    }
 
     @Composable
     override fun Render(modifier: Modifier) = NavigationGraphUmlDiagramContent(viewModel, modifier)

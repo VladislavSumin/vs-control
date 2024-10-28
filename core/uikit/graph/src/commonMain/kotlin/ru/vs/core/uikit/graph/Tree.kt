@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import kotlin.math.max
 
 /**
- * Рисует древовидную структуру.
+ * Рисует древовидную структуру. Сверху вниз, соединяет корневую node со всеми дочерними и рисует соединительные линии.
  *
  * @param rootNode голова дерева.
  * @param childSelector селектор для поиска дочерних нод в родительской.
@@ -30,6 +30,7 @@ import kotlin.math.max
 fun <T> Tree(
     rootNode: T,
     childSelector: (T) -> List<T>,
+    modifier: Modifier = Modifier,
     verticalSpace: Dp = 24.dp,
     horizontalSpace: Dp = 16.dp,
     lineColor: Color = MaterialTheme.colorScheme.outlineVariant,
@@ -52,6 +53,7 @@ fun <T> Tree(
                 )
             }
         },
+        modifier = modifier,
         measurePolicy = { children, _ ->
             val hasChildNodes = children.size > 2
 

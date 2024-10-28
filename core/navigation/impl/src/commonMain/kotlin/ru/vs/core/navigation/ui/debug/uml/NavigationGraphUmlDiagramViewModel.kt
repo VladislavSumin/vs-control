@@ -6,66 +6,32 @@ import ru.vs.core.navigation.tree.NavigationTree
 internal class NavigationGraphUmlDiagramViewModelFactory(
     private val navigationTreeProvider: () -> NavigationTree,
 ) {
-    fun create(): NavigationGraphUmlDiagramViewModel {
-        return NavigationGraphUmlDiagramViewModel(navigationTreeProvider())
+    fun create(
+        navigationTreeInterceptor: (NavigationGraphUmlNode) -> NavigationGraphUmlNode,
+    ): NavigationGraphUmlDiagramViewModel {
+        return NavigationGraphUmlDiagramViewModel(navigationTreeProvider(), navigationTreeInterceptor)
     }
 }
 
 internal class NavigationGraphUmlDiagramViewModel(
     private val navigationTree: NavigationTree,
+    private val navigationTreeInterceptor: (NavigationGraphUmlNode) -> NavigationGraphUmlNode,
 ) : ViewModel() {
 
     val graph = createDebugGraph()
 
     private fun createDebugGraph(): NavigationGraphUmlDiagramViewState {
         return NavigationGraphUmlDiagramViewState(
-            root = generateFakeNavigationNodesFist(),
+            root = navigationTreeInterceptor(mapNodesRecursively(navigationTree.root)),
         )
     }
 
     /**
-     * Не все пути навигации содержаться в графе навигации. Несколько первых экранов туда не попадают, поэтому
-     * добавляем их вручную.
+     * Переводит все [NavigationTree.Node] исходного графа навигации в граф [NavigationGraphUmlDiagramViewState.Node].
      */
-    private fun generateFakeNavigationNodesFist(): NavigationGraphUmlDiagramViewState.Node {
-        val normalGraph = mapNodesRecursively(navigationTree.root)
-
-        val initializedRootScreenNode = NavigationGraphUmlDiagramViewState.Node(
-            info = NavigationGraphUmlDiagramViewState.NodeInfo(
-                name = "InitializedRootScreenComponent",
-                hasDefaultParams = false,
-                isPartOfMainGraph = false,
-            ),
-            children = listOf(normalGraph),
-        )
-
-        val splashScreenNode = NavigationGraphUmlDiagramViewState.Node(
-            info = NavigationGraphUmlDiagramViewState.NodeInfo(
-                name = "SplashScreenComponent",
-                hasDefaultParams = false,
-                isPartOfMainGraph = false,
-            ),
-            children = emptyList(),
-        )
-
-        val rootScreenNode = NavigationGraphUmlDiagramViewState.Node(
-            info = NavigationGraphUmlDiagramViewState.NodeInfo(
-                name = "RootScreenComponent",
-                hasDefaultParams = false,
-                isPartOfMainGraph = false,
-            ),
-            children = listOf(
-                splashScreenNode,
-                initializedRootScreenNode,
-            ),
-        )
-
-        return rootScreenNode
-    }
-
-    private fun mapNodesRecursively(node: NavigationTree.Node): NavigationGraphUmlDiagramViewState.Node {
-        return NavigationGraphUmlDiagramViewState.Node(
-            info = NavigationGraphUmlDiagramViewState.NodeInfo(
+    private fun mapNodesRecursively(node: NavigationTree.Node): NavigationGraphUmlNode {
+        return NavigationGraphUmlNode(
+            info = NavigationGraphUmlNode.Info(
                 name = node.screenRegistration.nameForLogs,
                 hasDefaultParams = node.screenRegistration.defaultParams != null,
                 isPartOfMainGraph = true,

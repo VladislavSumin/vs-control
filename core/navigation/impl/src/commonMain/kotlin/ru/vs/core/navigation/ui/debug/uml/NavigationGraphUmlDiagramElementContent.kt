@@ -14,12 +14,10 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 internal fun NavigationGraphUmlDiagramElementContent(
-    info: NavigationGraphUmlDiagramViewState.NodeInfo,
+    info: NavigationGraphUmlNode.Info,
     modifier: Modifier = Modifier,
 ) {
-    OutlinedCard(
-        modifier,
-    ) {
+    OutlinedCard(modifier) {
         Column(
             Modifier.padding(
                 horizontal = 16.dp,

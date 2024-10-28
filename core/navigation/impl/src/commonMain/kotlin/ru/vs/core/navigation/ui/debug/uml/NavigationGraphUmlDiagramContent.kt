@@ -20,20 +20,28 @@ internal fun NavigationGraphUmlDiagramContent(
     viewModel: NavigationGraphUmlDiagramViewModel,
     modifier: Modifier,
 ) {
+    // Текущее приближение графа.
     var scale by remember { mutableStateOf(1f) }
+
+    // Текущий сдвиг графа.
     var offset by remember { mutableStateOf(Offset.Zero) }
-    val state = rememberTransformableState { zoomChange, offsetChange, _ ->
+
+    val transformableState = rememberTransformableState { zoomChange, offsetChange, _ ->
         scale *= zoomChange
         offset += offsetChange
     }
 
-    // Корневой Box нужен, чтобы ограничить дочерний контент пределами этого элемента, а так же для обработки касаний
+    // Корневой Box нужен, чтобы ограничить дочерний контент пределами этого элемента, а так же для обработки касаний.
     Box(
         modifier
+            // Обрезаем дочерний контент границами этой ноды иначе при движении дочерний контент будет выходить за
+            // пределы это ноды.
             .clipToBounds()
-            .transformable(state = state),
+            .transformable(state = transformableState),
     ) {
-        Box(
+        Tree(
+            rootNode = viewModel.graph.root,
+            childSelector = { it.children },
             modifier = Modifier
                 .graphicsLayer(
                     scaleX = scale,
@@ -43,12 +51,7 @@ internal fun NavigationGraphUmlDiagramContent(
                 )
                 .fillMaxSize(),
         ) {
-            Tree(
-                rootNode = viewModel.graph.root,
-                childSelector = { it.children },
-            ) {
-                NavigationGraphUmlDiagramElementContent(it.info)
-            }
+            NavigationGraphUmlDiagramElementContent(it.info)
         }
     }
 }

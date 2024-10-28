@@ -12,6 +12,7 @@ import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFactory
+import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlNode
 
 internal class DebugScreenFactory(
     private val umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
@@ -26,7 +27,49 @@ internal class DebugScreen(
     context: ScreenContext,
 ) : Screen, ScreenContext by context {
 
-    private val umlDiagramComponent = umlDiagramComponentFactory.create(childContext("uml"))
+    private val umlDiagramComponent = umlDiagramComponentFactory.create(
+        childContext("uml"),
+        navigationTreeInterceptor = { generateFakeNavigationNodesFist(it) },
+    )
+
+    /**
+     * Не все пути навигации содержаться в графе навигации. Несколько первых экранов туда не попадают, поэтому
+     * добавляем их вручную.
+     * TODO перенести во вью модель.
+     */
+    private fun generateFakeNavigationNodesFist(originalNode: NavigationGraphUmlNode): NavigationGraphUmlNode {
+        val initializedRootScreenNode = NavigationGraphUmlNode(
+            info = NavigationGraphUmlNode.Info(
+                name = "InitializedRootScreenComponent",
+                hasDefaultParams = false,
+                isPartOfMainGraph = false,
+            ),
+            children = listOf(originalNode),
+        )
+
+        val splashScreenNode = NavigationGraphUmlNode(
+            info = NavigationGraphUmlNode.Info(
+                name = "SplashScreenComponent",
+                hasDefaultParams = false,
+                isPartOfMainGraph = false,
+            ),
+            children = emptyList(),
+        )
+
+        val rootScreenNode = NavigationGraphUmlNode(
+            info = NavigationGraphUmlNode.Info(
+                name = "RootScreenComponent",
+                hasDefaultParams = false,
+                isPartOfMainGraph = false,
+            ),
+            children = listOf(
+                splashScreenNode,
+                initializedRootScreenNode,
+            ),
+        )
+
+        return rootScreenNode
+    }
 
     @Composable
     override fun Render(modifier: Modifier) {
