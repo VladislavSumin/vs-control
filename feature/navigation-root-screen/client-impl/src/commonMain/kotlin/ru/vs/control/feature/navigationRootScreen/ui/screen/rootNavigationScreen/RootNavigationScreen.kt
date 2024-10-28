@@ -30,7 +30,6 @@ internal class RootNavigationScreen(
     private val childSlotNavigation: Value<ChildSlot<ScreenParams, Screen>> = childNavigationSlot(
         initialConfiguration = viewModel::getInitialConfiguration,
         navigationHost = RootNavigationHost,
-        key = "RootNavigationHost",
     )
 
     @Composable

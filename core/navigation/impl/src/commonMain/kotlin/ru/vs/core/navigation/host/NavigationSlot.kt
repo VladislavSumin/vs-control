@@ -27,7 +27,7 @@ import ru.vs.core.navigation.screen.asKey
 fun ScreenContext.childNavigationSlot(
     navigationHost: NavigationHost,
     initialConfiguration: () -> ScreenParams? = { null },
-    key: String,
+    key: String = "slot_navigation",
     handleBackButton: Boolean = false,
 ): Value<ChildSlot<ScreenParams, Screen>> {
     val source = SlotNavigation<ScreenParams>()
