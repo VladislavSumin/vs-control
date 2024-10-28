@@ -43,6 +43,10 @@ internal class DebugScreen(
                 name = "InitializedRootScreenComponent",
                 hasDefaultParams = false,
                 isPartOfMainGraph = false,
+                description = """
+                    Отображается после инициализации приложения. 
+                    Является точкой входа в полноценную навигацию.
+                """.trimIndent()
             ),
             children = listOf(originalNode),
         )
@@ -52,6 +56,7 @@ internal class DebugScreen(
                 name = "SplashScreenComponent",
                 hasDefaultParams = false,
                 isPartOfMainGraph = false,
+                description = "Отображает splash заглушку",
             ),
             children = emptyList(),
         )
@@ -61,6 +66,7 @@ internal class DebugScreen(
                 name = "RootScreenComponent",
                 hasDefaultParams = false,
                 isPartOfMainGraph = false,
+                description = "Корневой экран, отвечает за запуск инициализации приложения",
             ),
             children = listOf(
                 splashScreenNode,
