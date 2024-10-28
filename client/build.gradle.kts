@@ -71,6 +71,7 @@ kotlin {
             implementation(projects.feature.navigationRootScreen.clientImpl)
             implementation(projects.feature.rootContentScreen.clientImpl)
             implementation(projects.feature.rootScreen.clientImpl)
+            implementation(projects.feature.servers.clientImpl)
             implementation(projects.feature.splashScreen.clientImpl)
             implementation(projects.feature.welcomeScreen.clientImpl)
         }

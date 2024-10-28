@@ -12,6 +12,7 @@ import ru.vs.control.feature.initializedRootScreen.featureInitializedRootScreen
 import ru.vs.control.feature.navigationRootScreen.featureNavigationRootScreen
 import ru.vs.control.feature.rootContentScreen.featureRootContentScreen
 import ru.vs.control.feature.rootScreen.featureRootScreen
+import ru.vs.control.feature.servers.featureServers
 import ru.vs.control.feature.splashScreen.featureSplashScreen
 import ru.vs.control.feature.welcomeScreen.featureWelcomeScreen
 import ru.vs.core.di.Modules
@@ -30,6 +31,7 @@ fun preInit(): DirectDI {
     LoggerManager.initDefault()
     InitLogger.i("preInit()")
 
+    // Граф инициализируется в фоне после базовой инициализации ui (во время показа splash экрана).
     val initializedDependenciesBuilder = InitializedDependenciesBuilder {
         importOnce(Modules.coreNavigation())
 
@@ -37,9 +39,11 @@ fun preInit(): DirectDI {
         importOnce(Modules.featureInitializedRootScreen())
         importOnce(Modules.featureNavigationRootScreen())
         importOnce(Modules.featureRootContentScreen())
+        importOnce(Modules.featureServers())
         importOnce(Modules.featureWelcomeScreen())
     }
 
+    // Граф инициализируется до создания ui блокируя главный поток.
     val preInitDi = DI {
         importOnce(Modules.featureAppInfo())
         importOnce(Modules.featureInitialization())

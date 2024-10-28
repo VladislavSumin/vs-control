@@ -53,6 +53,7 @@ feature("initialized-root-screen")
 feature("navigation-root-screen")
 feature("root-content-screen")
 feature("root-screen")
+feature("servers")
 feature("splash-screen")
 feature("welcome-screen")
 
