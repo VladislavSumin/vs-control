@@ -1,6 +1,7 @@
 package ru.vs.core.navigation.navigator
 
 import com.arkivanov.essenty.lifecycle.Lifecycle
+import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
@@ -30,8 +31,17 @@ class ScreenNavigator internal constructor(
     private val navigationHosts = mutableMapOf<NavigationHost, HostNavigator>()
 
     init {
-        // Регистрируем этот навигатор в глобальном
+        // Регистрируем этот навигатор в глобальном.
         globalNavigator.registerScreenNavigator(this, lifecycle)
+
+        lifecycle.doOnCreate {
+            // Проверяем что экран действительно зарегистрировал все типы навигации которые может открывать.
+            val expectedHosts = node.children.values.map { it.hostInParent }.toSet()
+            val actualHosts = navigationHosts.keys
+            check(expectedHosts == actualHosts) {
+                "Actual host registration doesn't match expected. Actual:$actualHosts, expected:$expectedHosts"
+            }
+        }
     }
 
     /**
