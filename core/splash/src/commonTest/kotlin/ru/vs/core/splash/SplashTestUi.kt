@@ -12,20 +12,18 @@ import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
-import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.value.Value
-import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.arkivanov.essenty.lifecycle.resume
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
+import ru.vs.core.compose.advanceTimeOneFrameBeforeBy
 import ru.vs.core.coroutines.setMain
 import ru.vs.core.decompose.ComposeComponent
+import ru.vs.core.decompose.ResumedTestComponentContext
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
-import ru.vs.core.compose.advanceTimeOneFrameBeforeBy
 
 private const val FAKE_DELAY = 10_000L
 private const val ANIMATION_DURATION = 5_000
@@ -40,12 +38,7 @@ class SplashTestUi {
     fun testContentChange() = runTest {
         setMain()
         runComposeUiTest {
-            // TODO вынести в экстеншен?
-            val lifecycle = LifecycleRegistry()
-            val defaultContext = DefaultComponentContext(lifecycle)
-            lifecycle.resume()
-
-            val splash = defaultContext.childSplash(
+            val splash = ResumedTestComponentContext().childSplash(
                 scope = this@runTest,
                 awaitInitialization = { delay(FAKE_DELAY) },
                 splashComponentFactory = { SplashScreenComponent(it) },
@@ -81,12 +74,7 @@ class SplashTestUi {
     fun testAnimatedContentChange() = runTest {
         setMain()
         runComposeUiTest {
-            // TODO вынести в экстеншен?
-            val lifecycle = LifecycleRegistry()
-            val defaultContext = DefaultComponentContext(lifecycle)
-            lifecycle.resume()
-
-            val splash = defaultContext.childSplash(
+            val splash = ResumedTestComponentContext().childSplash(
                 scope = this@runTest,
                 awaitInitialization = { delay(FAKE_DELAY) },
                 splashComponentFactory = { SplashScreenComponent(it) },
@@ -151,12 +139,7 @@ class SplashTestUi {
         var randomValue: CharSequence? = null
 
         runComposeUiTest {
-            // TODO вынести в экстеншен?
-            val lifecycle = LifecycleRegistry()
-            val defaultContext = DefaultComponentContext(lifecycle)
-            lifecycle.resume()
-
-            val splash = defaultContext.childSplash(
+            val splash = ResumedTestComponentContext().childSplash(
                 scope = this@runTest,
                 awaitInitialization = { delay(FAKE_DELAY) },
                 splashComponentFactory = { SplashScreenComponent(it) },
@@ -184,12 +167,7 @@ class SplashTestUi {
         val registry2 = SaveableStateRegistry(data) { true }
 
         runComposeUiTest {
-            // TODO вынести в экстеншен?
-            val lifecycle = LifecycleRegistry()
-            val defaultContext = DefaultComponentContext(lifecycle)
-            lifecycle.resume()
-
-            val splash = defaultContext.childSplash(
+            val splash = ResumedTestComponentContext().childSplash(
                 scope = this@runTest,
                 awaitInitialization = { delay(FAKE_DELAY) },
                 splashComponentFactory = { SplashScreenComponent(it) },

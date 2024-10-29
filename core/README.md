@@ -12,6 +12,7 @@ Core модули могут содержать только самый базо
 * [coroutines](coroutines/README.md) базовый код coroutines.
 * [coroutines-test](coroutines-test/README.md) базовый код для тестирования coroutines.
 * [decompose](decompose/README.md) базовый код decompose.
+* [decompose-test](decompose-test/README.md) базовый код для тестирования decompose.
 * [di](di/README.md) базовый код di.
 * [logger](logger/README.md) общий логгер для всех модулей.
 * [navigation](navigation/README.md) фреймворк навигации.

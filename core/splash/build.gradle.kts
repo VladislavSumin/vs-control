@@ -13,6 +13,7 @@ kotlin {
         commonTest.dependencies {
             implementation(projects.core.composeTest)
             implementation(projects.core.coroutinesTest)
+            implementation(projects.core.decomposeTest)
         }
     }
 }
