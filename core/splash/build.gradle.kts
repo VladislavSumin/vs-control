@@ -11,6 +11,7 @@ kotlin {
             implementation(projects.core.decompose)
         }
         commonTest.dependencies {
+            implementation(projects.core.composeTest)
             implementation(projects.core.coroutinesTest)
         }
     }

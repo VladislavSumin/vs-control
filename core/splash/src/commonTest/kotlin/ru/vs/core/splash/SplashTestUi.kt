@@ -25,6 +25,7 @@ import ru.vs.core.decompose.ComposeComponent
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import ru.vs.core.compose.advanceTimeOneFrameBeforeBy
 
 private const val FAKE_DELAY = 10_000L
 private const val ANIMATION_DURATION = 5_000
@@ -120,9 +121,8 @@ class SplashTestUi {
             onNodeWithTag(SplashScreenComponent.TAG).assertExists()
             onNodeWithTag(ContentScreenComponent.TAG).assertExists()
 
-            // TODO вынести 16L в константу.
             // Проматываем анимацию на один кадр раньше чем она должна завершиться
-            mainClock.advanceTimeBy(ANIMATION_DURATION.toLong() - 16L)
+            mainClock.advanceTimeOneFrameBeforeBy(ANIMATION_DURATION.toLong())
 
             // Проверяем состояние в последний кадр анимации
             onNodeWithTag(SplashScreenComponent.TAG).assertExists()

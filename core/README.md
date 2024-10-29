@@ -8,6 +8,7 @@ Core модули могут содержать только самый базо
 ## Список core модулей.
 
 * [compose](compose/README.md) базовый код compose.
+* [compose-test](compose-test/README.md) утилиты для тестирования compose.
 * [coroutines](coroutines/README.md) базовый код coroutines.
 * [coroutines-test](coroutines-test/README.md) базовый код для тестирования coroutines.
 * [decompose](decompose/README.md) базовый код decompose.

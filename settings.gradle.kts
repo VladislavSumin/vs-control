@@ -27,6 +27,7 @@ gradleEnterprise {
 include(":custom-detekt-rules")
 
 include(":core:compose")
+include(":core:compose-test")
 include(":core:coroutines")
 include(":core:coroutines-test")
 include(":core:decompose")
