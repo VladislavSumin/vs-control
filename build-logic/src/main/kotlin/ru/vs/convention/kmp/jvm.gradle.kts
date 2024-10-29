@@ -1,6 +1,6 @@
 package ru.vs.convention.kmp
 
-import org.gradle.accessors.dm.LibrariesForLibs
+import ru.vs.utils.libs
 
 /**
  * Базовая настройка JVM таргета для KMP.
@@ -9,8 +9,6 @@ import org.gradle.accessors.dm.LibrariesForLibs
 plugins {
     id("ru.vs.convention.kmp.common")
 }
-
-val libs = the<LibrariesForLibs>()
 
 kotlin {
     jvm()

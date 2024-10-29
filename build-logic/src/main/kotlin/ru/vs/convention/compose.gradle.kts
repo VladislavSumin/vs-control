@@ -12,7 +12,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-// val libs = rootProject.the<LibrariesForLibs>()
 // val kotlinVersion: String = libs.versions.kotlin.core.get()
 // compose {
 //      // Версия compose compiler плагина (должна соответствовать версии языка)

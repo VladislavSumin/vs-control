@@ -1,6 +1,6 @@
 package ru.vs.convention
 
-import org.gradle.accessors.dm.LibrariesForLibs
+import ru.vs.utils.libs
 
 /**
  * Настройки по умолчанию для atomicfu плагина.
@@ -11,7 +11,6 @@ plugins {
     id("org.jetbrains.kotlinx.atomicfu")
 }
 
-val libs = the<LibrariesForLibs>()
 kotlin {
     sourceSets {
         commonMain.dependencies {

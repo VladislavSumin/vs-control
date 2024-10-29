@@ -1,7 +1,7 @@
 package ru.vs.convention.analyze
 
 import io.gitlab.arturbosch.detekt.Detekt
-import org.gradle.accessors.dm.LibrariesForLibs
+import ru.vs.utils.libs
 
 /**
  * Настройка detekt плагина по умолчанию. Должна подключаться ко всем модулям в которых нужен detekt.
@@ -35,7 +35,6 @@ tasks.named<Detekt>("detekt").configure {
     }
 }
 
-val libs = rootProject.the<LibrariesForLibs>()
 dependencies {
     // Добавляет проверку форматирования кода.
     detektPlugins(libs.detekt.formatting)

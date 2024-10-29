@@ -1,6 +1,6 @@
 package ru.vs.convention.kmp
 
-import org.gradle.accessors.dm.LibrariesForLibs
+import ru.vs.utils.libs
 
 /**
  * Базовая настройка KMP.
@@ -10,7 +10,6 @@ plugins {
     id("kotlin-multiplatform")
 }
 
-val libs = the<LibrariesForLibs>()
 kotlin {
     // Включаем автоматическую генерацию source set`ов. Подробнее читайте документацию по функции.
     applyDefaultHierarchyTemplate()
