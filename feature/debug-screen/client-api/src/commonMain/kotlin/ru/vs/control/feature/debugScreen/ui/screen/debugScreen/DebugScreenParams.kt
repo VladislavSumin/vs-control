@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import ru.vs.core.navigation.ScreenParams
 
 /**
- * TODO написать доку.
+ * Экран для отладки приложения.
  */
 @Serializable
 data object DebugScreenParams : ScreenParams

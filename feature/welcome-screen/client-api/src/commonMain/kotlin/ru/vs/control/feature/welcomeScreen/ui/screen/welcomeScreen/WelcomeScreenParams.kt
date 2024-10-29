@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import ru.vs.core.navigation.ScreenParams
 
 /**
- * TODO написать доку.
+ * Приветственный экран, показывается при первом входе в приложение.
  */
 @Serializable
 data object WelcomeScreenParams : ScreenParams
