@@ -120,8 +120,16 @@ class SplashTestUi {
             onNodeWithTag(SplashScreenComponent.TAG).assertExists()
             onNodeWithTag(ContentScreenComponent.TAG).assertExists()
 
-            // Проматываем анимацию.
-            mainClock.advanceTimeBy(ANIMATION_DURATION.toLong())
+            // TODO вынести 16L в константу.
+            // Проматываем анимацию на один кадр раньше чем она должна завершиться
+            mainClock.advanceTimeBy(ANIMATION_DURATION.toLong() - 16L)
+
+            // Проверяем состояние в последний кадр анимации
+            onNodeWithTag(SplashScreenComponent.TAG).assertExists()
+            onNodeWithTag(ContentScreenComponent.TAG).assertExists()
+
+            // Проматываем последний кадр
+            mainClock.advanceTimeByFrame()
 
             // Проверяем состояние Content
             onNodeWithTag(SplashScreenComponent.TAG).assertDoesNotExist()
