@@ -1,10 +1,5 @@
 package ru.vs.control.feature.debugScreen.ui.screen.debugScreen
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.childContext
@@ -12,78 +7,29 @@ import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFactory
-import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlNode
 
 internal class DebugScreenFactory(
     private val umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
+    private val viewModelFactory: DebugViewModelFactory,
 ) : ScreenFactory<DebugScreenParams, DebugScreen> {
     override fun create(context: ScreenContext, params: DebugScreenParams): DebugScreen {
-        return DebugScreen(umlDiagramComponentFactory, context)
+        return DebugScreen(umlDiagramComponentFactory, viewModelFactory, context)
     }
 }
 
 internal class DebugScreen(
     umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
+    viewModelFactory: DebugViewModelFactory,
     context: ScreenContext,
 ) : Screen(context) {
 
+    val viewModel = viewModel { viewModelFactory.create() }
+
     private val umlDiagramComponent = umlDiagramComponentFactory.create(
         childContext("uml"),
-        navigationTreeInterceptor = { generateFakeNavigationNodesFist(it) },
+        navigationTreeInterceptor = { viewModel.generateFakeNavigationNodesFist(it) },
     )
 
-    /**
-     * Не все пути навигации содержаться в графе навигации. Несколько первых экранов туда не попадают, поэтому
-     * добавляем их вручную.
-     * TODO перенести во вью модель.
-     */
-    private fun generateFakeNavigationNodesFist(originalNode: NavigationGraphUmlNode): NavigationGraphUmlNode {
-        val initializedRootScreenNode = NavigationGraphUmlNode(
-            info = NavigationGraphUmlNode.Info(
-                name = "InitializedRootScreenComponent",
-                hasDefaultParams = false,
-                isPartOfMainGraph = false,
-                description = """
-                    Отображается после инициализации приложения. 
-                    Является точкой входа в полноценную навигацию.
-                """.trimIndent(),
-            ),
-            children = listOf(originalNode),
-        )
-
-        val splashScreenNode = NavigationGraphUmlNode(
-            info = NavigationGraphUmlNode.Info(
-                name = "SplashScreenComponent",
-                hasDefaultParams = false,
-                isPartOfMainGraph = false,
-                description = "Отображает splash заглушку",
-            ),
-            children = emptyList(),
-        )
-
-        val rootScreenNode = NavigationGraphUmlNode(
-            info = NavigationGraphUmlNode.Info(
-                name = "RootScreenComponent",
-                hasDefaultParams = false,
-                isPartOfMainGraph = false,
-                description = "Корневой экран, отвечает за запуск инициализации приложения",
-            ),
-            children = listOf(
-                splashScreenNode,
-                initializedRootScreenNode,
-            ),
-        )
-
-        return rootScreenNode
-    }
-
     @Composable
-    override fun Render(modifier: Modifier) {
-        Box(modifier.systemBarsPadding()) {
-            Column {
-                Text("DebugScreen")
-                umlDiagramComponent.Render(Modifier.fillMaxSize())
-            }
-        }
-    }
+    override fun Render(modifier: Modifier) = DebugContent(umlDiagramComponent, modifier)
 }

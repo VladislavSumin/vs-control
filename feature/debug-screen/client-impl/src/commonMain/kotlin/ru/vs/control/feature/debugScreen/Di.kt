@@ -6,6 +6,7 @@ import org.kodein.di.inBindSet
 import org.kodein.di.singleton
 import ru.vs.control.feature.debugScreen.ui.screen.NavigationRegistrarImpl
 import ru.vs.control.feature.debugScreen.ui.screen.debugScreen.DebugScreenFactory
+import ru.vs.control.feature.debugScreen.ui.screen.debugScreen.DebugViewModelFactory
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.core.navigation.registration.NavigationRegistrar
@@ -15,5 +16,6 @@ fun Modules.featureDebugScreen() = DI.Module("feature-debug-screen") {
         add { singleton { NavigationRegistrarImpl(i()) } }
     }
 
-    bindSingleton { DebugScreenFactory(i()) }
+    bindSingleton { DebugViewModelFactory() }
+    bindSingleton { DebugScreenFactory(i(), i()) }
 }
