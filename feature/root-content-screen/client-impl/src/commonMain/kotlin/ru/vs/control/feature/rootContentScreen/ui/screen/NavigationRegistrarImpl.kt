@@ -18,9 +18,9 @@ internal class NavigationRegistrarImpl : NavigationRegistrar {
             paramsSerializer = RootContentScreenParams.serializer(),
             nameForLogs = "RootContentScreenParams",
             defaultParams = RootContentScreenParams,
+            opensIn = listOf(RootNavigationHost),
             navigationHosts = listOf(RootContentNavigationHost),
             description = "Корневой экран приложения, на нем располагается главная стековая навигация.",
         )
-        registerScreenNavigation(RootNavigationHost, RootContentScreenParams.asKey())
     }
 }

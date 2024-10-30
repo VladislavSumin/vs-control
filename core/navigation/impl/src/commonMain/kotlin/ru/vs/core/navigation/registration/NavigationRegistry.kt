@@ -25,6 +25,7 @@ interface NavigationRegistry {
      * @param nameForLogs название экрана для логирования. Нужно так как мы не можем использовать class.qualifiedName
      * в js.
      * @param defaultParams параметры экрана по умолчанию.
+     * @param opensIn в каких [NavigationHost] может быть открыт этот экран.
      * @param navigationHosts хосты навигации расположенные на этом экране
      * @param description опциональное описание экрана, используется только для дебага, при отображении графа навигации
      */
@@ -34,16 +35,8 @@ interface NavigationRegistry {
         paramsSerializer: KSerializer<P>,
         nameForLogs: String,
         defaultParams: P? = null,
+        opensIn: List<NavigationHost> = emptyList(),
         navigationHosts: List<NavigationHost> = emptyList(),
         description: String? = null,
     )
-
-    /**
-     * Регистрирует экран с ключом [screenKey] в [navigationHost], это означает что данный экран сможет быть открыт в
-     * переданном хосте навигации.
-     *
-     * @param screenKey ключ экрана.
-     * @param navigationHost хост навигации.
-     */
-    fun <P : ScreenParams> registerScreenNavigation(navigationHost: NavigationHost, screenKey: ScreenKey<P>)
 }

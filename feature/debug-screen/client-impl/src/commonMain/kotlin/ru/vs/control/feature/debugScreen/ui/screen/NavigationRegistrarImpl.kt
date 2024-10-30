@@ -19,8 +19,8 @@ internal class NavigationRegistrarImpl(
             paramsSerializer = DebugScreenParams.serializer(),
             nameForLogs = "DebugScreenParams",
             defaultParams = DebugScreenParams,
+            opensIn = listOf(RootContentNavigationHost),
             description = "Debug экран, предоставляет доступ к элементам отладки приложения",
         )
-        registerScreenNavigation(RootContentNavigationHost, DebugScreenParams.asKey())
     }
 }

@@ -72,6 +72,7 @@ internal class NavigationRepositoryImpl(
             paramsSerializer: KSerializer<P>,
             nameForLogs: String,
             defaultParams: P?,
+            opensIn: List<NavigationHost>,
             navigationHosts: List<NavigationHost>,
             description: String?,
         ) {
@@ -85,9 +86,11 @@ internal class NavigationRepositoryImpl(
             )
             val oldRegistration = screens.put(key, screenRegistration)
             check(oldRegistration == null) { "Double registration for key=$key" }
+
+            opensIn.forEach { registerScreenNavigation(it, key) }
         }
 
-        override fun <P : ScreenParams> registerScreenNavigation(
+        private fun <P : ScreenParams> registerScreenNavigation(
             navigationHost: NavigationHost,
             screenKey: ScreenKey<P>,
         ) {
