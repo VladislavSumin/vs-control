@@ -6,6 +6,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.feature.rootContentScreen.clientApi)
+            implementation(projects.feature.debugScreen.clientApi)
         }
     }
 }

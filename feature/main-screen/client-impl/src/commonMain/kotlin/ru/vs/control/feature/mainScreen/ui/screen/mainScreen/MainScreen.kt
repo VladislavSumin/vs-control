@@ -23,6 +23,6 @@ internal class MainScreen(
 
     @Composable
     override fun Render(modifier: Modifier) {
-        MainContent(modifier)
+        MainContent(viewModel, modifier)
     }
 }
