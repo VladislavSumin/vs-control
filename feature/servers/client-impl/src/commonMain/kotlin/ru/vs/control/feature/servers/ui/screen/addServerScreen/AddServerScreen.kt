@@ -2,7 +2,6 @@ package ru.vs.control.feature.servers.ui.screen.addServerScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.essenty.instancekeeper.getOrCreate
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory
@@ -21,7 +20,7 @@ internal class AddServerScreen(
     params: AddServerScreenParams,
 ) : Screen(context) {
     @Suppress("UnusedPrivateProperty")
-    private val viewModel = instanceKeeper.getOrCreate { viewModelFactory.create() }
+    private val viewModel = viewModel { viewModelFactory.create() }
 
     @Composable
     override fun Render(modifier: Modifier) {

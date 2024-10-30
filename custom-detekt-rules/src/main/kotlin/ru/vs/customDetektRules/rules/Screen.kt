@@ -44,6 +44,18 @@ class Screen(config: Config = Config.empty) : Rule(config) {
                 ),
             )
         }
+
+        klass.getProperties().forEach { property ->
+            if (property.text.contains("instanceKeeper")) {
+                report(
+                    CodeSmell(
+                        issue = issue,
+                        entity = Entity.from(property),
+                        message = "Запрещено прямое использование instanceKeeper внутри Screen",
+                    ),
+                )
+            }
+        }
     }
 
     companion object {

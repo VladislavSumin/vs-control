@@ -5,7 +5,6 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
-import com.arkivanov.essenty.instancekeeper.getOrCreate
 import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.host.childNavigationSlot
@@ -25,7 +24,7 @@ internal class RootNavigationScreen(
     viewModelFactory: RootNavigationScreenViewModelFactory,
     context: ScreenContext,
 ) : Screen(context) {
-    private val viewModel = instanceKeeper.getOrCreate { viewModelFactory.create() }
+    private val viewModel = viewModel { viewModelFactory.create() }
 
     private val childSlotNavigation: Value<ChildSlot<ScreenParams, Screen>> = childNavigationSlot(
         initialConfiguration = viewModel::getInitialConfiguration,
