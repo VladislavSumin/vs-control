@@ -10,6 +10,8 @@ import kotlin.reflect.KClass
  * @param key сырой тип ключа.
  */
 @JvmInline
-value class ScreenKey<P : ScreenParams>(val key: KClass<P>)
+value class ScreenKey<P : ScreenParams> internal constructor(val key: KClass<P>)
 
-internal fun ScreenParams.asKey(): ScreenKey<ScreenParams> = ScreenKey(this::class) as ScreenKey<ScreenParams>
+fun <T : ScreenParams> T.asKey(): ScreenKey<T> = ScreenKey(this::class) as ScreenKey<T>
+
+internal fun ScreenParams.asErasedKey(): ScreenKey<ScreenParams> = ScreenKey(this::class) as ScreenKey<ScreenParams>

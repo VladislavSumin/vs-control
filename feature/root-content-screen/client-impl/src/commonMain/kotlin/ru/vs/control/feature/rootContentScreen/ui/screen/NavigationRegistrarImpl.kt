@@ -6,14 +6,14 @@ import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootC
 import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.ScreenKey
+import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl : NavigationRegistrar {
     override val nameForLogs: String = "ru.vs.control.feature.rootContentScreen.ui.screen.NavigationRegistrarImpl"
 
     override fun NavigationRegistry.register() {
         registerScreen(
-            key = ScreenKey(RootContentScreenParams::class),
+            key = RootContentScreenParams.asKey(),
             factory = RootContentScreenFactory(),
             paramsSerializer = RootContentScreenParams.serializer(),
             nameForLogs = "RootContentScreenParams",
@@ -21,6 +21,6 @@ internal class NavigationRegistrarImpl : NavigationRegistrar {
             navigationHosts = listOf(RootContentNavigationHost),
             description = "Корневой экран приложения, на нем располагается главная стековая навигация.",
         )
-        registerScreenNavigation(RootNavigationHost, ScreenKey(RootContentScreenParams::class))
+        registerScreenNavigation(RootNavigationHost, RootContentScreenParams.asKey())
     }
 }

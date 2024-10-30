@@ -5,7 +5,7 @@ import ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen.WelcomeScreen
 import ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen.WelcomeScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.ScreenKey
+import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl(
     private val welcomeScreenFactory: WelcomeScreenFactory,
@@ -14,13 +14,13 @@ internal class NavigationRegistrarImpl(
 
     override fun NavigationRegistry.register() {
         registerScreen(
-            key = ScreenKey(WelcomeScreenParams::class),
+            key = WelcomeScreenParams.asKey(),
             factory = welcomeScreenFactory,
             paramsSerializer = WelcomeScreenParams.serializer(),
             nameForLogs = "WelcomeScreenParams",
             defaultParams = WelcomeScreenParams,
             description = "FRW, отображается при первом запуске приложения",
         )
-        registerScreenNavigation(RootNavigationHost, ScreenKey(WelcomeScreenParams::class))
+        registerScreenNavigation(RootNavigationHost, WelcomeScreenParams.asKey())
     }
 }

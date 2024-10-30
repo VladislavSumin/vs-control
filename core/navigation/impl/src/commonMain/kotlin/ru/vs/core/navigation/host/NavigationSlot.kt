@@ -12,7 +12,7 @@ import ru.vs.core.navigation.navigator.HostNavigator
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
-import ru.vs.core.navigation.screen.asKey
+import ru.vs.core.navigation.screen.asErasedKey
 
 /**
  * Навигация типа "слот", означает что в ней одновременно может быть только один экран. Пред идущий экран при этом
@@ -39,7 +39,7 @@ fun ScreenContext.childNavigationSlot(
         handleBackButton = handleBackButton,
         childFactory = { screenParams: ScreenParams, context: ComponentContext ->
             val screenContext = context.wrapWithScreenContext(navigator, screenParams)
-            val screenFactory = navigator.getChildScreenFactory(screenParams.asKey())
+            val screenFactory = navigator.getChildScreenFactory(screenParams.asErasedKey())
             screenFactory.create(screenContext, screenParams)
         },
     )
@@ -83,7 +83,7 @@ private class SlotHostNavigator(
                 }
 
                 // Открыт нужный нам экран
-                screenKey == it.asKey() -> {
+                screenKey == it.asErasedKey() -> {
                     isSuccess = true
                     null
                 }

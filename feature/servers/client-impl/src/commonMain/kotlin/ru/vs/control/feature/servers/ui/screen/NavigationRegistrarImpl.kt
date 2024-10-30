@@ -5,7 +5,7 @@ import ru.vs.control.feature.servers.ui.screen.addServerScreen.AddServerScreenPa
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.ScreenKey
+import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl(
     private val addServerScreenFactory: AddServerScreenFactory,
@@ -14,13 +14,13 @@ internal class NavigationRegistrarImpl(
 
     override fun NavigationRegistry.register() {
         registerScreen(
-            key = ScreenKey(AddServerScreenParams::class),
+            key = AddServerScreenParams.asKey(),
             factory = addServerScreenFactory,
             paramsSerializer = AddServerScreenParams.serializer(),
             nameForLogs = "AddServerScreenParams",
             defaultParams = AddServerScreenParams,
         )
-        registerScreenNavigation(TodoNavigationHost, ScreenKey(AddServerScreenParams::class))
+        registerScreenNavigation(TodoNavigationHost, AddServerScreenParams.asKey())
     }
 }
 

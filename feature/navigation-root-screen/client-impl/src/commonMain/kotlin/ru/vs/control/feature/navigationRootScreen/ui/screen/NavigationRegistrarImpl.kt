@@ -4,7 +4,7 @@ import ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen
 import ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen.RootNavigationScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.ScreenKey
+import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl(
     private val rootNavigationScreenFactory: RootNavigationScreenFactory,
@@ -13,7 +13,7 @@ internal class NavigationRegistrarImpl(
 
     override fun NavigationRegistry.register() {
         registerScreen(
-            key = ScreenKey(RootNavigationScreenParams::class),
+            key = RootNavigationScreenParams.asKey(),
             factory = rootNavigationScreenFactory,
             paramsSerializer = RootNavigationScreenParams.serializer(),
             nameForLogs = "RootNavigationScreenParams",

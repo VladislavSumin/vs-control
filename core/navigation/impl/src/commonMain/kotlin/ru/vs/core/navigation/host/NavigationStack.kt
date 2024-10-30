@@ -11,7 +11,7 @@ import ru.vs.core.navigation.navigator.HostNavigator
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
-import ru.vs.core.navigation.screen.asKey
+import ru.vs.core.navigation.screen.asErasedKey
 
 /**
  * Навигация типа "стек", означает что в ней одновременно может быть несколько экранов, но только последний из них
@@ -38,7 +38,7 @@ fun ScreenContext.childNavigationStack(
         handleBackButton = handleBackButton,
         childFactory = { screenParams: ScreenParams, context: ComponentContext ->
             val screenContext = context.wrapWithScreenContext(navigator, screenParams)
-            val screenFactory = navigator.getChildScreenFactory(screenParams.asKey())
+            val screenFactory = navigator.getChildScreenFactory(screenParams.asErasedKey())
             screenFactory.create(screenContext, screenParams)
         },
     )
@@ -99,7 +99,7 @@ private class StackHostNavigator(
         var isSuccess: Boolean? = null
         stackNavigation.navigate(
             transformer = { stack ->
-                val keysStack = stack.map { it.asKey() }
+                val keysStack = stack.map { it.asErasedKey() }
                 val indexOfScreen = keysStack.indexOfLast { it == screenKey }
                 if (indexOfScreen >= 0) {
                     isSuccess = false

@@ -5,7 +5,7 @@ import ru.vs.control.feature.debugScreen.ui.screen.debugScreen.DebugScreenParams
 import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentNavigationHost
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.ScreenKey
+import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl(
     private val debugScreenFactory: DebugScreenFactory,
@@ -14,13 +14,13 @@ internal class NavigationRegistrarImpl(
 
     override fun NavigationRegistry.register() {
         registerScreen(
-            key = ScreenKey(DebugScreenParams::class),
+            key = DebugScreenParams.asKey(),
             factory = debugScreenFactory,
             paramsSerializer = DebugScreenParams.serializer(),
             nameForLogs = "DebugScreenParams",
             defaultParams = DebugScreenParams,
             description = "Debug экран, предоставляет доступ к элементам отладки приложения",
         )
-        registerScreenNavigation(RootContentNavigationHost, ScreenKey(DebugScreenParams::class))
+        registerScreenNavigation(RootContentNavigationHost, DebugScreenParams.asKey())
     }
 }
