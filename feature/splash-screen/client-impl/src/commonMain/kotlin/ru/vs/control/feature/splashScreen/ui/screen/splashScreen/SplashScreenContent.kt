@@ -49,7 +49,9 @@ internal fun SplashScreenContent(viewModel: SplashScreenViewModel, modifier: Mod
             }
 
             AnimatedVisibility(isProgressVisible) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
             }
         }
     }

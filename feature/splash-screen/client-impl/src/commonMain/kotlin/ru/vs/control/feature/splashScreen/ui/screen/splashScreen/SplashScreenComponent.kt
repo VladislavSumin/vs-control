@@ -13,7 +13,5 @@ internal class SplashScreenComponent(
     private val viewModel = instanceKeeper.getOrCreate { splashScreenViewModelFactory.create() }
 
     @Composable
-    override fun Render(modifier: Modifier) {
-        SplashScreenContent(viewModel, modifier)
-    }
+    override fun Render(modifier: Modifier) = SplashScreenContent(viewModel, modifier)
 }
