@@ -22,6 +22,10 @@ plugins {
 
 kotlin {
     sourceSets {
+        commonMain.dependencies {
+            // Работа с ресурсами (аля строками) через xml.
+            implementation(compose.components.resources)
+        }
         commonTest.dependencies {
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.uiTest)

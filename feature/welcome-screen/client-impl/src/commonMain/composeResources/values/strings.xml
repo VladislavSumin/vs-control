@@ -1,0 +1,4 @@
+<resources>
+    <string name="welcome_screen_title">Welcome to Control</string>
+    <string name="welcome_screen_continue">Continue</string>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="welcome_screen_title">Добро пожаловать в Control</string>
+    <string name="welcome_screen_continue">Продолжить</string>
+</resources>

@@ -10,11 +10,5 @@ internal class WelcomeScreenViewModelFactory {
 }
 
 internal class WelcomeScreenViewModel : NavigationViewModel() {
-    fun onClickContinue() {
-        open(RootContentScreenParams)
-    }
-
-    fun onClickSkip() {
-        open(RootContentScreenParams)
-    }
+    fun onClickContinue() = open(RootContentScreenParams)
 }

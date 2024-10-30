@@ -2,25 +2,27 @@ package ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
 import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenSharedTransition
 import ru.vs.core.sharedElementTransition.WithLocalSharedElementTransition
 import ru.vs.core.uikit.icons.Logo
+import vs_control.feature.welcome_screen.client_impl.generated.resources.Res
+import vs_control.feature.welcome_screen.client_impl.generated.resources.welcome_screen_continue
+import vs_control.feature.welcome_screen.client_impl.generated.resources.welcome_screen_title
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -50,27 +52,17 @@ internal fun WelcomeScreenContent(viewModel: WelcomeScreenViewModel, modifier: M
         }
 
         Text(
-            "Welcome to Control",
+            stringResource(Res.string.welcome_screen_title),
             style = MaterialTheme.typography.headlineMedium,
-        )
-        Text(
-            "Давайте добавим первое подключение?",
-            Modifier.padding(top = 2.dp),
-            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center,
         )
 
-        Spacer(Modifier.weight(1f))
+        Spacer(Modifier.weight(2f))
 
-        Column(Modifier.width(IntrinsicSize.Min)) {
-            Button(
-                onClick = viewModel::onClickContinue,
-                Modifier.fillMaxWidth(),
-            ) { Text("Добавить") }
-
-            OutlinedButton(
-                onClick = viewModel::onClickSkip,
-                Modifier.fillMaxWidth(),
-            ) { Text("Пропустить") }
-        }
+        Button(
+            onClick = viewModel::onClickContinue,
+            Modifier
+                .widthIn(min = 256.dp),
+        ) { Text(stringResource(Res.string.welcome_screen_continue)) }
     }
 }
