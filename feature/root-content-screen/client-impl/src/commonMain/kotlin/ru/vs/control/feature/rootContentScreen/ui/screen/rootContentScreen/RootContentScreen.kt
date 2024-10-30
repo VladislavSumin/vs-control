@@ -16,10 +16,7 @@ internal class RootContentScreenFactory : ScreenFactory<RootContentScreenParams,
     }
 }
 
-internal class RootContentScreen(
-    context: ScreenContext,
-) : Screen, ScreenContext by context {
-
+internal class RootContentScreen(context: ScreenContext) : Screen(context) {
     private val childStack = childNavigationStack(
         navigationHost = RootContentNavigationHost,
         initialStack = { listOf(DebugScreenParams) },

@@ -2,10 +2,7 @@ package ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
-import ru.vs.core.decompose.createCoroutineScope
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory
@@ -21,15 +18,15 @@ internal class WelcomeScreenFactory(
 internal class WelcomeScreen(
     viewModelFactory: WelcomeScreenViewModelFactory,
     context: ScreenContext,
-) : Screen, ScreenContext by context {
-    private val viewModel = instanceKeeper.getOrCreate { viewModelFactory.create() }
+) : Screen(context) {
+    private val viewModel = viewModel { viewModelFactory.create() }
 
     init {
+        // TODO написать базовый экран с расширениями launch + правила detekt.
+        // TODO добавить в базовый экран делегат by viewModel + правила detekt на запрет прямого использования keeper
+        // TODO доработать детект под base screen
         // TODO упростить навигацию
-        val scope = lifecycle.createCoroutineScope()
-        scope.launch {
-            viewModel.navigationChannel.receiveAsFlow().collect(navigator::open)
-        }
+        launch { viewModel.navigationChannel.receiveAsFlow().collect(navigator::open) }
     }
 
     @Composable

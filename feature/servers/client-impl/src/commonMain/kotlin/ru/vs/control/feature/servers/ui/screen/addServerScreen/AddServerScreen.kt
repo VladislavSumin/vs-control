@@ -19,7 +19,7 @@ internal class AddServerScreen(
     viewModelFactory: AddServerViewModelFactory,
     context: ScreenContext,
     params: AddServerScreenParams,
-) : Screen, ScreenContext by context {
+) : Screen(context) {
     @Suppress("UnusedPrivateProperty")
     private val viewModel = instanceKeeper.getOrCreate { viewModelFactory.create() }
 

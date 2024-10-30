@@ -25,7 +25,7 @@ internal class DebugScreenFactory(
 internal class DebugScreen(
     umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
     context: ScreenContext,
-) : Screen, ScreenContext by context {
+) : Screen(context) {
 
     private val umlDiagramComponent = umlDiagramComponentFactory.create(
         childContext("uml"),

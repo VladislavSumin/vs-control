@@ -24,7 +24,7 @@ internal class RootNavigationScreenFactory(
 internal class RootNavigationScreen(
     viewModelFactory: RootNavigationScreenViewModelFactory,
     context: ScreenContext,
-) : Screen, ScreenContext by context {
+) : Screen(context) {
     private val viewModel = instanceKeeper.getOrCreate { viewModelFactory.create() }
 
     private val childSlotNavigation: Value<ChildSlot<ScreenParams, Screen>> = childNavigationSlot(
