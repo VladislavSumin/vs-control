@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.ViewModel
 import ru.vs.core.decompose.createCoroutineScope
+import ru.vs.core.navigation.viewModel.NavigationViewModel
 import ru.vs.core.utils.unsafeLazy
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -37,8 +38,18 @@ abstract class Screen(context: ScreenContext) : ComposeComponent, ScreenContext 
 
     /**
      * Создает или возвращает созданную ранее [ViewModel] используя для этого [instanceKeeper].
+     * Так же если [T] является наследником [NavigationViewModel], то связывает навигацию экрана с навигацией ViewModel.
      */
     protected inline fun <reified T : ViewModel> viewModel(factory: () -> T): T {
-        return instanceKeeper.getOrCreate { factory() }
+        val viewModel = instanceKeeper.getOrCreate { factory() }
+        (viewModel as? NavigationViewModel)?.handleNavigation()
+        return viewModel
+    }
+
+    @PublishedApi
+    internal fun NavigationViewModel.handleNavigation() = launch {
+        for (event in navigationChannel) {
+            navigator.open(event)
+        }
     }
 }

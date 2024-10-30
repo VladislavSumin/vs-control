@@ -1,9 +1,7 @@
 package ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen
 
-import kotlinx.coroutines.channels.Channel
 import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentScreenParams
-import ru.vs.core.decompose.ViewModel
-import ru.vs.core.navigation.ScreenParams
+import ru.vs.core.navigation.viewModel.NavigationViewModel
 
 internal class WelcomeScreenViewModelFactory {
     fun create(): WelcomeScreenViewModel {
@@ -11,13 +9,12 @@ internal class WelcomeScreenViewModelFactory {
     }
 }
 
-internal class WelcomeScreenViewModel : ViewModel() {
-    val navigationChannel = Channel<ScreenParams>(capacity = Channel.BUFFERED)
+internal class WelcomeScreenViewModel : NavigationViewModel() {
     fun onClickContinue() {
-        navigationChannel.trySend(RootContentScreenParams)
+        open(RootContentScreenParams)
     }
 
     fun onClickSkip() {
-        navigationChannel.trySend(RootContentScreenParams)
+        open(RootContentScreenParams)
     }
 }
