@@ -20,8 +20,6 @@ internal class WelcomeScreen(
 ) : Screen(context) {
     private val viewModel = viewModel { viewModelFactory.create() }
 
-    // TODO добавить в базовый экран делегат by viewModel + правила detekt на запрет прямого использования keeper
-
     @Composable
     override fun Render(modifier: Modifier) = WelcomeScreenContent(viewModel, modifier)
 }
