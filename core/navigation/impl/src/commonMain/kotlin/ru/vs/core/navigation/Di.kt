@@ -8,7 +8,7 @@ import ru.vs.core.di.i
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.repository.NavigationRepositoryImpl
 import ru.vs.core.navigation.serializer.NavigationSerializer
-import ru.vs.core.navigation.tree.NavigationTree
+import ru.vs.core.navigation.tree.NavigationTreeBuilder
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFactory
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramViewModelFactory
 
@@ -22,7 +22,8 @@ fun Modules.coreNavigation() = DI.Module("core-navigation") {
     bindSingleton {
         val navigationRepository = NavigationRepositoryImpl(i())
         val navigationSerializer = NavigationSerializer(navigationRepository)
-        val navigationTree = NavigationTree(navigationRepository)
+        val navigationTreeBuilder = NavigationTreeBuilder(navigationRepository)
+        val navigationTree = navigationTreeBuilder.build()
         Navigation(navigationTree, navigationSerializer).also { navigation = it }
     }
 
