@@ -6,20 +6,20 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.vs.core.decompose.createCoroutineScope
+import ru.vs.core.navigation.Navigation
 import ru.vs.core.navigation.host.childNavigationRoot
-import ru.vs.core.navigation.tree.NavigationTree
 
 /**
  * @param onContentReady необходимо вызвать после готовности к отображению контента. Таким образом можно придержать
  * splash экран на время загрузки контента.
  */
 internal class InitializedRootScreenComponentImpl(
-    navigationTree: NavigationTree,
+    navigation: Navigation,
     onContentReady: () -> Unit,
     context: ComponentContext,
 ) : InitializedRootScreenComponent, ComponentContext by context {
 
-    private val rootNavigation = childNavigationRoot(navigationTree)
+    private val rootNavigation = childNavigationRoot(navigation)
 
     init {
         // TODO временный код для эмитации долгой загрузки.

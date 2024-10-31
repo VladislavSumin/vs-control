@@ -28,6 +28,9 @@ fun Modules.coreNavigation() = DI.Module("core-navigation") {
         navigationTree!!
     }
 
+    // TODO перевести NavigationGraphUmlDiagramViewModelFactory на это
+    bindSingleton { Navigation(i()) }
+
     // Debug
     bindProvider {
         NavigationGraphUmlDiagramViewModelFactory { navigationTree!! }

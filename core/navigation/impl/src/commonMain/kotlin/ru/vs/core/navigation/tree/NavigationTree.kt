@@ -20,21 +20,21 @@ import kotlin.reflect.KClass
  *
  * @param repository репозиторий с исходными данными для построения дерева.
  */
-class NavigationTree internal constructor(
+internal class NavigationTree(
     repository: NavigationRepository,
 ) {
 
     /**
      * Указатель на вершину дерева навигации.
      */
-    internal val root: Node = buildNavGraph(repository)
+    val root: Node = buildNavGraph(repository)
 
     /**
      * Сериализатор для всех зарегистрированных [ScreenParams], используется внутри decompose для сохранения и
      * восстановления состояния приложения.
      */
     @OptIn(ExperimentalSerializationApi::class, ExperimentalStateKeeperApi::class)
-    internal val serializer = polymorphicSerializer(
+    val serializer = polymorphicSerializer(
         ScreenParams::class,
         SerializersModule {
             polymorphic(ScreenParams::class) {
@@ -49,7 +49,7 @@ class NavigationTree internal constructor(
      * TODO доку.
      * TODO тут пока просто на скорую руку всякий мусор накидан.
      */
-    internal fun getDestinationsForPath(
+    fun getDestinationsForPath(
         startPath: ScreenPath,
         screenParams: ScreenParams,
     ): Sequence<ScreenPath> = sequence {
@@ -158,7 +158,7 @@ class NavigationTree internal constructor(
      * @property screenRegistration параметры регистрации соответствующего экрана.
      * @property children список дочерних нод (экраны в которые возможна навигация из этой ноды).
      */
-    internal interface Node {
+    interface Node {
         val parent: Node?
         val hostInParent: NavigationHost?
         val screenKey: ScreenKey<*>
