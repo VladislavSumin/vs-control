@@ -32,10 +32,10 @@ internal class NavigationGraphUmlDiagramViewModel(
     private fun mapNodesRecursively(node: NavigationTree.Node): NavigationGraphUmlNode {
         return NavigationGraphUmlNode(
             info = NavigationGraphUmlNode.Info(
-                name = node.screenRegistration.nameForLogs,
-                hasDefaultParams = node.screenRegistration.defaultParams != null,
+                name = node.screenInfo.nameForLogs,
+                hasDefaultParams = node.screenInfo.defaultParams != null,
                 isPartOfMainGraph = true,
-                description = node.screenRegistration.description,
+                description = node.screenInfo.description,
             ),
             children = node.children.map { mapNodesRecursively(it.value) },
         )

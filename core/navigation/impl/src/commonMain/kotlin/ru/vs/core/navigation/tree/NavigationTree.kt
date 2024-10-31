@@ -9,7 +9,6 @@ import kotlinx.serialization.modules.polymorphic
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.repository.NavigationRepository
-import ru.vs.core.navigation.repository.ScreenRegistration
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
 import ru.vs.core.utils.joinToStingFormatted
@@ -59,7 +58,7 @@ internal class NavigationTree(
         // TODO реализовать полный поиск.
 
         // TODO это пока демо решение, естественно это будет переписано.
-        startNode.children[ScreenKey(screenParams::class)]!!.screenKey
+        startNode.children[ScreenKey(screenParams::class)]!!.screenInfo.screenKey
         val path = startPath.path.dropLast(1) + screenParams
         yield(ScreenPath(path))
     }
@@ -69,7 +68,7 @@ internal class NavigationTree(
      */
     private fun findNode(screenPath: ScreenPath): Node {
         var node = root
-        check(root.screenKey == ScreenKey(screenPath.path.first()::class)) {
+        check(root.screenInfo.screenKey == ScreenKey(screenPath.path.first()::class)) {
             "Screen path root not equals root node, root node = $node, path = $screenPath"
         }
         screenPath.path.asSequence().drop(1).forEach { screenParams ->
@@ -110,7 +109,19 @@ internal class NavigationTree(
         repository: NavigationRepository,
     ): Node {
         val screenRegistration = repository.screens[screenKey] ?: error("Unreachable")
-        val node = MutableNode(parent, hostInParent, screenKey, screenRegistration)
+
+        val screenInfo = ScreenInfo(
+            screenKey = screenKey,
+            hostInParent = hostInParent,
+            factory = screenRegistration.factory,
+            defaultParams = screenRegistration.defaultParams,
+            opensIn = screenRegistration.opensIn,
+            navigationHosts = screenRegistration.navigationHosts,
+            nameForLogs = screenRegistration.nameForLogs,
+            description = screenRegistration.description,
+        )
+
+        val node = MutableNode(parent, screenInfo)
 
         // Пробегаемся по всем навигационным хостам объявленным для данной ноды.
         screenRegistration.navigationHosts.forEach { navHost ->
@@ -160,9 +171,7 @@ internal class NavigationTree(
      */
     interface Node {
         val parent: Node?
-        val hostInParent: NavigationHost?
-        val screenKey: ScreenKey<*>
-        val screenRegistration: ScreenRegistration<*, *>
+        val screenInfo: ScreenInfo
         val children: Map<ScreenKey<*>, Node>
     }
 
@@ -172,9 +181,7 @@ internal class NavigationTree(
      */
     private class MutableNode(
         override val parent: Node?,
-        override val hostInParent: NavigationHost?,
-        override val screenKey: ScreenKey<*>,
-        override val screenRegistration: ScreenRegistration<*, *>,
+        override val screenInfo: ScreenInfo,
         override val children: MutableMap<ScreenKey<*>, Node> = mutableMapOf(),
     ) : Node
 }
