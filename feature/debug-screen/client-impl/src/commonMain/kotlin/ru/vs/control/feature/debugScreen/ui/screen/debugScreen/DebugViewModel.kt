@@ -12,6 +12,9 @@ internal class DebugViewModelFactory {
 
 @Stable
 internal class DebugViewModel : NavigationViewModel() {
+
+    fun onClickBack() = close()
+
     /**
      * Не все пути навигации содержаться в графе навигации. Несколько первых экранов туда не попадают, поэтому
      * добавляем их вручную.

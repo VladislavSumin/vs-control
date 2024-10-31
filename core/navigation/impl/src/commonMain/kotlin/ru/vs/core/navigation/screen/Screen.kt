@@ -49,7 +49,11 @@ abstract class Screen(context: ScreenContext) : ComposeComponent, ScreenContext 
     @PublishedApi
     internal fun NavigationViewModel.handleNavigation() = launch {
         for (event in navigationChannel) {
-            navigator.open(event)
+            when (event) {
+                is NavigationViewModel.NavigationEvent.Open -> navigator.open(event.screenParams)
+                is NavigationViewModel.NavigationEvent.Close -> navigator.close(event.screenParams)
+                NavigationViewModel.NavigationEvent.CloseSelf -> navigator.close()
+            }
         }
     }
 }

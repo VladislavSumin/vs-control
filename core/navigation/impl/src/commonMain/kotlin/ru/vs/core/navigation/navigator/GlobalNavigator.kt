@@ -47,4 +47,11 @@ internal class GlobalNavigator(
             screenNavigators[ScreenPath(path.path.subList(0, index))]!!.openInsideThisScreen(path.path[index])
         }
     }
+
+    fun close(screenPath: ScreenPath, screenParams: ScreenParams) {
+        val index = screenPath.indexOfLast { it == screenParams }
+        if (index == -1) return
+        val path = screenPath.subList(0, index)
+        screenNavigators[path]!!.closeInsideThisScreen(screenParams)
+    }
 }

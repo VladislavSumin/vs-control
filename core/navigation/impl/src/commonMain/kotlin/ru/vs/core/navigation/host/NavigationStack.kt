@@ -79,7 +79,7 @@ private class StackHostNavigator(
                 val indexOfScreen = stack.indexOf(params)
                 if (indexOfScreen >= 0) {
                     isSuccess = false
-                    stack
+                    stack.subList(0, indexOfScreen)
                 } else {
                     if (indexOfScreen == 0) {
                         isSuccess = false
@@ -104,7 +104,7 @@ private class StackHostNavigator(
                 val indexOfScreen = keysStack.indexOfLast { it == screenKey }
                 if (indexOfScreen >= 0) {
                     isSuccess = false
-                    stack
+                    stack.subList(0, indexOfScreen)
                 } else {
                     if (indexOfScreen == 0) {
                         isSuccess = false

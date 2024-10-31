@@ -70,6 +70,16 @@ class ScreenNavigator internal constructor(
         hostNavigator.open(screenParams)
     }
 
+    internal fun closeInsideThisScreen(screenParams: ScreenParams) {
+        // TODO убрать дублирование кода.
+        val screenKey = ScreenKey(screenParams::class)
+        val childNode = node.children.find { it.value.screenKey == screenKey }
+            ?: error("Child node with screenKey=$screenKey not found")
+        val hostNavigator = navigationHosts[childNode.value.hostInParent]
+            ?: error("Host navigator for host=${childNode.value.hostInParent} not found")
+        hostNavigator.close(screenParams)
+    }
+
     /**
      * Возвращает фабрику для создания дочернего экрана.
      */
@@ -82,7 +92,7 @@ class ScreenNavigator internal constructor(
      * Открывает экран соответствующий переданным [screenParams], при этом, при поиске места открытия экрана учитывается
      * текущее место. (подробнее про приоритет выбора места написано в документации).
      */
-    fun open(screenParams: ScreenParams) {
-        globalNavigator.open(screenPath, screenParams)
-    }
+    fun open(screenParams: ScreenParams) = globalNavigator.open(screenPath, screenParams)
+    fun close(screenParams: ScreenParams) = globalNavigator.close(screenPath, screenParams)
+    fun close() = globalNavigator.close(screenPath, screenPath.last())
 }

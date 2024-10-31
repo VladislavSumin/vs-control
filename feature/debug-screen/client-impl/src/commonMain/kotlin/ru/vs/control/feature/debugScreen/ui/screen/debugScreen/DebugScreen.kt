@@ -31,5 +31,5 @@ internal class DebugScreen(
     )
 
     @Composable
-    override fun Render(modifier: Modifier) = DebugContent(umlDiagramComponent, modifier)
+    override fun Render(modifier: Modifier) = DebugContent(viewModel, umlDiagramComponent, modifier)
 }

@@ -20,6 +20,7 @@ internal class RootContentScreen(context: ScreenContext) : Screen(context) {
     private val childStack = childNavigationStack(
         navigationHost = RootContentNavigationHost,
         initialStack = { listOf(MainScreenParams) },
+        handleBackButton = true,
     )
 
     @Composable
