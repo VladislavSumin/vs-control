@@ -22,11 +22,6 @@ internal interface NavigationRepository {
     val screens: Map<ScreenKey<*>, ScreenRegistration<*, *>>
 
     /**
-     * Список экранов которые могут открываться внутри определенных [NavigationHost].
-     */
-    val endpoints: Map<NavigationHost, Set<ScreenKey<*>>>
-
-    /**
      * Множество [KSerializer] для сериализации [ScreenParams].
      */
     val serializers: Map<ScreenKey<*>, KSerializer<out ScreenParams>>
@@ -41,7 +36,6 @@ internal class NavigationRepositoryImpl(
     registrars: Set<NavigationRegistrar>,
 ) : NavigationRepository {
     override val screens = mutableMapOf<ScreenKey<*>, ScreenRegistration<*, *>>()
-    override val endpoints = mutableMapOf<NavigationHost, MutableSet<ScreenKey<*>>>()
     override val serializers = mutableMapOf<ScreenKey<*>, KSerializer<out ScreenParams>>()
 
     /**
@@ -72,32 +66,23 @@ internal class NavigationRepositoryImpl(
             paramsSerializer: KSerializer<P>,
             nameForLogs: String,
             defaultParams: P?,
-            opensIn: List<NavigationHost>,
-            navigationHosts: List<NavigationHost>,
+            opensIn: Set<NavigationHost>,
+            navigationHosts: Set<NavigationHost>,
             description: String?,
         ) {
+            checkFinalization()
+
             serializers[key] = paramsSerializer
             val screenRegistration = ScreenRegistration(
-                factory,
-                defaultParams,
-                navigationHosts,
-                nameForLogs,
-                description,
+                factory = factory,
+                defaultParams = defaultParams,
+                opensIn = opensIn,
+                navigationHosts = navigationHosts,
+                nameForLogs = nameForLogs,
+                description = description,
             )
             val oldRegistration = screens.put(key, screenRegistration)
             check(oldRegistration == null) { "Double registration for key=$key" }
-
-            opensIn.forEach { registerScreenNavigation(it, key) }
-        }
-
-        private fun <P : ScreenParams> registerScreenNavigation(
-            navigationHost: NavigationHost,
-            screenKey: ScreenKey<P>,
-        ) {
-            checkFinalization()
-            val navigationHostEndpoints = endpoints.getOrPut(navigationHost) { mutableSetOf() }
-            val isAdded = navigationHostEndpoints.add(screenKey)
-            check(isAdded) { "Double screen registration for navigationHost=$navigationHost, screenKey=$screenKey" }
         }
 
         private fun checkFinalization() = check(!isFinalized) {

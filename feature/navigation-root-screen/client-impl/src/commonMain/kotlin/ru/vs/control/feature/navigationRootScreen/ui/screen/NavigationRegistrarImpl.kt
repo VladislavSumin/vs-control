@@ -18,7 +18,7 @@ internal class NavigationRegistrarImpl(
             paramsSerializer = RootNavigationScreenParams.serializer(),
             nameForLogs = "RootNavigationScreenParams",
             defaultParams = RootNavigationScreenParams,
-            navigationHosts = listOf(RootNavigationHost),
+            navigationHosts = setOf(RootNavigationHost),
             description = "Корень графа навигации, переключает навигацию между FRW и главным экраном",
         )
     }

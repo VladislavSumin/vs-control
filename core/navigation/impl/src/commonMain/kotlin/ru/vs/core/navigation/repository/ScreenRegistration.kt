@@ -13,6 +13,7 @@ import ru.vs.core.navigation.screen.ScreenFactory
  *
  * @param factory фабрика для создания компонента экрана.
  * @param defaultParams параметры экрана по умолчанию.
+ * @param opensIn список навигационных хостов в которых может открываться этот экран.
  * @param navigationHosts список [NavigationHost] которые открываются с этого экрана.
  * @param nameForLogs название экрана для логирования. Нужно так как мы не можем использовать class.qualifiedName в js.
  * @param description опциональное описание экрана для дебага.
@@ -20,7 +21,8 @@ import ru.vs.core.navigation.screen.ScreenFactory
 internal data class ScreenRegistration<P : ScreenParams, S : Screen>(
     val factory: ScreenFactory<P, S>,
     val defaultParams: P?,
-    val navigationHosts: List<NavigationHost>,
+    val opensIn: Set<NavigationHost>,
+    val navigationHosts: Set<NavigationHost>,
     val nameForLogs: String,
     val description: String?,
 )

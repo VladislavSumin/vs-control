@@ -19,7 +19,7 @@ internal class NavigationRegistrarImpl(
             paramsSerializer = MainScreenParams.serializer(),
             nameForLogs = "MainScreenParams",
             defaultParams = MainScreenParams,
-            opensIn = listOf(RootContentNavigationHost),
+            opensIn = setOf(RootContentNavigationHost),
             description = "Главный экран приложения. С табиками и тд.",
         )
     }

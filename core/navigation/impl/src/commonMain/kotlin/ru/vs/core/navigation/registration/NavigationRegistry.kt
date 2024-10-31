@@ -35,8 +35,8 @@ interface NavigationRegistry {
         paramsSerializer: KSerializer<P>,
         nameForLogs: String,
         defaultParams: P? = null,
-        opensIn: List<NavigationHost> = emptyList(),
-        navigationHosts: List<NavigationHost> = emptyList(),
+        opensIn: Set<NavigationHost> = emptySet(),
+        navigationHosts: Set<NavigationHost> = emptySet(),
         description: String? = null,
     )
 }

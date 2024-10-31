@@ -115,14 +115,20 @@ class NavigationTree internal constructor(
         // Пробегаемся по всем навигационным хостам объявленным для данной ноды.
         screenRegistration.navigationHosts.forEach { navHost ->
             // Пробегаемся по всем экранам которые могут быть открыты в данном navHost
-            repository.endpoints[navHost]?.forEach { screenKey ->
-                // Строим дочерние экраны для таких нод
-                val oldChildren = node.children.put(screenKey, buildNode(node, navHost, screenKey, repository))
-                // Может возникнуть ситуация когда один screenKey зарегистрирован для двух и более navHost которые
-                // зарегистрированы для обработки текущим экраном, эта ситуация недопустима, так как не ясно в каком
-                // navHost открывать экран.
-                check(oldChildren == null) { "Double children registration" }
-            }
+
+            repository.screens
+                .asSequence()
+                .filter { (_, v) -> navHost in v.opensIn }
+                .forEach { (k, v) ->
+                    val childNode = buildNode(
+                        parent = node,
+                        hostInParent = navHost,
+                        screenKey = k,
+                        repository = repository,
+                    )
+                    val oldChildren = node.children.put(k, childNode)
+                    check(oldChildren == null) { "Double children registration" }
+                }
         }
         return node
     }
@@ -132,7 +138,9 @@ class NavigationTree internal constructor(
      */
     private fun findRootScreen(repository: NavigationRepository): ScreenKey<*> {
         // Множество экранов у которых нет точек входа (множество рутовых экранов)
-        val roots: Set<ScreenKey<*>> = repository.screens.keys - repository.endpoints.values.flatten().toSet()
+        val roots: Set<ScreenKey<*>> = repository.screens
+            .filter { (_, v) -> v.opensIn.isEmpty() }
+            .keys
 
         check(roots.size == 1) {
             val formattedRoots = roots.joinToStingFormatted { repository.screens[it]!!.nameForLogs }

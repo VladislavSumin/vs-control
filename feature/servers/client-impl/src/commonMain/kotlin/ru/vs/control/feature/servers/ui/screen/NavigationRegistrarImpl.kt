@@ -19,7 +19,7 @@ internal class NavigationRegistrarImpl(
             paramsSerializer = AddServerScreenParams.serializer(),
             nameForLogs = "AddServerScreenParams",
             defaultParams = AddServerScreenParams,
-            opensIn = listOf(TodoNavigationHost),
+            opensIn = setOf(TodoNavigationHost),
         )
     }
 }
