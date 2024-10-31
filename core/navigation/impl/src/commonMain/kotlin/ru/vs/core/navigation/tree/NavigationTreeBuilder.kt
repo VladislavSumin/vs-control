@@ -44,8 +44,6 @@ internal class NavigationTreeBuilder(
             hostInParent = hostInParent,
             factory = screenRegistration.factory,
             defaultParams = screenRegistration.defaultParams,
-            opensIn = screenRegistration.opensIn,
-            navigationHosts = screenRegistration.navigationHosts,
             nameForLogs = screenRegistration.nameForLogs,
             description = screenRegistration.description,
         )

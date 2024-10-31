@@ -13,6 +13,7 @@ import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.asErasedKey
+import ru.vs.core.navigation.screen.wrapWithScreenContext
 
 /**
  * Навигация типа "слот", означает что в ней одновременно может быть только один экран. Пред идущий экран при этом

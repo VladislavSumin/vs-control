@@ -9,8 +9,6 @@ internal data class ScreenInfo(
     val screenKey: ScreenKey<*>,
     val factory: ScreenFactory<*, *>,
     val defaultParams: ScreenParams?,
-    val opensIn: Set<NavigationHost>,
-    val navigationHosts: Set<NavigationHost>,
     val nameForLogs: String,
     val description: String?,
     val hostInParent: NavigationHost?,
