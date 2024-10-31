@@ -1,21 +1,22 @@
 package ru.vs.core.navigation.ui.debug.uml
 
 import ru.vs.core.decompose.ViewModel
+import ru.vs.core.navigation.Navigation
 import ru.vs.core.navigation.tree.NavigationTree
 import ru.vs.core.navigation.tree.Node
 
 internal class NavigationGraphUmlDiagramViewModelFactory(
-    private val navigationTreeProvider: () -> NavigationTree,
+    private val navigationProvider: () -> Navigation,
 ) {
     fun create(
         navigationTreeInterceptor: (NavigationGraphUmlNode) -> NavigationGraphUmlNode,
     ): NavigationGraphUmlDiagramViewModel {
-        return NavigationGraphUmlDiagramViewModel(navigationTreeProvider(), navigationTreeInterceptor)
+        return NavigationGraphUmlDiagramViewModel(navigationProvider(), navigationTreeInterceptor)
     }
 }
 
 internal class NavigationGraphUmlDiagramViewModel(
-    private val navigationTree: NavigationTree,
+    private val navigation: Navigation,
     private val navigationTreeInterceptor: (NavigationGraphUmlNode) -> NavigationGraphUmlNode,
 ) : ViewModel() {
 
@@ -23,7 +24,7 @@ internal class NavigationGraphUmlDiagramViewModel(
 
     private fun createDebugGraph(): NavigationGraphUmlDiagramViewState {
         return NavigationGraphUmlDiagramViewState(
-            root = navigationTreeInterceptor(mapNodesRecursively(navigationTree.root)),
+            root = navigationTreeInterceptor(mapNodesRecursively(navigation.navigationTree.root)),
         )
     }
 

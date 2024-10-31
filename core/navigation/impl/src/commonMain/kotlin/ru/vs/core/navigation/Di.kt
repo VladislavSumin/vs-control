@@ -1,13 +1,11 @@
 package ru.vs.core.navigation
 
 import org.kodein.di.DI
-import org.kodein.di.bindProvider
 import org.kodein.di.bindSet
 import org.kodein.di.bindSingleton
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.core.navigation.registration.NavigationRegistrar
-import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.repository.NavigationRepositoryImpl
 import ru.vs.core.navigation.serializer.NavigationSerializer
 import ru.vs.core.navigation.tree.NavigationTree
@@ -18,25 +16,18 @@ fun Modules.coreNavigation() = DI.Module("core-navigation") {
     // Декларируем множество в которое будут собраны все регистраторы навигации в приложении.
     bindSet<NavigationRegistrar>()
 
-    // Репозиторий используется только для построения NavigationTree, и далее не нужен.
-    bindProvider<NavigationRepository> { NavigationRepositoryImpl(i()) }
+    // Я не нашел как нормально разорвать цикл зависимостей в kodein поэтому пришлось добавить такой костыль.
+    var navigation: Navigation? = null
 
-    // Я не нашел как нормально разорвать цикл зависимостей в kodein поэтому пришлось добавить
-    // такой костыль.
-    var navigationTree: NavigationTree? = null
     bindSingleton {
-        navigationTree = NavigationTree(i())
-        navigationTree!!
+        val navigationRepository = NavigationRepositoryImpl(i())
+        val navigationSerializer = NavigationSerializer(navigationRepository)
+        val navigationTree = NavigationTree(navigationRepository)
+        Navigation(navigationTree, navigationSerializer).also { navigation = it }
     }
 
-    bindSingleton { NavigationSerializer(i()) }
-
-    // TODO перевести NavigationGraphUmlDiagramViewModelFactory на это
-    bindSingleton { Navigation(i(), i()) }
-
-    // Debug
-    bindProvider {
-        NavigationGraphUmlDiagramViewModelFactory { navigationTree!! }
+    bindSingleton {
+        val viewModelFactory = NavigationGraphUmlDiagramViewModelFactory { navigation!! }
+        NavigationGraphUmlDiagramComponentFactory(viewModelFactory)
     }
-    bindSingleton { NavigationGraphUmlDiagramComponentFactory(i()) }
 }
