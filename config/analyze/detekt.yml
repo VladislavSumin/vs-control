@@ -17,3 +17,7 @@ formatting:
 complexity:
   LongParameterList:
     active: false
+
+style:
+  ReturnCount:
+    active: false
