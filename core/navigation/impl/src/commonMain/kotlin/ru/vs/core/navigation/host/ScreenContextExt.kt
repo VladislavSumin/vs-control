@@ -22,7 +22,7 @@ internal fun ComponentContext.wrapWithScreenContext(
         ScreenNavigator(
             parentNavigator.globalNavigator,
             parentNavigator.screenPath + screenParams,
-            parentNavigator.node.children[screenKey]!!,
+            parentNavigator.node.children.find { it.value.screenKey == screenKey }!!,
             lifecycle,
         ),
         this,

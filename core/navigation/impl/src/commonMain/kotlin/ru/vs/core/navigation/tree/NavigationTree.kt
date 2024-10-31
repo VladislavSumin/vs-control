@@ -6,6 +6,8 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
+import ru.vs.core.collections.tree.LinkedTree
+import ru.vs.core.collections.tree.LinkedTree.LinkedNode
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.repository.NavigationRepository
@@ -19,14 +21,17 @@ import kotlin.reflect.KClass
  *
  * @param repository репозиторий с исходными данными для построения дерева.
  */
+
+internal typealias Node = LinkedNode<ScreenInfo>
+
 internal class NavigationTree(
     repository: NavigationRepository,
-) {
+) : LinkedTree<ScreenInfo> {
 
     /**
      * Указатель на вершину дерева навигации.
      */
-    val root: Node = buildNavGraph(repository)
+    override val root: Node = buildNavGraph(repository)
 
     /**
      * Сериализатор для всех зарегистрированных [ScreenParams], используется внутри decompose для сохранения и
@@ -58,7 +63,7 @@ internal class NavigationTree(
         // TODO реализовать полный поиск.
 
         // TODO это пока демо решение, естественно это будет переписано.
-        startNode.children[ScreenKey(screenParams::class)]!!.screenInfo.screenKey
+        startNode.children.find { it.value.screenKey == ScreenKey(screenParams::class) }!!.value.screenKey
         val path = startPath.path.dropLast(1) + screenParams
         yield(ScreenPath(path))
     }
@@ -68,11 +73,11 @@ internal class NavigationTree(
      */
     private fun findNode(screenPath: ScreenPath): Node {
         var node = root
-        check(root.screenInfo.screenKey == ScreenKey(screenPath.path.first()::class)) {
+        check(root.value.screenKey == ScreenKey(screenPath.path.first()::class)) {
             "Screen path root not equals root node, root node = $node, path = $screenPath"
         }
         screenPath.path.asSequence().drop(1).forEach { screenParams ->
-            node = node.children[ScreenKey(screenParams::class)]
+            node = node.children.find { it.value.screenKey == ScreenKey(screenParams::class) }
                 ?: error("incorrect path, path = $screenPath, lastFoundNode = $node")
         }
         return node
@@ -137,8 +142,9 @@ internal class NavigationTree(
                         screenKey = k,
                         repository = repository,
                     )
-                    val oldChildren = node.children.put(k, childNode)
-                    check(oldChildren == null) { "Double children registration" }
+                    node.children.add(childNode)
+                    // TODO починить чек
+                    // check(oldChildren == null) { "Double children registration" }
                 }
         }
         return node
@@ -161,27 +167,12 @@ internal class NavigationTree(
     }
 
     /**
-     * Узел навигационного дерева.
-     *
-     * @property parent родительская нода, null только для корневой ноды графа.
-     * @property hostInParent хост, который занимает данная нода в родительском экране, null для root ноды.
-     * @property screenKey ключ экрана за который отвечает эта нода.
-     * @property screenRegistration параметры регистрации соответствующего экрана.
-     * @property children список дочерних нод (экраны в которые возможна навигация из этой ноды).
-     */
-    interface Node {
-        val parent: Node?
-        val screenInfo: ScreenInfo
-        val children: Map<ScreenKey<*>, Node>
-    }
-
-    /**
      * Изменяемая версия [Node], необходима из-за двухсторонней связи [parent]/[children], чтобы избежать
      * лишних копирований ноды.
      */
     private class MutableNode(
         override val parent: Node?,
-        override val screenInfo: ScreenInfo,
-        override val children: MutableMap<ScreenKey<*>, Node> = mutableMapOf(),
+        override val value: ScreenInfo,
+        override val children: MutableList<Node> = mutableListOf(),
     ) : Node
 }

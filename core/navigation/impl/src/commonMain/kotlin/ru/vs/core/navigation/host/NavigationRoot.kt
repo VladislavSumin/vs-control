@@ -22,8 +22,8 @@ fun ComponentContext.childNavigationRoot(
     key: String = "navigation-root",
 ): ComposeComponent {
     val node = navigation.navigationTree.root
-    val params = node.screenInfo.defaultParams ?: error("Root screen must have default params")
-    val rootScreenFactory = node.screenInfo.factory as ScreenFactory<ScreenParams, *>?
+    val params = node.value.defaultParams ?: error("Root screen must have default params")
+    val rootScreenFactory = node.value.factory as ScreenFactory<ScreenParams, *>?
     check(rootScreenFactory != null) { "Factory for $params not found" }
 
     // Создаем рутовый навигатор.

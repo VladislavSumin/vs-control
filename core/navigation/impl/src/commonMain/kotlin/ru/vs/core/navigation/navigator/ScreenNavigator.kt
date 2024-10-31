@@ -9,7 +9,7 @@ import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
-import ru.vs.core.navigation.tree.NavigationTree
+import ru.vs.core.navigation.tree.Node
 
 /**
  * Навигатор уровня экрана.
@@ -22,7 +22,7 @@ import ru.vs.core.navigation.tree.NavigationTree
 class ScreenNavigator internal constructor(
     internal val globalNavigator: GlobalNavigator,
     internal val screenPath: ScreenPath,
-    internal val node: NavigationTree.Node,
+    internal val node: Node,
     private val lifecycle: Lifecycle,
 ) {
     /**
@@ -36,7 +36,7 @@ class ScreenNavigator internal constructor(
 
         lifecycle.doOnCreate {
             // Проверяем что экран действительно зарегистрировал все типы навигации которые может открывать.
-            val expectedHosts = node.children.values.map { it.screenInfo.hostInParent }.toSet()
+            val expectedHosts = node.children.map { it.value.hostInParent }.toSet()
             val actualHosts = navigationHosts.keys
             check(expectedHosts == actualHosts) {
                 "Actual host registration doesn't match expected. Actual:$actualHosts, expected:$expectedHosts"
@@ -63,9 +63,10 @@ class ScreenNavigator internal constructor(
      */
     internal fun openInsideThisScreen(screenParams: ScreenParams) {
         val screenKey = ScreenKey(screenParams::class)
-        val childNode = node.children[screenKey] ?: error("Child node with screenKey=$screenKey not found")
-        val hostNavigator = navigationHosts[childNode.screenInfo.hostInParent]
-            ?: error("Host navigator for host=${childNode.screenInfo.hostInParent} not found")
+        val childNode = node.children.find { it.value.screenKey == screenKey }
+            ?: error("Child node with screenKey=$screenKey not found")
+        val hostNavigator = navigationHosts[childNode.value.hostInParent]
+            ?: error("Host navigator for host=${childNode.value.hostInParent} not found")
         hostNavigator.open(screenParams)
     }
 
@@ -74,7 +75,7 @@ class ScreenNavigator internal constructor(
      */
     @Suppress("UNCHECKED_CAST")
     internal fun getChildScreenFactory(screenKey: ScreenKey<ScreenParams>): ScreenFactory<ScreenParams, *> {
-        return node.children[screenKey]!!.screenInfo.factory as ScreenFactory<ScreenParams, *>
+        return node.children.find { it.value.screenKey == screenKey }!!.value.factory as ScreenFactory<ScreenParams, *>
     }
 
     /**
