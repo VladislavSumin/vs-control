@@ -4,19 +4,19 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import kotlinx.serialization.KSerializer
+import ru.vs.core.navigation.Navigation
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.ScreenPath
-import ru.vs.core.navigation.tree.NavigationTree
 
 /**
  * Глобальный навигатор.
  */
 internal class GlobalNavigator(
-    private val navigationTree: NavigationTree,
+    private val navigation: Navigation,
 ) {
 
     internal val serializer: KSerializer<ScreenParams>
-        get() = navigationTree.serializer
+        get() = navigation.navigationSerializer.serializer
 
     private val screenNavigators = mutableMapOf<ScreenPath, ScreenNavigator>()
 
@@ -40,7 +40,7 @@ internal class GlobalNavigator(
      */
     fun open(screenPath: ScreenPath, screenParams: ScreenParams) {
         // TODO временное решение, нужно пройтись по всем путям.
-        val path = navigationTree.getDestinationsForPath(screenPath, screenParams).first()
+        val path = navigation.navigationTree.getDestinationsForPath(screenPath, screenParams).first()
 
         // TODO тоже что то на временном.
         path.path.indices.drop(1).forEach { index ->

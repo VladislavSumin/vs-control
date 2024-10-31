@@ -9,6 +9,7 @@ import ru.vs.core.di.i
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.repository.NavigationRepositoryImpl
+import ru.vs.core.navigation.serializer.NavigationSerializer
 import ru.vs.core.navigation.tree.NavigationTree
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFactory
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramViewModelFactory
@@ -28,8 +29,10 @@ fun Modules.coreNavigation() = DI.Module("core-navigation") {
         navigationTree!!
     }
 
+    bindSingleton { NavigationSerializer(i()) }
+
     // TODO перевести NavigationGraphUmlDiagramViewModelFactory на это
-    bindSingleton { Navigation(i()) }
+    bindSingleton { Navigation(i(), i()) }
 
     // Debug
     bindProvider {

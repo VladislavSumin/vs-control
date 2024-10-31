@@ -1,11 +1,5 @@
 package ru.vs.core.navigation.tree
 
-import com.arkivanov.essenty.statekeeper.ExperimentalStateKeeperApi
-import com.arkivanov.essenty.statekeeper.polymorphicSerializer
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.polymorphic
 import ru.vs.core.collections.tree.LinkedTree
 import ru.vs.core.collections.tree.LinkedTree.LinkedNode
 import ru.vs.core.navigation.NavigationHost
@@ -14,7 +8,6 @@ import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
 import ru.vs.core.utils.joinToStingFormatted
-import kotlin.reflect.KClass
 
 /**
  * Главное древо навигации, описывает связи между экранами, то какие экраны открывают внутри себя другие экраны.
@@ -32,22 +25,6 @@ internal class NavigationTree(
      * Указатель на вершину дерева навигации.
      */
     override val root: Node = buildNavGraph(repository)
-
-    /**
-     * Сериализатор для всех зарегистрированных [ScreenParams], используется внутри decompose для сохранения и
-     * восстановления состояния приложения.
-     */
-    @OptIn(ExperimentalSerializationApi::class, ExperimentalStateKeeperApi::class)
-    val serializer = polymorphicSerializer(
-        ScreenParams::class,
-        SerializersModule {
-            polymorphic(ScreenParams::class) {
-                repository.serializers.forEach { (clazz, serializer) ->
-                    subclass(clazz.key as KClass<ScreenParams>, serializer as KSerializer<ScreenParams>)
-                }
-            }
-        },
-    )
 
     /**
      * TODO доку.

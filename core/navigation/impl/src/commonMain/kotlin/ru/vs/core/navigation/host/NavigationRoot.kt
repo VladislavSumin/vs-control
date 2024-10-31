@@ -27,7 +27,7 @@ fun ComponentContext.childNavigationRoot(
     check(rootScreenFactory != null) { "Factory for $params not found" }
 
     // Создаем рутовый навигатор.
-    val globalNavigator = GlobalNavigator(navigation.navigationTree)
+    val globalNavigator = GlobalNavigator(navigation)
 
     // Создаем дочерний контекст который будет являться контекстом для корневого экрана графа навигации.
     // Lifecycle полученного компонента будет совпадать с родителем
