@@ -1,9 +1,10 @@
 package ru.vs.core.navigation.ui.debug.uml
 
+import ru.vs.core.collections.tree.LinkedTreeNode
 import ru.vs.core.decompose.ViewModel
 import ru.vs.core.navigation.Navigation
 import ru.vs.core.navigation.tree.NavigationTree
-import ru.vs.core.navigation.tree.Node
+import ru.vs.core.navigation.tree.ScreenInfo
 
 internal class NavigationGraphUmlDiagramViewModelFactory(
     private val navigationProvider: () -> Navigation,
@@ -24,14 +25,14 @@ internal class NavigationGraphUmlDiagramViewModel(
 
     private fun createDebugGraph(): NavigationGraphUmlDiagramViewState {
         return NavigationGraphUmlDiagramViewState(
-            root = navigationTreeInterceptor(mapNodesRecursively(navigation.navigationTree.root)),
+            root = navigationTreeInterceptor(mapNodesRecursively(navigation.navigationTree)),
         )
     }
 
     /**
      * Переводит все [NavigationTree.Node] исходного графа навигации в граф [NavigationGraphUmlDiagramViewState.Node].
      */
-    private fun mapNodesRecursively(node: Node): NavigationGraphUmlNode {
+    private fun mapNodesRecursively(node: LinkedTreeNode<ScreenInfo>): NavigationGraphUmlNode {
         return NavigationGraphUmlNode(
             info = NavigationGraphUmlNode.Info(
                 name = node.value.nameForLogs,

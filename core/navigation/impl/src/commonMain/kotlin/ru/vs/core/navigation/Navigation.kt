@@ -1,7 +1,7 @@
 package ru.vs.core.navigation
 
 import kotlinx.coroutines.channels.Channel
-import ru.vs.core.collections.tree.find
+import ru.vs.core.collections.tree.asSequence
 import ru.vs.core.navigation.serializer.NavigationSerializer
 import ru.vs.core.navigation.tree.NavigationTree
 
@@ -22,7 +22,11 @@ class Navigation internal constructor(
     }
 
     fun findDefaultScreenParamsByDebugName(name: String): ScreenParams? {
-        return navigationTree.find { it.nameForLogs == name }?.defaultParams
+        return navigationTree
+            .asSequence()
+            .find { it.value.nameForLogs == name }
+            ?.value
+            ?.defaultParams
     }
 
     internal sealed interface NavigationEvent {

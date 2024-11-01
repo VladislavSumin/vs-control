@@ -3,13 +3,14 @@ package ru.vs.core.navigation.navigator
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import ru.vs.core.collections.tree.LinkedTreeNode
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
-import ru.vs.core.navigation.tree.Node
+import ru.vs.core.navigation.tree.ScreenInfo
 
 /**
  * Навигатор уровня экрана.
@@ -22,7 +23,7 @@ import ru.vs.core.navigation.tree.Node
 class ScreenNavigator internal constructor(
     internal val globalNavigator: GlobalNavigator,
     internal val screenPath: ScreenPath,
-    internal val node: Node,
+    internal val node: LinkedTreeNode<ScreenInfo>,
     private val lifecycle: Lifecycle,
 ) {
     /**

@@ -1,5 +1,6 @@
 package ru.vs.core.navigation.tree
 
+import ru.vs.core.collections.tree.LinkedTreeNode
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.screen.ScreenKey
@@ -15,7 +16,7 @@ internal class NavigationTreeBuilder(
      *
      * @return возвращает корень полученного дерева.
      */
-    private fun buildNavGraph(): Node {
+    private fun buildNavGraph(): LinkedTreeNode<ScreenInfo> {
         val rootScreen = findRootScreen()
         return buildNode(
             parent = null,
@@ -33,10 +34,10 @@ internal class NavigationTreeBuilder(
      * @param screenKey ключ соответствующий [Node] которую нужно создать.
      */
     private fun buildNode(
-        parent: Node?,
+        parent: LinkedTreeNode<ScreenInfo>?,
         hostInParent: NavigationHost?,
         screenKey: ScreenKey<*>,
-    ): Node {
+    ): LinkedTreeNode<ScreenInfo> {
         val screenRegistration = repository.screens[screenKey] ?: error("Unreachable")
 
         val screenInfo = ScreenInfo(
@@ -92,8 +93,8 @@ internal class NavigationTreeBuilder(
      * лишних копирований ноды.
      */
     private class MutableNode(
-        override val parent: Node?,
+        override val parent: LinkedTreeNode<ScreenInfo>?,
         override val value: ScreenInfo,
-        override val children: MutableList<Node> = mutableListOf(),
-    ) : Node
+        override val children: MutableList<LinkedTreeNode<ScreenInfo>> = mutableListOf(),
+    ) : LinkedTreeNode<ScreenInfo>
 }

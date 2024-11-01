@@ -1,11 +1,11 @@
 package ru.vs.core.navigation.tree
 
-import ru.vs.core.collections.tree.LinkedTree
-import ru.vs.core.collections.tree.LinkedTree.LinkedNode
-import ru.vs.core.collections.tree.get
+import ru.vs.core.collections.tree.LinkedTreeNode
+import ru.vs.core.collections.tree.findByPath
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.ScreenPath
+import ru.vs.core.navigation.screen.asErasedKey
 
 /**
  * Главное древо навигации, описывает связи между экранами, то какие экраны открывают внутри себя другие экраны.
@@ -13,11 +13,9 @@ import ru.vs.core.navigation.screen.ScreenPath
  * @param repository репозиторий с исходными данными для построения дерева.
  */
 
-internal typealias Node = LinkedNode<ScreenInfo>
-
 internal class NavigationTree(
-    override val root: LinkedNode<ScreenInfo>,
-) : LinkedTree<ScreenInfo> {
+    root: LinkedTreeNode<ScreenInfo>,
+) : LinkedTreeNode<ScreenInfo> by root {
 
     /**
      * TODO доку.
@@ -28,7 +26,7 @@ internal class NavigationTree(
         screenParams: ScreenParams,
     ): Sequence<ScreenPath> = sequence {
         // TODO парента временно берем пока поиска нет
-        val startNode = get(startPath.parent())!!
+        val startNode = this@NavigationTree.findByPath(startPath.parent().map { it.asErasedKey() }) { it.screenKey }!!
 
         // TODO реализовать полный поиск.
 
