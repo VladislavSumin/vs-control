@@ -3,6 +3,7 @@ package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScr
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
+import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.vs.core.decompose.createCoroutineScope
@@ -16,6 +17,8 @@ import ru.vs.core.navigation.host.childNavigationRoot
 internal class InitializedRootScreenComponentImpl(
     navigation: Navigation,
     onContentReady: () -> Unit,
+    // TODO добавить дальнейшую обработку.
+    deeplink: ReceiveChannel<String>,
     context: ComponentContext,
 ) : InitializedRootScreenComponent, ComponentContext by context {
 

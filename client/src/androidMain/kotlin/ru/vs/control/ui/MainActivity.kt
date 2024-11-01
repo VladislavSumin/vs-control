@@ -1,11 +1,13 @@
 package ru.vs.control.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
+import kotlinx.coroutines.channels.Channel
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.closestDI
@@ -16,15 +18,31 @@ import ru.vs.control.feature.rootScreen.ui.screen.rootScreen.RootScreenFactory
 class MainActivity : ComponentActivity(), DIAware {
     override val di: DI by closestDI()
 
+    /**
+     * Канал в который отправляются все пришедшие диплинки.
+     */
+    private val deeplinkChannel = Channel<String>(capacity = Channel.BUFFERED)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        intent?.data?.let { onDeeplink(it.toString()) }
+
         val defaultContext = defaultComponentContext()
         val rootComponentFactory = di.direct.instance<RootScreenFactory>()
-        val rootComponent = rootComponentFactory.create(defaultContext)
+        val rootComponent = rootComponentFactory.create(defaultContext, deeplinkChannel)
 
         setContent {
             rootComponent.Render(Modifier.fillMaxSize())
         }
+    }
+
+    private fun onDeeplink(deeplink: String) {
+        deeplinkChannel.trySend(deeplink).getOrThrow()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.data?.let { onDeeplink(it.toString()) }
     }
 }
