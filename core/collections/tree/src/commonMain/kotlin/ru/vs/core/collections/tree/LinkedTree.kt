@@ -1,10 +1,11 @@
 package ru.vs.core.collections.tree
 
-interface LinkedTree<T> : Tree<T> {
-    override val root: LinkedNode<T>
+interface LinkedTree<T> {
+    val root: LinkedNode<T>
 
-    interface LinkedNode<T> : Tree.Node<T> {
+    interface LinkedNode<T> {
+        val value: T
         val parent: LinkedNode<T>?
-        override val children: List<LinkedNode<T>>
+        val children: List<LinkedNode<T>>
     }
 }
