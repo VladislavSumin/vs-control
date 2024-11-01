@@ -56,3 +56,21 @@ fun <T, K> LinkedTree<T>.findChild(startPath: TreePath<T, K>, key: K): Sequence<
         }
     }
 }
+
+/**
+ * Ищет лист соответствующий [predicate].
+ * TODO вынести код в общий итератор.
+ */
+fun <T> LinkedTree<T>.find(predicate: (T) -> Boolean): T? {
+    if (predicate(root.value)) return root.value
+    var children = root.children
+    while (children.isNotEmpty()) {
+        var newChildren = mutableListOf<LinkedNode<T>>()
+        children.forEach {
+            if (predicate(it.value)) return it.value
+            newChildren += it.children
+        }
+        children = newChildren
+    }
+    return null
+}
