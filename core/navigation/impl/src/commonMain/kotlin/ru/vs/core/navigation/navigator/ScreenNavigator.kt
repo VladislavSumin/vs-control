@@ -115,6 +115,21 @@ class ScreenNavigator internal constructor(
         }
     }
 
+    internal fun closeInsideThisScreen(screenPath: ScreenPath) {
+        if (screenPath.size == 1) {
+            closeInsideThisScreen((screenPath.first() as ScreenPath.PathElement.Params).screenParams)
+        } else {
+            val childElement = screenPath.firstOrNull() ?: return
+            val childNavigator = when (childElement) {
+                is ScreenPath.PathElement.Key -> childScreenNavigators.asSequence()
+                    .first { entry -> entry.key.asErasedKey() == childElement.screenKey }.value
+
+                is ScreenPath.PathElement.Params -> childScreenNavigators[childElement.screenParams]
+            }
+            childNavigator?.closeInsideThisScreen(ScreenPath(screenPath.drop(1)))
+        }
+    }
+
     private fun closeInsideThisScreen(screenParams: ScreenParams) {
         // TODO убрать дублирование кода.
         val screenKey = ScreenKey(screenParams::class)
