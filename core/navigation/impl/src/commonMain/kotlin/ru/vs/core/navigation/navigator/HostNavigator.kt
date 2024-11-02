@@ -15,6 +15,8 @@ internal interface HostNavigator {
      */
     fun open(params: ScreenParams)
 
+    fun open(screenKey: ScreenKey<*>, defaultParams: () -> ScreenParams)
+
     /**
      * Пытается закрыть экран с соответствующими параметрами. Если закрыть экран невозможно по какой-либо причине **не**
      * выбрасывает ошибку, это является штатной ситуацией.

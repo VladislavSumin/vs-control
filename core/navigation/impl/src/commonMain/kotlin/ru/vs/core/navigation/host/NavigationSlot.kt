@@ -59,6 +59,20 @@ private class SlotHostNavigator(
         slotNavigation.navigate { params }
     }
 
+    override fun open(
+        screenKey: ScreenKey<*>,
+        defaultParams: () -> ScreenParams,
+    ) {
+        // Проверяем, если текущий экран имеет такой же ключ, то оставляем его, иначе заменяем на defaultParams
+        slotNavigation.navigate { currentOpenedScreen ->
+            if (currentOpenedScreen != null && currentOpenedScreen.asErasedKey() == screenKey) {
+                currentOpenedScreen
+            } else {
+                defaultParams()
+            }
+        }
+    }
+
     override fun close(params: ScreenParams): Boolean {
         var isSuccess: Boolean? = null
         slotNavigation.navigate { currentOpenedScreen ->

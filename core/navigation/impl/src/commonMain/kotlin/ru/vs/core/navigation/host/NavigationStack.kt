@@ -68,6 +68,25 @@ private class StackHostNavigator(
         )
     }
 
+    override fun open(
+        screenKey: ScreenKey<*>,
+        defaultParams: () -> ScreenParams,
+    ) {
+        // Если экрана с таким ключом еще нет в стеке, то открываем его используя defaultParams.
+        // Если же экран с таким ключом уже есть в стеке, то закрываем все экраны после него.
+        stackNavigation.navigate(
+            transformer = { stack ->
+                val indexOfScreen = stack.map { it.asErasedKey() }.indexOf(screenKey)
+                if (indexOfScreen >= 0) {
+                    stack.subList(0, indexOfScreen + 1)
+                } else {
+                    stack + defaultParams()
+                }
+            },
+            onComplete = { _, _ -> },
+        )
+    }
+
     override fun close(params: ScreenParams): Boolean {
         // Если закрываемый экран расположен первым, то закрываем все экраны КРОМЕ этого, так как в стеке должен быть
         // хотя бы один экран.

@@ -62,13 +62,16 @@ class ScreenNavigator internal constructor(
      * После нахождения пути к экрану открываемому через вызов [open], навигатор последовательно вызывает эту
      * функцию на **каждом** экране в пути, тем самым переключая состояние на требуемое.
      */
-    internal fun openInsideThisScreen(screenParams: ScreenParams) {
-        val screenKey = ScreenKey(screenParams::class)
+    internal fun openInsideThisScreen(screen: ScreenPath.PathElement) {
+        val screenKey = screen.asErasedKey()
         val childNode = node.children.find { it.value.screenKey == screenKey }
             ?: error("Child node with screenKey=$screenKey not found")
         val hostNavigator = navigationHosts[childNode.value.hostInParent]
             ?: error("Host navigator for host=${childNode.value.hostInParent} not found")
-        hostNavigator.open(screenParams)
+        when (screen) {
+            is ScreenPath.PathElement.Key -> hostNavigator.open(screen.screenKey) { childNode.value.defaultParams!! }
+            is ScreenPath.PathElement.Params -> hostNavigator.open(screen.screenParams)
+        }
     }
 
     internal fun closeInsideThisScreen(screenParams: ScreenParams) {
@@ -95,5 +98,5 @@ class ScreenNavigator internal constructor(
      */
     fun open(screenParams: ScreenParams) = globalNavigator.open(screenPath, screenParams)
     fun close(screenParams: ScreenParams) = globalNavigator.close(screenPath, screenParams)
-    fun close() = globalNavigator.close(screenPath, screenPath.last())
+    fun close() = globalNavigator.close(screenPath, (screenPath.last() as ScreenPath.PathElement.Params).screenParams)
 }

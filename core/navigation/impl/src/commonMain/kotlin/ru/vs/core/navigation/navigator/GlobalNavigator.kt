@@ -77,7 +77,7 @@ internal class GlobalNavigator(
     }
 
     fun close(screenPath: ScreenPath, screenParams: ScreenParams) {
-        val index = screenPath.indexOfLast { it == screenParams }
+        val index = screenPath.indexOfLast { it == ScreenPath.PathElement.Params(screenParams) }
         if (index == -1) return
         val path = screenPath.subList(0, index)
         screenNavigators[path]!!.closeInsideThisScreen(screenParams)

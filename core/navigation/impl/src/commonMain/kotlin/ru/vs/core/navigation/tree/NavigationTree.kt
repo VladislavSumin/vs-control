@@ -32,7 +32,7 @@ internal class NavigationTree(
 
         // TODO это пока демо решение, естественно это будет переписано.
         startNode.children.find { it.value.screenKey == ScreenKey(screenParams::class) }!!.value.screenKey
-        val path = startPath.path.dropLast(1) + screenParams
+        val path = startPath.path.dropLast(1) + ScreenPath.PathElement.Params(screenParams)
         yield(ScreenPath(path))
     }
 }
