@@ -1,9 +1,5 @@
 package ru.vs.core.navigation.navigator
 
-import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.essenty.lifecycle.Lifecycle
-import com.arkivanov.essenty.lifecycle.doOnDestroy
-import kotlinx.serialization.KSerializer
 import ru.vs.core.collections.tree.LinkedTreeNode
 import ru.vs.core.collections.tree.asSequenceUp
 import ru.vs.core.collections.tree.findByPath
@@ -21,24 +17,7 @@ internal class GlobalNavigator(
     private val navigation: Navigation,
 ) {
 
-    internal val serializer: KSerializer<ScreenParams>
-        get() = navigation.navigationSerializer.serializer
-
-    private val screenNavigators = mutableMapOf<ScreenPath, ScreenNavigator>()
-
-    /**
-     * Регистрирует [screenNavigator] с учетом жизненного цикла [ComponentContext].
-     */
-    fun registerScreenNavigator(screenNavigator: ScreenNavigator, lifecycle: Lifecycle) {
-        val oldScreenNavigator = screenNavigators.put(screenNavigator.screenPath, screenNavigator)
-        check(oldScreenNavigator == null) {
-            "Screen navigator for ${screenNavigator.screenPath} already registered"
-        }
-        lifecycle.doOnDestroy {
-            val navigator = screenNavigators.remove(screenNavigator.screenPath)
-            check(navigator != null) { "Screen navigator for ${screenNavigator.screenPath} not found" }
-        }
-    }
+    internal lateinit var rootNavigator: ScreenNavigator
 
     /**
      * Открывает экран соответствующий переданным [screenParams], при этом поиск пути производится относительно
@@ -59,27 +38,19 @@ internal class GlobalNavigator(
             .first { node -> node.value.screenKey == screenKey }
 
         // Путь до искомой ноды.
-        val destinationPath: List<LinkedTreeNode<ScreenInfo>> = destinationNode.path()
+        val destinationKeysPath: List<ScreenPath.PathElement.Key> = destinationNode.path()
+            .map { node -> node.value.screenKey }
+            .map { ScreenPath.PathElement.Key(it) }
+        val destinationPath =
+            ScreenPath(destinationKeysPath.drop(1).dropLast(1) + ScreenPath.PathElement.Params(screenParams))
 
-        destinationPath.indices
-            .drop(1)
-            .forEach { index ->
-                // TODO
-            }
-
-        // TODO временное решение, нужно пройтись по всем путям.
-        val path = navigation.navigationTree.getDestinationsForPath(screenPath, screenParams).first()
-
-        // TODO тоже что то на временном.
-        path.path.indices.drop(1).forEach { index ->
-            screenNavigators[ScreenPath(path.path.subList(0, index))]!!.openInsideThisScreen(path.path[index])
-        }
+        rootNavigator.openInsideThisScreen(destinationPath)
     }
 
     fun close(screenPath: ScreenPath, screenParams: ScreenParams) {
-        val index = screenPath.indexOfLast { it == ScreenPath.PathElement.Params(screenParams) }
-        if (index == -1) return
-        val path = screenPath.subList(0, index)
-        screenNavigators[path]!!.closeInsideThisScreen(screenParams)
+//        val index = screenPath.indexOfLast { it == ScreenPath.PathElement.Params(screenParams) }
+//        if (index == -1) return
+//        val path = screenPath.subList(0, index)
+//        screenNavigators[path]!!.closeInsideThisScreen(screenParams)
     }
 }

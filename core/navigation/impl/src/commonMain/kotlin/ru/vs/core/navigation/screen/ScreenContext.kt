@@ -36,10 +36,12 @@ internal fun ComponentContext.wrapWithScreenContext(
     val screenKey = ScreenKey(screenParams::class)
     return DefaultScreenContext(
         ScreenNavigator(
-            parentNavigator.globalNavigator,
-            parentNavigator.screenPath + screenParams,
-            parentNavigator.node.children.find { it.value.screenKey == screenKey }!!,
-            lifecycle,
+            globalNavigator = parentNavigator.globalNavigator,
+            parentNavigator = parentNavigator,
+            screenPath = parentNavigator.screenPath + screenParams,
+            node = parentNavigator.node.children.find { it.value.screenKey == screenKey }!!,
+            serializer = parentNavigator.serializer,
+            lifecycle = lifecycle,
         ),
         this,
     )

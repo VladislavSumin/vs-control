@@ -33,7 +33,7 @@ fun ScreenContext.childNavigationStack(
     val source = StackNavigation<ScreenParams>()
     val stack = childStack(
         source = source,
-        serializer = navigator.globalNavigator.serializer,
+        serializer = navigator.serializer,
         key = key,
         initialStack = initialStack,
         handleBackButton = handleBackButton,

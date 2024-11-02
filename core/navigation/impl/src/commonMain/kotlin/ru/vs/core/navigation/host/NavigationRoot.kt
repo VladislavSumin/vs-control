@@ -3,6 +3,7 @@ package ru.vs.core.navigation.host
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import kotlinx.coroutines.launch
+import kotlinx.serialization.serializer
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.createCoroutineScope
 import ru.vs.core.navigation.Navigation
@@ -37,13 +38,19 @@ fun ComponentContext.childNavigationRoot(
     // Lifecycle полученного компонента будет совпадать с родителем
     val childContext = childContext(key, lifecycle = null)
 
+    val rootScreenNavigator = ScreenNavigator(
+        globalNavigator = globalNavigator,
+        parentNavigator = null,
+        screenPath = ScreenPath(params),
+        node = node,
+        serializer = navigation.navigationSerializer.serializer,
+        lifecycle = childContext.lifecycle,
+    )
+
+    globalNavigator.rootNavigator = rootScreenNavigator
+
     val rootScreenContext = DefaultScreenContext(
-        ScreenNavigator(
-            globalNavigator = globalNavigator,
-            screenPath = ScreenPath(params),
-            node = node,
-            lifecycle = childContext.lifecycle,
-        ),
+        rootScreenNavigator,
         childContext,
     )
 
