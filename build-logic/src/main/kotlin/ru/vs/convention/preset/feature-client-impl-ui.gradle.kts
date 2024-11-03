@@ -18,6 +18,8 @@ kotlin {
             implementation(project(":core:navigation:impl"))
             implementation(project(":core:shared-element-transition"))
             implementation(project(":core:uikit:icons"))
+
+            implementation(compose.materialIconsExtended)
         }
     }
 }

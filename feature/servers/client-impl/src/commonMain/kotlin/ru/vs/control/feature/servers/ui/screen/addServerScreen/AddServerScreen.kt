@@ -40,7 +40,7 @@ internal class AddServerScreen(
         configuration: AddServerItem,
         context: ComponentContext,
     ): ComposeComponent = when (configuration) {
-        is AddServerItem.AddServerByUrl -> SimpleAddServerItemComponent(configuration, context)
+        is AddServerItem.Simple -> SimpleAddServerItemComponent(configuration, context)
     }
 
     @Composable

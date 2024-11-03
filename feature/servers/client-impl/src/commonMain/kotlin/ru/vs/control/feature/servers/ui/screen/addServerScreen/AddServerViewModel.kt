@@ -18,6 +18,8 @@ internal class AddServerViewModel : NavigationViewModel() {
         AddServerViewState(
             items = listOf(
                 AddServerItem.AddServerByUrl,
+                AddServerItem.AddServerByQrCode,
+                AddServerItem.AddLocalServer,
             ),
         ),
     )
