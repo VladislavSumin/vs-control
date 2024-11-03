@@ -8,7 +8,6 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
-import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
@@ -18,7 +17,7 @@ import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
-import com.squareup.kotlinpoet.ksp.writeTo
+import ru.vs.core.ksp.writeTo
 
 internal class FactoryGeneratorSymbolProcessor(
     private val codeGenerator: CodeGenerator,
@@ -130,8 +129,7 @@ internal class FactoryGeneratorSymbolProcessor(
             }
             .build()
 
-        // Generate class impl
-        val clazzImpl = TypeSpec.classBuilder(name)
+        TypeSpec.classBuilder(name)
             .addSuperinterface(
                 SCREEN_FACTORY_CLASS
                     .parameterizedBy(
@@ -154,15 +152,7 @@ internal class FactoryGeneratorSymbolProcessor(
             }
             .addFunction(createFunction)
             .build()
-
-        // Записываем полученную фабрику в файл
-        FileSpec.builder(
-            instance.packageName.asString(),
-            name,
-        )
-            .addType(clazzImpl)
-            .build()
-            .writeTo(codeGenerator, false)
+            .writeTo(codeGenerator, instance.packageName.asString())
     }
 
     companion object {
