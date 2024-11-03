@@ -1,12 +1,15 @@
 package ru.vs.core.navigation.screen
 
+import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.ViewModel
+import ru.vs.core.decompose.asValue
 import ru.vs.core.decompose.createCoroutineScope
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 import ru.vs.core.utils.unsafeLazy
@@ -35,6 +38,11 @@ abstract class Screen(context: ScreenContext) : ComposeComponent, ScreenContext 
     ) {
         scope.launch(context, start, block)
     }
+
+    /**
+     * Подписка на [StateFlow] через [asValue] с использованием локального scope компонента.
+     */
+    protected fun <T : Any> StateFlow<T>.asValue(): Value<T> = asValue(scope)
 
     /**
      * Создает или возвращает созданную ранее [ViewModel] используя для этого [instanceKeeper].
