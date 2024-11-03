@@ -12,11 +12,11 @@ import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
+import ru.vs.core.ksp.primaryConstructorWithPrivateFields
 import ru.vs.core.ksp.writeTo
 
 internal class FactoryGeneratorSymbolProcessor(
@@ -119,16 +119,6 @@ internal class FactoryGeneratorSymbolProcessor(
             .returns(instance.toClassName())
             .build()
 
-        // Конструктор фабрики, обратите внимание, нельзя объявить сразу конструктор с пропертями + полями класса
-        // поля класса отдельно объявляются ниже.
-        val constructor = FunSpec.constructorBuilder()
-            .apply {
-                factoryConstructorParams.forEach {
-                    addParameter(it.name!!.getShortName(), it.type.toTypeName())
-                }
-            }
-            .build()
-
         TypeSpec.classBuilder(name)
             .addSuperinterface(
                 SCREEN_FACTORY_CLASS
@@ -137,19 +127,10 @@ internal class FactoryGeneratorSymbolProcessor(
                         instance.toClassName(),
                     ),
             )
-            .primaryConstructor(constructor)
+            .primaryConstructorWithPrivateFields(
+                factoryConstructorParams.map { it.name!!.getShortName() to it.type.toTypeName() },
+            )
             .addModifiers(KModifier.INTERNAL)
-            .apply {
-                factoryConstructorParams.forEach {
-                    val name = it.name!!.getShortName()
-                    addProperty(
-                        PropertySpec.builder(name, it.type.toTypeName())
-                            .initializer(name)
-                            .addModifiers(KModifier.PRIVATE)
-                            .build(),
-                    )
-                }
-            }
             .addFunction(createFunction)
             .build()
             .writeTo(codeGenerator, instance.packageName.asString())

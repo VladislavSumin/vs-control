@@ -9,10 +9,10 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
-import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
+import ru.vs.core.ksp.primaryConstructorWithPrivateFields
 import ru.vs.core.ksp.writeTo
 
 internal class FactoryGeneratorSymbolProcessor(
@@ -81,30 +81,11 @@ internal class FactoryGeneratorSymbolProcessor(
             .returns(instance.toClassName())
             .build()
 
-        // Конструктор фабрики, обратите внимание, нельзя объявить сразу конструктор с пропертями + полями класса
-        // поля класса отдельно объявляются ниже.
-        val constructor = FunSpec.constructorBuilder()
-            .apply {
-                constructorParams.forEach {
-                    addParameter(it.name!!.getShortName(), it.type.toTypeName())
-                }
-            }
-            .build()
-
         TypeSpec.classBuilder(name)
-            .primaryConstructor(constructor)
+            .primaryConstructorWithPrivateFields(
+                constructorParams.map { it.name!!.getShortName() to it.type.toTypeName() },
+            )
             .addModifiers(KModifier.INTERNAL)
-            .apply {
-                constructorParams.forEach {
-                    val name = it.name!!.getShortName()
-                    addProperty(
-                        PropertySpec.builder(name, it.type.toTypeName())
-                            .initializer(name)
-                            .addModifiers(KModifier.PRIVATE)
-                            .build(),
-                    )
-                }
-            }
             .addFunction(createFunction)
             .build()
             .writeTo(codeGenerator, instance.packageName.asString())
