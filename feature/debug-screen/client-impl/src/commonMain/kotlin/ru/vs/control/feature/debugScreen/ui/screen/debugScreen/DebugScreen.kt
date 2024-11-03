@@ -3,23 +3,15 @@ package ru.vs.control.feature.debugScreen.ui.screen.debugScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.childContext
+import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
-import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFactory
 
-internal class DebugScreenFactory(
-    private val viewModelFactory: DebugViewModelFactory,
-    private val umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
-) : ScreenFactory<DebugScreenParams, DebugScreen> {
-    override fun create(context: ScreenContext, params: DebugScreenParams): DebugScreen {
-        return DebugScreen(umlDiagramComponentFactory, viewModelFactory, context)
-    }
-}
-
+@GenerateScreenFactory
 internal class DebugScreen(
-    umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
     viewModelFactory: DebugViewModelFactory,
+    umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
     context: ScreenContext,
 ) : Screen(context) {
 

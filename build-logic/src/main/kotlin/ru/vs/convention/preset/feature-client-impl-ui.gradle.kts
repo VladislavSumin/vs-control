@@ -8,6 +8,7 @@ package ru.vs.convention.preset
 plugins {
     id("ru.vs.convention.preset.feature-client-api-ui")
     id("ru.vs.convention.preset.feature-client-impl")
+    id("ru.vs.convention.navigation-factory-generator")
     id("ru.vs.convention.compose")
 }
 
