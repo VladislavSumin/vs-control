@@ -28,7 +28,7 @@ fun TypeSpec.writeTo(
 }
 
 /**
- * Добавляет просто конструктор вида:
+ * Добавляет простой конструктор вида:
  * constructor(private val value: ValueType)
  */
 fun TypeSpec.Builder.primaryConstructorWithPrivateFields(
