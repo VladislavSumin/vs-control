@@ -33,7 +33,7 @@ internal class AddServerScreen(
         configuration: AddServerItem,
         context: ComponentContext,
     ): ComposeComponent = when (configuration) {
-        is AddServerItem.Simple -> SimpleAddServerItemComponent(configuration, context)
+        is AddServerItem.Simple -> SimpleAddServerItemComponent(viewModel, configuration, context)
         is AddServerItem.SearchServersInLocalNetwork -> LocalSearchAddServerComponent(context)
     }
 

@@ -3,6 +3,7 @@ package ru.vs.control.feature.servers.ui.screen.addServerScreen
 import androidx.compose.runtime.Stable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByUrlScreenParams
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.items.AddServerItem
 import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.navigation.viewModel.NavigationViewModel
@@ -23,4 +24,14 @@ internal class AddServerViewModel : NavigationViewModel() {
     )
 
     fun onClickBack() = close()
+
+    fun onClickSimpleItem(item: AddServerItem.Simple) {
+        when (item) {
+            is AddServerItem.AddServerByUrl -> open(AddServerByUrlScreenParams)
+            is AddServerItem.AddServerByQrCode,
+            is AddServerItem.AddLocalServer,
+            is AddServerItem.AddPrebuildServer,
+            -> Unit // not implemented now
+        }
+    }
 }

@@ -18,18 +18,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
+import ru.vs.control.feature.servers.ui.screen.addServerScreen.AddServerViewModel
 import ru.vs.core.decompose.ComposeComponent
 
 /**
  * Простой компонент добавления сервера (без дополнительной логики), по сути просто кнопка.
  */
 internal class SimpleAddServerItemComponent(
-    val item: AddServerItem.Simple,
+    private val viewModel: AddServerViewModel,
+    private val item: AddServerItem.Simple,
     context: ComponentContext,
 ) : ComposeComponent, ComponentContext by context {
     @Composable
     override fun Render(modifier: Modifier) {
-        Card(modifier) {
+        Card(
+            onClick = { viewModel.onClickSimpleItem(item) },
+            modifier,
+        ) {
             Row(
                 Modifier.padding(
                     horizontal = 16.dp,
