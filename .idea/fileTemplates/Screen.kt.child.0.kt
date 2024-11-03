@@ -1,3 +1,3 @@
 package ${PACKAGE_NAME}
 
-internal sealed interface ${NAME}ViewState
+internal sealed interface ${NAME}Events
