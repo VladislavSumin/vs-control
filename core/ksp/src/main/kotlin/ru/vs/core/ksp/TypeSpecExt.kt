@@ -34,22 +34,15 @@ fun TypeSpec.writeTo(
 fun TypeSpec.Builder.primaryConstructorWithPrivateFields(
     params: Iterable<Pair<String, TypeName>>,
 ): TypeSpec.Builder {
-    val constructor = FunSpec.constructorBuilder()
-        .apply {
-            params.forEach {
-                addParameter(it.first, it.second)
-            }
-        }
-        .build()
-    primaryConstructor(constructor)
-
-    params.forEach {
+    val constructorBuilder = FunSpec.constructorBuilder()
+    params.forEach { (name, type) ->
+        constructorBuilder.addParameter(name, type)
         addProperty(
-            PropertySpec.builder(it.first, it.second)
-                .initializer(it.first)
+            PropertySpec.builder(name, type)
+                .initializer(name)
                 .addModifiers(KModifier.PRIVATE)
                 .build(),
         )
     }
-    return this
+    return primaryConstructor(constructorBuilder.build())
 }
