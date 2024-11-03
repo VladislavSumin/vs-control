@@ -7,16 +7,24 @@ interface TreeNode<T, N : TreeNode<T, N>> {
 
 /**
  * Итератор по всем [TreeNode.children] начиная с детей и заканчивая внуками и далее.
+ *
+ * @param branchFilter дает возможность исключать из обхода ветки целиком.
  */
-fun <T, N : TreeNode<T, N>> N.asSequence(): Sequence<N> = sequence {
+fun <T, N : TreeNode<T, N>> N.asSequence(branchFilter: (N) -> Boolean = { true }): Sequence<N> = sequence {
     val root = this@asSequence
-    yield(root)
+    if (branchFilter(root)) {
+        yield(root)
+    } else {
+        return@sequence
+    }
     var children = root.children
     while (children.isNotEmpty()) {
         val newChildren = mutableListOf<N>()
         children.forEach { node ->
-            yield(node)
-            newChildren += node.children
+            if (branchFilter(node)) {
+                yield(node)
+                newChildren += node.children
+            }
         }
         children = newChildren
     }

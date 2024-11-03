@@ -13,11 +13,7 @@ fun <T> LinkedTreeNode<T>.asSequenceUp(): Sequence<LinkedTreeNode<T>> = sequence
     var currentNode: LinkedTreeNode<T>? = this@asSequenceUp
 
     while (currentNode != null) {
-        yieldAll(
-            currentNode
-                .asSequence()
-                .filter { it != lastNode },
-        )
+        yieldAll(currentNode.asSequence { it != lastNode })
         lastNode = currentNode
         currentNode = currentNode.parent
     }
