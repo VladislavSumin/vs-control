@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Dns
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.QrCode
+import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,8 +32,8 @@ internal class SimpleAddServerItemComponent(
         Card(modifier) {
             Row(
                 Modifier.padding(
-                    horizontal = 12.dp,
-                    vertical = 6.dp,
+                    horizontal = 16.dp,
+                    vertical = 8.dp,
                 ),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -54,21 +55,24 @@ internal class SimpleAddServerItemComponent(
 
 private val AddServerItem.Simple.title: String
     get() = when (this) {
-        AddServerItem.AddServerByUrl -> "Добавить вручную"
-        AddServerItem.AddServerByQrCode -> "Сканировать QR-код"
-        AddServerItem.AddLocalServer -> "Включить локальный сервер"
+        is AddServerItem.AddServerByUrl -> "Добавить вручную"
+        is AddServerItem.AddServerByQrCode -> "Сканировать QR-код"
+        is AddServerItem.AddLocalServer -> "Включить локальный сервер"
+        is AddServerItem.AddPrebuildServer -> name
     }
 
 private val AddServerItem.Simple.subtitle: String
     get() = when (this) {
-        AddServerItem.AddServerByUrl -> "По доменному имени или ip адресу"
-        AddServerItem.AddServerByQrCode -> "QR код можно отобразить в другом клиенте"
-        AddServerItem.AddLocalServer -> "Можно использовать это устройство в качестве сервера умного дома"
+        is AddServerItem.AddServerByUrl -> "По доменному имени или ip адресу"
+        is AddServerItem.AddServerByQrCode -> "QR код можно отобразить в другом клиенте"
+        is AddServerItem.AddLocalServer -> "Можно использовать это устройство в качестве сервера умного дома"
+        is AddServerItem.AddPrebuildServer -> url
     }
 
 private val AddServerItem.Simple.icon: ImageVector
     get() = when (this) {
-        AddServerItem.AddServerByUrl -> Icons.Default.Language
-        AddServerItem.AddServerByQrCode -> Icons.Default.QrCode
-        AddServerItem.AddLocalServer -> Icons.Default.Dns
+        is AddServerItem.AddServerByUrl -> Icons.Default.Language
+        is AddServerItem.AddServerByQrCode -> Icons.Default.QrCode
+        is AddServerItem.AddLocalServer -> Icons.Default.Dns
+        is AddServerItem.AddPrebuildServer -> Icons.Default.Language
     }

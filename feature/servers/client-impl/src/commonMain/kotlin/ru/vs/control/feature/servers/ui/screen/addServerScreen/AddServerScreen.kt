@@ -6,6 +6,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.operator.map
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.items.AddServerItem
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.items.SimpleAddServerItemComponent
+import ru.vs.control.feature.servers.ui.screen.addServerScreen.items.localSearch.LocalSearchAddServerComponent
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.router.list.childList
 import ru.vs.core.navigation.screen.Screen
@@ -41,6 +42,7 @@ internal class AddServerScreen(
         context: ComponentContext,
     ): ComposeComponent = when (configuration) {
         is AddServerItem.Simple -> SimpleAddServerItemComponent(configuration, context)
+        is AddServerItem.SearchServersInLocalNetwork -> LocalSearchAddServerComponent(context)
     }
 
     @Composable

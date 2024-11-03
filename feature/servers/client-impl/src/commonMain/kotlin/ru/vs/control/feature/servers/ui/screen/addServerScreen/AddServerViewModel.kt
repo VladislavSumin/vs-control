@@ -17,9 +17,11 @@ internal class AddServerViewModel : NavigationViewModel() {
     val state: StateFlow<AddServerViewState> = MutableStateFlow(
         AddServerViewState(
             items = listOf(
+                AddServerItem.AddPrebuildServer("Control", "https://control.vs"),
                 AddServerItem.AddServerByUrl,
                 AddServerItem.AddServerByQrCode,
                 AddServerItem.AddLocalServer,
+                AddServerItem.SearchServersInLocalNetwork,
             ),
         ),
     )

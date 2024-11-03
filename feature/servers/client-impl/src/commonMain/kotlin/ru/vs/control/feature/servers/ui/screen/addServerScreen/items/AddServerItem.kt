@@ -6,4 +6,14 @@ internal sealed interface AddServerItem {
     data object AddServerByUrl : Simple
     data object AddServerByQrCode : Simple
     data object AddLocalServer : Simple
+
+    /**
+     * Сервер добавленный в сборку на этапе компиляции.
+     */
+    data class AddPrebuildServer(val name: String, val url: String) : Simple
+
+    /**
+     * Карточка поиска серверов в локальной сети.
+     */
+    data object SearchServersInLocalNetwork : AddServerItem
 }
