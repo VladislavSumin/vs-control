@@ -58,7 +58,6 @@ internal class FactoryGeneratorSymbolProcessor(
      *
      * @param instance инстанс который должна создавать фабрика
      */
-    @Suppress("LongMethod")
     private fun generateFactory(
         instance: KSClassDeclaration,
     ) {
@@ -103,18 +102,8 @@ internal class FactoryGeneratorSymbolProcessor(
         // Декларация функции create
         val createFunction = FunSpec.builder("create")
             .addModifiers(KModifier.OVERRIDE)
-            .addParameter(
-                ParameterSpec.builder(
-                    "context",
-                    SCREEN_CONTEXT_CLASS,
-                ).build(),
-            )
-            .addParameter(
-                ParameterSpec.builder(
-                    "params",
-                    paramsType,
-                ).build(),
-            )
+            .addParameter(ParameterSpec.builder("context", SCREEN_CONTEXT_CLASS).build())
+            .addParameter(ParameterSpec.builder("params", paramsType).build())
             .addCode(returnCodeBlock)
             .returns(instance.toClassName())
             .build()
