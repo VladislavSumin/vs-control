@@ -9,8 +9,8 @@ import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFactory
 
 internal class DebugScreenFactory(
-    private val umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
     private val viewModelFactory: DebugViewModelFactory,
+    private val umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
 ) : ScreenFactory<DebugScreenParams, DebugScreen> {
     override fun create(context: ScreenContext, params: DebugScreenParams): DebugScreen {
         return DebugScreen(umlDiagramComponentFactory, viewModelFactory, context)

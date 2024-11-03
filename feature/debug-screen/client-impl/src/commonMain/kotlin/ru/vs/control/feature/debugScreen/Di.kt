@@ -16,6 +16,8 @@ fun Modules.featureDebugScreen() = DI.Module("feature-debug-screen") {
         add { singleton { NavigationRegistrarImpl(i()) } }
     }
 
-    bindSingleton { DebugViewModelFactory() }
-    bindSingleton { DebugScreenFactory(i(), i()) }
+    bindSingleton {
+        val viewModelFactory = DebugViewModelFactory()
+        DebugScreenFactory(viewModelFactory, i())
+    }
 }
