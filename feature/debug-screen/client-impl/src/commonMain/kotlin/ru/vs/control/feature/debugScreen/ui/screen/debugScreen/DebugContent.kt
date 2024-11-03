@@ -22,7 +22,7 @@ internal fun DebugContent(
 ) {
     Scaffold(
         modifier,
-        topBar = { DebugAppBar(viewModel) },
+        topBar = { AppBar(viewModel) },
     ) {
         umlComponent.Render(
             Modifier
@@ -34,7 +34,7 @@ internal fun DebugContent(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DebugAppBar(viewModel: DebugViewModel) {
+private fun AppBar(viewModel: DebugViewModel) {
     TopAppBar(
         navigationIcon = {
             IconButton(onClick = viewModel::onClickBack) {

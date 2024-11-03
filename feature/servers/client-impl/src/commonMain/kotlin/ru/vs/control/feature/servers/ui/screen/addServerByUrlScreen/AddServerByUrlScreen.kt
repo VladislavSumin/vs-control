@@ -15,6 +15,6 @@ internal class AddServerByUrlScreen(
 
     @Composable
     override fun Render(modifier: Modifier) {
-        AddServerByUrlContent(modifier)
+        AddServerByUrlContent(viewModel, modifier)
     }
 }
