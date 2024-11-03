@@ -1,6 +1,8 @@
 package ru.vs.core.navigation.tree
 
 import ru.vs.core.collections.tree.LinkedTreeNode
+import ru.vs.core.collections.tree.LinkedTreeNodeImpl
+import ru.vs.core.collections.tree.linkedNodeOf
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.screen.ScreenKey
@@ -19,7 +21,6 @@ internal class NavigationTreeBuilder(
     private fun buildNavGraph(): LinkedTreeNode<ScreenInfo> {
         val rootScreen = findRootScreen()
         return buildNode(
-            parent = null,
             hostInParent = null,
             screenKey = rootScreen,
         )
@@ -34,10 +35,9 @@ internal class NavigationTreeBuilder(
      * @param screenKey ключ соответствующий [Node] которую нужно создать.
      */
     private fun buildNode(
-        parent: LinkedTreeNode<ScreenInfo>?,
         hostInParent: NavigationHost?,
         screenKey: ScreenKey<*>,
-    ): LinkedTreeNode<ScreenInfo> {
+    ): LinkedTreeNodeImpl<ScreenInfo> {
         val screenRegistration = repository.screens[screenKey] ?: error("Unreachable")
 
         val screenInfo = ScreenInfo(
@@ -49,27 +49,26 @@ internal class NavigationTreeBuilder(
             description = screenRegistration.description,
         )
 
-        val node = MutableNode(parent, screenInfo)
-
         // Пробегаемся по всем навигационным хостам объявленным для данной ноды.
-        screenRegistration.navigationHosts.forEach { navHost ->
+        val child: List<LinkedTreeNodeImpl<ScreenInfo>> = screenRegistration.navigationHosts.flatMap { navHost ->
             // Пробегаемся по всем экранам которые могут быть открыты в данном navHost
-
             repository.screens
                 .asSequence()
                 .filter { (_, v) -> navHost in v.opensIn }
-                .forEach { (k, v) ->
-                    val childNode = buildNode(
-                        parent = node,
+                .map { (k, v) ->
+                    // Проверяем что этот экран может открываться только в одном хосте родителя.
+                    check(
+                        screenRegistration.navigationHosts.intersect(v.opensIn).size == 1,
+                    ) { "Double children registration" }
+
+                    buildNode(
                         hostInParent = navHost,
                         screenKey = k,
                     )
-                    node.children.add(childNode)
-                    // TODO починить чек
-                    // check(oldChildren == null) { "Double children registration" }
                 }
         }
-        return node
+
+        return linkedNodeOf(screenInfo, children = child)
     }
 
     /**
@@ -87,14 +86,4 @@ internal class NavigationTreeBuilder(
         }
         return roots.first()
     }
-
-    /**
-     * Изменяемая версия [Node], необходима из-за двухсторонней связи [parent]/[children], чтобы избежать
-     * лишних копирований ноды.
-     */
-    private class MutableNode(
-        override val parent: LinkedTreeNode<ScreenInfo>?,
-        override val value: ScreenInfo,
-        override val children: MutableList<LinkedTreeNode<ScreenInfo>> = mutableListOf(),
-    ) : LinkedTreeNode<ScreenInfo>
 }

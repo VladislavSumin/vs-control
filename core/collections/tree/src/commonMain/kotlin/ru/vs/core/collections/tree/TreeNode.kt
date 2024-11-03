@@ -1,9 +1,28 @@
 package ru.vs.core.collections.tree
 
+/**
+ * Лист дерева, одновременно представляет собой все дерево, где текущий лист является корнем.
+ *
+ * @property value значение листа дерева.
+ * @property children дочерние листы дерева.
+ */
 interface TreeNode<T, N : TreeNode<T, N>> {
     val value: T
     val children: Collection<N>
 }
+
+class TreeNodeImpl<T> internal constructor(
+    override val value: T,
+    override val children: Collection<TreeNodeImpl<T>>,
+) : TreeNode<T, TreeNodeImpl<T>>
+
+/**
+ * DSL для построения деревьев.
+ */
+fun <T> nodeOf(
+    value: T,
+    vararg children: TreeNodeImpl<T>,
+): TreeNodeImpl<T> = TreeNodeImpl(value, children.toList())
 
 /**
  * Итератор по всем [TreeNode.children] начиная с детей и заканчивая внуками и далее.

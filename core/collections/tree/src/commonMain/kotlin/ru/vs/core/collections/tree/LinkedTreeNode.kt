@@ -1,8 +1,42 @@
 package ru.vs.core.collections.tree
 
+/**
+ * Расширение стандартного [TreeNode], добавляет связь с родителем.
+ *
+ * @property parent ссылка на родителя если он существует.
+ */
 interface LinkedTreeNode<T> : TreeNode<T, LinkedTreeNode<T>> {
     val parent: LinkedTreeNode<T>?
 }
+
+class LinkedTreeNodeImpl<T> internal constructor(
+    parent: LinkedTreeNodeImpl<T>?,
+    override val value: T,
+    override val children: Collection<LinkedTreeNodeImpl<T>>,
+) : LinkedTreeNode<T> {
+    override var parent: LinkedTreeNodeImpl<T>? = parent
+        internal set
+}
+
+/**
+ * DSL для построения [LinkedTreeNode] деревьев.
+ */
+fun <T> linkedNodeOf(
+    value: T,
+    children: Collection<LinkedTreeNodeImpl<T>> = emptyList(),
+): LinkedTreeNodeImpl<T> {
+    return LinkedTreeNodeImpl(null, value, children).apply {
+        children.forEach { child -> child.parent = this }
+    }
+}
+
+/**
+ * DSL для построения [LinkedTreeNode] деревьев.
+ */
+fun <T> linkedNodeOf(
+    value: T,
+    vararg children: LinkedTreeNodeImpl<T>,
+): LinkedTreeNodeImpl<T> = linkedNodeOf(value, children.toList())
 
 /**
  * Итератор по всему дереву (включая ноды выше текущей), сначала итерируется по детям, как это делает обычный
