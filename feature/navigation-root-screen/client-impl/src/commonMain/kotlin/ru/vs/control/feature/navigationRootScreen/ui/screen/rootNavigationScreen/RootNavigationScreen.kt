@@ -7,19 +7,12 @@ import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
 import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
 import ru.vs.core.navigation.ScreenParams
+import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vs.core.navigation.host.childNavigationSlot
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
-import ru.vs.core.navigation.screen.ScreenFactory
 
-internal class RootNavigationScreenFactory(
-    private val viewModelFactory: RootNavigationScreenViewModelFactory,
-) : ScreenFactory<RootNavigationScreenParams, RootNavigationScreen> {
-    override fun create(context: ScreenContext, params: RootNavigationScreenParams): RootNavigationScreen {
-        return RootNavigationScreen(viewModelFactory, context)
-    }
-}
-
+@GenerateScreenFactory
 internal class RootNavigationScreen(
     viewModelFactory: RootNavigationScreenViewModelFactory,
     context: ScreenContext,
