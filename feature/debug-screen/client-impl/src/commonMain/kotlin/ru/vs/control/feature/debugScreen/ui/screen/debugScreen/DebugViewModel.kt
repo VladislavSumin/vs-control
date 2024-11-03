@@ -1,16 +1,12 @@
 package ru.vs.control.feature.debugScreen.ui.screen.debugScreen
 
 import androidx.compose.runtime.Stable
+import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlNode
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 
-internal class DebugViewModelFactory {
-    fun create(): DebugViewModel {
-        return DebugViewModel()
-    }
-}
-
 @Stable
+@GenerateFactory
 internal class DebugViewModel : NavigationViewModel() {
 
     fun onClickBack() = close()
