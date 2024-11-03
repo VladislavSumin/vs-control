@@ -4,15 +4,11 @@ import androidx.compose.runtime.Stable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.items.AddServerItem
+import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 
-internal class AddServerViewModelFactory {
-    fun create(): AddServerViewModel {
-        return AddServerViewModel()
-    }
-}
-
 @Stable
+@GenerateFactory
 internal class AddServerViewModel : NavigationViewModel() {
     val state: StateFlow<AddServerViewState> = MutableStateFlow(
         AddServerViewState(

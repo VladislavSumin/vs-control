@@ -23,6 +23,8 @@ fun Modules.featureWelcomeScreen() = DI.Module("feature-welcome-screen") {
     bindSingleton<WelcomeInteractorInternal> { WelcomeInteractorImpl() }
     bindProvider<WelcomeInteractor> { i<WelcomeInteractorInternal>() }
 
-    bindProvider { WelcomeScreenFactory(i()) }
-    bindProvider { WelcomeScreenViewModelFactory() }
+    bindProvider {
+        val viewModelFactory = WelcomeScreenViewModelFactory()
+        WelcomeScreenFactory(viewModelFactory)
+    }
 }

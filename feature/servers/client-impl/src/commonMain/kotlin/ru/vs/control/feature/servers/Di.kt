@@ -1,7 +1,7 @@
 package ru.vs.control.feature.servers
 
 import org.kodein.di.DI
-import org.kodein.di.bindProvider
+import org.kodein.di.bindSingleton
 import org.kodein.di.inBindSet
 import org.kodein.di.singleton
 import ru.vs.control.feature.servers.ui.screen.NavigationRegistrarImpl
@@ -16,6 +16,8 @@ fun Modules.featureServers() = DI.Module("feature-servers") {
         add { singleton { NavigationRegistrarImpl(i()) } }
     }
 
-    bindProvider { AddServerScreenFactory(i()) }
-    bindProvider { AddServerViewModelFactory() }
+    bindSingleton {
+        val viewModelFactory = AddServerViewModelFactory()
+        AddServerScreenFactory(viewModelFactory)
+    }
 }

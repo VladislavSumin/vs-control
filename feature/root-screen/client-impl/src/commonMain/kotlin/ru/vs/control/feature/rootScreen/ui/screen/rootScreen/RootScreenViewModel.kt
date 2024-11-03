@@ -6,15 +6,9 @@ import org.kodein.di.instance
 import ru.vs.control.feature.initialization.domain.InitializationInteractor
 import ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScreen.InitializedRootScreenFactory
 import ru.vs.core.decompose.ViewModel
+import ru.vs.core.factoryGenerator.GenerateFactory
 
-internal class RootScreenViewModelFactory(
-    private val initializationInteractor: InitializationInteractor,
-) {
-    fun create(): RootScreenViewModel {
-        return RootScreenViewModel(initializationInteractor)
-    }
-}
-
+@GenerateFactory
 internal class RootScreenViewModel(
     private val initializationInteractor: InitializationInteractor,
 ) : ViewModel() {

@@ -16,6 +16,8 @@ fun Modules.featureMainScreen() = DI.Module("feature-main-screen") {
         add { singleton { NavigationRegistrarImpl(i()) } }
     }
 
-    bindSingleton { MainViewModelFactory() }
-    bindSingleton { MainScreenFactory(i()) }
+    bindSingleton {
+        val viewModelFactory = MainViewModelFactory()
+        MainScreenFactory(viewModelFactory)
+    }
 }

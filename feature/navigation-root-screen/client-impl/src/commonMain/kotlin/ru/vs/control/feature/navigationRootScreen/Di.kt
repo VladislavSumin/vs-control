@@ -16,6 +16,8 @@ fun Modules.featureNavigationRootScreen() = DI.Module("feature-navigation-root-s
         add { singleton { NavigationRegistrarImpl(i()) } }
     }
 
-    bindSingleton { RootNavigationScreenViewModelFactory(i()) }
-    bindSingleton { RootNavigationScreenFactory(i()) }
+    bindSingleton {
+        val viewModelFactory = RootNavigationScreenViewModelFactory(i())
+        RootNavigationScreenFactory(viewModelFactory)
+    }
 }
