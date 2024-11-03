@@ -35,10 +35,11 @@ internal fun MainContent(
         ) {
             Column(Modifier.align(Alignment.Center)) {
                 Text("MainScreen")
-                Button(
-                    onClick = viewModel::onClickDebug,
-                ) {
+                Button(onClick = viewModel::onClickDebug) {
                     Text("Open Debug")
+                }
+                Button(onClick = viewModel::onClickAddServer) {
+                    Text("Add server")
                 }
             }
         }

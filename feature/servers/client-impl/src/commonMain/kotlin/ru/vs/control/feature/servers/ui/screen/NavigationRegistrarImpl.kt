@@ -1,8 +1,8 @@
 package ru.vs.control.feature.servers.ui.screen
 
+import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentNavigationHost
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.AddServerScreenFactory
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.AddServerScreenParams
-import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
 import ru.vs.core.navigation.screen.asKey
@@ -19,10 +19,8 @@ internal class NavigationRegistrarImpl(
             paramsSerializer = AddServerScreenParams.serializer(),
             nameForLogs = "AddServerScreenParams",
             defaultParams = AddServerScreenParams,
-            opensIn = setOf(TodoNavigationHost),
+            opensIn = setOf(RootContentNavigationHost),
+            description = "Экран добавления нового подключения к серверу",
         )
     }
 }
-
-// TODO сделать нормальную иерархию экранов.
-private object TodoNavigationHost : NavigationHost
