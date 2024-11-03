@@ -51,23 +51,15 @@ internal class FactoryGeneratorSymbolProcessor(
     }
 
     /**
-     * Generate factory interface for [instance] with one method named [createMethodName].
-     * Interface name is [instance] name + [suffix]
+     * Создает фабрику для создания экземпляров [instance] с одним методом create.
      *
-     * Generate factory implementation for interface above with name [instance] name + [suffix] + [implSuffix]
-     *
-     * @param instance instance for creation
-     * @param suffix factory name suffix
-     * @param implSuffix factory impl name suffix
-     * @param createMethodName name for create [instance] method
+     * @param instance инстанс который должна создавать фабрика
      */
     private fun generateFactory(
         instance: KSClassDeclaration,
-        suffix: String = "Factory",
-        createMethodName: String = "create",
     ) {
         // Имя будущей фабрики.
-        val name = instance.simpleName.getShortName() + suffix
+        val name = instance.simpleName.getShortName() + "Factory"
 
         // Список параметров в основном конструкторе.
         val constructorParams = instance.primaryConstructor!!.parameters
@@ -85,7 +77,7 @@ internal class FactoryGeneratorSymbolProcessor(
             .build()
 
         // Декларация функции create
-        val createFunction = FunSpec.builder(createMethodName)
+        val createFunction = FunSpec.builder("create")
             .addCode(returnCodeBlock)
             .returns(instance.toClassName())
             .build()
