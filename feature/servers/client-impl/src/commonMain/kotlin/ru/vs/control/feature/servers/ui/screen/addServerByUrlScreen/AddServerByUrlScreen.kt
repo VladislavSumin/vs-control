@@ -10,7 +10,7 @@ import ru.vs.core.navigation.screen.ScreenContext
 internal class AddServerByUrlScreen(
     viewModelFactory: AddServerByUrlViewModelFactory,
     context: ScreenContext,
-) : Screen(context), ScreenContext by context {
+) : Screen(context) {
     private val viewModel = viewModel { viewModelFactory.create() }
 
     @Composable
