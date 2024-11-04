@@ -6,36 +6,29 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.vs.core.decompose.createCoroutineScope
+import ru.vs.core.decompose.Component
 import ru.vs.core.navigation.host.childNavigationRoot
 
 /**
  * @param onContentReady необходимо вызвать после готовности к отображению контента. Таким образом можно придержать
  * splash экран на время загрузки контента.
  */
-internal class InitializedRootScreenComponentImpl(
+internal class InitializedRootScreenComponent(
     viewModelFactory: InitializedRootViewModelFactory,
     onContentReady: () -> Unit,
     deeplink: ReceiveChannel<String>,
     context: ComponentContext,
-) : InitializedRootScreenComponent, ComponentContext by context {
+) : Component(context) {
 
     private val viewModel = instanceKeeper.getOrCreate { viewModelFactory.create() }
-    private val scope = lifecycle.createCoroutineScope()
     private val rootNavigation = childNavigationRoot(viewModel.navigation)
 
     init {
-        scope.launch { deeplink.consumeEach(viewModel::onDeeplink) }
+        launch { deeplink.consumeEach(viewModel::onDeeplink) }
 
-        // TODO временный код для эмитации долгой загрузки.
-        // TODO передавать эту лябду в навигацию.
-        scope.launch {
-            @Suppress("MagicNumber")
-            delay(500)
-            onContentReady()
-        }
+        // TODO передавать onContentReady() в навигацию.
+        onContentReady()
     }
 
     @Composable

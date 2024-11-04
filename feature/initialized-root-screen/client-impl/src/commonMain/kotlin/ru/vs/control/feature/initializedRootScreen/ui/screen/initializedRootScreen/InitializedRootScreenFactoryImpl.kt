@@ -2,6 +2,7 @@ package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScr
 
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
+import ru.vs.core.decompose.ComposeComponent
 
 internal class InitializedRootScreenFactoryImpl(
     private val viewModelFactory: InitializedRootViewModelFactory,
@@ -10,7 +11,7 @@ internal class InitializedRootScreenFactoryImpl(
         onContentReady: () -> Unit,
         deeplink: ReceiveChannel<String>,
         componentContext: ComponentContext,
-    ): InitializedRootScreenComponent {
-        return InitializedRootScreenComponentImpl(viewModelFactory, onContentReady, deeplink, componentContext)
+    ): ComposeComponent {
+        return InitializedRootScreenComponent(viewModelFactory, onContentReady, deeplink, componentContext)
     }
 }

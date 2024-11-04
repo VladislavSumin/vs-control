@@ -9,7 +9,7 @@ internal class RootScreenFactoryImpl(
     private val splashScreenFactory: SplashScreenFactory,
 ) : RootScreenFactory {
     override fun create(context: ComponentContext, deeplink: ReceiveChannel<String>): RootScreenComponent {
-        return RootScreenComponentImpl(
+        return RootScreenComponent(
             rootScreenViewModelFactory,
             splashScreenFactory,
             context,

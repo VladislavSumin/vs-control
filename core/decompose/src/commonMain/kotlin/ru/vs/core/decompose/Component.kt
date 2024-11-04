@@ -15,7 +15,7 @@ import kotlin.getValue
 /**
  * Базовая реализация компонента с набором полезных расширений.
  */
-abstract class Component(context: ComponentContext) : ComponentContext by context {
+abstract class Component(context: ComponentContext) : ComposeComponent, ComponentContext by context {
     private val scope by unsafeLazy { lifecycle.createCoroutineScope() }
 
     /**
