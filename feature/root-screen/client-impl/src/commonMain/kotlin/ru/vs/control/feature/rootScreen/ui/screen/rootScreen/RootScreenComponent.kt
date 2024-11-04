@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.first
 import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenFactory
@@ -21,7 +20,7 @@ internal class RootScreenComponent(
     context: ComponentContext,
     private val deeplink: ReceiveChannel<String>,
 ) : Component(context) {
-    private val viewModel = instanceKeeper.getOrCreate { rootScreenViewModelFactory.create() }
+    private val viewModel = viewModel { rootScreenViewModelFactory.create() }
 
     private val splash = childSplash(
         awaitInitialization = { viewModel.state.first { it is RootScreenState.Content } },

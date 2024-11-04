@@ -3,7 +3,7 @@ package ru.vs.core.navigation.ui.debug.uml
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.essenty.instancekeeper.getOrCreate
+import ru.vs.core.decompose.Component
 import ru.vs.core.decompose.ComposeComponent
 
 class NavigationGraphUmlDiagramComponentFactory internal constructor(
@@ -33,8 +33,8 @@ internal class NavigationGraphUmlDiagramComponent(
     viewModelFactory: NavigationGraphUmlDiagramViewModelFactory,
     context: ComponentContext,
     navigationTreeInterceptor: (NavigationGraphUmlNode) -> NavigationGraphUmlNode,
-) : ComponentContext by context, ComposeComponent {
-    private val viewModel: NavigationGraphUmlDiagramViewModel = instanceKeeper.getOrCreate {
+) : Component(context) {
+    private val viewModel: NavigationGraphUmlDiagramViewModel = viewModel {
         viewModelFactory.create(navigationTreeInterceptor)
     }
 

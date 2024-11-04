@@ -1,6 +1,5 @@
 package ru.vs.core.navigation.screen
 
-import com.arkivanov.essenty.instancekeeper.getOrCreate
 import ru.vs.core.decompose.Component
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.ViewModel
@@ -16,11 +15,11 @@ abstract class Screen(context: ScreenContext) :
     BaseScreenContext by context {
 
     /**
-     * Создает или возвращает созданную ранее [ViewModel] используя для этого [instanceKeeper].
-     * Так же если [T] является наследником [NavigationViewModel], то связывает навигацию экрана с навигацией ViewModel.
+     * Расширяет стандартную [Component.viewModel] добавляя дополнительный функционал навигации:
+     * Если [T] является наследником [NavigationViewModel], то связывает навигацию экрана с навигацией ViewModel.
      */
-    protected inline fun <reified T : ViewModel> viewModel(factory: () -> T): T {
-        val viewModel = instanceKeeper.getOrCreate { factory() }
+    final override fun <T : ViewModel> viewModel(factory: () -> T): T {
+        val viewModel = super.viewModel(factory)
         (viewModel as? NavigationViewModel)?.handleNavigation()
         return viewModel
     }

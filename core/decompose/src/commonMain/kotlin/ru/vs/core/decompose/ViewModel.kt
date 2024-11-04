@@ -1,6 +1,5 @@
 package ru.vs.core.decompose
 
-import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +18,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  *
  * Так же обладает полезными функциями-расширениями для удобного решения типовых задач встречающихся в viewModel.
  */
-abstract class ViewModel : InstanceKeeper.Instance {
+abstract class ViewModel {
     /**
      * [CoroutineScope] с viewmodel lifecycle.
      *
@@ -60,10 +59,10 @@ abstract class ViewModel : InstanceKeeper.Instance {
     /**
      * Вызывается при уничтожении экземпляра [ViewModel]. Закрывает [CoroutineScope].
      *
-     * Этот метод специально объявлен как final, если вам нужно завершить какие-либо процессы при уничтожении
-     * [ViewModel], то используйте для этой задачи факт отмены [viewModelScope].
+     * Данный метод предназначен только для внутреннего использования, если вам нужно завершить какие-либо процессы при
+     * уничтожении [ViewModel], то используйте для этой задачи факт отмены [viewModelScope].
      */
-    final override fun onDestroy() {
+    internal fun onDestroy() {
         viewModelScope.cancel()
     }
 }
