@@ -5,10 +5,10 @@ import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.ScreenNavigator
 
 /**
- * Контекст экрана.
- * Расширение [ComponentContext] предоставляющее доступ к специфичным для экрана api.
+ * Базовый контекст навигации, обычно используется только внутри библиотеки для развязки делегирования
+ * [BaseScreenContext] и [ComponentContext] при реализации интерфейса [ScreenContext].
  */
-interface ScreenContext : ComponentContext {
+interface BaseScreenContext {
     /**
      * Предоставляет доступ к навигации с учетом контекста этого экрана.
      *
@@ -17,6 +17,12 @@ interface ScreenContext : ComponentContext {
      */
     val navigator: ScreenNavigator
 }
+
+/**
+ * Контекст экрана.
+ * Расширение [ComponentContext] предоставляющее доступ к специфичным для экрана api.
+ */
+interface ScreenContext : BaseScreenContext, ComponentContext
 
 internal class DefaultScreenContext(
     override val navigator: ScreenNavigator,

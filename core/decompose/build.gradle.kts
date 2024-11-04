@@ -6,9 +6,11 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.compose)
             api(libs.decompose.core)
             api(libs.decompose.extensions.compose)
+
+            implementation(projects.core.compose)
+            implementation(projects.core.utils)
         }
         androidMain.dependencies {
             api(libs.decompose.extensions.android)
