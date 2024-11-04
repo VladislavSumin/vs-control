@@ -27,7 +27,7 @@ internal fun AddServerByUrlNextButton(
                 is AddServerByUrlViewState.EnterUrl -> viewModel.onClickCheckConnection()
                 is AddServerByUrlViewState.CheckConnection -> Unit
                 is AddServerByUrlViewState.EnterCredentials -> viewModel.onClickLogin()
-                is AddServerByUrlViewState.SslError -> TODO()
+                is AddServerByUrlViewState.SslError -> viewModel.onSslErrorClickBack()
             }
         },
         modifier = modifier,

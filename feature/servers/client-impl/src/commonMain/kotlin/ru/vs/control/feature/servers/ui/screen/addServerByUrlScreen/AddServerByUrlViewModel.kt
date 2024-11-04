@@ -51,6 +51,11 @@ internal class AddServerByUrlViewModel : NavigationViewModel() {
         // TODO добавить логин.
     }
 
+    fun onSslErrorClickBack() {
+        check(internalState.value == InternalState.SslError)
+        internalState.value = InternalState.EnterUrl
+    }
+
     private enum class InternalState {
         EnterUrl,
         CheckConnection,

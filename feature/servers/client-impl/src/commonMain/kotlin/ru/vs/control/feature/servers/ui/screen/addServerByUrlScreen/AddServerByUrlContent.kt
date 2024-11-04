@@ -42,6 +42,10 @@ internal fun AddServerByUrlContent(
         Column(
             Modifier
                 .padding(it)
+                .padding(
+                    horizontal = 8.dp,
+                    vertical = 16.dp,
+                )
                 .imePadding()
                 .fillMaxSize(),
         ) {
@@ -117,7 +121,6 @@ private fun ServerUrlInputContent(
         value = url,
         onValueChange = { viewModel.onServerUrlChanged(it) },
         modifier = Modifier
-            .padding(8.dp)
             .fillMaxWidth(),
         enabled = isEnabled,
         label = { Text("Server url") },
