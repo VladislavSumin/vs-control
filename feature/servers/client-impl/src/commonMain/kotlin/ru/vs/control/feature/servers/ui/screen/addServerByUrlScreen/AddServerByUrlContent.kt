@@ -97,7 +97,7 @@ internal fun AddServerByUrlContent(
                     is AddServerByUrlViewState.CheckConnection,
                     is AddServerByUrlViewState.EnterCredentials,
                     is AddServerByUrlViewState.EnterUrl,
-                        -> bottomButton(viewModel, state)
+                    -> bottomButton(viewModel, state)
 
                     is AddServerByUrlViewState.SslError -> AddServerByUrlSslError { bottomButton(viewModel, state) }
                 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.AddServerViewModel
 import ru.vs.core.decompose.ComposeComponent
+import ru.vs.core.uikit.paddings.defaultCardContentPadding
 
 /**
  * Простой компонент добавления сервера (без дополнительной логики), по сути просто кнопка.
@@ -36,10 +37,7 @@ internal class SimpleAddServerItemComponent(
             modifier,
         ) {
             Row(
-                Modifier.padding(
-                    horizontal = 16.dp,
-                    vertical = 8.dp,
-                ),
+                Modifier.defaultCardContentPadding(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(item.icon, null)

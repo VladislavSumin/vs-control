@@ -10,13 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.vs.core.uikit.paddings.defaultCardContentPadding
 
 @Composable
 internal fun AddServerByUrlSslError(
     bottomButton: @Composable () -> Unit,
 ) {
     Card(modifier = Modifier.fillMaxWidth()) {
-        Column {
+        Column(Modifier.defaultCardContentPadding()) {
             Text("Ошибка SSL.")
             Button(onClick = {}) {
                 Text("Безопасность для слабых духом")

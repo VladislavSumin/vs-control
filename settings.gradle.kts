@@ -52,6 +52,7 @@ include(":core:shared-element-transition")
 include(":core:splash")
 include(":core:uikit:graph")
 include(":core:uikit:icons")
+include(":core:uikit:paddings")
 include(":core:utils")
 
 feature("app-info")

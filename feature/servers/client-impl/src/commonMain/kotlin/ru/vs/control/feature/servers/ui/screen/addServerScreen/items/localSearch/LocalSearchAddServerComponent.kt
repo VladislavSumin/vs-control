@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
 import ru.vs.core.decompose.ComposeComponent
+import ru.vs.core.uikit.paddings.defaultCardContentPadding
 
 class LocalSearchAddServerComponent(
     context: ComponentContext,
@@ -23,10 +24,7 @@ class LocalSearchAddServerComponent(
     override fun Render(modifier: Modifier) {
         Card(modifier) {
             Row(
-                Modifier.padding(
-                    horizontal = 16.dp,
-                    vertical = 8.dp,
-                ),
+                Modifier.defaultCardContentPadding(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(Icons.Default.Lan, null)

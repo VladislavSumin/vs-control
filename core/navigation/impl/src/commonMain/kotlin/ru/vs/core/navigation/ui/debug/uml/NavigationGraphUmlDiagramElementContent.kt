@@ -3,7 +3,6 @@ package ru.vs.core.navigation.ui.debug.uml
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -20,6 +19,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import ru.vs.core.uikit.paddings.defaultCardContentPadding
 
 /**
  * Одиночный элемент узла дерева навигационного графа.
@@ -45,10 +45,7 @@ internal fun NavigationGraphUmlDiagramElementContent(
         Column(
             Modifier
                 .width(IntrinsicSize.Min)
-                .padding(
-                    horizontal = 12.dp,
-                    vertical = 6.dp,
-                ),
+                .defaultCardContentPadding(),
         ) {
             Text(
                 info.name,
