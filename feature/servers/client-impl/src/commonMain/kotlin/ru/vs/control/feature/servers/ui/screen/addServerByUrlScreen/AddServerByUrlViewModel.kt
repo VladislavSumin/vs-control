@@ -23,6 +23,7 @@ internal class AddServerByUrlViewModel : NavigationViewModel() {
             when (state) {
                 InternalState.EnterUrl -> AddServerByUrlViewState.EnterUrl(url)
                 InternalState.CheckConnection -> AddServerByUrlViewState.CheckConnection(url)
+                InternalState.SslError -> AddServerByUrlViewState.SslError(url)
                 InternalState.EnterCredentials -> AddServerByUrlViewState.EnterCredentials(url)
             }
         }
@@ -41,7 +42,8 @@ internal class AddServerByUrlViewModel : NavigationViewModel() {
             // TODO тестовая задержка пока нет реальной проверки подключения
             @Suppress("MagicNumber")
             delay(500)
-            internalState.value = InternalState.EnterCredentials
+            // internalState.value = InternalState.EnterCredentials
+            internalState.value = InternalState.SslError
         }
     }
 
@@ -52,6 +54,7 @@ internal class AddServerByUrlViewModel : NavigationViewModel() {
     private enum class InternalState {
         EnterUrl,
         CheckConnection,
+        SslError,
         EnterCredentials,
     }
 }

@@ -12,6 +12,11 @@ internal sealed interface AddServerByUrlViewState {
     data class CheckConnection(val url: String) : AddServerByUrlViewState
 
     /**
+     * Состояние предупреждения когда сервер использует самоподписанные сертификаты.
+     */
+    data class SslError(val url: String) : AddServerByUrlViewState
+
+    /**
      * Состояние ввода логина и пароля после первичной проверки соединения.
      */
     data class EnterCredentials(val url: String) : AddServerByUrlViewState

@@ -1,6 +1,7 @@
 package ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,11 +21,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.view.AddServerByUrlNextButton
+import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.view.AddServerByUrlSslError
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
+@Suppress("LongMethod") // TODO fix
 internal fun AddServerByUrlContent(
     viewModel: AddServerByUrlViewModel,
     modifier: Modifier,
@@ -39,8 +45,8 @@ internal fun AddServerByUrlContent(
                 .imePadding()
                 .fillMaxSize(),
         ) {
-            val state = viewModel.state.collectAsState()
-            when (val state = state.value) {
+            val state = viewModel.state.collectAsState().value
+            when (state) {
                 is AddServerByUrlViewState.EnterUrl -> ServerUrlInputContent(
                     viewModel,
                     state.url,
@@ -48,6 +54,12 @@ internal fun AddServerByUrlContent(
                 )
 
                 is AddServerByUrlViewState.CheckConnection -> ServerUrlInputContent(
+                    viewModel,
+                    state.url,
+                    isEnabled = false,
+                )
+
+                is AddServerByUrlViewState.SslError -> ServerUrlInputContent(
                     viewModel,
                     state.url,
                     isEnabled = false,
@@ -68,12 +80,28 @@ internal fun AddServerByUrlContent(
                     is AddServerByUrlViewState.CheckConnection -> Unit
                     is AddServerByUrlViewState.EnterUrl -> Unit
                     is AddServerByUrlViewState.EnterCredentials -> LoginPassword()
+                    is AddServerByUrlViewState.SslError -> Unit
                 }
             }
 
             Spacer(modifier.weight(1f))
 
-            AddServerByUrlNextButton(viewModel, state)
+            val bottomButton = remember {
+                movableContentOf<AddServerByUrlViewModel, AddServerByUrlViewState> { viewModel, state ->
+                    AddServerByUrlNextButton(viewModel, state)
+                }
+            }
+
+            AnimatedContent(state, contentKey = { it::class }) { state ->
+                when (state) {
+                    is AddServerByUrlViewState.CheckConnection,
+                    is AddServerByUrlViewState.EnterCredentials,
+                    is AddServerByUrlViewState.EnterUrl,
+                        -> bottomButton(viewModel, state)
+
+                    is AddServerByUrlViewState.SslError -> AddServerByUrlSslError { bottomButton(viewModel, state) }
+                }
+            }
         }
     }
 }
