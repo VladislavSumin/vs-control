@@ -2,22 +2,17 @@ package ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
@@ -25,9 +20,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.view.AddServerByUrlNextButton
 
 @Composable
 internal fun AddServerByUrlContent(
@@ -44,8 +39,8 @@ internal fun AddServerByUrlContent(
                 .imePadding()
                 .fillMaxSize(),
         ) {
-            val state = viewModel.state.collectAsState().value
-            when (state) {
+            val state = viewModel.state.collectAsState()
+            when (val state = state.value) {
                 is AddServerByUrlViewState.EnterUrl -> ServerUrlInputContent(
                     viewModel,
                     state.url,
@@ -58,17 +53,27 @@ internal fun AddServerByUrlContent(
                     isEnabled = false,
                 )
 
-                is AddServerByUrlViewState.EnterCredentials -> ServerUrlInputContent(
-                    viewModel,
-                    state.url,
-                    isEnabled = false,
-                    showEdit = true,
-                )
+                is AddServerByUrlViewState.EnterCredentials -> {
+                    ServerUrlInputContent(
+                        viewModel,
+                        state.url,
+                        isEnabled = false,
+                        showEdit = true,
+                    )
+                }
+            }
+
+            AnimatedContent(state, contentKey = { it::class }) { state ->
+                when (state) {
+                    is AddServerByUrlViewState.CheckConnection -> Unit
+                    is AddServerByUrlViewState.EnterUrl -> Unit
+                    is AddServerByUrlViewState.EnterCredentials -> LoginPassword()
+                }
             }
 
             Spacer(modifier.weight(1f))
 
-            NextButton(viewModel, state)
+            AddServerByUrlNextButton(viewModel, state)
         }
     }
 }
@@ -106,30 +111,24 @@ private fun ServerUrlInputContent(
 }
 
 @Composable
-private fun ColumnScope.NextButton(
-    viewModel: AddServerByUrlViewModel,
-    state: AddServerByUrlViewState,
-) {
-    Button(
-        onClick = { viewModel.onClickCheckConnection() },
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .padding(8.dp),
-    ) {
-        AnimatedContent(
-            state,
-            contentKey = { it::class },
-        ) { state ->
-            when (state) {
-                is AddServerByUrlViewState.CheckConnection -> CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    color = MaterialTheme.colorScheme.onPrimary,
-                )
-
-                is AddServerByUrlViewState.EnterUrl -> Text("Проверить соединение")
-                is AddServerByUrlViewState.EnterCredentials -> Text("Войти")
-            }
-        }
+private fun LoginPassword(login: String = "admin", password: String = "testPass") {
+    Column {
+        OutlinedTextField(
+            value = login,
+            onValueChange = { },
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            label = { Text("Login") },
+        )
+        OutlinedTextField(
+            value = password,
+            onValueChange = { },
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            label = { Text("Password") },
+        )
     }
 }
 

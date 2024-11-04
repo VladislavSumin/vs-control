@@ -45,6 +45,10 @@ internal class AddServerByUrlViewModel : NavigationViewModel() {
         }
     }
 
+    fun onClickLogin() {
+        // TODO добавить логин.
+    }
+
     private enum class InternalState {
         EnterUrl,
         CheckConnection,
