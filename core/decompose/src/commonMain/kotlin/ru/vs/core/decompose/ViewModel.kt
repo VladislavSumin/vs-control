@@ -26,6 +26,9 @@ abstract class ViewModel {
      */
     private val viewModelScope = CoroutineScope(Dispatchers.Main.immediate)
 
+    // TODO сделать приватным.
+    protected val stateKeeper = WhileConstructedViewModelStateKeeper!!
+
     /**
      * Укороченная версия [stateIn] с использованием [viewModelScope] и [SharingStarted.Eagerly] по умолчанию.
      */

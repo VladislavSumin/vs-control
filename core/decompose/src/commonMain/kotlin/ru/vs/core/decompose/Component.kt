@@ -3,6 +3,8 @@ package ru.vs.core.decompose
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.getOrCreate
+import com.arkivanov.essenty.statekeeper.SerializableContainer
+import com.arkivanov.essenty.statekeeper.StateKeeperDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
@@ -46,7 +48,26 @@ abstract class Component(context: ComponentContext) : ComposeComponent, Componen
     protected open fun <T : ViewModel> viewModel(factory: () -> T): T {
         // Мы не можем использовать inline тут, так как хотим предоставить возможность переопределения
         // этой функции в наследниках, в таких условиях использования класса лямбды фабрики кажется адекватным решением.
-        val viewModelHolder = instanceKeeper.getOrCreate(key = factory::class) { ViewModelHolder(factory()) }
+        val key = factory::class.toString()
+
+        val viewModelHolder = instanceKeeper.getOrCreate(key) {
+            // Создаем отдельный state keeper для вью модели, вспоминать сохраненные данные он будет только при создании
+            // модели, но это ожидаемое поведение, при пересоздании экрана с сохранением модели перезагружать данные
+            // не нужно.
+            val state = stateKeeper.consume(key, SerializableContainer.serializer())
+            val viewModelStateKeeperDispatcher = StateKeeperDispatcher(state)
+
+            WhileConstructedViewModelStateKeeper = viewModelStateKeeperDispatcher
+            val viewModel = factory()
+            WhileConstructedViewModelStateKeeper = null
+
+            ViewModelHolder(viewModel, viewModelStateKeeperDispatcher)
+        }
+
+        // В отличие от кейса восстановления данных, сохранять данные вью модели нужно при сохранении данных экрана,
+        // так как мы никогда не можем быть уверены, что даже если экран сохраняется перед пересозданием он фактически
+        // будет пересоздан. Поэтому во избежание, сохраняем всегда.
+        stateKeeper.register(key, SerializableContainer.serializer()) { viewModelHolder.viewModelStateKeeper.save() }
         return viewModelHolder.viewModel
     }
 }
