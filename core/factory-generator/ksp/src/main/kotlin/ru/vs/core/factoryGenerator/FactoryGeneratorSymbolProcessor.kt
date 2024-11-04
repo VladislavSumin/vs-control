@@ -6,10 +6,12 @@ import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.ksp.toAnnotationSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import ru.vs.core.ksp.primaryConstructorWithPrivateFields
@@ -63,6 +65,16 @@ internal class FactoryGeneratorSymbolProcessor(
         // Список параметров в основном конструкторе.
         val constructorParams = instance.primaryConstructor!!.parameters
 
+        val factoryConstructorParams =
+            constructorParams
+                .filter {
+                    it.annotations
+                        .map { it.toAnnotationSpec().typeName }
+                        .none { it == BY_CREATE_ANNOTATION }
+                }
+
+        val functionParams = constructorParams - factoryConstructorParams
+
         // Блок кода который будет помещен в тело функции crate
         // return InstanceName(param1, param2)
         val returnCodeBlock = CodeBlock.builder()
@@ -77,17 +89,26 @@ internal class FactoryGeneratorSymbolProcessor(
 
         // Декларация функции create
         val createFunction = FunSpec.builder("create")
+            .apply {
+                functionParams.forEach {
+                    addParameter(it.name!!.getShortName(), it.type.toTypeName())
+                }
+            }
             .addCode(returnCodeBlock)
             .returns(instance.toClassName())
             .build()
 
         TypeSpec.classBuilder(name)
             .primaryConstructorWithPrivateFields(
-                constructorParams.map { it.name!!.getShortName() to it.type.toTypeName() },
+                factoryConstructorParams.map { it.name!!.getShortName() to it.type.toTypeName() },
             )
             .addModifiers(KModifier.INTERNAL)
             .addFunction(createFunction)
             .build()
             .writeTo(codeGenerator, instance.packageName.asString())
+    }
+
+    companion object {
+        private val BY_CREATE_ANNOTATION = ClassName("ru.vs.core.factoryGenerator", "ByCreate")
     }
 }
