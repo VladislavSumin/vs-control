@@ -5,7 +5,7 @@ internal sealed interface AddServerItem {
 
     data object AddServerByUrl : Simple
     data object AddServerByQrCode : Simple
-    data object AddLocalServer : Simple
+    data class AddEmbeddedServer(val isSupported: Boolean) : Simple
 
     /**
      * Сервер добавленный в сборку на этапе компиляции.

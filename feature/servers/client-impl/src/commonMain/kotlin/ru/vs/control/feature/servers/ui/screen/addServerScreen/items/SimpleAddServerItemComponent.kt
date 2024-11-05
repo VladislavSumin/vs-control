@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Dns
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.QrCode
-import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -32,9 +31,11 @@ internal class SimpleAddServerItemComponent(
 ) : ComposeComponent, ComponentContext by context {
     @Composable
     override fun Render(modifier: Modifier) {
+        val isSupported = item.isSupported
         Card(
             onClick = { viewModel.onClickSimpleItem(item) },
             modifier,
+            enabled = isSupported,
         ) {
             Row(
                 Modifier.defaultCardContentPadding(),
@@ -46,10 +47,18 @@ internal class SimpleAddServerItemComponent(
                         item.title,
                         style = MaterialTheme.typography.titleMedium,
                     )
-                    Text(
-                        item.subtitle,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
+                    if (isSupported) {
+                        Text(
+                            item.subtitle,
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                    } else {
+                        Text(
+                            "Не поддерживается на вашей платформе",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
                 }
             }
         }
@@ -60,7 +69,7 @@ private val AddServerItem.Simple.title: String
     get() = when (this) {
         is AddServerItem.AddServerByUrl -> "Добавить вручную"
         is AddServerItem.AddServerByQrCode -> "Сканировать QR-код"
-        is AddServerItem.AddLocalServer -> "Включить локальный сервер"
+        is AddServerItem.AddEmbeddedServer -> "Добавить локальный сервер"
         is AddServerItem.AddPrebuildServer -> name
     }
 
@@ -68,7 +77,7 @@ private val AddServerItem.Simple.subtitle: String
     get() = when (this) {
         is AddServerItem.AddServerByUrl -> "По доменному имени или ip адресу"
         is AddServerItem.AddServerByQrCode -> "QR код можно отобразить в другом клиенте"
-        is AddServerItem.AddLocalServer -> "Можно использовать это устройство в качестве сервера умного дома"
+        is AddServerItem.AddEmbeddedServer -> "Можно использовать это устройство в качестве сервера умного дома"
         is AddServerItem.AddPrebuildServer -> url
     }
 
@@ -76,6 +85,16 @@ private val AddServerItem.Simple.icon: ImageVector
     get() = when (this) {
         is AddServerItem.AddServerByUrl -> Icons.Default.Language
         is AddServerItem.AddServerByQrCode -> Icons.Default.QrCode
-        is AddServerItem.AddLocalServer -> Icons.Default.Dns
+        is AddServerItem.AddEmbeddedServer -> Icons.Default.Dns
         is AddServerItem.AddPrebuildServer -> Icons.Default.Language
+    }
+
+private val AddServerItem.Simple.isSupported: Boolean
+    get() = when (this) {
+        is AddServerItem.AddPrebuildServer,
+        is AddServerItem.AddServerByQrCode,
+        is AddServerItem.AddServerByUrl,
+        -> true
+
+        is AddServerItem.AddEmbeddedServer -> isSupported
     }
