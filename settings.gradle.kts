@@ -57,6 +57,7 @@ include(":core:utils")
 
 feature("app-info")
 feature("debug-screen")
+feature("embedded-server")
 feature("initialization")
 feature("initialized-root-screen")
 feature("main-screen")

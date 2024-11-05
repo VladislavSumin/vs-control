@@ -6,6 +6,7 @@ import org.kodein.di.bindInstance
 import org.kodein.di.direct
 import ru.vs.control.feature.appInfo.featureAppInfo
 import ru.vs.control.feature.debugScreen.featureDebugScreen
+import ru.vs.control.feature.embeddedServer.featureEmbeddedServer
 import ru.vs.control.feature.initialization.domain.InitializedDependenciesBuilder
 import ru.vs.control.feature.initialization.featureInitialization
 import ru.vs.control.feature.initializedRootScreen.featureInitializedRootScreen
@@ -37,6 +38,7 @@ fun preInit(): DirectDI {
         importOnce(Modules.coreNavigation())
 
         importOnce(Modules.featureDebugScreen())
+        importOnce(Modules.featureEmbeddedServer())
         importOnce(Modules.featureInitializedRootScreen())
         importOnce(Modules.featureMainScreen())
         importOnce(Modules.featureNavigationRootScreen())

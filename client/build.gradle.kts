@@ -79,6 +79,7 @@ kotlin {
             // Features
             implementation(projects.feature.appInfo.clientImpl)
             implementation(projects.feature.debugScreen.clientImpl)
+            implementation(projects.feature.embeddedServer.clientImpl)
             implementation(projects.feature.initialization.clientImpl)
             implementation(projects.feature.initializedRootScreen.clientImpl)
             implementation(projects.feature.mainScreen.clientImpl)
