@@ -12,7 +12,8 @@ import ru.vs.core.navigation.viewModel.NavigationViewModel
 @GenerateFactory
 internal class AddServerByUrlViewModel : NavigationViewModel() {
 
-    private val serverUrl = MutableStateFlow("")
+    private val serverUrl = saveableStateFlow(SERVER_URL_KEY, "")
+
     private val internalState = MutableStateFlow<InternalState>(InternalState.EnterUrl)
 
     val state: StateFlow<AddServerByUrlViewState> =
@@ -61,5 +62,9 @@ internal class AddServerByUrlViewModel : NavigationViewModel() {
         CheckConnection,
         SslError,
         EnterCredentials,
+    }
+
+    companion object {
+        private const val SERVER_URL_KEY = "server_url"
     }
 }

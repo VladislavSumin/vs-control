@@ -11,7 +11,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.serialization.KSerializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -28,7 +29,8 @@ abstract class ViewModel {
      */
     private val viewModelScope = CoroutineScope(Dispatchers.Main.immediate)
 
-    private val stateKeeper = WhileConstructedViewModelStateKeeper!!
+    @PublishedApi
+    internal val stateKeeper = WhileConstructedViewModelStateKeeper!!
 
     /**
      * Укороченная версия [stateIn] с использованием [viewModelScope] и [SharingStarted.Eagerly] по умолчанию.
@@ -63,23 +65,24 @@ abstract class ViewModel {
     /**
      * Создает [StateFlow], данные в котором могут переживать смерть процесса через механизм [stateKeeper] экрана.
      *
-     * TODO попробовать убрать [serializer]
-     * TODO попробовать сделать inline
-     *
      * @param key уникальный в рамках [ViewModel] ключ, по которому будут сохраняться данные.
-     * @param serializer сериализатор для типа [T]. Обычно это что-то вроде Any.serializer().
      * @param initialValue фабрика для создания инициирующего значения если нет сохраненного значения.
      */
-    protected fun <T : Any> saveableStateFlow(
+    protected inline fun <reified T : Any> saveableStateFlow(
         key: String,
-        serializer: KSerializer<T>,
         initialValue: () -> T,
     ): MutableStateFlow<T> {
+        val serializer = Json.serializersModule.serializer<T>()
         val savedState = stateKeeper.consume<T>(key, serializer)
         val flow = MutableStateFlow(savedState ?: initialValue())
         stateKeeper.register(key, serializer) { flow.value }
         return flow
     }
+
+    protected inline fun <reified T : Any> saveableStateFlow(
+        key: String,
+        initialValue: T,
+    ): MutableStateFlow<T> = saveableStateFlow(key) { initialValue }
 
     /**
      * Вызывается при уничтожении экземпляра [ViewModel]. Закрывает [CoroutineScope].

@@ -10,6 +10,7 @@ kotlin {
             api(libs.decompose.extensions.compose)
 
             implementation(projects.core.compose)
+            implementation(projects.core.serialization.json)
             implementation(projects.core.utils)
         }
         androidMain.dependencies {
