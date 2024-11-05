@@ -22,5 +22,7 @@ moduleGraphAssert {
         // Настройки специфичные для Control
         ":feature:.*:client-impl -> :feature:.*:client-api",
         ":client -> :feature:.*:client-impl",
+        ":server:embedded -> :server:common",
+        ":server:standalone -> :server:common",
     )
 }
