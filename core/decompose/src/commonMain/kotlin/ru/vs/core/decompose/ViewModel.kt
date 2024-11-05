@@ -6,10 +6,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.serialization.KSerializer
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -26,8 +28,7 @@ abstract class ViewModel {
      */
     private val viewModelScope = CoroutineScope(Dispatchers.Main.immediate)
 
-    // TODO сделать приватным.
-    protected val stateKeeper = WhileConstructedViewModelStateKeeper!!
+    private val stateKeeper = WhileConstructedViewModelStateKeeper!!
 
     /**
      * Укороченная версия [stateIn] с использованием [viewModelScope] и [SharingStarted.Eagerly] по умолчанию.
@@ -57,6 +58,27 @@ abstract class ViewModel {
         block: suspend CoroutineScope.() -> Unit,
     ) {
         viewModelScope.launch(context, start, block)
+    }
+
+    /**
+     * Создает [StateFlow], данные в котором могут переживать смерть процесса через механизм [stateKeeper] экрана.
+     *
+     * TODO попробовать убрать [serializer]
+     * TODO попробовать сделать inline
+     *
+     * @param key уникальный в рамках [ViewModel] ключ, по которому будут сохраняться данные.
+     * @param serializer сериализатор для типа [T]. Обычно это что-то вроде Any.serializer().
+     * @param initialValue фабрика для создания инициирующего значения если нет сохраненного значения.
+     */
+    protected fun <T : Any> saveableStateFlow(
+        key: String,
+        serializer: KSerializer<T>,
+        initialValue: () -> T,
+    ): MutableStateFlow<T> {
+        val savedState = stateKeeper.consume<T>(key, serializer)
+        val flow = MutableStateFlow(savedState ?: initialValue())
+        stateKeeper.register(key, serializer) { flow.value }
+        return flow
     }
 
     /**
