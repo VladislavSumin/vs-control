@@ -69,7 +69,9 @@ feature("welcome-screen")
 
 include("client")
 
-include(":server:jvm")
+include(":server:common")
+include(":server:embedded")
+include(":server:standalone")
 
 /**
  * Подключает иерархию фичи, согласно стандартному набору модулей.
