@@ -7,5 +7,8 @@ import ru.vs.control.feature.embeddedServer.domain.EmbeddedServerSupportInteract
 import ru.vs.core.di.Modules
 
 fun Modules.featureEmbeddedServer() = DI.Module("feature-embedded-server") {
+    importOnce(featureEmbeddedServerPlatform())
     bindSingleton<EmbeddedServerSupportInteractor> { EmbeddedServerSupportInteractorImpl() }
 }
+
+internal expect fun Modules.featureEmbeddedServerPlatform(): DI.Module
