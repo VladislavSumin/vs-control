@@ -1,0 +1,19 @@
+CREATE TABLE embeddedServerRecord(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE
+);
+
+selectAll:
+SELECT * FROM embeddedServerRecord;
+
+get:
+SELECT * FROM embeddedServerRecord WHERE id = ?;
+
+insert:
+INSERT INTO embeddedServerRecord(name) VALUES ?;
+
+update:
+UPDATE embeddedServerRecord SET name = ? WHERE id = ?;
+
+delete:
+DELETE FROM embeddedServerRecord WHERE id = ?;

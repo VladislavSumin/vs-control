@@ -23,6 +23,7 @@ android-activity-compose = "1.9.3"
 kodein = "7.22.0"
 kotlinpoet = "2.0.0"
 ktor = "3.0.1"
+sqldelight = "2.0.2"
 
 # Logging
 logging-log4j = "2.24.1"
@@ -39,6 +40,7 @@ gradlePlugins-kotlin-compose-compiler = { module = "org.jetbrains.kotlin:compose
 gradlePlugins-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin-core" }
 gradlePlugins-kotlin-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "kotlin-atomicfu" }
 gradlePlugins-jb-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jb-compose" }
+gradlePlugins-sqldelight = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "sqldelight" }
 gradlePlugins-android = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugins-android" }
 gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "gradlePlugins-detekt" }
 gradlePlugins-modulesGraphAssert = { module = "com.jraska.module.graph.assertion:plugin", version.ref = "gradlePlugins-modulesGraphAssert" }

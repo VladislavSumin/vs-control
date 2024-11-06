@@ -14,6 +14,7 @@ dependencies {
     implementation(libs.gradlePlugins.kotlin.serialization)
     implementation(libs.gradlePlugins.kotlin.atomicfu)
     implementation(libs.gradlePlugins.jb.compose)
+    implementation(libs.gradlePlugins.sqldelight)
     implementation(libs.gradlePlugins.android)
     implementation(libs.gradlePlugins.detekt)
     implementation(libs.gradlePlugins.modulesGraphAssert)

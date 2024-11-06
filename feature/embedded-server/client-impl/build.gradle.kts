@@ -1,5 +1,14 @@
 plugins {
     id("ru.vs.convention.preset.feature-client-impl-ui")
+    id("app.cash.sqldelight")
+}
+
+sqldelight {
+    databases {
+        register("Database") {
+            packageName.set("ru.vs.control.feature.embeddedServer.repository")
+        }
+    }
 }
 
 kotlin {
