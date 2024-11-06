@@ -1,5 +1,5 @@
 plugins {
-    id("ru.vs.convention.preset.feature-client-impl")
+    id("ru.vs.convention.preset.feature-client-impl-ui")
 }
 
 kotlin {
@@ -21,5 +21,9 @@ kotlin {
         jsMain.get().dependsOn(nonKtorMain)
         wasmJsMain.get().dependsOn(nonKtorMain)
         nativeMain.get().dependsOn(nonKtorMain)
+
+        commonMain.dependencies {
+            implementation(projects.feature.rootContentScreen.clientApi)
+        }
     }
 }
