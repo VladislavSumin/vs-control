@@ -81,6 +81,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            // TODO вынести в конвеншен
+            implementation(projects.core.database)
+
             implementation(projects.core.logger.api)
             implementation(projects.core.logger.platform)
 

@@ -7,6 +7,7 @@ import app.cash.sqldelight.db.SqlSchema
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
+// TODO доку
 abstract class AbstractDatabaseService<DATABASE : Transacter>(
     private val factory: DatabaseDriverFactory,
     private val name: String = "database",

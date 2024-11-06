@@ -3,6 +3,7 @@ package ru.vs.control
 import org.kodein.di.DI
 import org.kodein.di.DirectDI
 import org.kodein.di.bindInstance
+import org.kodein.di.bindSingleton
 import org.kodein.di.direct
 import ru.vs.control.feature.appInfo.featureAppInfo
 import ru.vs.control.feature.debugScreen.featureDebugScreen
@@ -17,7 +18,10 @@ import ru.vs.control.feature.rootScreen.featureRootScreen
 import ru.vs.control.feature.servers.featureServers
 import ru.vs.control.feature.splashScreen.featureSplashScreen
 import ru.vs.control.feature.welcomeScreen.featureWelcomeScreen
+import ru.vs.control.service.DatabaseService
+import ru.vs.core.database.coreDatabase
 import ru.vs.core.di.Modules
+import ru.vs.core.di.i
 import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
 import ru.vs.core.navigation.coreNavigation
@@ -36,6 +40,7 @@ fun preInit(): DirectDI {
     // Граф инициализируется в фоне после базовой инициализации ui (во время показа splash экрана).
     val initializedDependenciesBuilder = InitializedDependenciesBuilder {
         importOnce(Modules.coreNavigation())
+        importOnce(Modules.coreDatabase())
 
         importOnce(Modules.featureDebugScreen())
         importOnce(Modules.featureEmbeddedServer())
@@ -45,6 +50,8 @@ fun preInit(): DirectDI {
         importOnce(Modules.featureRootContentScreen())
         importOnce(Modules.featureServers())
         importOnce(Modules.featureWelcomeScreen())
+
+        bindSingleton { DatabaseService(i()) }
     }
 
     // Граф инициализируется до создания ui блокируя главный поток.
