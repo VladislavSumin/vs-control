@@ -3,6 +3,7 @@ plugins {
     id("app.cash.sqldelight")
 }
 
+// TODO вынести в конвеншен
 sqldelight {
     databases {
         register("Database") {

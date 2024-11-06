@@ -4,6 +4,19 @@ plugins {
     id("ru.vs.convention.kmp.all-non-android")
     id("ru.vs.convention.kmp.android-application")
     id("ru.vs.convention.compose")
+    id("app.cash.sqldelight")
+}
+
+// TODO вынести в конвеншен
+// TODO сделать dsl
+evaluationDependsOn(":feature:embedded-server:client-impl")
+sqldelight {
+    databases {
+        register("Database") {
+            packageName.set("ru.vs.control.repository")
+            dependency(projects.feature.embeddedServer.clientImpl)
+        }
+    }
 }
 
 compose.experimental.web.application {}
