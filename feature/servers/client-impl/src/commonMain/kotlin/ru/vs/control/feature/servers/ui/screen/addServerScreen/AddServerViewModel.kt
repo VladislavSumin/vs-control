@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.vs.control.feature.embeddedServer.domain.EmbeddedServerSupportInteractor
+import ru.vs.control.feature.embeddedServer.ui.screen.addEmbeddedServerScreen.AddEmbeddedServerScreenParams
 import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByUrlScreenParams
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.items.AddServerItem
 import ru.vs.core.factoryGenerator.GenerateFactory
@@ -31,8 +32,8 @@ internal class AddServerViewModel(
     fun onClickSimpleItem(item: AddServerItem.Simple) {
         when (item) {
             is AddServerItem.AddServerByUrl -> open(AddServerByUrlScreenParams)
+            is AddServerItem.AddEmbeddedServer -> open(AddEmbeddedServerScreenParams)
             is AddServerItem.AddServerByQrCode,
-            is AddServerItem.AddEmbeddedServer,
             is AddServerItem.AddPrebuildServer,
             -> Unit // not implemented now
         }
