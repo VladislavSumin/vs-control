@@ -1,12 +1,14 @@
 package ru.vs.core.navigation.ui.debug.uml
 
 import androidx.compose.runtime.Stable
+import ru.vs.core.collections.tree.TreeNode
 
 @Stable
 data class NavigationGraphUmlNode(
-    val info: Info,
-    val children: List<NavigationGraphUmlNode>,
-) {
+    override val value: Info,
+    override val children: Collection<NavigationGraphUmlNode>,
+) : TreeNode<NavigationGraphUmlNode.Info, NavigationGraphUmlNode> {
+
     /**
      * @param name название параметров экрана.
      * @param hasDefaultParams есть ли у экрана параметры по умолчанию.

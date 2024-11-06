@@ -17,7 +17,7 @@ internal class DebugViewModel : NavigationViewModel() {
      */
     fun generateFakeNavigationNodesFist(originalNode: NavigationGraphUmlNode): NavigationGraphUmlNode {
         val initializedRootScreenNode = NavigationGraphUmlNode(
-            info = NavigationGraphUmlNode.Info(
+            value = NavigationGraphUmlNode.Info(
                 name = "InitializedRootScreenComponent",
                 hasDefaultParams = false,
                 isPartOfMainGraph = false,
@@ -30,7 +30,7 @@ internal class DebugViewModel : NavigationViewModel() {
         )
 
         val splashScreenNode = NavigationGraphUmlNode(
-            info = NavigationGraphUmlNode.Info(
+            value = NavigationGraphUmlNode.Info(
                 name = "SplashScreenComponent",
                 hasDefaultParams = false,
                 isPartOfMainGraph = false,
@@ -40,7 +40,7 @@ internal class DebugViewModel : NavigationViewModel() {
         )
 
         val rootScreenNode = NavigationGraphUmlNode(
-            info = NavigationGraphUmlNode.Info(
+            value = NavigationGraphUmlNode.Info(
                 name = "RootScreenComponent",
                 hasDefaultParams = false,
                 isPartOfMainGraph = false,

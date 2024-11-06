@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import ru.vs.core.collections.tree.TreeNode
 import kotlin.math.max
 
 /**
@@ -27,9 +28,8 @@ import kotlin.math.max
  * @param horizontalSpace горизонтальное расстояние между дочерними нодами.
  */
 @Composable
-fun <T> Tree(
-    rootNode: T,
-    childSelector: (T) -> List<T>,
+fun <T, N : TreeNode<T, N>> Tree(
+    rootNode: TreeNode<T, N>,
     modifier: Modifier = Modifier,
     verticalSpace: Dp = 24.dp,
     horizontalSpace: Dp = 16.dp,
@@ -42,11 +42,10 @@ fun <T> Tree(
     Layout(
         content = {
             Lines(drawState, lineColor, lineWidth)
-            content(rootNode)
-            childSelector(rootNode).forEach {
+            content(rootNode.value)
+            rootNode.children.forEach {
                 Tree(
                     rootNode = it,
-                    childSelector = childSelector,
                     verticalSpace = verticalSpace,
                     horizontalSpace = horizontalSpace,
                     content = content,

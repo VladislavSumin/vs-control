@@ -41,7 +41,6 @@ internal fun NavigationGraphUmlDiagramContent(
     ) {
         Tree(
             rootNode = viewModel.graph.root,
-            childSelector = { it.children },
             modifier = Modifier
                 .graphicsLayer(
                     scaleX = scale,
@@ -51,7 +50,7 @@ internal fun NavigationGraphUmlDiagramContent(
                 )
                 .fillMaxSize(),
         ) {
-            NavigationGraphUmlDiagramElementContent(it.info)
+            NavigationGraphUmlDiagramElementContent(it)
         }
     }
 }

@@ -6,6 +6,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.core.collections.tree)
             implementation(projects.core.compose)
         }
     }

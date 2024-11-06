@@ -34,7 +34,7 @@ internal class NavigationGraphUmlDiagramViewModel(
      */
     private fun mapNodesRecursively(node: LinkedTreeNode<ScreenInfo>): NavigationGraphUmlNode {
         return NavigationGraphUmlNode(
-            info = NavigationGraphUmlNode.Info(
+            value = NavigationGraphUmlNode.Info(
                 name = node.value.nameForLogs,
                 hasDefaultParams = node.value.defaultParams != null,
                 isPartOfMainGraph = true,
