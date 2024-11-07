@@ -32,10 +32,12 @@ import ru.vs.core.navigation.coreNavigation
  * Вызывается на самом раннем этапе старта приложения.
  * В этом месте должен инициализироваться только самый базовый функционал.
  *
+ * @param preInitPlatformModule опциональный модуль di для передачи платформенных зависимостей.
+ *
  * @return [DI] не инициализированного приложения. Этот DI содержит только самые базовые элементы необходимые для
  * дальнейшей инициализации проекта.
  */
-fun preInit(): DirectDI {
+fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
     LoggerManager.initDefault()
     InitLogger.i("preInit()")
 
@@ -59,6 +61,9 @@ fun preInit(): DirectDI {
 
     // Граф инициализируется до создания ui блокируя главный поток.
     val preInitDi = DI {
+        if (preInitPlatformModule != null) {
+            importOnce(preInitPlatformModule)
+        }
         importOnce(Modules.featureAppInfo())
         importOnce(Modules.featureInitialization())
         importOnce(Modules.featureRootScreen())

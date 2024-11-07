@@ -15,6 +15,6 @@ internal class AddEmbeddedServerScreen(
 
     @Composable
     override fun Render(modifier: Modifier) {
-        AddEmbeddedServerContent(modifier)
+        AddEmbeddedServerContent(viewModel, modifier)
     }
 }

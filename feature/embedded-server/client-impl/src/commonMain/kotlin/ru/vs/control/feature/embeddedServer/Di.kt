@@ -6,6 +6,10 @@ import org.kodein.di.inBindSet
 import org.kodein.di.singleton
 import ru.vs.control.feature.embeddedServer.domain.EmbeddedServerSupportInteractor
 import ru.vs.control.feature.embeddedServer.domain.EmbeddedServerSupportInteractorImpl
+import ru.vs.control.feature.embeddedServer.domain.EmbeddedServersInteractor
+import ru.vs.control.feature.embeddedServer.domain.EmbeddedServersInteractorImpl
+import ru.vs.control.feature.embeddedServer.repository.EmbeddedServersRepository
+import ru.vs.control.feature.embeddedServer.repository.EmbeddedServersRepositoryImpl
 import ru.vs.control.feature.embeddedServer.ui.screen.NavigationRegistrarImpl
 import ru.vs.control.feature.embeddedServer.ui.screen.addEmbeddedServerScreen.AddEmbeddedServerScreenFactory
 import ru.vs.control.feature.embeddedServer.ui.screen.addEmbeddedServerScreen.AddEmbeddedServerViewModelFactory
@@ -20,10 +24,12 @@ fun Modules.featureEmbeddedServer() = DI.Module("feature-embedded-server") {
         add { singleton { NavigationRegistrarImpl(i()) } }
     }
 
+    bindSingleton<EmbeddedServersRepository> { EmbeddedServersRepositoryImpl(i()) }
+    bindSingleton<EmbeddedServersInteractor> { EmbeddedServersInteractorImpl(i()) }
     bindSingleton<EmbeddedServerSupportInteractor> { EmbeddedServerSupportInteractorImpl() }
 
     bindSingleton {
-        val viewModelFactory = AddEmbeddedServerViewModelFactory()
+        val viewModelFactory = AddEmbeddedServerViewModelFactory(i())
         AddEmbeddedServerScreenFactory(viewModelFactory)
     }
 }
