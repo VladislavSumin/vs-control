@@ -3,11 +3,13 @@ package ru.vs.control
 import org.kodein.di.DI
 import org.kodein.di.DirectDI
 import org.kodein.di.bindInstance
+import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.direct
 import ru.vs.control.feature.appInfo.featureAppInfo
 import ru.vs.control.feature.debugScreen.featureDebugScreen
 import ru.vs.control.feature.embeddedServer.featureEmbeddedServer
+import ru.vs.control.feature.embeddedServer.service.EmbeddedServerQueriesProvider
 import ru.vs.control.feature.initialization.domain.InitializedDependenciesBuilder
 import ru.vs.control.feature.initialization.featureInitialization
 import ru.vs.control.feature.initializedRootScreen.featureInitializedRootScreen
@@ -52,6 +54,7 @@ fun preInit(): DirectDI {
         importOnce(Modules.featureWelcomeScreen())
 
         bindSingleton { DatabaseService(i()) }
+        bindProvider<EmbeddedServerQueriesProvider> { i<DatabaseService>() }
     }
 
     // Граф инициализируется до создания ui блокируя главный поток.
