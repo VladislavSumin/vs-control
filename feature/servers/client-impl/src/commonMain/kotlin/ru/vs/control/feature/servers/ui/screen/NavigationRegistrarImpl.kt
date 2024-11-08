@@ -5,17 +5,30 @@ import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByU
 import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByUrlScreenParams
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.AddServerScreenFactory
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.AddServerScreenParams
+import ru.vs.control.feature.servers.ui.screen.serversScreen.ServersScreenFactory
+import ru.vs.control.feature.servers.ui.screen.serversScreen.ServersScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
 import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl(
+    private val serversScreenFactory: ServersScreenFactory,
     private val addServerScreenFactory: AddServerScreenFactory,
     private val addServerByUrlScreenFactory: AddServerByUrlScreenFactory,
 ) : NavigationRegistrar {
     override val nameForLogs: String = "ru.vs.control.feature.servers.ui.screen.NavigationRegistrarImpl"
 
     override fun NavigationRegistry.register() {
+        registerScreen(
+            key = ServersScreenParams.asKey(),
+            factory = serversScreenFactory,
+            paramsSerializer = ServersScreenParams.serializer(),
+            nameForLogs = "ServersScreenParams",
+            defaultParams = ServersScreenParams,
+            opensIn = setOf(RootContentNavigationHost),
+            description = "Список добавленных серверов",
+        )
+
         registerScreen(
             key = AddServerScreenParams.asKey(),
             factory = addServerScreenFactory,

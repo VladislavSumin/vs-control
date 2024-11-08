@@ -9,13 +9,20 @@ import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByU
 import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByUrlViewModelFactory
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.AddServerScreenFactory
 import ru.vs.control.feature.servers.ui.screen.addServerScreen.AddServerViewModelFactory
+import ru.vs.control.feature.servers.ui.screen.serversScreen.ServersScreenFactory
+import ru.vs.control.feature.servers.ui.screen.serversScreen.ServersViewModelFactory
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.core.navigation.registration.NavigationRegistrar
 
 fun Modules.featureServers() = DI.Module("feature-servers") {
     inBindSet<NavigationRegistrar> {
-        add { singleton { NavigationRegistrarImpl(i(), i()) } }
+        add { singleton { NavigationRegistrarImpl(i(), i(), i()) } }
+    }
+
+    bindSingleton {
+        val viewModelFactory = ServersViewModelFactory()
+        ServersScreenFactory(viewModelFactory)
     }
 
     bindSingleton {
