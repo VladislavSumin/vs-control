@@ -1,5 +1,6 @@
 package ru.vs.control.feature.servers.ui.screen
 
+import ru.vs.control.feature.mainScreen.ui.screen.mainScreen.TabNavigationHost
 import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentNavigationHost
 import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByUrlScreenFactory
 import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByUrlScreenParams
@@ -24,7 +25,7 @@ internal class NavigationRegistrarImpl(
             factory = serversScreenFactory,
             nameForLogs = "ServersScreenParams",
             defaultParams = ServersScreenParams,
-            opensIn = setOf(RootContentNavigationHost),
+            opensIn = setOf(TabNavigationHost), // TODO сделать отдельный хост для сервер табов со своим стеком.
             description = "Список добавленных серверов",
         )
 

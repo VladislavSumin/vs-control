@@ -1,16 +1,11 @@
 package ru.vs.control.feature.mainScreen.ui.screen.mainScreen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.Dns
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -19,13 +14,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.arkivanov.decompose.extensions.compose.pages.PagesScrollAnimation
+import com.arkivanov.decompose.router.pages.ChildPages
+import com.arkivanov.decompose.value.Value
+import ru.vs.core.navigation.ScreenParams
+import ru.vs.core.navigation.screen.Screen
 
 @Composable
 internal fun MainContent(
     viewModel: MainViewModel,
+    tabNavigation: Value<ChildPages<ScreenParams, Screen>>,
     modifier: Modifier,
 ) {
     Scaffold(
@@ -34,17 +33,12 @@ internal fun MainContent(
         bottomBar = { BottomBar(viewModel) },
         contentWindowInsets = WindowInsets.statusBars,
     ) { paddings ->
-        Box(
-            Modifier
-                .padding(paddings)
-                .fillMaxSize()
-                .background(Color.Cyan),
-        ) {
-            Column(Modifier.align(Alignment.Center)) {
-                Button(onClick = viewModel::onClickAddServer) {
-                    Text("Add server")
-                }
-            }
+        com.arkivanov.decompose.extensions.compose.pages.ChildPages(
+            pages = tabNavigation,
+            onPageSelected = {},
+            scrollAnimation = PagesScrollAnimation.Default,
+        ) { _, page ->
+            page.Render(Modifier.fillMaxSize())
         }
     }
 }
