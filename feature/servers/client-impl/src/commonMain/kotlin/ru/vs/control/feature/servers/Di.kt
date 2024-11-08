@@ -2,8 +2,6 @@ package ru.vs.control.feature.servers
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
-import org.kodein.di.inBindSet
-import org.kodein.di.singleton
 import ru.vs.control.feature.servers.ui.screen.NavigationRegistrarImpl
 import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByUrlScreenFactory
 import ru.vs.control.feature.servers.ui.screen.addServerByUrlScreen.AddServerByUrlViewModelFactory
@@ -13,12 +11,10 @@ import ru.vs.control.feature.servers.ui.screen.serversScreen.ServersScreenFactor
 import ru.vs.control.feature.servers.ui.screen.serversScreen.ServersViewModelFactory
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
-import ru.vs.core.navigation.registration.NavigationRegistrar
+import ru.vs.core.navigation.registration.bindNavigation
 
 fun Modules.featureServers() = DI.Module("feature-servers") {
-    inBindSet<NavigationRegistrar> {
-        add { singleton { NavigationRegistrarImpl(i(), i(), i()) } }
-    }
+    bindNavigation { NavigationRegistrarImpl(i(), i(), i()) }
 
     bindSingleton {
         val viewModelFactory = ServersViewModelFactory()
