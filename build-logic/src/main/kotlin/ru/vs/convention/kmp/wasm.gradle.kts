@@ -1,6 +1,6 @@
 package ru.vs.convention.kmp
 
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 /**
  * Базовая настройка wasm таргета для KMP.
