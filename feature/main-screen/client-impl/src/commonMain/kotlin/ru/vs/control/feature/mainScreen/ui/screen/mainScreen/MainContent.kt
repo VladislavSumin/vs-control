@@ -7,8 +7,14 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BugReport
+import androidx.compose.material.icons.filled.Dns
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -24,7 +30,8 @@ internal fun MainContent(
 ) {
     Scaffold(
         modifier,
-        topBar = { MainAppBar() },
+        topBar = { AppBar() },
+        bottomBar = { BottomBar(viewModel) },
         contentWindowInsets = WindowInsets.statusBars,
     ) { paddings ->
         Box(
@@ -34,10 +41,6 @@ internal fun MainContent(
                 .background(Color.Cyan),
         ) {
             Column(Modifier.align(Alignment.Center)) {
-                Text("MainScreen")
-                Button(onClick = viewModel::onClickDebug) {
-                    Text("Open Debug")
-                }
                 Button(onClick = viewModel::onClickAddServer) {
                     Text("Add server")
                 }
@@ -48,10 +51,29 @@ internal fun MainContent(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MainAppBar() {
+private fun AppBar() {
     TopAppBar(
         title = {
             Text("Control")
         },
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun BottomBar(viewModel: MainViewModel) {
+    NavigationBar {
+        NavigationBarItem(
+            selected = true,
+            onClick = viewModel::onClickDebug,
+            icon = { Icon(Icons.Default.Dns, null) },
+            label = { Text("Servers") },
+        )
+        NavigationBarItem(
+            selected = false,
+            onClick = viewModel::onClickDebug,
+            icon = { Icon(Icons.Default.BugReport, null) },
+            label = { Text("Debug") },
+        )
+    }
 }

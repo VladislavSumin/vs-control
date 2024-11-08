@@ -14,7 +14,5 @@ internal class MainScreen(
     private val viewModel = viewModel { viewModelFactory.create() }
 
     @Composable
-    override fun Render(modifier: Modifier) {
-        MainContent(viewModel, modifier)
-    }
+    override fun Render(modifier: Modifier) = MainContent(viewModel, modifier)
 }
