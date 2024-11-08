@@ -12,4 +12,5 @@ internal data class ScreenInfo(
     val nameForLogs: String,
     val description: String?,
     val hostInParent: NavigationHost?,
+    val navigationHosts: Set<NavigationHost>,
 )

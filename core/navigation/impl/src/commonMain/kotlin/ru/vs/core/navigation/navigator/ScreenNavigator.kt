@@ -49,7 +49,7 @@ class ScreenNavigator internal constructor(
 
         lifecycle.doOnCreate {
             // Проверяем что экран действительно зарегистрировал все типы навигации которые может открывать.
-            val expectedHosts = node.children.map { it.value.hostInParent }.toSet()
+            val expectedHosts = node.value.navigationHosts
             val actualHosts = navigationHosts.keys
             check(expectedHosts == actualHosts) {
                 "Actual host registration doesn't match expected. Actual:$actualHosts, expected:$expectedHosts"

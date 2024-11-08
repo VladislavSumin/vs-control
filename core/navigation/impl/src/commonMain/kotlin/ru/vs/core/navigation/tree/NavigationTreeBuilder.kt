@@ -47,6 +47,7 @@ internal class NavigationTreeBuilder(
             defaultParams = screenRegistration.defaultParams,
             nameForLogs = screenRegistration.nameForLogs,
             description = screenRegistration.description,
+            navigationHosts = screenRegistration.navigationHosts,
         )
 
         // Пробегаемся по всем навигационным хостам объявленным для данной ноды.
