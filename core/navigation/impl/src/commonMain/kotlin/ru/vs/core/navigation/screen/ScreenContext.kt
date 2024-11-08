@@ -40,12 +40,16 @@ internal fun ComponentContext.wrapWithScreenContext(
     screenParams: ScreenParams,
 ): ScreenContext {
     val screenKey = ScreenKey(screenParams::class)
+    val childNode = parentNavigator.node.children.find { it.value.screenKey == screenKey }
+    check(childNode != null) {
+        "Screen ${screenParams.asKey()} is not a child for screen ${parentNavigator.screenParams.asKey()}"
+    }
     return DefaultScreenContext(
         ScreenNavigator(
             globalNavigator = parentNavigator.globalNavigator,
             parentNavigator = parentNavigator,
             screenPath = parentNavigator.screenPath + screenParams,
-            node = parentNavigator.node.children.find { it.value.screenKey == screenKey }!!,
+            node = childNode,
             serializer = parentNavigator.serializer,
             lifecycle = lifecycle,
         ),
