@@ -18,6 +18,7 @@ import ru.vs.control.feature.navigationRootScreen.featureNavigationRootScreen
 import ru.vs.control.feature.rootContentScreen.featureRootContentScreen
 import ru.vs.control.feature.rootScreen.featureRootScreen
 import ru.vs.control.feature.servers.featureServers
+import ru.vs.control.feature.settingsScreen.featureSettingsScreen
 import ru.vs.control.feature.splashScreen.featureSplashScreen
 import ru.vs.control.feature.welcomeScreen.featureWelcomeScreen
 import ru.vs.control.service.DatabaseService
@@ -53,6 +54,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
         importOnce(Modules.featureNavigationRootScreen())
         importOnce(Modules.featureRootContentScreen())
         importOnce(Modules.featureServers())
+        importOnce(Modules.featureSettingsScreen())
         importOnce(Modules.featureWelcomeScreen())
 
         bindSingleton { DatabaseService(i()) }

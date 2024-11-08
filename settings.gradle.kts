@@ -66,6 +66,7 @@ feature("navigation-root-screen")
 feature("root-content-screen")
 feature("root-screen")
 feature("servers")
+feature("settings-screen")
 feature("splash-screen")
 feature("welcome-screen")
 
