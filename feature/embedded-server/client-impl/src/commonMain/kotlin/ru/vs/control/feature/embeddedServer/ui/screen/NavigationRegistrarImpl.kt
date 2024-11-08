@@ -16,7 +16,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = AddEmbeddedServerScreenParams.asKey(),
             factory = addEmbeddedServerScreenFactory,
-            paramsSerializer = AddEmbeddedServerScreenParams.serializer(),
             nameForLogs = "AddEmbeddedServerScreenParams",
             defaultParams = AddEmbeddedServerScreenParams,
             opensIn = setOf(RootContentNavigationHost),

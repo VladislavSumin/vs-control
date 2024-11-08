@@ -55,7 +55,7 @@ internal class NavigationRepositoryImpl(
         isFinalized = true
     }
 
-    private inner class NavigationRegistryImpl : NavigationRegistry {
+    private inner class NavigationRegistryImpl : NavigationRegistry() {
         fun register(registrar: NavigationRegistrar) {
             with(registrar) { register() }
         }

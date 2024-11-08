@@ -22,7 +22,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = ServersScreenParams.asKey(),
             factory = serversScreenFactory,
-            paramsSerializer = ServersScreenParams.serializer(),
             nameForLogs = "ServersScreenParams",
             defaultParams = ServersScreenParams,
             opensIn = setOf(RootContentNavigationHost),
@@ -32,7 +31,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = AddServerScreenParams.asKey(),
             factory = addServerScreenFactory,
-            paramsSerializer = AddServerScreenParams.serializer(),
             nameForLogs = "AddServerScreenParams",
             defaultParams = AddServerScreenParams,
             opensIn = setOf(RootContentNavigationHost),
@@ -42,7 +40,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = AddServerByUrlScreenParams.asKey(),
             factory = addServerByUrlScreenFactory,
-            paramsSerializer = AddServerByUrlScreenParams.serializer(),
             nameForLogs = "AddServerByUrlScreenParams",
             defaultParams = AddServerByUrlScreenParams,
             opensIn = setOf(RootContentNavigationHost),

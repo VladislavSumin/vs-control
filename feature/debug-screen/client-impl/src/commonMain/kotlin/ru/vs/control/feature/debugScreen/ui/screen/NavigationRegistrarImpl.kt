@@ -16,7 +16,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = DebugScreenParams.asKey(),
             factory = debugScreenFactory,
-            paramsSerializer = DebugScreenParams.serializer(),
             nameForLogs = "DebugScreenParams",
             defaultParams = DebugScreenParams,
             opensIn = setOf(RootContentNavigationHost),

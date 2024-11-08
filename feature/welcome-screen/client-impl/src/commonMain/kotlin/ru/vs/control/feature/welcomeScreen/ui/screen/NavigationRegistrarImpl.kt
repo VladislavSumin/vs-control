@@ -16,7 +16,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = WelcomeScreenParams.asKey(),
             factory = welcomeScreenFactory,
-            paramsSerializer = WelcomeScreenParams.serializer(),
             nameForLogs = "WelcomeScreenParams",
             defaultParams = WelcomeScreenParams,
             opensIn = setOf(RootNavigationHost),
