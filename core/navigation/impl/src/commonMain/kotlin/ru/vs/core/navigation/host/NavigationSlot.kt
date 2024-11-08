@@ -1,6 +1,5 @@
 package ru.vs.core.navigation.host
 
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.childSlot
@@ -13,7 +12,6 @@ import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.asErasedKey
-import ru.vs.core.navigation.screen.wrapWithScreenContext
 
 /**
  * Навигация типа "слот", означает что в ней одновременно может быть только один экран. Пред идущий экран при этом
@@ -38,11 +36,7 @@ fun ScreenContext.childNavigationSlot(
         key = key,
         initialConfiguration = initialConfiguration,
         handleBackButton = handleBackButton,
-        childFactory = { screenParams: ScreenParams, context: ComponentContext ->
-            val screenContext = context.wrapWithScreenContext(navigator, screenParams)
-            val screenFactory = navigator.getChildScreenFactory(screenParams.asErasedKey())
-            screenFactory.create(screenContext, screenParams)
-        },
+        childFactory = ::childScreenFactory,
     )
 
     val hostNavigator = SlotHostNavigator(source)
