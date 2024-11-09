@@ -10,6 +10,7 @@ import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.first
 import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenFactory
 import ru.vs.core.decompose.Component
+import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.sharedElementTransition.ProvideLocalSharedElementTransition
 import ru.vs.core.splash.Children
 import ru.vs.core.splash.childSplash
@@ -19,7 +20,7 @@ internal class RootScreenComponent(
     splashScreenFactory: SplashScreenFactory,
     context: ComponentContext,
     private val deeplink: ReceiveChannel<String>,
-) : Component(context) {
+) : Component(context), ComposeComponent {
     private val viewModel = viewModel { rootScreenViewModelFactory.create() }
 
     private val splash = childSplash(

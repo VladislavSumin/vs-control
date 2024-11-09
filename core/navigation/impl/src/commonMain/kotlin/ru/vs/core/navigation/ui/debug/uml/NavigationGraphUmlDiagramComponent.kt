@@ -33,7 +33,7 @@ internal class NavigationGraphUmlDiagramComponent(
     viewModelFactory: NavigationGraphUmlDiagramViewModelFactory,
     context: ComponentContext,
     navigationTreeInterceptor: (NavigationGraphUmlNode) -> NavigationGraphUmlNode,
-) : Component(context) {
+) : Component(context), ComposeComponent {
     private val viewModel: NavigationGraphUmlDiagramViewModel = viewModel {
         viewModelFactory.create(navigationTreeInterceptor)
     }

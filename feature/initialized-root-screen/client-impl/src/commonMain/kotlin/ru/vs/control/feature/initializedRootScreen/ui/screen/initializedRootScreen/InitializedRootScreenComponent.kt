@@ -6,6 +6,7 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import ru.vs.core.decompose.Component
+import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.navigation.host.childNavigationRoot
 
 /**
@@ -17,7 +18,7 @@ internal class InitializedRootScreenComponent(
     onContentReady: () -> Unit,
     deeplink: ReceiveChannel<String>,
     context: ComponentContext,
-) : Component(context) {
+) : Component(context), ComposeComponent {
 
     private val viewModel = viewModel { viewModelFactory.create() }
     private val rootNavigation = childNavigationRoot(viewModel.navigation)
