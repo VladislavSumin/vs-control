@@ -6,14 +6,12 @@ import ru.vs.control.feature.mainScreen.ui.screen.mainScreen.TabNavigationHost
 import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentNavigationHost
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl(
     private val mainScreenFactory: MainScreenFactory,
 ) : NavigationRegistrar {
     override fun NavigationRegistry.register() {
         registerScreen(
-            key = MainScreenParams.asKey(),
             factory = mainScreenFactory,
             defaultParams = MainScreenParams,
             opensIn = setOf(RootContentNavigationHost),

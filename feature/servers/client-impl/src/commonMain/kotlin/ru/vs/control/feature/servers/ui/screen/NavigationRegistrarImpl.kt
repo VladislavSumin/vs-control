@@ -10,7 +10,6 @@ import ru.vs.control.feature.servers.ui.screen.serversScreen.ServersScreenFactor
 import ru.vs.control.feature.servers.ui.screen.serversScreen.ServersScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl(
     private val serversScreenFactory: ServersScreenFactory,
@@ -19,7 +18,6 @@ internal class NavigationRegistrarImpl(
 ) : NavigationRegistrar {
     override fun NavigationRegistry.register() {
         registerScreen(
-            key = ServersScreenParams.asKey(),
             factory = serversScreenFactory,
             defaultParams = ServersScreenParams,
             opensIn = setOf(TabNavigationHost), // TODO сделать отдельный хост для сервер табов со своим стеком.
@@ -27,7 +25,6 @@ internal class NavigationRegistrarImpl(
         )
 
         registerScreen(
-            key = AddServerScreenParams.asKey(),
             factory = addServerScreenFactory,
             defaultParams = AddServerScreenParams,
             opensIn = setOf(RootContentNavigationHost),
@@ -35,7 +32,6 @@ internal class NavigationRegistrarImpl(
         )
 
         registerScreen(
-            key = AddServerByUrlScreenParams.asKey(),
             factory = addServerByUrlScreenFactory,
             defaultParams = AddServerByUrlScreenParams,
             opensIn = setOf(RootContentNavigationHost),

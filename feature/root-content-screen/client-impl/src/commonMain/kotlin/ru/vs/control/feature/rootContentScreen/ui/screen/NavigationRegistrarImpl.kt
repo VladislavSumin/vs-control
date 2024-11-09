@@ -6,12 +6,10 @@ import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootC
 import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl : NavigationRegistrar {
     override fun NavigationRegistry.register() {
         registerScreen(
-            key = RootContentScreenParams.asKey(),
             factory = RootContentScreenFactory(),
             defaultParams = RootContentScreenParams,
             opensIn = setOf(RootNavigationHost),

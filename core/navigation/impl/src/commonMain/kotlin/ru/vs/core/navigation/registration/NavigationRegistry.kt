@@ -22,7 +22,6 @@ abstract class NavigationRegistry {
      *
      * @param P тип параметров экрана.
      * @param S тип экрана.
-     * @param key ключ экрана.
      * @param factory фабрика компонента экрана.
      * @param defaultParams параметры экрана по умолчанию.
      * @param opensIn в каких [NavigationHost] может быть открыт этот экран.
@@ -30,14 +29,13 @@ abstract class NavigationRegistry {
      * @param description опциональное описание экрана, используется только для дебага, при отображении графа навигации
      */
     inline fun <reified P : ScreenParams, S : Screen> registerScreen(
-        key: ScreenKey<P>,
         factory: ScreenFactory<P, S>,
         defaultParams: P? = null,
         opensIn: Set<NavigationHost> = emptySet(),
         navigationHosts: Set<NavigationHost> = emptySet(),
         description: String? = null,
     ) = registerScreen(
-        key,
+        ScreenKey(P::class),
         factory,
         Json.serializersModule.serializer<P>(),
         defaultParams,

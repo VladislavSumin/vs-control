@@ -5,14 +5,12 @@ import ru.vs.control.feature.settingsScreen.ui.screen.settingsScreen.SettingsScr
 import ru.vs.control.feature.settingsScreen.ui.screen.settingsScreen.SettingsScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
-import ru.vs.core.navigation.screen.asKey
 
 internal class NavigationRegistrarImpl(
     private val settingsScreenFactory: SettingsScreenFactory,
 ) : NavigationRegistrar {
     override fun NavigationRegistry.register() {
         registerScreen(
-            key = SettingsScreenParams.asKey(),
             factory = settingsScreenFactory,
             defaultParams = SettingsScreenParams,
             opensIn = setOf(RootContentNavigationHost),
