@@ -66,7 +66,7 @@ decompose-extensions-android = { module = "com.arkivanov.decompose:extensions-an
 sqldelight-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
-sqldelight-sqljs = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqldelight" }
+sqldelight-sqljs = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqldelight" }
 
 # Android
 android-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "android-activity-compose" }

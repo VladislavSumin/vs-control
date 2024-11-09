@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("ru.vs.convention.kmp.all-non-android")
@@ -61,15 +60,16 @@ kotlin {
         }
     }
 
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        binaries.executable()
-        browser {
-            commonWebpackConfig {
-                outputFileName = "main.js"
-            }
-        }
-    }
+// TODO Включить обратно
+//    @OptIn(ExperimentalWasmDsl::class)
+//    wasmJs {
+//        binaries.executable()
+//        browser {
+//            commonWebpackConfig {
+//                outputFileName = "main.js"
+//            }
+//        }
+//    }
 
     macosX64 {
         binaries {

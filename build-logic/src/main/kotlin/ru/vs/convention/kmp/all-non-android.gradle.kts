@@ -9,5 +9,8 @@ plugins {
     id("ru.vs.convention.kmp.js")
     id("ru.vs.convention.kmp.jvm")
     id("ru.vs.convention.kmp.macos")
-    id("ru.vs.convention.kmp.wasm")
+
+    // TODO включить обратно
+    // не поддерживается sqldelight
+    // id("ru.vs.convention.kmp.wasm")
 }
