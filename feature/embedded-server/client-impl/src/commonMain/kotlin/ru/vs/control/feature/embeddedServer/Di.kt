@@ -10,6 +10,7 @@ import ru.vs.control.feature.embeddedServer.repository.EmbeddedServersRepository
 import ru.vs.control.feature.embeddedServer.repository.EmbeddedServersRepositoryImpl
 import ru.vs.control.feature.embeddedServer.ui.component.embeddedServersListComponent.EmbeddedServersListComponentFactory
 import ru.vs.control.feature.embeddedServer.ui.component.embeddedServersListComponent.EmbeddedServersListComponentFactoryImpl
+import ru.vs.control.feature.embeddedServer.ui.component.embeddedServersListComponent.EmbeddedServersListViewModelFactory
 import ru.vs.control.feature.embeddedServer.ui.screen.NavigationRegistrarImpl
 import ru.vs.control.feature.embeddedServer.ui.screen.addEmbeddedServerScreen.AddEmbeddedServerScreenFactory
 import ru.vs.control.feature.embeddedServer.ui.screen.addEmbeddedServerScreen.AddEmbeddedServerViewModelFactory
@@ -26,7 +27,10 @@ fun Modules.featureEmbeddedServer() = DI.Module("feature-embedded-server") {
     bindSingleton<EmbeddedServersInteractor> { EmbeddedServersInteractorImpl(i()) }
     bindSingleton<EmbeddedServerSupportInteractor> { EmbeddedServerSupportInteractorImpl() }
 
-    bindSingleton<EmbeddedServersListComponentFactory> { EmbeddedServersListComponentFactoryImpl() }
+    bindSingleton<EmbeddedServersListComponentFactory> {
+        val viewModelFactory = EmbeddedServersListViewModelFactory(i())
+        EmbeddedServersListComponentFactoryImpl(viewModelFactory)
+    }
 
     bindSingleton {
         val viewModelFactory = AddEmbeddedServerViewModelFactory(i())

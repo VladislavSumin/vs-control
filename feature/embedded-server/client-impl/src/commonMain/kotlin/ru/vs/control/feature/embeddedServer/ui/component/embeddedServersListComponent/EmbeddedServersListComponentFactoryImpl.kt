@@ -2,8 +2,10 @@ package ru.vs.control.feature.embeddedServer.ui.component.embeddedServersListCom
 
 import com.arkivanov.decompose.ComponentContext
 
-internal class EmbeddedServersListComponentFactoryImpl : EmbeddedServersListComponentFactory {
+internal class EmbeddedServersListComponentFactoryImpl(
+    private val viewModelFactory: EmbeddedServersListViewModelFactory,
+) : EmbeddedServersListComponentFactory {
     override fun create(context: ComponentContext): EmbeddedServersListComponent {
-        return EmbeddedServersListComponentImpl(context)
+        return EmbeddedServersListComponentImpl(viewModelFactory, context)
     }
 }

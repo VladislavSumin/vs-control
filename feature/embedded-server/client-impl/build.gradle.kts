@@ -33,6 +33,8 @@ kotlin {
         nativeMain.get().dependsOn(nonKtorMain)
 
         commonMain.dependencies {
+            // TODO разделить бд на api/impl
+            implementation(projects.core.database)
             implementation(projects.feature.rootContentScreen.clientApi)
         }
     }
