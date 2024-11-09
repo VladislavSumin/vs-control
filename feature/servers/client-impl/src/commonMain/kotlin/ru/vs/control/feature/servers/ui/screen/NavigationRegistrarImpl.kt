@@ -17,8 +17,6 @@ internal class NavigationRegistrarImpl(
     private val addServerScreenFactory: AddServerScreenFactory,
     private val addServerByUrlScreenFactory: AddServerByUrlScreenFactory,
 ) : NavigationRegistrar {
-    override val nameForLogs: String = "ru.vs.control.feature.servers.ui.screen.NavigationRegistrarImpl"
-
     override fun NavigationRegistry.register() {
         registerScreen(
             key = ServersScreenParams.asKey(),

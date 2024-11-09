@@ -2,7 +2,6 @@ package ru.vs.core.navigation.repository
 
 import kotlinx.serialization.KSerializer
 import ru.vs.core.navigation.NavigationHost
-import ru.vs.core.navigation.NavigationLogger
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
@@ -10,7 +9,6 @@ import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.tree.NavigationTree
-import ru.vs.core.utils.joinToStingFormatted
 
 /**
  * Репозиторий навигации, используется для построения [NavigationTree].
@@ -47,10 +45,11 @@ internal class NavigationRepositoryImpl(
     private val registry = NavigationRegistryImpl()
 
     init {
-        NavigationLogger.d {
-            val registrarsString = registrars.joinToStingFormatted { it.nameForLogs }
-            "Initializing NavigationRegistry, registrars:\n$registrarsString"
-        }
+// TODO вернуть после реализации базовой рефлексии в js.
+//        NavigationLogger.d {
+//            val registrarsString = registrars.joinToStingFormatted { it::class.qualifiedName!! }
+//            "Initializing NavigationRegistry, registrars:\n$registrarsString"
+//        }
         registrars.forEach { registry.register(it) }
         isFinalized = true
     }

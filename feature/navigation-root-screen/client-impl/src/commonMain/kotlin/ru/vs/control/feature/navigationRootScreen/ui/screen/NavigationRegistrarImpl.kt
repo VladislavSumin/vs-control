@@ -9,8 +9,6 @@ import ru.vs.core.navigation.screen.asKey
 internal class NavigationRegistrarImpl(
     private val rootNavigationScreenFactory: RootNavigationScreenFactory,
 ) : NavigationRegistrar {
-    override val nameForLogs: String = "ru.vs.control.feature.navigationRootScreen.ui.screen.NavigationRegistrarImpl"
-
     override fun NavigationRegistry.register() {
         registerScreen(
             key = RootNavigationScreenParams.asKey(),

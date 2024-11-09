@@ -10,8 +10,6 @@ import ru.vs.core.navigation.screen.asKey
 internal class NavigationRegistrarImpl(
     private val addEmbeddedServerScreenFactory: AddEmbeddedServerScreenFactory,
 ) : NavigationRegistrar {
-    override val nameForLogs: String = "ru.vs.control.feature.debugScreen.ui.screen.NavigationRegistrarImpl"
-
     override fun NavigationRegistry.register() {
         registerScreen(
             key = AddEmbeddedServerScreenParams.asKey(),
