@@ -21,10 +21,15 @@ class Navigation internal constructor(
         navigationChannel.trySend(event).getOrThrow()
     }
 
-    fun findDefaultScreenParamsByDebugName(name: String): ScreenParams? {
+    /**
+     * Ищет параметры экрана по их имени. Можно использовать для реализации отладочных ссылок.
+     * **Внимание** Названия параметров могут быть изменены при минимизации приложения, поэтому данный метод не будет
+     * работать в релизе.
+     */
+    fun findDefaultScreenParamsByName(name: String): ScreenParams? {
         return navigationTree
             .asSequence()
-            .find { it.value.screenKey.key::class.simpleName == name }
+            .find { it.value.screenKey.key.simpleName == name }
             ?.value
             ?.defaultParams
     }

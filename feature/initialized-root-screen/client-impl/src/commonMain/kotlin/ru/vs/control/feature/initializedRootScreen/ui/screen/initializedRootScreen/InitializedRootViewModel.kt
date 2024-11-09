@@ -16,7 +16,7 @@ internal class InitializedRootViewModel(
         // TODO временная реализация диплинков для дебага что бы быстро открывать нужный экран при разработке.
         if (deeplink.startsWith("vs-control://")) {
             val path = deeplink.removePrefix("vs-control://")
-            val screenParams = navigation.findDefaultScreenParamsByDebugName(path)
+            val screenParams = navigation.findDefaultScreenParamsByName(path)
             if (screenParams != null) {
                 navigation.open(screenParams)
             }
