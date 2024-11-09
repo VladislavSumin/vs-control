@@ -24,8 +24,6 @@ abstract class NavigationRegistry {
      * @param S тип экрана.
      * @param key ключ экрана.
      * @param factory фабрика компонента экрана.
-     * @param nameForLogs название экрана для логирования. Нужно так как мы не можем использовать class.qualifiedName
-     * в js.
      * @param defaultParams параметры экрана по умолчанию.
      * @param opensIn в каких [NavigationHost] может быть открыт этот экран.
      * @param navigationHosts хосты навигации расположенные на этом экране
@@ -34,7 +32,6 @@ abstract class NavigationRegistry {
     inline fun <reified P : ScreenParams, S : Screen> registerScreen(
         key: ScreenKey<P>,
         factory: ScreenFactory<P, S>,
-        nameForLogs: String,
         defaultParams: P? = null,
         opensIn: Set<NavigationHost> = emptySet(),
         navigationHosts: Set<NavigationHost> = emptySet(),
@@ -44,7 +41,6 @@ abstract class NavigationRegistry {
             key,
             factory,
             Json.serializersModule.serializer<P>(),
-            nameForLogs,
             defaultParams,
             opensIn,
             navigationHosts,
@@ -57,7 +53,6 @@ abstract class NavigationRegistry {
         key: ScreenKey<P>,
         factory: ScreenFactory<P, S>,
         paramsSerializer: KSerializer<P>,
-        nameForLogs: String,
         defaultParams: P? = null,
         opensIn: Set<NavigationHost> = emptySet(),
         navigationHosts: Set<NavigationHost> = emptySet(),

@@ -17,7 +17,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = MainScreenParams.asKey(),
             factory = mainScreenFactory,
-            nameForLogs = "MainScreenParams",
             defaultParams = MainScreenParams,
             opensIn = setOf(RootContentNavigationHost),
             navigationHosts = setOf(TabNavigationHost),

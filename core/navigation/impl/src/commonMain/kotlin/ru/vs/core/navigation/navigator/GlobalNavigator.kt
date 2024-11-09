@@ -5,6 +5,7 @@ import ru.vs.core.collections.tree.asSequenceUp
 import ru.vs.core.collections.tree.findByPath
 import ru.vs.core.collections.tree.path
 import ru.vs.core.navigation.Navigation
+import ru.vs.core.navigation.NavigationLogger
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.ScreenPath
 import ru.vs.core.navigation.screen.asErasedKey
@@ -24,6 +25,7 @@ internal class GlobalNavigator(
      * переданного [screenPath]. (подробнее про поиск пути до экрана можно прочитать в документации).
      */
     fun open(screenPath: ScreenPath, screenParams: ScreenParams) {
+        NavigationLogger.i { "Open screen ${screenParams::class.simpleName}" }
         val screenKey = screenParams.asErasedKey()
 
         // Нода в графе навигации соответствующая переданному пути.
@@ -48,6 +50,7 @@ internal class GlobalNavigator(
     }
 
     fun close(screenPath: ScreenPath, screenParams: ScreenParams) {
+        NavigationLogger.i { "Close screen ${screenParams::class.simpleName}" }
         val index = screenPath.indexOfLast { it == ScreenPath.PathElement.Params(screenParams) }
         if (index == -1) return
         val path = screenPath.subList(0, index)

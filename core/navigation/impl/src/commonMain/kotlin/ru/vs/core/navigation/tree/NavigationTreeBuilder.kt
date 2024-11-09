@@ -45,7 +45,6 @@ internal class NavigationTreeBuilder(
             hostInParent = hostInParent,
             factory = screenRegistration.factory,
             defaultParams = screenRegistration.defaultParams,
-            nameForLogs = screenRegistration.nameForLogs,
             description = screenRegistration.description,
             navigationHosts = screenRegistration.navigationHosts,
         )
@@ -82,7 +81,7 @@ internal class NavigationTreeBuilder(
             .keys
 
         check(roots.size == 1) {
-            val formattedRoots = roots.joinToStingFormatted { repository.screens[it]!!.nameForLogs }
+            val formattedRoots = roots.joinToStingFormatted { it.key.simpleName!! }
             "Found more than one root or no root found, roots:\n$formattedRoots"
         }
         return roots.first()

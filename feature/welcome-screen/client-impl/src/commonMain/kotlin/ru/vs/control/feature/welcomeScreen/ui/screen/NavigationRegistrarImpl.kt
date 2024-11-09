@@ -16,7 +16,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = WelcomeScreenParams.asKey(),
             factory = welcomeScreenFactory,
-            nameForLogs = "WelcomeScreenParams",
             defaultParams = WelcomeScreenParams,
             opensIn = setOf(RootNavigationHost),
             description = "FRW, отображается при первом запуске приложения",

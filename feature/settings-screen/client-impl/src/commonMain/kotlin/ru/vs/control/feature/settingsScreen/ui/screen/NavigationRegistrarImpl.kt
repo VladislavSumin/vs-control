@@ -16,7 +16,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = SettingsScreenParams.asKey(),
             factory = settingsScreenFactory,
-            nameForLogs = "SettingsScreenParams",
             defaultParams = SettingsScreenParams,
             opensIn = setOf(RootContentNavigationHost),
             description = "Экран настроек",

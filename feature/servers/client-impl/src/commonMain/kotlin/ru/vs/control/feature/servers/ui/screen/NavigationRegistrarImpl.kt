@@ -23,7 +23,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = ServersScreenParams.asKey(),
             factory = serversScreenFactory,
-            nameForLogs = "ServersScreenParams",
             defaultParams = ServersScreenParams,
             opensIn = setOf(TabNavigationHost), // TODO сделать отдельный хост для сервер табов со своим стеком.
             description = "Список добавленных серверов",
@@ -32,7 +31,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = AddServerScreenParams.asKey(),
             factory = addServerScreenFactory,
-            nameForLogs = "AddServerScreenParams",
             defaultParams = AddServerScreenParams,
             opensIn = setOf(RootContentNavigationHost),
             description = "Экран добавления нового подключения к серверу",
@@ -41,7 +39,6 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             key = AddServerByUrlScreenParams.asKey(),
             factory = addServerByUrlScreenFactory,
-            nameForLogs = "AddServerByUrlScreenParams",
             defaultParams = AddServerByUrlScreenParams,
             opensIn = setOf(RootContentNavigationHost),
             description = "Экран добавления нового подключения к серверу по его domain name или ip",

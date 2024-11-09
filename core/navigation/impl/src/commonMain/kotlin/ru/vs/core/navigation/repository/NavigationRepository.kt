@@ -64,7 +64,6 @@ internal class NavigationRepositoryImpl(
             key: ScreenKey<P>,
             factory: ScreenFactory<P, S>,
             paramsSerializer: KSerializer<P>,
-            nameForLogs: String,
             defaultParams: P?,
             opensIn: Set<NavigationHost>,
             navigationHosts: Set<NavigationHost>,
@@ -78,7 +77,6 @@ internal class NavigationRepositoryImpl(
                 defaultParams = defaultParams,
                 opensIn = opensIn,
                 navigationHosts = navigationHosts,
-                nameForLogs = nameForLogs,
                 description = description,
             )
             val oldRegistration = screens.put(key, screenRegistration)

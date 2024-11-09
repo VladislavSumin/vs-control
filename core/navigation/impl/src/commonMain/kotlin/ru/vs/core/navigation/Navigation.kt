@@ -24,7 +24,7 @@ class Navigation internal constructor(
     fun findDefaultScreenParamsByDebugName(name: String): ScreenParams? {
         return navigationTree
             .asSequence()
-            .find { it.value.nameForLogs == name }
+            .find { it.value.screenKey.key::class.simpleName == name }
             ?.value
             ?.defaultParams
     }
