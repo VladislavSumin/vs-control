@@ -10,11 +10,9 @@ import ru.vs.core.navigation.screen.ScreenContext
 internal class ServersScreen(
     viewModelFactory: ServersViewModelFactory,
     context: ScreenContext,
-) : Screen(context), ScreenContext by context {
+) : Screen(context) {
     private val viewModel = viewModel { viewModelFactory.create() }
 
     @Composable
-    override fun Render(modifier: Modifier) {
-        ServersContent(modifier)
-    }
+    override fun Render(modifier: Modifier) = ServersContent(viewModel, modifier)
 }
