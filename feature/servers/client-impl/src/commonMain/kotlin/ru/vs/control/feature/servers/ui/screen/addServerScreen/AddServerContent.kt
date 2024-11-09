@@ -1,5 +1,7 @@
 package ru.vs.control.feature.servers.ui.screen.addServerScreen
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,13 +34,11 @@ internal fun AddServerContent(
         val state = list.subscribeAsState()
         LazyColumn(
             Modifier.padding(it),
+            contentPadding = PaddingValues(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             items(state.value) { component ->
-                component.Render(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-                )
+                component.Render(Modifier.fillMaxWidth())
             }
         }
     }

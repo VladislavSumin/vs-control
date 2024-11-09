@@ -1,7 +1,6 @@
 package ru.vs.control.feature.embeddedServer.ui.component.embeddedServersListComponent
 
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import com.arkivanov.decompose.ComponentContext
@@ -24,9 +23,7 @@ internal class EmbeddedServersListComponent(
                 items = state,
                 key = { it.id },
                 contentType = { EmbeddedServersListContentType },
-            ) {
-                Text(it.name)
-            }
+            ) { EmbeddedServerContent(it) }
         }
     }
 }
