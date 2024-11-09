@@ -36,17 +36,15 @@ abstract class NavigationRegistry {
         opensIn: Set<NavigationHost> = emptySet(),
         navigationHosts: Set<NavigationHost> = emptySet(),
         description: String? = null,
-    ) {
-        registerScreen(
-            key,
-            factory,
-            Json.serializersModule.serializer<P>(),
-            defaultParams,
-            opensIn,
-            navigationHosts,
-            description,
-        )
-    }
+    ) = registerScreen(
+        key,
+        factory,
+        Json.serializersModule.serializer<P>(),
+        defaultParams,
+        opensIn,
+        navigationHosts,
+        description,
+    )
 
     @PublishedApi
     internal abstract fun <P : ScreenParams, S : Screen> registerScreen(
