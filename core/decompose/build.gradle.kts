@@ -8,6 +8,7 @@ kotlin {
         commonMain.dependencies {
             api(libs.decompose.core)
             api(libs.decompose.extensions.compose)
+            api(libs.decompose.extensions.composeExperimental)
 
             implementation(projects.core.compose)
             implementation(projects.core.serialization.json)
