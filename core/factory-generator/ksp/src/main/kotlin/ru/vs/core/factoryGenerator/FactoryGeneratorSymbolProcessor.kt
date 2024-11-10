@@ -15,34 +15,15 @@ import com.squareup.kotlinpoet.ksp.toAnnotationSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import ru.vs.core.ksp.primaryConstructorWithPrivateFields
+import ru.vs.core.ksp.processAnnotated
 import ru.vs.core.ksp.writeTo
 
 internal class FactoryGeneratorSymbolProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
 ) : SymbolProcessor {
-
-    override fun process(resolver: Resolver): List<KSAnnotated> {
-        // Обходим все аннотированные GenerateFactory классы.
-        // TODO описать подробно механику возврата в этом методе.
-        return resolver.getSymbolsWithAnnotation(GenerateFactory::class.qualifiedName!!)
-            .filterNot(this::processAnnotated)
-            .toList()
-    }
-
-    private fun processAnnotated(annotated: KSAnnotated): Boolean {
-        return try {
-            processGenerateFactoryAnnotation(annotated)
-            true
-        } catch (_: IllegalArgumentException) {
-            // We have cases when one generated factory using inside another generated factory,
-            // for these cases we need to processing sources with more than once iteration
-            false
-        } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
-            logger.exception(e)
-            false
-        }
-    }
+    override fun process(resolver: Resolver): List<KSAnnotated> =
+        resolver.processAnnotated<GenerateFactory>(::processGenerateFactoryAnnotation)
 
     private fun processGenerateFactoryAnnotation(instance: KSAnnotated) {
         check(instance is KSClassDeclaration) { "Only KSClassDeclaration supported, but $instance was received" }
