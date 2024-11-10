@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.AbstractFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
 
@@ -24,16 +24,23 @@ import kotlinx.coroutines.launch
  * @param K тип уникального ключа используемого для индексации данных
  * @param R тип элементов в дочерней коллекции
  */
-fun <T, K, R> Flow<Iterable<T>>.cachingStateProcessing(
-    keySelector: (T) -> K,
-    block: suspend FlowCollector<K>.(StateFlow<T>) -> Unit
-): Flow<List<R>> = FlowCachingStateProcessing(this, keySelector, block)
+inline fun <T, K, reified R> Flow<Iterable<T>>.cachingStateProcessing(
+    noinline keySelector: (T) -> K,
+    noinline block: suspend FlowCollector<R>.(StateFlow<T>) -> Unit,
+): Flow<List<R>> = FlowCachingStateProcessing(
+    upstream = this,
+    keySelector = keySelector,
+    block = block,
+    combiner = { flows -> combine(flows) { it.toList() } },
+)
 
 @OptIn(ExperimentalCoroutinesApi::class)
-private class FlowCachingStateProcessing<T, K, R>(
+@PublishedApi
+internal class FlowCachingStateProcessing<T, K, R>(
     private val upstream: Flow<Iterable<T>>,
     private val keySelector: (T) -> K,
-    private val block: suspend FlowCollector<K>.(StateFlow<T>) -> Unit
+    private val block: suspend FlowCollector<R>.(StateFlow<T>) -> Unit,
+    private val combiner: (List<Flow<R>>) -> Flow<List<R>>
 ) : AbstractFlow<List<R>>() {
     override suspend fun collectSafely(collector: FlowCollector<List<R>>) = coroutineScope {
         // Создаем отдельный coroutine scope на котором будет запускать задачки для выполнения block параметра.
@@ -44,45 +51,44 @@ private class FlowCachingStateProcessing<T, K, R>(
 
         // К этому состоянию безопасно обращаться из transformLatest, так как данный блок гарантирует отмену предыдущей
         // обработки перед началом следующей
-        var oldState: State<K, T>
-        var newState = State<K, T>()
+        var oldState: State<K, R>
+        var newState = State<K, R>()
 
         upstream.transformLatest { newItems ->
             oldState = newState
             newState = State()
 
-            newItems.map { item ->
+            val newWithCache: List<Flow<R>> = newItems.map { item ->
                 val key = keySelector(item)
-                val cachedItem: CacheData<T> = oldState.cache.remove(key) ?: let {
-                    val state = MutableStateFlow(item)
-                    val flow = flow { block(state) }
+                val cachedItem: CacheData<R> = oldState.cache.remove(key) ?: let {
+                    val inputState = MutableStateFlow(item)
+                    val outputState: MutableStateFlow<R?> = MutableStateFlow(null)
                     val job = scope.launch {
-                        coroutineScope {
-                            // TODO вот это написать надо.
-                            flow.shareIn(this, SharingStarted.Eagerly, replay = 1)
-                        }
+                        flow { block(inputState) }
+                            .collect { outputState.value = it }
                     }
-                    CacheData(state, job)
+                    CacheData(outputState.mapNotNull { it }, job)
                 }
                 newState.cache[key] = cachedItem
+
+                cachedItem.out
             }
 
             oldState.cache.forEach { (_, v) ->
-                // TODO cancel removes keys
+                v.job.cancel()
             }
 
-
-            emit(TODO())
+            combiner(newWithCache).collect(this)
         }
             .collect(collector)
     }
 }
 
-private class State<K, T>(
-    val cache: MutableMap<K, CacheData<T>> = mutableMapOf()
+private class State<K, R>(
+    val cache: MutableMap<K, CacheData<R>> = mutableMapOf()
 )
 
-private class CacheData<T>(
-    val flow: MutableStateFlow<T>,
+private class CacheData<R>(
+    val out: Flow<R>,
     val job: Job
 )
