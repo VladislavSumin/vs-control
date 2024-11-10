@@ -7,6 +7,7 @@ Core модули могут содержать только самый базо
 
 ## Список core модулей.
 
+* [autoload](autoload/README.md) автозапуск сервисов.
 * [compose](compose/README.md) базовый код compose.
 * [compose-test](compose-test/README.md) утилиты для тестирования compose.
 * [coroutines](coroutines/README.md) базовый код coroutines.

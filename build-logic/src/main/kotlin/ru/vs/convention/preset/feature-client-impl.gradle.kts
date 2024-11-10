@@ -15,6 +15,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            implementation(project(":core:autoload"))
             implementation(project(":core:di"))
         }
     }

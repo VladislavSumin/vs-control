@@ -95,6 +95,7 @@ kotlin {
             implementation(projects.core.logger.api)
             implementation(projects.core.logger.platform)
 
+            implementation(projects.core.autoload)
             implementation(projects.core.compose)
             implementation(projects.core.decompose)
             implementation(projects.core.di)

@@ -1,5 +1,7 @@
 package ru.vs.control
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import org.kodein.di.DI
 import org.kodein.di.DirectDI
 import org.kodein.di.bindInstance
@@ -22,6 +24,7 @@ import ru.vs.control.feature.settingsScreen.featureSettingsScreen
 import ru.vs.control.feature.splashScreen.featureSplashScreen
 import ru.vs.control.feature.welcomeScreen.featureWelcomeScreen
 import ru.vs.control.service.DatabaseService
+import ru.vs.core.autoload.coreAutoload
 import ru.vs.core.database.coreDatabase
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
@@ -44,6 +47,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
 
     // Граф инициализируется в фоне после базовой инициализации ui (во время показа splash экрана).
     val initializedDependenciesBuilder = InitializedDependenciesBuilder {
+        importOnce(Modules.coreAutoload())
         importOnce(Modules.coreNavigation())
         importOnce(Modules.coreDatabase())
 
@@ -69,6 +73,9 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
         importOnce(Modules.featureAppInfo())
         importOnce(Modules.featureInitialization())
         importOnce(Modules.featureRootScreen())
+
+        // Глобальный AppScope
+        bindSingleton<CoroutineScope> { CoroutineScope(Dispatchers.Default) }
 
         // Модуль Splash экрана добавляется в этот граф, так как Splash экран показывается еще до инициализации
         // основного графа.
