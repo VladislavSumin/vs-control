@@ -12,6 +12,7 @@ import ru.vs.control.feature.embeddedServer.service.EmbeddedServerQueriesProvide
 
 internal interface EmbeddedServersRepository {
     suspend fun insert(server: EmbeddedServer)
+    suspend fun delete(server: EmbeddedServer)
     fun observe(): Flow<List<EmbeddedServer>>
 }
 
@@ -22,6 +23,11 @@ internal class EmbeddedServersRepositoryImpl(
     override suspend fun insert(server: EmbeddedServer) = withContext(Dispatchers.Default) {
         check(server.id == 0L)
         queriesProvider.getEmbeddedServerRecordQueries().insert(server.toRecord())
+    }
+
+    override suspend fun delete(server: EmbeddedServer) = withContext(Dispatchers.Default) {
+        check(server.id != 0L)
+        queriesProvider.getEmbeddedServerRecordQueries().delete(server.id)
     }
 
     // TODO пропробсить сюда кастомные диспатчеры?

@@ -23,7 +23,7 @@ internal class EmbeddedServersListComponent(
                 items = state,
                 key = { it.id },
                 contentType = { EmbeddedServersListContentType },
-            ) { EmbeddedServerContent(it) }
+            ) { EmbeddedServerContent(viewModel, it) }
         }
     }
 }
