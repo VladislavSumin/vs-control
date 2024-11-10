@@ -1,4 +1,4 @@
-package ru.vs.server
+package ru.vs.control.server
 
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.connector
