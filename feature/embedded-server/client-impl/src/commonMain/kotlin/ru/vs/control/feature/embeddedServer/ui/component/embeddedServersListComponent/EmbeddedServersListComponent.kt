@@ -21,7 +21,7 @@ internal class EmbeddedServersListComponent(
         return LazyListComponent.Renderer { list ->
             list.items(
                 items = state,
-                key = { it.id },
+                key = { it.id.raw },
                 contentType = { EmbeddedServersListContentType },
             ) { EmbeddedServerContent(viewModel, it) }
         }

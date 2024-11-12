@@ -2,6 +2,7 @@ package ru.vs.control.feature.embeddedServer.repository
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import kotlin.jvm.JvmInline
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -21,13 +22,13 @@ internal class EmbeddedServersRepositoryImpl(
 ) : EmbeddedServersRepository {
     // TODO пропробсить сюда кастомные диспатчеры?
     override suspend fun insert(server: EmbeddedServer) = withContext(Dispatchers.Default) {
-        check(server.id == 0L)
+        check(server.id.raw == 0L)
         queriesProvider.getEmbeddedServerRecordQueries().insert(server.toRecord())
     }
 
     override suspend fun delete(server: EmbeddedServer) = withContext(Dispatchers.Default) {
-        check(server.id != 0L)
-        queriesProvider.getEmbeddedServerRecordQueries().delete(server.id)
+        check(server.id.raw != 0L)
+        queriesProvider.getEmbeddedServerRecordQueries().delete(server.id.raw)
     }
 
     // TODO пропробсить сюда кастомные диспатчеры?
@@ -42,9 +43,12 @@ internal class EmbeddedServersRepositoryImpl(
     }
 }
 
-data class EmbeddedServer(val id: Long = 0, val name: String)
+@JvmInline
+value class EmbeddedServerId(val raw: Long)
+
+data class EmbeddedServer(val id: EmbeddedServerId = EmbeddedServerId(0), val name: String)
 
 // TODO попробовать сделать генерацию этих методов.
-fun EmbeddedServer.toRecord() = EmbeddedServerRecord(id, name)
-fun EmbeddedServerRecord.toModel() = EmbeddedServer(id, name)
+fun EmbeddedServer.toRecord() = EmbeddedServerRecord(id.raw, name)
+fun EmbeddedServerRecord.toModel() = EmbeddedServer(EmbeddedServerId(id), name)
 fun List<EmbeddedServerRecord>.toModels() = map { it.toModel() }

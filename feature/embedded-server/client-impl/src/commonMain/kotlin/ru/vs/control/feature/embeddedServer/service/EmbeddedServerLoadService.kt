@@ -14,7 +14,7 @@ internal class EmbeddedServerLoadService(
     override suspend fun run() {
         embeddedServersInteractor
             .observeEmbeddedServerInteractors()
-            .cachingStateProcessing(keySelector = { it.embeddedServerId }) {
+            .cachingStateProcessing(keySelector = { it.id }) {
                 it.value.run()
                 emit(Unit)
             }
