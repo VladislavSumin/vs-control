@@ -30,7 +30,7 @@ fun Modules.featureEmbeddedServer() = DI.Module("feature-embedded-server") {
     bindSingleton<EmbeddedServersInteractor> {
         EmbeddedServersInteractorImpl(
             embeddedServerInteractorFactory = EmbeddedServerInteractorFactory(),
-            embeddedServersRepository = EmbeddedServersRepositoryImpl(i()),
+            embeddedServersRepository = EmbeddedServersRepositoryImpl(i(), i()),
             scope = i(),
         )
     }

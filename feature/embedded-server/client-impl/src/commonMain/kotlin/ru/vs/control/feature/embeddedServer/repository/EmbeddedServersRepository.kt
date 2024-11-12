@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.vs.control.feature.embeddedServer.service.EmbeddedServerQueriesProvider
+import ru.vs.core.coroutines.DispatchersProvider
 
 internal interface EmbeddedServersRepository {
     suspend fun insert(server: EmbeddedServer)
@@ -19,25 +20,24 @@ internal interface EmbeddedServersRepository {
 
 internal class EmbeddedServersRepositoryImpl(
     private val queriesProvider: EmbeddedServerQueriesProvider,
+    private val dispatchersProvider: DispatchersProvider,
 ) : EmbeddedServersRepository {
-    // TODO пропробсить сюда кастомные диспатчеры?
-    override suspend fun insert(server: EmbeddedServer) = withContext(Dispatchers.Default) {
+    override suspend fun insert(server: EmbeddedServer) = withContext(dispatchersProvider.default) {
         check(server.id.raw == 0L)
         queriesProvider.getEmbeddedServerRecordQueries().insert(server.toRecord())
     }
 
-    override suspend fun delete(server: EmbeddedServer) = withContext(Dispatchers.Default) {
+    override suspend fun delete(server: EmbeddedServer) = withContext(dispatchersProvider.default) {
         check(server.id.raw != 0L)
         queriesProvider.getEmbeddedServerRecordQueries().delete(server.id.raw)
     }
 
-    // TODO пропробсить сюда кастомные диспатчеры?
     override fun observe(): Flow<List<EmbeddedServer>> {
         return flow { emit(queriesProvider.getEmbeddedServerRecordQueries()) }
             .flatMapLatest {
                 it.selectAll()
                     .asFlow()
-                    .mapToList(Dispatchers.Default)
+                    .mapToList(dispatchersProvider.default)
                     .map { it.toModels() }
             }
     }

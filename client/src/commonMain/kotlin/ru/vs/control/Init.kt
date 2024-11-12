@@ -25,6 +25,8 @@ import ru.vs.control.feature.splashScreen.featureSplashScreen
 import ru.vs.control.feature.welcomeScreen.featureWelcomeScreen
 import ru.vs.control.service.DatabaseService
 import ru.vs.core.autoload.coreAutoload
+import ru.vs.core.coroutines.DispatchersProvider
+import ru.vs.core.coroutines.coreCoroutines
 import ru.vs.core.database.coreDatabase
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
@@ -70,12 +72,18 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
         if (preInitPlatformModule != null) {
             importOnce(preInitPlatformModule)
         }
+
+        importOnce(Modules.coreCoroutines())
+
         importOnce(Modules.featureAppInfo())
         importOnce(Modules.featureInitialization())
         importOnce(Modules.featureRootScreen())
 
         // Глобальный AppScope
-        bindSingleton<CoroutineScope> { CoroutineScope(Dispatchers.Default) }
+        bindSingleton<CoroutineScope> {
+            val dispatchersProvider = i<DispatchersProvider>()
+            CoroutineScope(dispatchersProvider.default)
+        }
 
         // Модуль Splash экрана добавляется в этот граф, так как Splash экран показывается еще до инициализации
         // основного графа.
