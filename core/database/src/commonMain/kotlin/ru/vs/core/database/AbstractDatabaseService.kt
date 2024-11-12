@@ -7,7 +7,10 @@ import app.cash.sqldelight.db.SqlSchema
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-// TODO доку
+/**
+ * Базовый класс реализующий базу данных, необходим для универсального подхода к созданию базы данных
+ * через использование фабрики драйверов [factory].
+ */
 abstract class AbstractDatabaseService<DATABASE : Transacter>(
     private val factory: DatabaseDriverFactory,
     private val name: String = "database",
