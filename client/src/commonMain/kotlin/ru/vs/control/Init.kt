@@ -33,6 +33,7 @@ import ru.vs.core.fs.coreFs
 import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
 import ru.vs.core.navigation.coreNavigation
+import ru.vs.core.properties.coreProperties
 
 /**
  * Вызывается на самом раннем этапе старта приложения.
@@ -75,6 +76,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
 
         importOnce(Modules.coreCoroutines())
         importOnce(Modules.coreFs())
+        importOnce(Modules.coreProperties())
 
         importOnce(Modules.featureAppInfo())
         importOnce(Modules.featureInitialization())

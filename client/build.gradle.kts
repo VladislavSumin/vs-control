@@ -102,6 +102,7 @@ kotlin {
             implementation(projects.core.di)
             implementation(projects.core.fs)
             implementation(projects.core.navigation.impl)
+            implementation(projects.core.properties.impl)
 
             // Features
             implementation(projects.feature.appInfo.clientImpl)

@@ -25,6 +25,7 @@ kodein = "7.22.0"
 kotlinpoet = "2.0.0"
 ktor = "3.0.1"
 sqldelight = "2.0.2"
+multiplatformSettings = "1.2.0"
 
 # Logging
 logging-log4j = "2.24.1"
@@ -83,6 +84,8 @@ kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlin
 # Other
 kodein-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
 kodein-android = { module = "org.kodein.di:kodein-di-framework-android-x", version.ref = "kodein" }
+multiplatformSettings-core = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
+multiplatformSettings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
 
 # Checkstyle
 detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "gradlePlugins-detekt" }
