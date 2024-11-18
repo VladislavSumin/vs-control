@@ -100,6 +100,7 @@ kotlin {
             implementation(projects.core.compose)
             implementation(projects.core.decompose)
             implementation(projects.core.di)
+            implementation(projects.core.fs)
             implementation(projects.core.navigation.impl)
 
             // Features

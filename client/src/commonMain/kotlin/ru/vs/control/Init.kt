@@ -30,6 +30,7 @@ import ru.vs.core.coroutines.coreCoroutines
 import ru.vs.core.database.coreDatabase
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
+import ru.vs.core.fs.coreFs
 import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
 import ru.vs.core.navigation.coreNavigation
@@ -74,6 +75,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
         }
 
         importOnce(Modules.coreCoroutines())
+        importOnce(Modules.coreFs())
 
         importOnce(Modules.featureAppInfo())
         importOnce(Modules.featureInitialization())

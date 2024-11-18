@@ -5,6 +5,7 @@ kotlin-core = "2.1.0-RC"
 kotlin-ksp = "2.1.0-RC-1.0.26"
 kotlin-coroutines = "1.9.0"
 kotlin-serialization = "1.7.3"
+kotlin-io = "0.5.4"
 kotlin-atomicfu = "0.26.0"
 
 # Compose
@@ -51,6 +52,7 @@ kotlin-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-s
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-coroutines" }
 kotlin-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlin-serialization" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization" }
+kotlin-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlin-io" }
 kotlin-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "kotlin-atomicfu" }
 
 # Ktor
