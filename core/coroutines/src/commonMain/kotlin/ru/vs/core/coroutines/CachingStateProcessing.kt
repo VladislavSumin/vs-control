@@ -40,7 +40,7 @@ internal class FlowCachingStateProcessing<T, K, R>(
     private val upstream: Flow<Iterable<T>>,
     private val keySelector: (T) -> K,
     private val block: suspend FlowCollector<R>.(StateFlow<T>) -> Unit,
-    private val combiner: (List<Flow<R>>) -> Flow<List<R>>
+    private val combiner: (List<Flow<R>>) -> Flow<List<R>>,
 ) : AbstractFlow<List<R>>() {
     override suspend fun collectSafely(collector: FlowCollector<List<R>>) = coroutineScope {
         // Создаем отдельный coroutine scope на котором будет запускать задачки для выполнения block параметра.
@@ -85,10 +85,10 @@ internal class FlowCachingStateProcessing<T, K, R>(
 }
 
 private class State<K, R>(
-    val cache: MutableMap<K, CacheData<R>> = mutableMapOf()
+    val cache: MutableMap<K, CacheData<R>> = mutableMapOf(),
 )
 
 private class CacheData<R>(
     val out: Flow<R>,
-    val job: Job
+    val job: Job,
 )

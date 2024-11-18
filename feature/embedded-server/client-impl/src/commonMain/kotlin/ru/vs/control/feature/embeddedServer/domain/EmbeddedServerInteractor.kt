@@ -13,9 +13,10 @@ import ru.vs.core.factoryGenerator.GenerateFactory
 @GenerateFactory
 internal class EmbeddedServerInteractor(
     @ByCreate val id: EmbeddedServerId,
-    @ByCreate config: StateFlow<EmbeddedServer>,
+    @ByCreate private val config: StateFlow<EmbeddedServer>,
 ) {
     suspend fun run() {
+        config
         delay(Long.MAX_VALUE)
     }
 }

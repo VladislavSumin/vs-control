@@ -1,7 +1,5 @@
 package ru.vs.core.coroutines
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.coroutineScope
@@ -12,6 +10,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CachingStateProcessingTest {
@@ -23,7 +23,6 @@ class CachingStateProcessingTest {
         val state = MutableStateFlow(listOf("A", "B", "C"))
 
         var counter = 0
-
 
         val job = launch {
             coroutineScope {

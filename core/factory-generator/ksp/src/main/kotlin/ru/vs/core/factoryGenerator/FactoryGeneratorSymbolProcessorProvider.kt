@@ -6,6 +6,6 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 
 class FactoryGeneratorSymbolProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-        return FactoryGeneratorSymbolProcessor(environment.codeGenerator, environment.logger)
+        return FactoryGeneratorSymbolProcessor(environment.codeGenerator)
     }
 }

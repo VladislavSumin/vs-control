@@ -7,7 +7,6 @@ import ru.vs.control.feature.embeddedServer.domain.EmbeddedServerSupportInteract
 import ru.vs.control.feature.embeddedServer.domain.EmbeddedServerSupportInteractorImpl
 import ru.vs.control.feature.embeddedServer.domain.EmbeddedServersInteractor
 import ru.vs.control.feature.embeddedServer.domain.EmbeddedServersInteractorImpl
-import ru.vs.control.feature.embeddedServer.repository.EmbeddedServersRepository
 import ru.vs.control.feature.embeddedServer.repository.EmbeddedServersRepositoryImpl
 import ru.vs.control.feature.embeddedServer.service.EmbeddedServerLoadService
 import ru.vs.control.feature.embeddedServer.ui.component.embeddedServersListComponent.EmbeddedServersListComponentFactory
