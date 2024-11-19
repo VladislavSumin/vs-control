@@ -7,14 +7,9 @@ import kotlinx.coroutines.flow.Flow
  *
  * @param T тип данных, должен быть примитивом или @Serializable объектом.
  */
-interface Property<T : Any> {
-    /**
-     * Возвращает поток текущего состояния property.
-     */
-    val value: Flow<T?>
-
+interface Property<T> : Flow<T> {
     /**
      * Устанавливает состояние property.
      */
-    suspend fun set(value: T?)
+    suspend fun set(value: T)
 }

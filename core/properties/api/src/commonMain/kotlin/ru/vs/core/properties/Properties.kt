@@ -1,20 +1,31 @@
 package ru.vs.core.properties
 
-import kotlin.reflect.KProperty
+import kotlin.reflect.KType
+import kotlin.reflect.typeOf
 
-interface Properties {
+abstract class Properties {
     /**
      * Возвращает [Property] по переданному ключу [propertyKey].
+     * @param defaultValue значение по умолчанию.
      */
-    fun <T : Any> getProperty(propertyKey: PropertyKey): Property<T>
+    inline fun <reified T : Any> getProperty(propertyKey: PropertyKey, defaultValue: T): Property<T> =
+        getPropertyInternal(propertyKey, defaultValue, typeOf<T>())
 
     /**
-     * Делегат для доступа к [Properties] с использованием в качестве ключа названия поля.
-     *
-     * **Обратите внимание!** При изменении названия поля изменится и ключ.
-     *
+     * Возвращает nullable [Property] по переданному ключу [propertyKey].
      */
-    operator fun <T : Any> getValue(thisRef: Any?, property: KProperty<*>): Property<T> {
-        return getProperty(PropertyKey(property.name))
-    }
+    inline fun <reified T : Any> getProperty(propertyKey: PropertyKey): Property<T?> =
+        getPropertyInternal(propertyKey, null, typeOf<T?>())
+
+    /**
+     * Хак для возможности передать [typeOf] в protected [getProperty] не раскрывая эту функцию для внешнего вызова.
+     */
+    @PublishedApi
+    internal fun <T> getPropertyInternal(
+        propertyKey: PropertyKey,
+        defaultValue: T,
+        type: KType,
+    ): Property<T> = getProperty(propertyKey, defaultValue, type)
+
+    protected abstract fun <T> getProperty(propertyKey: PropertyKey, defaultValue: T, type: KType): Property<T>
 }
