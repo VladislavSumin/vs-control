@@ -20,9 +20,18 @@ internal class RootNavigationScreen(
     private val viewModel = viewModel { viewModelFactory.create() }
 
     private val childSlotNavigation: Value<ChildSlot<ScreenParams, Screen>> = childNavigationSlot(
-        initialConfiguration = viewModel::getInitialConfiguration,
+        initialConfiguration = { null },
         navigationHost = RootNavigationHost,
     )
+
+    init {
+        launch {
+            // TODO тут асинхронщина при отображении экрана.
+            // TODO тут при пересоздании экрана будет не нужная навигация, так же при восстановлении состояния
+            val config = viewModel.getInitialConfiguration()
+            navigator.open(config)
+        }
+    }
 
     @Composable
     override fun Render(modifier: Modifier) {

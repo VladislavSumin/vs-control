@@ -4,5 +4,5 @@ interface WelcomeInteractor {
     /**
      * Нужно ли показывать welcome экран.
      */
-    val isNeedToShowWelcomeScreen: Boolean
+    suspend fun isNeedToShowWelcomeScreen(): Boolean
 }

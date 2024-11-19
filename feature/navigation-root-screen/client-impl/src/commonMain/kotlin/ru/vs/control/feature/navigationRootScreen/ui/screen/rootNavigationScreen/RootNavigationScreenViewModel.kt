@@ -14,7 +14,7 @@ internal class RootNavigationScreenViewModel(
     /**
      * Возвращает дефолтные параметры для экрана.
      */
-    fun getInitialConfiguration(): ScreenParams {
-        return if (welcomeInteractor.isNeedToShowWelcomeScreen) WelcomeScreenParams else RootContentScreenParams
+    suspend fun getInitialConfiguration(): ScreenParams {
+        return if (welcomeInteractor.isNeedToShowWelcomeScreen()) WelcomeScreenParams else RootContentScreenParams
     }
 }

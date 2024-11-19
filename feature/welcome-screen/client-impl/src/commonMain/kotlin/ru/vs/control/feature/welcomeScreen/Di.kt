@@ -16,11 +16,11 @@ import ru.vs.core.navigation.registration.bindNavigation
 fun Modules.featureWelcomeScreen() = DI.Module("feature-welcome-screen") {
     bindNavigation { NavigationRegistrarImpl(i()) }
 
-    bindSingleton<WelcomeInteractorInternal> { WelcomeInteractorImpl() }
+    bindSingleton<WelcomeInteractorInternal> { WelcomeInteractorImpl(i()) }
     bindProvider<WelcomeInteractor> { i<WelcomeInteractorInternal>() }
 
     bindProvider {
-        val viewModelFactory = WelcomeScreenViewModelFactory()
+        val viewModelFactory = WelcomeScreenViewModelFactory(i())
         WelcomeScreenFactory(viewModelFactory)
     }
 }
