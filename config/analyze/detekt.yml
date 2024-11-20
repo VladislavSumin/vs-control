@@ -17,6 +17,8 @@ formatting:
 complexity:
   LongParameterList:
     active: false
+  TooManyFunctions:
+    active: false
 
 style:
   ReturnCount:
