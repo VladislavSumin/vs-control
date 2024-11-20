@@ -2,8 +2,8 @@ package ru.vs.core.navigation.host
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.serialization.serializer
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.createCoroutineScope
 import ru.vs.core.navigation.Navigation
@@ -19,12 +19,18 @@ import ru.vs.core.navigation.screen.ScreenPath
 /**
  * Корневая точка входа в навигацию.
  *
- * @param navigationTree дерево навигации.
+ * @param navigation граф навигации.
  * @param key уникальный в пределах компонента ключ дочернего компонента.
+ * @param coroutineScope scope на котором будут запускаться асинхронные задачи навигации в этом экране.
+ * @param onContentReady если передано не нулевое значение, то будут вызваны методы
+ * [ru.vs.core.navigation.screen.Screen.delaySplashScreen] в цепочке открываемых экранов и после того как все вызовы
+ * завершатся, будет вызван этот callback. Таким образом можно задерживать splash экран в обычных экранах.
  */
 fun ComponentContext.childNavigationRoot(
     navigation: Navigation,
     key: String = "navigation-root",
+    coroutineScope: CoroutineScope = lifecycle.createCoroutineScope(),
+    onContentReady: (() -> Unit)? = null,
 ): ComposeComponent {
     val node = navigation.navigationTree
     val params = node.value.defaultParams ?: error("Root screen must have default params")
@@ -54,9 +60,20 @@ fun ComponentContext.childNavigationRoot(
         childContext,
     )
 
+    val screen = rootScreenFactory.create(rootScreenContext, params)
+    rootScreenNavigator.screen = screen
+
     handleNavigation(navigation, rootScreenContext)
 
-    return rootScreenFactory.create(rootScreenContext, params)
+    // Обрабатываем задержку splash экрана.
+    if (onContentReady != null) {
+        coroutineScope.launch {
+            rootScreenNavigator.delaySplashScreen()
+            onContentReady()
+        }
+    }
+
+    return screen
 }
 
 /**

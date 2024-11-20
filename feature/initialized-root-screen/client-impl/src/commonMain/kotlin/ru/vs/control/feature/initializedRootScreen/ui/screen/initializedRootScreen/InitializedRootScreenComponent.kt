@@ -21,13 +21,13 @@ internal class InitializedRootScreenComponent(
 ) : Component(context), ComposeComponent {
 
     private val viewModel = viewModel { viewModelFactory.create() }
-    private val rootNavigation = childNavigationRoot(viewModel.navigation)
+    private val rootNavigation = childNavigationRoot(
+        navigation = viewModel.navigation,
+        onContentReady = onContentReady,
+    )
 
     init {
         launch { deeplink.consumeEach(viewModel::onDeeplink) }
-
-        // TODO передавать onContentReady() в навигацию.
-        onContentReady()
     }
 
     @Composable

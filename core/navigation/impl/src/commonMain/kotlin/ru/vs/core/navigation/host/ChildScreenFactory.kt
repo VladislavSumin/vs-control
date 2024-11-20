@@ -16,5 +16,7 @@ internal fun ScreenContext.childScreenFactory(
 ): Screen {
     val screenContext = context.wrapWithScreenContext(navigator, screenParams)
     val screenFactory = navigator.getChildScreenFactory(screenParams.asErasedKey())
-    return screenFactory.create(screenContext, screenParams)
+    val screen = screenFactory.create(screenContext, screenParams)
+    screenContext.navigator.screen = screen
+    return screen
 }

@@ -8,6 +8,7 @@ import kotlinx.serialization.KSerializer
 import ru.vs.core.collections.tree.LinkedTreeNode
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
+import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey
@@ -43,6 +44,11 @@ class ScreenNavigator internal constructor(
 
     internal val screenParams = (screenPath.last() as ScreenPath.PathElement.Params).screenParams
 
+    /**
+     * Экран в контексте которого существует данный навигатор.
+     */
+    internal lateinit var screen: Screen
+
     init {
         // Регистрируем этот навигатор в родительском.
         parentNavigator?.registerScreenNavigator(this, lifecycle)
@@ -60,7 +66,7 @@ class ScreenNavigator internal constructor(
     /**
      * Регистрирует [screenNavigator] с учетом жизненного цикла [ComponentContext].
      */
-    fun registerScreenNavigator(screenNavigator: ScreenNavigator, lifecycle: Lifecycle) {
+    internal fun registerScreenNavigator(screenNavigator: ScreenNavigator, lifecycle: Lifecycle) {
         val oldScreenNavigator = childScreenNavigators.put(screenNavigator.screenParams, screenNavigator)
         check(oldScreenNavigator == null) {
             "Screen navigator for ${screenNavigator.screenPath} already registered"
@@ -146,6 +152,14 @@ class ScreenNavigator internal constructor(
     @Suppress("UNCHECKED_CAST")
     internal fun getChildScreenFactory(screenKey: ScreenKey<ScreenParams>): ScreenFactory<ScreenParams, *> {
         return node.children.find { it.value.screenKey == screenKey }!!.value.factory as ScreenFactory<ScreenParams, *>
+    }
+
+    /**
+     * Запрашивает задержку splash экрана, сначала для текущего экрана и только потом для всех дочерних навигаторов.
+     */
+    internal suspend fun delaySplashScreen() {
+        screen.delaySplashScreenInternal()
+        childScreenNavigators.values.forEach { it.delaySplashScreen() }
     }
 
     /**
