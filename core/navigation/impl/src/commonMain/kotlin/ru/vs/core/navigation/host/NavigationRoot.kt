@@ -8,6 +8,7 @@ import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.createCoroutineScope
 import ru.vs.core.navigation.Navigation
 import ru.vs.core.navigation.Navigation.NavigationEvent
+import ru.vs.core.navigation.NavigationLogger
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.GlobalNavigator
 import ru.vs.core.navigation.navigator.ScreenNavigator
@@ -86,6 +87,7 @@ private fun ComponentContext.handleNavigation(
     val scope = lifecycle.createCoroutineScope()
     scope.launch {
         for (event in navigation.navigationChannel) {
+            NavigationLogger.d { "Handle global navigation event $event" }
             when (event) {
                 is NavigationEvent.Close -> screenContext.navigator.close(event.screenParams)
                 is NavigationEvent.Open -> screenContext.navigator.open(event.screenParams)

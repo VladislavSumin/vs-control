@@ -7,6 +7,7 @@ import com.arkivanov.essenty.lifecycle.doOnDestroy
 import kotlinx.serialization.KSerializer
 import ru.vs.core.collections.tree.LinkedTreeNode
 import ru.vs.core.navigation.NavigationHost
+import ru.vs.core.navigation.NavigationLogger
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
@@ -90,6 +91,9 @@ class ScreenNavigator internal constructor(
     }
 
     internal fun openInsideThisScreen(screenPath: ScreenPath) {
+        NavigationLogger.t {
+            "ScreenNavigator(screenParams=$screenParams).openInsideThisScreen(screenPath=$screenPath)"
+        }
         openInsideThisScreen(screenPath.first())
         val childPath = ScreenPath(screenPath.drop(1))
         if (childPath.isNotEmpty()) {
@@ -122,6 +126,9 @@ class ScreenNavigator internal constructor(
     }
 
     internal fun closeInsideThisScreen(screenPath: ScreenPath) {
+        NavigationLogger.t {
+            "ScreenNavigator(screenParams=$screenParams).closeInsideThisScreen(screenPath=$screenPath)"
+        }
         if (screenPath.size == 1) {
             closeInsideThisScreen((screenPath.first() as ScreenPath.PathElement.Params).screenParams)
         } else {
