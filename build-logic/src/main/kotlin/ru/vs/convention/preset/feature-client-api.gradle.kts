@@ -14,6 +14,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core:coroutines"))
+            implementation(project(":core:logger:api"))
             implementation(project(":core:utils"))
         }
     }
