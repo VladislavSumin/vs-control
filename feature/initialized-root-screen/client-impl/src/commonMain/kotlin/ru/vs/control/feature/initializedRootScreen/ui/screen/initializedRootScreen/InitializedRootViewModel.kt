@@ -1,6 +1,7 @@
 package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScreen
 
 import ru.vs.core.decompose.ViewModel
+import ru.vs.core.logger.api.logger
 import ru.vs.core.navigation.Navigation
 
 internal class InitializedRootViewModelFactory(private val navigation: Navigation) {
@@ -13,6 +14,7 @@ internal class InitializedRootViewModel(
     val navigation: Navigation,
 ) : ViewModel() {
     fun onDeeplink(deeplink: String) {
+        deeplinkLogger.i { "Handle deeplink $deeplink" }
         // TODO временная реализация диплинков для дебага что бы быстро открывать нужный экран при разработке.
         if (deeplink.startsWith("vs-control://")) {
             val path = deeplink.removePrefix("vs-control://")
@@ -21,5 +23,9 @@ internal class InitializedRootViewModel(
                 navigation.open(screenParams)
             }
         }
+    }
+
+    companion object {
+        private val deeplinkLogger = logger("deeplink")
     }
 }

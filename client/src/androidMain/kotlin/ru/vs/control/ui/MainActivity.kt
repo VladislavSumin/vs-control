@@ -26,7 +26,11 @@ class MainActivity : ComponentActivity(), DIAware {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intent?.data?.let { onDeeplink(it.toString()) }
+        // Обрабатываем стартовый deeplink только если это холодный запуск приложения.
+        // В противном случае мы уже обработали этот диплинк при первом запуске.
+        if (savedInstanceState == null) {
+            intent?.data?.let { onDeeplink(it.toString()) }
+        }
 
         val defaultContext = defaultComponentContext()
         val rootComponentFactory = di.direct.instance<RootScreenFactory>()
