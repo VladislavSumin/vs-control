@@ -41,6 +41,8 @@ fun ComponentContext.childNavigationRoot(
     // Создаем рутовый навигатор.
     val globalNavigator = GlobalNavigator(navigation)
 
+    val initialPath = handleInitialNavigationEvent(params, navigation, globalNavigator)
+
     // Создаем дочерний контекст который будет являться контекстом для корневого экрана графа навигации.
     // Lifecycle полученного компонента будет совпадать с родителем
     val childContext = childContext(key, lifecycle = null)
@@ -52,6 +54,7 @@ fun ComponentContext.childNavigationRoot(
         node = node,
         serializer = navigation.navigationSerializer.serializer,
         lifecycle = childContext.lifecycle,
+        initialPath = initialPath,
     )
 
     globalNavigator.rootNavigator = rootScreenNavigator
@@ -75,6 +78,29 @@ fun ComponentContext.childNavigationRoot(
     }
 
     return screen
+}
+
+private fun handleInitialNavigationEvent(
+    rootScreenParams: ScreenParams,
+    navigation: Navigation,
+    globalNavigator: GlobalNavigator,
+): ScreenPath? {
+    val initialNavigationParams = navigation.navigationChannel.tryReceive().getOrNull()
+    NavigationLogger.d { "childNavigationRoot() initialNavigationParams = $initialNavigationParams" }
+
+    return when (initialNavigationParams) {
+        is NavigationEvent.Close -> {
+            // Можно поддержать, но пока нет такой необходимости.
+            error("Unsupported initial close event")
+        }
+
+        is NavigationEvent.Open -> globalNavigator.createOpenPath(
+            ScreenPath(rootScreenParams),
+            initialNavigationParams.screenParams,
+        )
+
+        null -> null
+    }
 }
 
 /**

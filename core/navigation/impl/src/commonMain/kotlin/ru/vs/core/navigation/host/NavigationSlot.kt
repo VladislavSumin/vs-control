@@ -30,17 +30,19 @@ fun ScreenContext.childNavigationSlot(
     handleBackButton: Boolean = false,
 ): Value<ChildSlot<ScreenParams, Screen>> {
     val source = SlotNavigation<ScreenParams>()
+
+    val hostNavigator = SlotHostNavigator(source)
+    navigator.registerHostNavigator(navigationHost, hostNavigator)
+
     val slot = childSlot(
         source = source,
         serializer = navigator.serializer,
         key = key,
-        initialConfiguration = initialConfiguration,
+        initialConfiguration = { navigator.getInitialParamsFor(navigationHost) ?: initialConfiguration() },
         handleBackButton = handleBackButton,
         childFactory = ::childScreenFactory,
     )
 
-    val hostNavigator = SlotHostNavigator(source)
-    navigator.registerHostNavigator(navigationHost, hostNavigator)
     return slot
 }
 

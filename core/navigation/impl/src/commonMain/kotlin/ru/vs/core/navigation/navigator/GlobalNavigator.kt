@@ -26,6 +26,11 @@ internal class GlobalNavigator(
      */
     fun open(screenPath: ScreenPath, screenParams: ScreenParams) {
         NavigationLogger.i { "Open screen ${screenParams::class.simpleName}" }
+        val path = createOpenPath(screenPath, screenParams)
+        rootNavigator.openInsideThisScreen(path)
+    }
+
+    internal fun createOpenPath(screenPath: ScreenPath, screenParams: ScreenParams): ScreenPath {
         val screenKey = screenParams.asErasedKey()
 
         // Нода в графе навигации соответствующая переданному пути.
@@ -43,10 +48,7 @@ internal class GlobalNavigator(
         val destinationKeysPath: List<ScreenPath.PathElement.Key> = destinationNode.path()
             .map { node -> node.value.screenKey }
             .map { ScreenPath.PathElement.Key(it) }
-        val destinationPath =
-            ScreenPath(destinationKeysPath.drop(1).dropLast(1) + ScreenPath.PathElement.Params(screenParams))
-
-        rootNavigator.openInsideThisScreen(destinationPath)
+        return ScreenPath(destinationKeysPath.drop(1).dropLast(1) + ScreenPath.PathElement.Params(screenParams))
     }
 
     fun close(screenPath: ScreenPath, screenParams: ScreenParams) {

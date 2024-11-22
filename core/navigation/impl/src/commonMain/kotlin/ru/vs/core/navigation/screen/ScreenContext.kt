@@ -44,6 +44,16 @@ internal fun ComponentContext.wrapWithScreenContext(
     check(childNode != null) {
         "Screen ${screenParams.asKey()} is not a child for screen ${parentNavigator.screenParams.asKey()}"
     }
+
+    val initialPath = parentNavigator.initialPath?.let { path ->
+        val newPath = path.drop(1)
+        if (newPath.isNotEmpty()) {
+            ScreenPath(newPath)
+        } else {
+            null
+        }
+    }
+
     return DefaultScreenContext(
         ScreenNavigator(
             globalNavigator = parentNavigator.globalNavigator,
@@ -52,6 +62,7 @@ internal fun ComponentContext.wrapWithScreenContext(
             node = childNode,
             serializer = parentNavigator.serializer,
             lifecycle = lifecycle,
+            initialPath = initialPath,
         ),
         this,
     )

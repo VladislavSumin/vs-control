@@ -18,7 +18,7 @@ import ru.vs.core.navigation.screen.ScreenContext
 internal class RootContentScreen(context: ScreenContext) : Screen(context) {
     private val childStack = childNavigationStack(
         navigationHost = RootContentNavigationHost,
-        initialStack = { listOf(MainScreenParams) },
+        defaultStack = { listOf(MainScreenParams) },
         handleBackButton = true,
     )
 

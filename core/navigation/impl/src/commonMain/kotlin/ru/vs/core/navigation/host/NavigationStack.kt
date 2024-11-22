@@ -17,6 +17,8 @@ import ru.vs.core.navigation.screen.asErasedKey
  * виден пользователю.
  *
  * @param navigationHost навигационный хост для возможности понять какие экраны будут открываться в этой навигации.
+ * @param defaultStack стек по умолчанию, используется когда в навигации задан инициализирующий стек что бы добавить
+ * экраны под экран который будет открыт на этом стеке.
  * @param initialStack начальный стек который будет открыт в данной навигации. Обратите внимание стек должен содержать
  * как минимум один элемент.
  * @param key уникальный в пределах экрана ключ для навигации.
@@ -24,22 +26,34 @@ import ru.vs.core.navigation.screen.asErasedKey
  */
 fun ScreenContext.childNavigationStack(
     navigationHost: NavigationHost,
-    initialStack: () -> List<ScreenParams>,
+    defaultStack: () -> List<ScreenParams> = { emptyList() },
+    initialStack: () -> List<ScreenParams> = defaultStack,
     key: String = "stack_navigation",
     handleBackButton: Boolean = false,
 ): Value<ChildStack<ScreenParams, Screen>> {
     val source = StackNavigation<ScreenParams>()
+
+    val hostNavigator = StackHostNavigator(source)
+    navigator.registerHostNavigator(navigationHost, hostNavigator)
+
     val stack = childStack(
         source = source,
         serializer = navigator.serializer,
         key = key,
-        initialStack = initialStack,
+        initialStack = {
+            navigator.getInitialParamsFor(navigationHost)?.let { params ->
+                val stack = defaultStack()
+                val index = stack.indexOf(params)
+                if (index >= 0) {
+                    stack.subList(0, index + 1)
+                } else {
+                    stack + params
+                }
+            } ?: initialStack()
+        },
         handleBackButton = handleBackButton,
         childFactory = ::childScreenFactory,
     )
-
-    val hostNavigator = StackHostNavigator(source)
-    navigator.registerHostNavigator(navigationHost, hostNavigator)
     return stack
 }
 

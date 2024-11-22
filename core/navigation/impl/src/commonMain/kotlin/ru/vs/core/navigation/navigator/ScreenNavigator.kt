@@ -32,6 +32,7 @@ class ScreenNavigator internal constructor(
     internal val node: LinkedTreeNode<ScreenInfo>,
     internal val serializer: KSerializer<ScreenParams>,
     private val lifecycle: Lifecycle,
+    internal val initialPath: ScreenPath?,
 ) {
     /**
      * Список зарегистрированных на этом экране [HostNavigator].
@@ -61,6 +62,24 @@ class ScreenNavigator internal constructor(
             check(expectedHosts == actualHosts) {
                 "Actual host registration doesn't match expected. Actual:$actualHosts, expected:$expectedHosts"
             }
+        }
+    }
+
+    /**
+     * Возвращает стартовые параметры для [navigationHost] если таковые есть.
+     */
+    internal fun getInitialParamsFor(navigationHost: NavigationHost): ScreenParams? {
+        val element = initialPath?.first() ?: return null
+        val screenKey = element.asErasedKey()
+        val childNode = node.children.find { it.value.screenKey == screenKey }?.value
+            ?: error("Child node with screenKey=$screenKey not found")
+        return if (childNode.hostInParent == navigationHost) {
+            when (element) {
+                is ScreenPath.PathElement.Key -> childNode.defaultParams ?: error("No default params")
+                is ScreenPath.PathElement.Params -> element.screenParams
+            }
+        } else {
+            null
         }
     }
 

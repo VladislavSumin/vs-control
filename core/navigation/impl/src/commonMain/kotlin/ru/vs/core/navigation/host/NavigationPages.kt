@@ -28,17 +28,20 @@ fun ScreenContext.childNavigationPages(
     handleBackButton: Boolean = false,
 ): Value<ChildPages<ScreenParams, Screen>> {
     val source = PagesNavigation<ScreenParams>()
+
+    val hostNavigator = PagesHostNavigator(source)
+    navigator.registerHostNavigator(navigationHost, hostNavigator)
+
     val stack = childPages(
         source = source,
         serializer = navigator.serializer,
         key = key,
-        initialPages = initialPages,
+        initialPages = {
+            navigator.getInitialParamsFor(navigationHost)?.let { Pages(listOf(it), 0) } ?: initialPages()
+        },
         handleBackButton = handleBackButton,
         childFactory = ::childScreenFactory,
     )
-
-    val hostNavigator = PagesHostNavigator(source)
-    navigator.registerHostNavigator(navigationHost, hostNavigator)
     return stack
 }
 
