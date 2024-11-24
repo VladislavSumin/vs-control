@@ -4,6 +4,10 @@
     <default_templates>
       <template name="DetektRule.kt" file-name="${NAME}" reformat="true" live-template-enabled="false" />
       <template name="Feature module.md" file-name="${NAME}/README" reformat="true" live-template-enabled="true">
+        <template name="Feature module.md.child.7༏ext༏.gradle.kts" file-name="${NAME}/server-api/build" reformat="true" live-template-enabled="false" />
+        <template name="Feature module.md.child.6༏ext༏.gradle.kts" file-name="${NAME}/server-impl/build" reformat="true" live-template-enabled="false" />
+        <template name="Feature module.md.child.5༏ext༏.gradle.kts" file-name="${NAME}/shared-impl/build" reformat="true" live-template-enabled="false" />
+        <template name="Feature module.md.child.4༏ext༏.gradle.kts" file-name="${NAME}/shared-api/build" reformat="true" live-template-enabled="false" />
         <template name="Feature module.md.child.0.kt" file-name="#set( $CamelCaseName = &quot;&quot; )#set( $part = &quot;&quot; )#foreach($part in $NAME.split(&quot;-&quot;))#set( $CamelCaseName = &quot;${CamelCaseName}#if($CamelCaseName.length() == 0)$part.substring(0,1).toLowerCase()#else$part.substring(0,1).toUpperCase()#end$part.substring(1).toLowerCase()&quot; )#end${NAME}/client-impl/src/commonMain/kotlin/ru/vs/control/feature/${CamelCaseName}/Di" reformat="false" live-template-enabled="true" />
         <template name="Feature module.md.child.2༏ext༏.gradle.kts" file-name="${NAME}/client-api/build" reformat="true" live-template-enabled="false" />
         <template name="Feature module.md.child.3.txt" file-name="#set( $CamelCaseName = &quot;&quot; )#set( $part = &quot;&quot; )#foreach($part in $NAME.split(&quot;-&quot;))#set( $CamelCaseName = &quot;${CamelCaseName}#if($CamelCaseName.length() == 0)$part.substring(0,1).toLowerCase()#else$part.substring(0,1).toUpperCase()#end$part.substring(1).toLowerCase()&quot; )#end${NAME}/client-api/src/commonMain/kotlin/ru/vs/control/feature/${CamelCaseName}/delete" reformat="true" live-template-enabled="false" />
@@ -13,12 +17,16 @@
       <template name="Feature module.md.child.1༏ext༏.gradle.kts" file-name="${NAME}/client-impl/build" reformat="true" live-template-enabled="false" />
       <template name="Feature module.md.child.2༏ext༏.gradle.kts" file-name="${NAME}/client-api/build" reformat="true" live-template-enabled="false" />
       <template name="Feature module.md.child.3.txt" file-name="#set( $CamelCaseName = &quot;&quot; )#set( $part = &quot;&quot; )#foreach($part in $NAME.split(&quot;-&quot;))#set( $CamelCaseName = &quot;${CamelCaseName}#if($CamelCaseName.length() == 0)$part.substring(0,1).toLowerCase()#else$part.substring(0,1).toUpperCase()#end$part.substring(1).toLowerCase()&quot; )#end${NAME}/client-api/src/commonMain/kotlin/ru/vs/control/feature/${CamelCaseName}/delete" reformat="true" live-template-enabled="false" />
+      <template name="Feature module.md.child.4༏ext༏.gradle.kts" file-name="${NAME}/shared-api/build" reformat="true" live-template-enabled="false" />
+      <template name="Feature module.md.child.5༏ext༏.gradle.kts" file-name="${NAME}/shared-impl/build" reformat="true" live-template-enabled="false" />
+      <template name="Feature module.md.child.6༏ext༏.gradle.kts" file-name="${NAME}/server-impl/build" reformat="true" live-template-enabled="false" />
+      <template name="Feature module.md.child.7༏ext༏.gradle.kts" file-name="${NAME}/server-api/build" reformat="true" live-template-enabled="false" />
       <template name="Screen.kt" file-name="${NAME}Screen" reformat="true" live-template-enabled="false">
-        <template name="Screen.kt.child.0.kt" file-name="${NAME}Events" reformat="true" live-template-enabled="false" />
         <template name="Screen.kt.child.1.kt" file-name="${NAME}Content" reformat="true" live-template-enabled="false" />
-        <template name="Screen.kt.child.2.kt" file-name="${NAME}ViewState" reformat="true" live-template-enabled="false" />
-        <template name="Screen.kt.child.3.kt" file-name="${NAME}ScreenParams" reformat="true" live-template-enabled="false" />
         <template name="Screen.kt.child.4.kt" file-name="${NAME}ViewModel" reformat="true" live-template-enabled="false" />
+        <template name="Screen.kt.child.0.kt" file-name="${NAME}Events" reformat="true" live-template-enabled="false" />
+        <template name="Screen.kt.child.3.kt" file-name="${NAME}ScreenParams" reformat="true" live-template-enabled="false" />
+        <template name="Screen.kt.child.2.kt" file-name="${NAME}ViewState" reformat="true" live-template-enabled="false" />
       </template>
       <template name="Screen.kt.child.0.kt" file-name="${NAME}Events" reformat="true" live-template-enabled="false" />
       <template name="Screen.kt.child.1.kt" file-name="${NAME}Content" reformat="true" live-template-enabled="false" />
