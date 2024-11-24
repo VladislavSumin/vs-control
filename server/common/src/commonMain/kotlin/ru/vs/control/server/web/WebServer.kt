@@ -6,6 +6,7 @@ import io.ktor.server.application.install
 import io.ktor.server.application.serverConfig
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.EngineConnectorBuilder
+import io.ktor.server.engine.EngineSSLConnectorBuilder
 import io.ktor.server.engine.applicationEnvironment
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
@@ -18,6 +19,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
+import ru.vs.control.server.domain.KeyStoreInteractor
 
 /**
  * Осуществляет запуск веб сервера.
@@ -29,7 +31,9 @@ internal interface WebServer {
     suspend fun run()
 }
 
-internal class WebServerImpl : WebServer {
+internal class WebServerImpl(
+    private val keyStoreInteractor: KeyStoreInteractor,
+) : WebServer {
     override suspend fun run(): Unit = withContext(CoroutineName("web-server")) {
         val server = createEmbeddedServer()
         suspendCancellableCoroutine { continuation ->
@@ -53,8 +57,17 @@ internal class WebServerImpl : WebServer {
     private fun CoroutineScope.createEmbeddedServer() = embeddedServer(
         factory = CIO,
         rootConfig = createServerConfig(),
-        configure = { connectors.add(EngineConnectorBuilder().apply { port = DEFAULT_SERVER_PORT }) },
-    )
+    ) {
+        connectors.add(EngineConnectorBuilder().apply { port = DEFAULT_SERVER_PORT })
+        connectors.add(
+            EngineSSLConnectorBuilder(
+                keyStore = keyStoreInteractor.createKeyStore(),
+                keyAlias = "server",
+                keyStorePassword = { "".toCharArray() },
+                privateKeyPassword = { "".toCharArray() },
+            ),
+        )
+    }
 
     private fun CoroutineScope.createServerConfig() = serverConfig(createEnvironment()) {
         parentCoroutineContext = coroutineContext + parentCoroutineContext

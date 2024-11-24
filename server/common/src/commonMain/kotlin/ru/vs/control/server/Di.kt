@@ -6,8 +6,9 @@ import ru.vs.control.server.domain.KeyStoreInteractor
 import ru.vs.control.server.domain.KeyStoreInteractorImpl
 import ru.vs.control.server.web.WebServer
 import ru.vs.control.server.web.WebServerImpl
+import ru.vs.core.di.i
 
 internal fun createDi() = DI {
     bindSingleton<KeyStoreInteractor> { KeyStoreInteractorImpl() }
-    bindSingleton<WebServer> { WebServerImpl() }
+    bindSingleton<WebServer> { WebServerImpl(i()) }
 }
