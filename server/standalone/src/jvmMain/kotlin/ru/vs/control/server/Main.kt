@@ -1,7 +1,6 @@
 package ru.vs.control.server
 
 import kotlinx.coroutines.runBlocking
-import ru.vs.control.server.web.WebServerImpl
 import ru.vs.core.logger.api.logger
 import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
@@ -12,6 +11,6 @@ fun main() {
     logger.i { "Server hello" }
 
     runBlocking {
-        WebServerImpl().run()
+        Server().run()
     }
 }

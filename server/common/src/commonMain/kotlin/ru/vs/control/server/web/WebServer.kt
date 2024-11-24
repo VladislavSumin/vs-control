@@ -9,18 +9,17 @@ import io.ktor.server.routing.routing
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.withContext
 
-// TODO добавить di, сделать internal.
 /**
  * Осуществляет запуск веб сервера.
  */
-interface WebServer {
+internal interface WebServer {
     /**
      * Запускает и удерживает сервер в запущенном состоянии до отмены корутины.
      */
     suspend fun run()
 }
 
-class WebServerImpl : WebServer {
+internal class WebServerImpl : WebServer {
     override suspend fun run() {
         withContext(CoroutineName("web-server")) {
             // TODO настроить логирование
