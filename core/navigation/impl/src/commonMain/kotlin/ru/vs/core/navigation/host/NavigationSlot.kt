@@ -5,10 +5,10 @@ import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.navigate
 import com.arkivanov.decompose.value.Value
+import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.HostNavigator
-import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.asErasedKey
@@ -28,7 +28,7 @@ fun ScreenContext.childNavigationSlot(
     initialConfiguration: () -> ScreenParams? = { null },
     key: String = "slot_navigation",
     handleBackButton: Boolean = false,
-): Value<ChildSlot<ScreenParams, Screen>> {
+): Value<ChildSlot<ScreenParams, ComposeComponent>> {
     val source = SlotNavigation<ScreenParams>()
 
     val hostNavigator = SlotHostNavigator(source)
@@ -40,7 +40,7 @@ fun ScreenContext.childNavigationSlot(
         key = key,
         initialConfiguration = { navigator.getInitialParamsFor(navigationHost) ?: initialConfiguration() },
         handleBackButton = handleBackButton,
-        childFactory = ::childScreenFactory,
+        childFactory = { screenParam, context -> childScreenFactory(HostType.SLOT, screenParam, context) },
     )
 
     return slot

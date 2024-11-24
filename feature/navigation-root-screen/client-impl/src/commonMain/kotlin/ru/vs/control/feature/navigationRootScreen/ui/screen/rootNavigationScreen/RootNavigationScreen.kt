@@ -8,6 +8,7 @@ import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
+import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vs.core.navigation.host.childNavigationSlot
@@ -23,7 +24,7 @@ internal class RootNavigationScreen(
 
     private val delaySplash = Mutex(true)
 
-    private val childSlotNavigation: Value<ChildSlot<ScreenParams, Screen>> = childNavigationSlot(
+    private val childSlotNavigation: Value<ChildSlot<ScreenParams, ComposeComponent>> = childNavigationSlot(
         initialConfiguration = { null },
         navigationHost = RootNavigationHost,
     )

@@ -4,10 +4,10 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
+import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.HostNavigator
-import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.navigation.screen.asErasedKey
@@ -30,7 +30,7 @@ fun ScreenContext.childNavigationStack(
     initialStack: () -> List<ScreenParams> = defaultStack,
     key: String = "stack_navigation",
     handleBackButton: Boolean = false,
-): Value<ChildStack<ScreenParams, Screen>> {
+): Value<ChildStack<ScreenParams, ComposeComponent>> {
     val source = StackNavigation<ScreenParams>()
 
     val hostNavigator = StackHostNavigator(source)
@@ -52,7 +52,7 @@ fun ScreenContext.childNavigationStack(
             } ?: initialStack()
         },
         handleBackButton = handleBackButton,
-        childFactory = ::childScreenFactory,
+        childFactory = { screenParam, context -> childScreenFactory(HostType.STACK, screenParam, context) },
     )
     return stack
 }

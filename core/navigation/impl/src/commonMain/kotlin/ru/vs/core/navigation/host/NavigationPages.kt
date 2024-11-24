@@ -5,10 +5,10 @@ import com.arkivanov.decompose.router.pages.Pages
 import com.arkivanov.decompose.router.pages.PagesNavigation
 import com.arkivanov.decompose.router.pages.childPages
 import com.arkivanov.decompose.value.Value
+import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.navigation.NavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.HostNavigator
-import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenKey
 
@@ -26,7 +26,7 @@ fun ScreenContext.childNavigationPages(
     initialPages: () -> Pages<ScreenParams>,
     key: String = "pages_navigation",
     handleBackButton: Boolean = false,
-): Value<ChildPages<ScreenParams, Screen>> {
+): Value<ChildPages<ScreenParams, ComposeComponent>> {
     val source = PagesNavigation<ScreenParams>()
 
     val hostNavigator = PagesHostNavigator(source)
@@ -40,7 +40,7 @@ fun ScreenContext.childNavigationPages(
             navigator.getInitialParamsFor(navigationHost)?.let { Pages(listOf(it), 0) } ?: initialPages()
         },
         handleBackButton = handleBackButton,
-        childFactory = ::childScreenFactory,
+        childFactory = { screenParam, context -> childScreenFactory(HostType.PAGES, screenParam, context) },
     )
     return stack
 }

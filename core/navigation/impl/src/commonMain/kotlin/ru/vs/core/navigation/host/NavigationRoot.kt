@@ -16,6 +16,7 @@ import ru.vs.core.navigation.screen.DefaultScreenContext
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenPath
+import ru.vs.core.navigation.ui.debug.navigationHost.wrapWithNavigationHostDebugOverlay
 
 /**
  * Корневая точка входа в навигацию.
@@ -77,7 +78,7 @@ fun ComponentContext.childNavigationRoot(
         }
     }
 
-    return screen
+    return screen.wrapWithNavigationHostDebugOverlay(HostType.ROOT)
 }
 
 private fun handleInitialNavigationEvent(
