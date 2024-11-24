@@ -18,6 +18,7 @@ import ru.vs.control.feature.mainScreen.featureMainScreen
 import ru.vs.control.feature.navigationRootScreen.featureNavigationRootScreen
 import ru.vs.control.feature.rootContentScreen.featureRootContentScreen
 import ru.vs.control.feature.rootScreen.featureRootScreen
+import ru.vs.control.feature.serverInfo.featureServerInfo
 import ru.vs.control.feature.servers.featureServers
 import ru.vs.control.feature.settingsScreen.featureSettingsScreen
 import ru.vs.control.feature.splashScreen.featureSplashScreen
@@ -60,6 +61,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
         importOnce(Modules.featureMainScreen())
         importOnce(Modules.featureNavigationRootScreen())
         importOnce(Modules.featureRootContentScreen())
+        importOnce(Modules.featureServerInfo())
         importOnce(Modules.featureServers())
         importOnce(Modules.featureSettingsScreen())
         importOnce(Modules.featureWelcomeScreen())

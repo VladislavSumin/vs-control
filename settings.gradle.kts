@@ -61,6 +61,8 @@ include(":core:uikit:icons")
 include(":core:uikit:paddings")
 include(":core:utils")
 
+sharedFeature("server-info")
+
 clientFeature("app-info")
 clientFeature("debug-screen")
 clientFeature("embedded-server")
@@ -80,7 +82,6 @@ include("client")
 include(":server:common")
 include(":server:embedded")
 include(":server:standalone")
-
 
 /**
  * Подключает полную иерархию фичей клиент + сервер + shared, согласно стандартному набору модулей.
