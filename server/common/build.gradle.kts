@@ -12,7 +12,8 @@ kotlin {
 
             api(libs.ktor.network.tlsCertificates)
             api(libs.ktor.server.core)
-            api(libs.ktor.server.cio)
+            // TODO api(libs.ktor.server.cio) cio не поддерживает ssl
+            api(libs.ktor.server.netty)
             api(libs.ktor.server.contentNegotiation)
             api(libs.ktor.server.serialization.protobuf)
 

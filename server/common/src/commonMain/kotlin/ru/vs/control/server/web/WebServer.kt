@@ -4,11 +4,10 @@ import io.ktor.serialization.kotlinx.protobuf.protobuf
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.application.serverConfig
-import io.ktor.server.cio.CIO
-import io.ktor.server.engine.EngineConnectorBuilder
 import io.ktor.server.engine.EngineSSLConnectorBuilder
 import io.ktor.server.engine.applicationEnvironment
 import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.response.respond
 import io.ktor.server.routing.get
@@ -55,10 +54,9 @@ internal class WebServerImpl(
     }
 
     private fun CoroutineScope.createEmbeddedServer() = embeddedServer(
-        factory = CIO,
+        factory = Netty,
         rootConfig = createServerConfig(),
     ) {
-        connectors.add(EngineConnectorBuilder().apply { port = DEFAULT_SERVER_PORT })
         connectors.add(
             EngineSSLConnectorBuilder(
                 keyStore = keyStoreInteractor.createKeyStore(),
@@ -83,5 +81,3 @@ data class Info(
     val name: String,
     val version: String,
 )
-
-private const val DEFAULT_SERVER_PORT = 8080
