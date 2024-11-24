@@ -61,19 +61,19 @@ include(":core:uikit:icons")
 include(":core:uikit:paddings")
 include(":core:utils")
 
-feature("app-info")
-feature("debug-screen")
-feature("embedded-server")
-feature("initialization")
-feature("initialized-root-screen")
-feature("main-screen")
-feature("navigation-root-screen")
-feature("root-content-screen")
-feature("root-screen")
-feature("servers")
-feature("settings-screen")
-feature("splash-screen")
-feature("welcome-screen")
+clientFeature("app-info")
+clientFeature("debug-screen")
+clientFeature("embedded-server")
+clientFeature("initialization")
+clientFeature("initialized-root-screen")
+clientFeature("main-screen")
+clientFeature("navigation-root-screen")
+clientFeature("root-content-screen")
+clientFeature("root-screen")
+clientFeature("servers")
+clientFeature("settings-screen")
+clientFeature("splash-screen")
+clientFeature("welcome-screen")
 
 include("client")
 
@@ -81,11 +81,32 @@ include(":server:common")
 include(":server:embedded")
 include(":server:standalone")
 
+
 /**
- * Подключает иерархию фичи, согласно стандартному набору модулей.
+ * Подключает полную иерархию фичей клиент + сервер + shared, согласно стандартному набору модулей.
  * @param name имя фичи.
  */
-fun feature(name: String) {
+fun sharedFeature(name: String) {
+    include(":feature:$name:shared-api")
+    include(":feature:$name:shared-impl")
+    clientFeature(name)
+    serverFeature(name)
+}
+
+/**
+ * Подключает иерархию фичи клиента, согласно стандартному набору модулей.
+ * @param name имя фичи.
+ */
+fun clientFeature(name: String) {
     include(":feature:$name:client-api")
     include(":feature:$name:client-impl")
+}
+
+/**
+ * Подключает иерархию фичи сервера, согласно стандартному набору модулей.
+ * @param name имя фичи.
+ */
+fun serverFeature(name: String) {
+    include(":feature:$name:server-api")
+    include(":feature:$name:server-impl")
 }
