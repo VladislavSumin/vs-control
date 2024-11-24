@@ -29,6 +29,7 @@ multiplatformSettings = "1.2.0"
 
 # Logging
 logging-log4j = "2.24.1"
+logging-slf4j = "2.0.16"
 
 # Testing
 mockk = "1.13.13"
@@ -99,6 +100,8 @@ detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", 
 # Logging
 logging-log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "logging-log4j" }
 logging-log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "logging-log4j" }
+logging-log4j-slf4j = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "logging-log4j" }
+logging-slf4j = { module = "org.slf4j:slf4j-api", version.ref = "logging-slf4j" }
 
 # Testing
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }

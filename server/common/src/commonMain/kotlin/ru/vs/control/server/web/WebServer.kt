@@ -3,8 +3,10 @@ package ru.vs.control.server.web
 import io.ktor.serialization.kotlinx.protobuf.protobuf
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
+import io.ktor.server.application.serverConfig
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.EngineConnectorBuilder
+import io.ktor.server.engine.applicationEnvironment
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.response.respond
@@ -28,13 +30,20 @@ internal interface WebServer {
 internal class WebServerImpl : WebServer {
     override suspend fun run() {
         withContext(CoroutineName("web-server")) {
-            // TODO настроить логирование
+            val environment = applicationEnvironment {}
+
+            val config = serverConfig(environment) {
+                parentCoroutineContext = coroutineContext + parentCoroutineContext
+                watchPaths = emptyList()
+                module { module() }
+            }
+
             val server = embeddedServer(
                 factory = CIO,
-                connectors = arrayOf(EngineConnectorBuilder().apply { port = DEFAULT_SERVER_PORT }),
-                watchPaths = emptyList(),
-                module = { module() },
+                rootConfig = config,
+                configure = { connectors.add(EngineConnectorBuilder().apply { port = DEFAULT_SERVER_PORT }) },
             )
+
             // TODO отключать сервер при отмене корутины.
             server.start(true)
         }

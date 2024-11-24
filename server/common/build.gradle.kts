@@ -15,6 +15,9 @@ kotlin {
             api(libs.ktor.server.cio)
             api(libs.ktor.server.contentNegotiation)
             api(libs.ktor.server.serialization.protobuf)
+
+            api(libs.logging.slf4j)
+            api(libs.logging.log4j.slf4j)
         }
     }
 }
