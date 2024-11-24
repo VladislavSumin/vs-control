@@ -6,8 +6,7 @@ package ru.vs.convention.preset
  */
 
 plugins {
-    id("ru.vs.convention.kmp.all")
-    kotlin("plugin.serialization")
+    id("ru.vs.convention.preset.feature-shared-api")
 }
 
 kotlin {

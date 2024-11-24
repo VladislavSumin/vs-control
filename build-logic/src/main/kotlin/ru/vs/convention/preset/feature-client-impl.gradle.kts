@@ -7,9 +7,9 @@ package ru.vs.convention.preset
 
 plugins {
     id("ru.vs.convention.preset.feature-client-api")
+    id("ru.vs.convention.preset.feature-shared-impl")
     id("ru.vs.convention.atomicfu")
     id("ru.vs.convention.factory-generator")
-    id("ru.vs.convention.impl-to-api-dependency")
 }
 
 kotlin {
