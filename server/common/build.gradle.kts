@@ -10,6 +10,7 @@ kotlin {
             api(projects.core.di)
             api(projects.core.serialization.protobuf)
 
+            api(libs.ktor.network.tlsCertificates)
             api(libs.ktor.server.core)
             api(libs.ktor.server.cio)
             api(libs.ktor.server.contentNegotiation)
