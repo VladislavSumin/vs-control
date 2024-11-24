@@ -13,6 +13,7 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
@@ -28,26 +29,25 @@ internal interface WebServer {
 }
 
 internal class WebServerImpl : WebServer {
-    override suspend fun run() {
-        withContext(CoroutineName("web-server")) {
-            val environment = applicationEnvironment {}
+    override suspend fun run(): Unit = withContext(CoroutineName("web-server")) {
+        val config = serverConfig(createEnvironment()) {
+            parentCoroutineContext = coroutineContext + parentCoroutineContext
+            watchPaths = emptyList()
+            module { module() }
+        }
 
-            val config = serverConfig(environment) {
-                parentCoroutineContext = coroutineContext + parentCoroutineContext
-                watchPaths = emptyList()
-                module { module() }
-            }
+        val server = embeddedServer(
+            factory = CIO,
+            rootConfig = config,
+            configure = { connectors.add(EngineConnectorBuilder().apply { port = DEFAULT_SERVER_PORT }) },
+        )
 
-            val server = embeddedServer(
-                factory = CIO,
-                rootConfig = config,
-                configure = { connectors.add(EngineConnectorBuilder().apply { port = DEFAULT_SERVER_PORT }) },
-            )
-
-            // TODO отключать сервер при отмене корутины.
-            server.start(true)
+        suspendCancellableCoroutine { continuation ->
+            server.start()
+            continuation.invokeOnCancellation { server.stop() }
         }
     }
+
 
     @OptIn(ExperimentalSerializationApi::class)
     fun Application.module() {
@@ -60,6 +60,8 @@ internal class WebServerImpl : WebServer {
             }
         }
     }
+
+    private fun createEnvironment() = applicationEnvironment {}
 }
 
 @Serializable
