@@ -9,13 +9,3 @@ plugins {
     id("ru.vs.convention.platform-to-shared-dependency")
     id("ru.vs.convention.preset.feature-shared-api")
 }
-
-kotlin {
-    sourceSets {
-        commonMain.dependencies {
-            implementation(project(":core:coroutines"))
-            implementation(project(":core:logger:api"))
-            implementation(project(":core:utils"))
-        }
-    }
-}
