@@ -40,6 +40,13 @@ android {
             )
         }
     }
+
+    packaging {
+        resources.excludes.add("META-INF/INDEX.LIST")
+        resources.excludes.add("META-INF/DEPENDENCIES")
+        // TODO удалить после перехода на CIO
+        resources.pickFirsts.add("META-INF/io.netty.versions.properties")
+    }
 }
 
 kotlin {
