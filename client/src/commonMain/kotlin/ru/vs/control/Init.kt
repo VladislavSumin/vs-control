@@ -31,6 +31,7 @@ import ru.vs.core.database.coreDatabase
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.core.fs.coreFs
+import ru.vs.core.ktor.client.coreKtorClient
 import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
 import ru.vs.core.navigation.coreNavigation
@@ -54,6 +55,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
         importOnce(Modules.coreAutoload())
         importOnce(Modules.coreNavigation())
         importOnce(Modules.coreDatabase())
+        importOnce(Modules.coreKtorClient())
 
         importOnce(Modules.featureDebugScreen())
         importOnce(Modules.featureEmbeddedServer())

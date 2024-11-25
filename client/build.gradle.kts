@@ -107,6 +107,7 @@ kotlin {
             implementation(projects.core.compose)
             implementation(projects.core.decompose)
             implementation(projects.core.di)
+            implementation(projects.core.ktor.client)
             implementation(projects.core.fs.impl)
             implementation(projects.core.navigation.impl)
             implementation(projects.core.properties.impl)
