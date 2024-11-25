@@ -20,7 +20,19 @@ moduleGraphAssert {
 
         // Настройки специфичные для Control
         ":feature:.*:client-impl -> :feature:.*:client-api",
+        ":feature:.*:server-impl -> :feature:.*:server-api",
+
+        ":feature:.*:shared-impl -> :feature:.*:shared-api",
+
+        ":feature:.*:client-api -> :feature:.*:shared-api",
+        ":feature:.*:client-impl -> :feature:.*:shared-impl",
+
+        ":feature:.*:server-api -> :feature:.*:shared-api",
+        ":feature:.*:server-impl -> :feature:.*:shared-impl",
+
         ":client -> :feature:.*:client-impl",
+        ":server -> :feature:.*:server-impl",
+
         ":server:embedded -> :server:common",
         ":server:standalone -> :server:common",
     )
