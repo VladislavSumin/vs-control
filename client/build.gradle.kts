@@ -57,15 +57,16 @@ kotlin {
         }
     }
 
-    js {
-        binaries.executable()
-
-        browser {
-            commonWebpackConfig {
-                outputFileName = "main.js"
-            }
-        }
-    }
+// TODO Включить обратно
+//    js {
+//        binaries.executable()
+//
+//        browser {
+//            commonWebpackConfig {
+//                outputFileName = "main.js"
+//            }
+//        }
+//    }
 
 // TODO Включить обратно
 //    @OptIn(ExperimentalWasmDsl::class)
@@ -78,21 +79,22 @@ kotlin {
 //        }
 //    }
 
-    macosX64 {
-        binaries {
-            executable {
-                entryPoint = "main"
-            }
-        }
-    }
-
-    macosArm64 {
-        binaries {
-            executable {
-                entryPoint = "main"
-            }
-        }
-    }
+// TODO Включить обратно
+//    macosX64 {
+//        binaries {
+//            executable {
+//                entryPoint = "main"
+//            }
+//        }
+//    }
+//
+//    macosArm64 {
+//        binaries {
+//            executable {
+//                entryPoint = "main"
+//            }
+//        }
+//    }
 
     sourceSets {
         commonMain.dependencies {

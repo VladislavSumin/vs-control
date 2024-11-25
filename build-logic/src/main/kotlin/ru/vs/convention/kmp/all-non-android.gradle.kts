@@ -6,9 +6,14 @@ package ru.vs.convention.kmp
  */
 
 plugins {
-    id("ru.vs.convention.kmp.js")
+    // TODO включить обратно
+    // не поддерживается ktor cio но поддержка уже вот вот так что скоро можно будет включать обратно
+    // id("ru.vs.convention.kmp.js")
     id("ru.vs.convention.kmp.jvm")
-    id("ru.vs.convention.kmp.macos")
+
+    // TODO включить обратно
+    // не поддерживается ktor cio
+    // id("ru.vs.convention.kmp.macos")
 
     // TODO включить обратно
     // не поддерживается sqldelight
