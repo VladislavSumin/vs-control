@@ -19,6 +19,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import ru.vs.control.server.domain.KeyStoreInteractor
+import ru.vs.core.ktor.server.KtorServerModule
 
 /**
  * Осуществляет запуск веб сервера.
@@ -32,6 +33,7 @@ internal interface WebServer {
 
 internal class WebServerImpl(
     private val keyStoreInteractor: KeyStoreInteractor,
+    private val modules: Set<KtorServerModule>,
 ) : WebServer {
     override suspend fun run(): Unit = withContext(CoroutineName("web-server")) {
         val server = createEmbeddedServer()
@@ -71,6 +73,9 @@ internal class WebServerImpl(
         parentCoroutineContext = coroutineContext + parentCoroutineContext
         watchPaths = emptyList()
         module { module() }
+
+        // Регистрируем все внешние модули
+        modules.forEach { module { with(it) { module() } } }
     }
 
     private fun createEnvironment() = applicationEnvironment {}

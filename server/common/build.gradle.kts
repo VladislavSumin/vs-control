@@ -8,10 +8,10 @@ kotlin {
         commonMain.dependencies {
             api(projects.core.logger.api)
             api(projects.core.di)
+            api(projects.core.ktor.server)
             api(projects.core.serialization.protobuf)
 
             api(libs.ktor.network.tlsCertificates)
-            api(libs.ktor.server.core)
             // TODO api(libs.ktor.server.cio) cio не поддерживает ssl
             api(libs.ktor.server.netty)
             api(libs.ktor.server.contentNegotiation)
