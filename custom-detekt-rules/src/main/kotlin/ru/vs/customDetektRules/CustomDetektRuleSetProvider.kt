@@ -20,7 +20,7 @@ class CustomDetektRuleSetProvider : RuleSetProvider {
         return RuleSet(
             ruleSetId,
             listOf(
-                // ModuleRootPackage(config),
+                ModuleRootPackage(config),
                 NavigationRegistrarImpl(config),
                 Screen(config),
                 ScreenFactory(config),

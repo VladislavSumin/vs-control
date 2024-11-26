@@ -1,4 +1,6 @@
 control:
+  moduleRootPackage:
+    active: true
   navigationRegistrarImpl:
     active: true
   screen:
