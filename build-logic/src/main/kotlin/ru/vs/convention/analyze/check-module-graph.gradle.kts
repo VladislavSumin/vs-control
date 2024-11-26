@@ -31,7 +31,7 @@ moduleGraphAssert {
         ":feature:.*:server-impl -> :feature:.*:shared-impl",
 
         ":client -> :feature:.*:client-impl",
-        ":server -> :feature:.*:server-impl",
+        ":server:common -> :feature:.*:server-impl",
 
         ":server:embedded -> :server:common",
         ":server:standalone -> :server:common",
