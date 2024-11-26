@@ -1,4 +1,4 @@
-package ru.vs.control.feature.appInfo.domain
+package ru.vs.control.feature.appInfo.client.domain
 
 /**
  * Предоставляет базовую информацию о приложении.
