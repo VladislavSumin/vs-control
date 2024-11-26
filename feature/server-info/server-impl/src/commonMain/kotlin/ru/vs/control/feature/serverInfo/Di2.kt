@@ -5,6 +5,7 @@ import ru.vs.control.feature.serverInfo.module.ServerInfoModule
 import ru.vs.core.di.Modules
 import ru.vs.core.ktor.server.bindKtorServerModule
 
-fun Modules.featureServerInfo() = DI.Module("feature-server-info") {
+// TODO временно чисто.
+fun Modules.featureServerInfo2() = DI.Module("feature-server-info") {
     bindKtorServerModule { ServerInfoModule() }
 }
