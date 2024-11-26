@@ -3,6 +3,7 @@ package ru.vs.customDetektRules
 import io.gitlab.arturbosch.detekt.api.Config
 import io.gitlab.arturbosch.detekt.api.RuleSet
 import io.gitlab.arturbosch.detekt.api.RuleSetProvider
+import ru.vs.customDetektRules.rules.ModuleRootPackage
 import ru.vs.customDetektRules.rules.NavigationRegistrarImpl
 import ru.vs.customDetektRules.rules.Screen
 import ru.vs.customDetektRules.rules.ScreenComponent
@@ -19,6 +20,7 @@ class CustomDetektRuleSetProvider : RuleSetProvider {
         return RuleSet(
             ruleSetId,
             listOf(
+                // ModuleRootPackage(config),
                 NavigationRegistrarImpl(config),
                 Screen(config),
                 ScreenFactory(config),
