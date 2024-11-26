@@ -18,6 +18,7 @@ kotlin {
             implementation(project(":core:autoload"))
             implementation(project(":core:di"))
             implementation(project(":core:properties:api"))
+            implementation(project(":core:ktor:client"))
         }
     }
 }
