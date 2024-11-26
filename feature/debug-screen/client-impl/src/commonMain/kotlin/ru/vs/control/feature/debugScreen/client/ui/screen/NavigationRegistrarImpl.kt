@@ -1,7 +1,7 @@
-package ru.vs.control.feature.debugScreen.ui.screen
+package ru.vs.control.feature.debugScreen.client.ui.screen
 
-import ru.vs.control.feature.debugScreen.ui.screen.debugScreen.DebugScreenFactory
-import ru.vs.control.feature.debugScreen.ui.screen.debugScreen.DebugScreenParams
+import ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen.DebugScreenFactory
+import ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen.DebugScreenParams
 import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentNavigationHost
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry

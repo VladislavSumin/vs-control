@@ -1,4 +1,4 @@
-package ru.vs.control.feature.debugScreen.ui.screen.debugScreen
+package ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen
 
 import kotlinx.serialization.Serializable
 import ru.vs.core.navigation.ScreenParams

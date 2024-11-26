@@ -1,4 +1,4 @@
-package ru.vs.control.feature.debugScreen.ui.screen.debugScreen
+package ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
