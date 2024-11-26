@@ -1,4 +1,4 @@
-package ru.vs.control.feature.serverInfo.module
+package ru.vs.control.feature.serverInfo.server.module
 
 import io.ktor.server.application.Application
 import io.ktor.server.response.respond
