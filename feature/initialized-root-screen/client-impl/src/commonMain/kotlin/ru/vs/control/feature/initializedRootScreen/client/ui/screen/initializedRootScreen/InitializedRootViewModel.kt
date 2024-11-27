@@ -1,4 +1,4 @@
-package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScreen
+package ru.vs.control.feature.initializedRootScreen.client.ui.screen.initializedRootScreen
 
 import ru.vs.core.decompose.ViewModel
 import ru.vs.core.logger.api.logger

@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.flow
 import org.kodein.di.DirectDI
 import org.kodein.di.instance
 import ru.vs.control.feature.initialization.domain.InitializationInteractor
-import ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScreen.InitializedRootScreenFactory
+import ru.vs.control.feature.initializedRootScreen.client.ui.screen.initializedRootScreen.InitializedRootScreenFactory
 import ru.vs.core.decompose.ViewModel
 import ru.vs.core.factoryGenerator.GenerateFactory
 

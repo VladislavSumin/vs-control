@@ -1,4 +1,4 @@
-package ru.vs.control.feature.initializedRootScreen.ui.screen.initializedRootScreen
+package ru.vs.control.feature.initializedRootScreen.client.ui.screen.initializedRootScreen
 
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
