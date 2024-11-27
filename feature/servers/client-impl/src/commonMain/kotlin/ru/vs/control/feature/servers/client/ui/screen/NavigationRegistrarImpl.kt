@@ -1,6 +1,6 @@
 package ru.vs.control.feature.servers.client.ui.screen
 
-import ru.vs.control.feature.mainScreen.ui.screen.mainScreen.TabNavigationHost
+import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.TabNavigationHost
 import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentNavigationHost
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlScreenFactory
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlScreenParams

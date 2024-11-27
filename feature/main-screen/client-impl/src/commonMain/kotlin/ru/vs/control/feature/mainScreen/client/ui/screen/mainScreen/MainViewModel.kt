@@ -1,4 +1,4 @@
-package ru.vs.control.feature.mainScreen.ui.screen.mainScreen
+package ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen
 
 import androidx.compose.runtime.Stable
 import ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen.DebugScreenParams

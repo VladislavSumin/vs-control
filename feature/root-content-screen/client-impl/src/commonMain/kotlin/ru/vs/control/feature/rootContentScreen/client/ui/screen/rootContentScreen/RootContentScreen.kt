@@ -8,7 +8,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
-import ru.vs.control.feature.mainScreen.ui.screen.mainScreen.MainScreenParams
+import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.MainScreenParams
 import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vs.core.navigation.host.childNavigationStack
 import ru.vs.core.navigation.screen.Screen

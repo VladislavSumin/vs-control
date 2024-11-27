@@ -1,4 +1,4 @@
-package ru.vs.control.feature.mainScreen.ui.screen.mainScreen
+package ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen
 
 import ru.vs.core.navigation.NavigationHost
 
