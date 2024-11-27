@@ -1,4 +1,4 @@
-package ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen
+package ru.vs.control.feature.welcomeScreen.client.ui.screen.welcomeScreen
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Column

@@ -22,7 +22,7 @@ import ru.vs.control.feature.serverInfo.featureServerInfo
 import ru.vs.control.feature.servers.featureServers
 import ru.vs.control.feature.settingsScreen.featureSettingsScreen
 import ru.vs.control.feature.splashScreen.featureSplashScreen
-import ru.vs.control.feature.welcomeScreen.featureWelcomeScreen
+import ru.vs.control.feature.welcomeScreen.client.featureWelcomeScreen
 import ru.vs.control.service.DatabaseService
 import ru.vs.core.autoload.coreAutoload
 import ru.vs.core.coroutines.DispatchersProvider

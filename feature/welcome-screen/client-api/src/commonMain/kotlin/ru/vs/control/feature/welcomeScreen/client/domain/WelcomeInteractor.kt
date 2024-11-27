@@ -1,4 +1,4 @@
-package ru.vs.control.feature.welcomeScreen.domain
+package ru.vs.control.feature.welcomeScreen.client.domain
 
 interface WelcomeInteractor {
     /**

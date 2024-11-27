@@ -1,4 +1,4 @@
-package ru.vs.control.feature.welcomeScreen.domain
+package ru.vs.control.feature.welcomeScreen.client.domain
 
 import kotlinx.coroutines.flow.first
 import ru.vs.core.properties.Properties

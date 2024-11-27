@@ -1,8 +1,8 @@
-package ru.vs.control.feature.welcomeScreen.ui.screen
+package ru.vs.control.feature.welcomeScreen.client.ui.screen
 
 import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
-import ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen.WelcomeScreenFactory
-import ru.vs.control.feature.welcomeScreen.ui.screen.welcomeScreen.WelcomeScreenParams
+import ru.vs.control.feature.welcomeScreen.client.ui.screen.welcomeScreen.WelcomeScreenFactory
+import ru.vs.control.feature.welcomeScreen.client.ui.screen.welcomeScreen.WelcomeScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
 
