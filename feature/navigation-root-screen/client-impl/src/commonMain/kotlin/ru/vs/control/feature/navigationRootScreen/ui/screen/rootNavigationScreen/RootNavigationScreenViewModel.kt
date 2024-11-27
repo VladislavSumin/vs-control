@@ -1,6 +1,6 @@
 package ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen
 
-import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentScreenParams
+import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentScreenParams
 import ru.vs.control.feature.welcomeScreen.client.domain.WelcomeInteractor
 import ru.vs.control.feature.welcomeScreen.client.ui.screen.welcomeScreen.WelcomeScreenParams
 import ru.vs.core.decompose.ViewModel

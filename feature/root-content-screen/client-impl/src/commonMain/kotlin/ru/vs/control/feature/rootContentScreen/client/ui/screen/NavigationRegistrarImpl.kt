@@ -1,9 +1,9 @@
-package ru.vs.control.feature.rootContentScreen.ui.screen
+package ru.vs.control.feature.rootContentScreen.client.ui.screen
 
 import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
-import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentNavigationHost
-import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentScreenFactory
-import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentScreenParams
+import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentNavigationHost
+import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentScreenFactory
+import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
 

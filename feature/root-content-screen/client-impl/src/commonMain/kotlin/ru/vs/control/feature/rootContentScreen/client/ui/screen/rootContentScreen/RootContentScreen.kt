@@ -1,4 +1,4 @@
-package ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen
+package ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable

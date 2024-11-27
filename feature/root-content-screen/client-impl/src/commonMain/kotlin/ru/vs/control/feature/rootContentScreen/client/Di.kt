@@ -1,7 +1,7 @@
-package ru.vs.control.feature.rootContentScreen
+package ru.vs.control.feature.rootContentScreen.client
 
 import org.kodein.di.DI
-import ru.vs.control.feature.rootContentScreen.ui.screen.NavigationRegistrarImpl
+import ru.vs.control.feature.rootContentScreen.client.ui.screen.NavigationRegistrarImpl
 import ru.vs.core.di.Modules
 import ru.vs.core.navigation.registration.bindNavigation
 
