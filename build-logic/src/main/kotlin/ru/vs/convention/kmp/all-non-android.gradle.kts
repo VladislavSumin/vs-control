@@ -6,9 +6,7 @@ package ru.vs.convention.kmp
  */
 
 plugins {
-    // TODO включить обратно
-    // не поддерживается ktor cio но поддержка уже вот вот так что скоро можно будет включать обратно
-    // id("ru.vs.convention.kmp.js")
+    id("ru.vs.convention.kmp.js")
     id("ru.vs.convention.kmp.jvm")
 
     // TODO включить обратно

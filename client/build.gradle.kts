@@ -57,16 +57,15 @@ kotlin {
         }
     }
 
-// TODO Включить обратно
-//    js {
-//        binaries.executable()
-//
-//        browser {
-//            commonWebpackConfig {
-//                outputFileName = "main.js"
-//            }
-//        }
-//    }
+    js {
+        binaries.executable()
+
+        browser {
+            commonWebpackConfig {
+                outputFileName = "main.js"
+            }
+        }
+    }
 
 // TODO Включить обратно
 //    @OptIn(ExperimentalWasmDsl::class)
