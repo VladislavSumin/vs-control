@@ -1,9 +1,9 @@
-package ru.vs.control.feature.initialization
+package ru.vs.control.feature.initialization.client
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
-import ru.vs.control.feature.initialization.domain.InitializationInteractor
-import ru.vs.control.feature.initialization.domain.InitializationInteractorImpl
+import ru.vs.control.feature.initialization.client.domain.InitializationInteractor
+import ru.vs.control.feature.initialization.client.domain.InitializationInteractorImpl
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 

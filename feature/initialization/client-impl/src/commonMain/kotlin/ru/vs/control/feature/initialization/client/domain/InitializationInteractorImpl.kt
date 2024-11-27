@@ -1,4 +1,4 @@
-package ru.vs.control.feature.initialization.domain
+package ru.vs.control.feature.initialization.client.domain
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
