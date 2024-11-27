@@ -1,4 +1,4 @@
-package ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen
+package ru.vs.control.feature.navigationRootScreen.client.ui.screen.rootNavigationScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -7,7 +7,7 @@ import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
+import ru.vs.control.feature.navigationRootScreen.client.ui.screen.RootNavigationHost
 import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vs.core.navigation.host.childNavigationSlot

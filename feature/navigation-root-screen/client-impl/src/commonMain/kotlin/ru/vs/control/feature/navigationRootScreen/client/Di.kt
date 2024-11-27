@@ -1,10 +1,10 @@
-package ru.vs.control.feature.navigationRootScreen
+package ru.vs.control.feature.navigationRootScreen.client
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
-import ru.vs.control.feature.navigationRootScreen.ui.screen.NavigationRegistrarImpl
-import ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen.RootNavigationScreenFactory
-import ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen.RootNavigationScreenViewModelFactory
+import ru.vs.control.feature.navigationRootScreen.client.ui.screen.NavigationRegistrarImpl
+import ru.vs.control.feature.navigationRootScreen.client.ui.screen.rootNavigationScreen.RootNavigationScreenFactory
+import ru.vs.control.feature.navigationRootScreen.client.ui.screen.rootNavigationScreen.RootNavigationScreenViewModelFactory
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.core.navigation.registration.bindNavigation

@@ -1,7 +1,7 @@
-package ru.vs.control.feature.navigationRootScreen.ui.screen
+package ru.vs.control.feature.navigationRootScreen.client.ui.screen
 
-import ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen.RootNavigationScreenFactory
-import ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen.RootNavigationScreenParams
+import ru.vs.control.feature.navigationRootScreen.client.ui.screen.rootNavigationScreen.RootNavigationScreenFactory
+import ru.vs.control.feature.navigationRootScreen.client.ui.screen.rootNavigationScreen.RootNavigationScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
 

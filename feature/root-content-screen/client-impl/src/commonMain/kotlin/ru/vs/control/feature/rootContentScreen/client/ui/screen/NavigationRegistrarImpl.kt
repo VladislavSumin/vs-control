@@ -1,6 +1,6 @@
 package ru.vs.control.feature.rootContentScreen.client.ui.screen
 
-import ru.vs.control.feature.navigationRootScreen.ui.screen.RootNavigationHost
+import ru.vs.control.feature.navigationRootScreen.client.ui.screen.RootNavigationHost
 import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentNavigationHost
 import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentScreenFactory
 import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentScreenParams

@@ -1,4 +1,4 @@
-package ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen
+package ru.vs.control.feature.navigationRootScreen.client.ui.screen.rootNavigationScreen
 
 import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentScreenParams
 import ru.vs.control.feature.welcomeScreen.client.domain.WelcomeInteractor

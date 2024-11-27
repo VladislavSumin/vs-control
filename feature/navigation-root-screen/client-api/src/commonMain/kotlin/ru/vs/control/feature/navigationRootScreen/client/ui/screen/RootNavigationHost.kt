@@ -1,4 +1,4 @@
-package ru.vs.control.feature.navigationRootScreen.ui.screen
+package ru.vs.control.feature.navigationRootScreen.client.ui.screen
 
 import ru.vs.core.navigation.NavigationHost
 

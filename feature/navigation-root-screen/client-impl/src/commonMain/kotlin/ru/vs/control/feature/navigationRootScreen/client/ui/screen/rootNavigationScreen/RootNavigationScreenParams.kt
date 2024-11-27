@@ -1,4 +1,4 @@
-package ru.vs.control.feature.navigationRootScreen.ui.screen.rootNavigationScreen
+package ru.vs.control.feature.navigationRootScreen.client.ui.screen.rootNavigationScreen
 
 import kotlinx.serialization.Serializable
 import ru.vs.core.navigation.ScreenParams
