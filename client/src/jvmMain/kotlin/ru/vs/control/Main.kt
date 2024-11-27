@@ -10,7 +10,7 @@ import com.arkivanov.decompose.extensions.compose.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import org.kodein.di.instance
 import ru.vs.control.feature.appInfo.client.domain.AppInfoInteractor
-import ru.vs.control.feature.rootScreen.ui.screen.rootScreen.RootScreenFactory
+import ru.vs.control.feature.rootScreen.client.ui.screen.rootScreen.RootScreenFactory
 import javax.swing.SwingUtilities
 
 /**

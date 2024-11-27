@@ -13,7 +13,7 @@ import org.kodein.di.DIAware
 import org.kodein.di.android.closestDI
 import org.kodein.di.direct
 import org.kodein.di.instance
-import ru.vs.control.feature.rootScreen.ui.screen.rootScreen.RootScreenFactory
+import ru.vs.control.feature.rootScreen.client.ui.screen.rootScreen.RootScreenFactory
 
 class MainActivity : ComponentActivity(), DIAware {
     override val di: DI by closestDI()

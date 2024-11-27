@@ -1,4 +1,4 @@
-package ru.vs.control.feature.rootScreen.ui.screen.rootScreen
+package ru.vs.control.feature.rootScreen.client.ui.screen.rootScreen
 
 internal sealed interface RootScreenState {
     /**
