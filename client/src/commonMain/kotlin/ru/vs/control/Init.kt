@@ -18,7 +18,7 @@ import ru.vs.control.feature.mainScreen.featureMainScreen
 import ru.vs.control.feature.navigationRootScreen.featureNavigationRootScreen
 import ru.vs.control.feature.rootContentScreen.featureRootContentScreen
 import ru.vs.control.feature.rootScreen.featureRootScreen
-import ru.vs.control.feature.serverInfo.featureServerInfo
+import ru.vs.control.feature.serverInfo.client.featureServerInfo
 import ru.vs.control.feature.servers.client.featureServers
 import ru.vs.control.feature.settingsScreen.client.featureSettingsScreen
 import ru.vs.control.feature.splashScreen.client.featureSplashScreen

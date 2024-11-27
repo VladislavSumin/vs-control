@@ -1,4 +1,4 @@
-package ru.vs.control.feature.serverInfo.api
+package ru.vs.control.feature.serverInfo.client.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
