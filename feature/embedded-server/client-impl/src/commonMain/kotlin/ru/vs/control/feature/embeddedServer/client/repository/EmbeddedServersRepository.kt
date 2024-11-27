@@ -21,12 +21,12 @@ internal class EmbeddedServersRepositoryImpl(
     private val queriesProvider: EmbeddedServerQueriesProvider,
     private val dispatchersProvider: DispatchersProvider,
 ) : EmbeddedServersRepository {
-    override suspend fun insert(server: EmbeddedServer) = withContext(dispatchersProvider.default) {
+    override suspend fun insert(server: EmbeddedServer) = withContext(dispatchersProvider.io) {
         check(server.id.raw == 0L)
         queriesProvider.getEmbeddedServerRecordQueries().insert(server.toRecord())
     }
 
-    override suspend fun delete(server: EmbeddedServer) = withContext(dispatchersProvider.default) {
+    override suspend fun delete(server: EmbeddedServer) = withContext(dispatchersProvider.io) {
         check(server.id.raw != 0L)
         queriesProvider.getEmbeddedServerRecordQueries().delete(server.id.raw)
     }
@@ -36,7 +36,7 @@ internal class EmbeddedServersRepositoryImpl(
             .flatMapLatest {
                 it.selectAll()
                     .asFlow()
-                    .mapToList(dispatchersProvider.default)
+                    .mapToList(dispatchersProvider.io)
                     .map { it.toModels() }
             }
     }

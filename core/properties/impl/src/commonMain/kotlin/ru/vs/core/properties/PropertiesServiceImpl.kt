@@ -9,6 +9,6 @@ internal class PropertiesServiceImpl(
 ) : PropertiesService {
     override fun getProperties(propertiesKey: PropertiesKey): Properties {
         val settings = flowSettingsFactory.createSettings(propertiesKey.key)
-        return PropertiesImpl(settings.toFlowSettings(dispatchersProvider.default))
+        return PropertiesImpl(settings.toFlowSettings(dispatchersProvider.io))
     }
 }
