@@ -1,4 +1,4 @@
-package ru.vs.control.feature.settingsScreen.ui.screen.settingsScreen
+package ru.vs.control.feature.settingsScreen.client.ui.screen.settingsScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

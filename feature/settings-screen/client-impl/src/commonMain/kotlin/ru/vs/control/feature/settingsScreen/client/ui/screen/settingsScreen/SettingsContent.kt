@@ -1,4 +1,4 @@
-package ru.vs.control.feature.settingsScreen.ui.screen.settingsScreen
+package ru.vs.control.feature.settingsScreen.client.ui.screen.settingsScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

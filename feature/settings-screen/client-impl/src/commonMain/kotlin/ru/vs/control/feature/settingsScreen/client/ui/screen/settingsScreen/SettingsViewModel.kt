@@ -1,4 +1,4 @@
-package ru.vs.control.feature.settingsScreen.ui.screen.settingsScreen
+package ru.vs.control.feature.settingsScreen.client.ui.screen.settingsScreen
 
 import androidx.compose.runtime.Stable
 import ru.vs.core.decompose.ViewModel

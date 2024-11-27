@@ -1,8 +1,8 @@
-package ru.vs.control.feature.settingsScreen.ui.screen
+package ru.vs.control.feature.settingsScreen.client.ui.screen
 
 import ru.vs.control.feature.rootContentScreen.ui.screen.rootContentScreen.RootContentNavigationHost
-import ru.vs.control.feature.settingsScreen.ui.screen.settingsScreen.SettingsScreenFactory
-import ru.vs.control.feature.settingsScreen.ui.screen.settingsScreen.SettingsScreenParams
+import ru.vs.control.feature.settingsScreen.client.ui.screen.settingsScreen.SettingsScreenFactory
+import ru.vs.control.feature.settingsScreen.client.ui.screen.settingsScreen.SettingsScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
 

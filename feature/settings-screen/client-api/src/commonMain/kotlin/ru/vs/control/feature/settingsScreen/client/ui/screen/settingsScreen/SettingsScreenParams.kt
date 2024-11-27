@@ -1,4 +1,4 @@
-package ru.vs.control.feature.settingsScreen.ui.screen.settingsScreen
+package ru.vs.control.feature.settingsScreen.client.ui.screen.settingsScreen
 
 import kotlinx.serialization.Serializable
 import ru.vs.core.navigation.ScreenParams

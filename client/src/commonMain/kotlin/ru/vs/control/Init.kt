@@ -20,7 +20,7 @@ import ru.vs.control.feature.rootContentScreen.featureRootContentScreen
 import ru.vs.control.feature.rootScreen.featureRootScreen
 import ru.vs.control.feature.serverInfo.featureServerInfo
 import ru.vs.control.feature.servers.featureServers
-import ru.vs.control.feature.settingsScreen.featureSettingsScreen
+import ru.vs.control.feature.settingsScreen.client.featureSettingsScreen
 import ru.vs.control.feature.splashScreen.client.featureSplashScreen
 import ru.vs.control.feature.welcomeScreen.client.featureWelcomeScreen
 import ru.vs.control.service.DatabaseService
