@@ -3,7 +3,7 @@ package ru.vs.control.feature.mainScreen.ui.screen.mainScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.router.pages.Pages
-import ru.vs.control.feature.servers.ui.screen.serversScreen.ServersScreenParams
+import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenParams
 import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vs.core.navigation.host.childNavigationPages
 import ru.vs.core.navigation.screen.Screen
