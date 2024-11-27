@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenSharedTransition
+import ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen.SplashScreenSharedTransition
 import ru.vs.core.sharedElementTransition.WithLocalSharedElementTransition
 import ru.vs.core.uikit.icons.Logo
 import vs_control.feature.welcome_screen.client_impl.generated.resources.Res

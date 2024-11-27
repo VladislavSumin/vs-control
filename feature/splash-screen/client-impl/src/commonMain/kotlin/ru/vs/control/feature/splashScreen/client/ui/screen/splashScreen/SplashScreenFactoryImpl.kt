@@ -1,7 +1,6 @@
-package ru.vs.control.feature.splashScreen.ui.screen.splashScreen
+package ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen
 
 import com.arkivanov.decompose.ComponentContext
-import ru.vs.control.splashScreen.ui.screen.splashScreen.SplashScreenFactory
 
 internal class SplashScreenFactoryImpl(
     private val splashScreenViewModelFactory: SplashScreenViewModelFactory,

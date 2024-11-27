@@ -1,4 +1,4 @@
-package ru.vs.control.feature.splashScreen.ui.screen.splashScreen
+package ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen
 
 import androidx.compose.runtime.Stable
 import kotlinx.coroutines.delay
