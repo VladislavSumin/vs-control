@@ -12,12 +12,10 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -27,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlNextButton
+import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlServerUrlField
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlSslError
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -52,7 +51,7 @@ internal fun AddServerByUrlContent(
         ) {
             val state = viewModel.state.collectAsState().value
             when (state) {
-                is AddServerByUrlViewState.EnterUrl -> ServerUrlInputContent(
+                is AddServerByUrlViewState.EnterUrl -> AddServerByUrlServerUrlField(
                     state.url,
                     onUrlChange = viewModel::onServerUrlChanged,
                     isEnabled = true,
@@ -60,9 +59,9 @@ internal fun AddServerByUrlContent(
 
                 is AddServerByUrlViewState.CheckingConnection,
                 is AddServerByUrlViewState.SslError,
-                -> ServerUrlInputContent(state.url, isEnabled = false)
+                -> AddServerByUrlServerUrlField(state.url, isEnabled = false)
 
-                is AddServerByUrlViewState.EnterCredentials -> ServerUrlInputContent(
+                is AddServerByUrlViewState.EnterCredentials -> AddServerByUrlServerUrlField(
                     state.url,
                     isEnabled = false,
                     showEdit = true,
@@ -122,37 +121,6 @@ internal fun AddServerByUrlContent(
             }
         }
     }
-}
-
-@Composable
-private fun ServerUrlInputContent(
-    url: String,
-    onUrlChange: (String) -> Unit = {},
-    isEnabled: Boolean,
-    showEdit: Boolean = false,
-) {
-    OutlinedTextField(
-        value = url,
-        onValueChange = onUrlChange,
-        modifier = Modifier
-            .fillMaxWidth(),
-        enabled = isEnabled,
-        label = { Text("Server url") },
-        prefix = { Text("https://") },
-        placeholder = { Text("control.vs:443") },
-        trailingIcon = {
-            AnimatedContent(showEdit) { showEdit ->
-                if (showEdit) {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Default.Edit, null)
-                    }
-                }
-            }
-        },
-        colors = OutlinedTextFieldDefaults.colors().copy(
-            disabledTrailingIconColor = OutlinedTextFieldDefaults.colors().unfocusedTrailingIconColor,
-        ),
-    )
 }
 
 @Composable

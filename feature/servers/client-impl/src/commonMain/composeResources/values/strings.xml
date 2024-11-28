@@ -11,4 +11,6 @@
     <string name="add_server_item_embedded_description">You can use this device as a smart home server</string>
 
     <string name="add_server_item_not_supported">Not supported on your platform</string>
+
+    <string name="add_server_by_url_screen_server_url">Server ip or domain name</string>
 </resources>
