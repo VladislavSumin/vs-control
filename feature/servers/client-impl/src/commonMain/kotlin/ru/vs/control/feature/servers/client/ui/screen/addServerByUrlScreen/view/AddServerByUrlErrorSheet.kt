@@ -26,7 +26,7 @@ internal fun AddServerByUrlErrorSheet(
         ) {
             Text(
                 stringResource(Res.string.add_server_by_url_screen_server_connecting_error),
-                Modifier.padding(bottom = 4.dp)
+                Modifier.padding(bottom = 4.dp),
             )
             Text(errorMessage, Modifier.padding(bottom = 8.dp))
             bottomButton()
