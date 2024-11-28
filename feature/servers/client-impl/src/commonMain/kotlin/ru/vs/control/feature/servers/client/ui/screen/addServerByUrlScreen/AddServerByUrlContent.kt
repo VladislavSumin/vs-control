@@ -54,6 +54,7 @@ internal fun AddServerByUrlContent(
                 is AddServerByUrlViewState.EnterUrl -> AddServerByUrlServerUrlField(
                     state.url,
                     onUrlChange = viewModel::onServerUrlChanged,
+                    onClickEnter = viewModel::onClickCheckConnection,
                     isEnabled = true,
                 )
 
