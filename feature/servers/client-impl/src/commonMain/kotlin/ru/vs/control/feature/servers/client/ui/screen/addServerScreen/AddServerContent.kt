@@ -19,7 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.value.Value
+import org.jetbrains.compose.resources.stringResource
 import ru.vs.core.decompose.ComposeComponent
+import vs_control.feature.servers.client_impl.generated.resources.Res
+import vs_control.feature.servers.client_impl.generated.resources.add_server_screen_title
 
 @Composable
 internal fun AddServerContent(
@@ -54,7 +57,7 @@ private fun AppBar(viewModel: AddServerViewModel) {
             }
         },
         title = {
-            Text("Add Server")
+            Text(stringResource(Res.string.add_server_screen_title))
         },
     )
 }
