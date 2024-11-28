@@ -6,7 +6,11 @@ internal sealed interface AddServerByUrlViewState {
     /**
      * Состояние ввода url.
      */
-    data class EnterUrl(override val url: String) : AddServerByUrlViewState
+    data class EnterUrl(
+        override val url: String,
+        val isShowIncorrectUrlError: Boolean,
+        val isCheckConnectionButtonEnabled: Boolean,
+    ) : AddServerByUrlViewState
 
     /**
      * Состояние первичной проверки соединения после ввода url.

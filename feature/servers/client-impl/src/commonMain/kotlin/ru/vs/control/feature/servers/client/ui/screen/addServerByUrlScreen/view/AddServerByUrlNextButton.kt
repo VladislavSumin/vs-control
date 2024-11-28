@@ -25,6 +25,13 @@ internal fun AddServerByUrlNextButton(
     state: AddServerByUrlViewState,
     modifier: Modifier = Modifier,
 ) {
+    val isEnabled = when (state) {
+        is AddServerByUrlViewState.EnterUrl -> state.isCheckConnectionButtonEnabled
+        is AddServerByUrlViewState.CheckingConnection,
+        is AddServerByUrlViewState.EnterCredentials,
+        is AddServerByUrlViewState.SslError,
+        -> true
+    }
     Button(
         onClick = {
             when (state) {
@@ -38,6 +45,7 @@ internal fun AddServerByUrlNextButton(
             // Явно задавать высоту необходимо, что бы вертикальные размеры кнопки не менялись при shared transition.
             .height(ButtonDefaults.MinHeight)
             .widthIn(min = 256.dp),
+        enabled = isEnabled,
     ) {
         AnimatedContent(
             state,

@@ -13,4 +13,5 @@
     <string name="add_server_item_not_supported">Not supported on your platform</string>
 
     <string name="add_server_by_url_screen_server_url">Server ip or domain name</string>
+    <string name="add_server_by_url_screen_server_url_error">Incorrect URL</string>
 </resources>

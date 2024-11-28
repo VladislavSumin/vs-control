@@ -17,6 +17,7 @@ import androidx.compose.ui.text.input.ImeAction
 import org.jetbrains.compose.resources.stringResource
 import vs_control.feature.servers.client_impl.generated.resources.Res
 import vs_control.feature.servers.client_impl.generated.resources.add_server_by_url_screen_server_url
+import vs_control.feature.servers.client_impl.generated.resources.add_server_by_url_screen_server_url_error
 
 /**
  * Поле ввода адреса сервера.
@@ -34,6 +35,7 @@ internal fun AddServerByUrlServerUrlField(
     onClickEnter: () -> Unit = {},
     isEnabled: Boolean,
     showEdit: Boolean = false,
+    showError: Boolean = false,
 ) {
     OutlinedTextField(
         value = url,
@@ -41,6 +43,7 @@ internal fun AddServerByUrlServerUrlField(
         modifier = Modifier
             .fillMaxWidth(),
         enabled = isEnabled,
+        isError = showError,
         label = { Text(stringResource(Res.string.add_server_by_url_screen_server_url)) },
         prefix = { Text("https://") },
         placeholder = { Text("control.vs:443") },
@@ -58,6 +61,11 @@ internal fun AddServerByUrlServerUrlField(
             disabledTrailingIconColor = OutlinedTextFieldDefaults.colors().unfocusedTrailingIconColor,
         ),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-        keyboardActions = KeyboardActions { onClickEnter() }
+        keyboardActions = KeyboardActions { onClickEnter() },
+        supportingText = {
+            if (showError) {
+                Text(stringResource(Res.string.add_server_by_url_screen_server_url_error))
+            }
+        },
     )
 }

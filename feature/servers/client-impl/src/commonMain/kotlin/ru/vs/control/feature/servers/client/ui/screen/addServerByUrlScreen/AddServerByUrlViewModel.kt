@@ -1,13 +1,14 @@
 package ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen
 
 import androidx.compose.runtime.Stable
+import io.ktor.http.URLParserException
 import io.ktor.http.Url
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.io.IOException
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor
 import ru.vs.core.factoryGenerator.GenerateFactory
+import ru.vs.core.ktor.client.SafeResponse
 import ru.vs.core.logger.api.logger
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 
@@ -28,13 +29,21 @@ internal class AddServerByUrlViewModel(
             serverUrl,
         ) { state, url ->
             when (state) {
-                InternalState.EnterUrl -> AddServerByUrlViewState.EnterUrl(url)
+                InternalState.EnterUrl -> {
+                    val isUrlValid = createUrl() != null
+                    AddServerByUrlViewState.EnterUrl(
+                        url = url,
+                        isShowIncorrectUrlError = !isUrlValid,
+                        isCheckConnectionButtonEnabled = isUrlValid && url.isNotEmpty(),
+                    )
+                }
+
                 InternalState.CheckConnection -> AddServerByUrlViewState.CheckingConnection(url)
                 InternalState.SslError -> AddServerByUrlViewState.SslError(url)
                 InternalState.EnterCredentials -> AddServerByUrlViewState.EnterCredentials(url)
             }
         }
-            .stateIn(AddServerByUrlViewState.EnterUrl(""))
+            .stateIn(AddServerByUrlViewState.EnterUrl("", false, true))
 
     fun onClickBack() = close()
 
@@ -46,13 +55,16 @@ internal class AddServerByUrlViewModel(
         check(internalState.value == InternalState.EnterUrl)
         internalState.value = InternalState.CheckConnection
         launch {
-            try {
-                serverInfoInteractor.getServerInfo(Url("https://" + serverUrl.value))
-                internalState.value = InternalState.EnterCredentials
-            } catch (e: IOException) {
-                logger.w(e) { "Error while getting server params" }
-                // TODO продумать общую обработку ошибок при работе с ktor клиентом.
-                internalState.value = InternalState.SslError
+            val response = serverInfoInteractor.getServerInfo(createUrl() ?: return@launch)
+            when (response) {
+                is SafeResponse.Success -> {
+                    internalState.value = InternalState.EnterCredentials
+                }
+
+                is SafeResponse.UnknownError -> {
+                    logger.w(response.error) { "Error while getting server params" }
+                    internalState.value = InternalState.SslError
+                }
             }
         }
     }
@@ -64,6 +76,14 @@ internal class AddServerByUrlViewModel(
     fun onSslErrorClickBack() {
         check(internalState.value == InternalState.SslError)
         internalState.value = InternalState.EnterUrl
+    }
+
+    private fun createUrl(): Url? {
+        return try {
+            Url("https://" + serverUrl.value)
+        } catch (_: URLParserException) {
+            null
+        }
     }
 
     private enum class InternalState {
