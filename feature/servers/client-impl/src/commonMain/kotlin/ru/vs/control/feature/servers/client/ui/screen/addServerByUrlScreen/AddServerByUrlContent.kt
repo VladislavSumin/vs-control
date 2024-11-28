@@ -2,6 +2,8 @@ package ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,8 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.movableContentOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlNextButton
@@ -52,58 +53,71 @@ internal fun AddServerByUrlContent(
             val state = viewModel.state.collectAsState().value
             when (state) {
                 is AddServerByUrlViewState.EnterUrl -> ServerUrlInputContent(
-                    viewModel,
                     state.url,
+                    onUrlChange = viewModel::onServerUrlChanged,
                     isEnabled = true,
                 )
 
-                is AddServerByUrlViewState.CheckConnection -> ServerUrlInputContent(
-                    viewModel,
+                is AddServerByUrlViewState.CheckingConnection,
+                is AddServerByUrlViewState.SslError,
+                -> ServerUrlInputContent(state.url, isEnabled = false)
+
+                is AddServerByUrlViewState.EnterCredentials -> ServerUrlInputContent(
                     state.url,
                     isEnabled = false,
+                    showEdit = true,
                 )
-
-                is AddServerByUrlViewState.SslError -> ServerUrlInputContent(
-                    viewModel,
-                    state.url,
-                    isEnabled = false,
-                )
-
-                is AddServerByUrlViewState.EnterCredentials -> {
-                    ServerUrlInputContent(
-                        viewModel,
-                        state.url,
-                        isEnabled = false,
-                        showEdit = true,
-                    )
-                }
             }
 
             AnimatedContent(state, contentKey = { it::class }) { state ->
                 when (state) {
-                    is AddServerByUrlViewState.CheckConnection -> Unit
-                    is AddServerByUrlViewState.EnterUrl -> Unit
+                    is AddServerByUrlViewState.CheckingConnection,
+                    is AddServerByUrlViewState.EnterUrl,
+                    is AddServerByUrlViewState.SslError,
+                    -> Unit
+
                     is AddServerByUrlViewState.EnterCredentials -> LoginPassword()
-                    is AddServerByUrlViewState.SslError -> Unit
                 }
             }
 
             Spacer(modifier.weight(1f))
 
-            val bottomButton = remember {
-                movableContentOf<AddServerByUrlViewModel, AddServerByUrlViewState> { viewModel, state ->
-                    AddServerByUrlNextButton(viewModel, state)
-                }
-            }
+            SharedTransitionLayout(Modifier.fillMaxWidth()) {
+                AnimatedContent(
+                    state,
+                    Modifier.fillMaxWidth(),
+                    contentKey = { it::class },
+                ) { state ->
+                    val animatedScope = this
+                    when (state) {
+                        is AddServerByUrlViewState.CheckingConnection,
+                        is AddServerByUrlViewState.EnterCredentials,
+                        is AddServerByUrlViewState.EnterUrl,
+                        -> Box(Modifier.fillMaxWidth()) {
+                            AddServerByUrlNextButton(
+                                viewModel,
+                                state,
+                                Modifier
+                                    .sharedElement(
+                                        rememberSharedContentState(NEXT_BUTTON_SHARED_TRANSITION_KEY),
+                                        animatedScope,
+                                    )
+                                    .align(Alignment.Center),
+                            )
+                        }
 
-            AnimatedContent(state, contentKey = { it::class }) { state ->
-                when (state) {
-                    is AddServerByUrlViewState.CheckConnection,
-                    is AddServerByUrlViewState.EnterCredentials,
-                    is AddServerByUrlViewState.EnterUrl,
-                    -> bottomButton(viewModel, state)
-
-                    is AddServerByUrlViewState.SslError -> AddServerByUrlSslError { bottomButton(viewModel, state) }
+                        is AddServerByUrlViewState.SslError -> AddServerByUrlSslError {
+                            AddServerByUrlNextButton(
+                                viewModel,
+                                state,
+                                Modifier
+                                    .sharedElement(
+                                        rememberSharedContentState(NEXT_BUTTON_SHARED_TRANSITION_KEY),
+                                        animatedScope,
+                                    ),
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -112,19 +126,20 @@ internal fun AddServerByUrlContent(
 
 @Composable
 private fun ServerUrlInputContent(
-    viewModel: AddServerByUrlViewModel,
     url: String,
+    onUrlChange: (String) -> Unit = {},
     isEnabled: Boolean,
     showEdit: Boolean = false,
 ) {
     OutlinedTextField(
         value = url,
-        onValueChange = { viewModel.onServerUrlChanged(it) },
+        onValueChange = onUrlChange,
         modifier = Modifier
             .fillMaxWidth(),
         enabled = isEnabled,
         label = { Text("Server url") },
-        placeholder = { Text("https://control.vs:443") },
+        prefix = { Text("https://") },
+        placeholder = { Text("control.vs:443") },
         trailingIcon = {
             AnimatedContent(showEdit) { showEdit ->
                 if (showEdit) {
@@ -134,10 +149,9 @@ private fun ServerUrlInputContent(
                 }
             }
         },
-        colors = OutlinedTextFieldDefaults.colors()
-            .copy(
-                disabledTrailingIconColor = OutlinedTextFieldDefaults.colors().unfocusedTrailingIconColor,
-            ),
+        colors = OutlinedTextFieldDefaults.colors().copy(
+            disabledTrailingIconColor = OutlinedTextFieldDefaults.colors().unfocusedTrailingIconColor,
+        ),
     )
 }
 
@@ -177,3 +191,5 @@ private fun AppBar(viewModel: AddServerByUrlViewModel) {
         },
     )
 }
+
+private const val NEXT_BUTTON_SHARED_TRANSITION_KEY = "next_button"

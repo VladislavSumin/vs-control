@@ -27,7 +27,7 @@ internal class AddServerByUrlViewModel(
         ) { state, url ->
             when (state) {
                 InternalState.EnterUrl -> AddServerByUrlViewState.EnterUrl(url)
-                InternalState.CheckConnection -> AddServerByUrlViewState.CheckConnection(url)
+                InternalState.CheckConnection -> AddServerByUrlViewState.CheckingConnection(url)
                 InternalState.SslError -> AddServerByUrlViewState.SslError(url)
                 InternalState.EnterCredentials -> AddServerByUrlViewState.EnterCredentials(url)
             }

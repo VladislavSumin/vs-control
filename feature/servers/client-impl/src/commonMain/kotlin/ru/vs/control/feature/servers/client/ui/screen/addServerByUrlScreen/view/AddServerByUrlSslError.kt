@@ -22,8 +22,8 @@ internal fun AddServerByUrlSslError(
             Button(onClick = {}) {
                 Text("Безопасность для слабых духом")
             }
-            bottomButton()
             Spacer(modifier = Modifier.height(300.dp))
+            bottomButton()
         }
     }
 }
