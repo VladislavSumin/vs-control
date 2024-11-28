@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.io.IOException
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor
 import ru.vs.core.factoryGenerator.GenerateFactory
+import ru.vs.core.logger.api.logger
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 
 @Stable
@@ -15,6 +16,7 @@ import ru.vs.core.navigation.viewModel.NavigationViewModel
 internal class AddServerByUrlViewModel(
     private val serverInfoInteractor: ServerInfoInteractor,
 ) : NavigationViewModel() {
+    private val logger = logger("AddServerByUrl")
 
     private val serverUrl = saveableStateFlow(SERVER_URL_KEY, "")
 
@@ -45,9 +47,10 @@ internal class AddServerByUrlViewModel(
         internalState.value = InternalState.CheckConnection
         launch {
             try {
-                serverInfoInteractor.getServerInfo(Url(serverUrl.value))
+                serverInfoInteractor.getServerInfo(Url("https://" + serverUrl.value))
                 internalState.value = InternalState.EnterCredentials
-            } catch (_: IOException) {
+            } catch (e: IOException) {
+                logger.w(e) { "Error while getting server params" }
                 // TODO продумать общую обработку ошибок при работе с ktor клиентом.
                 internalState.value = InternalState.SslError
             }
