@@ -1,3 +1,14 @@
 <resources>
     <string name="add_server_screen_title">Добавить сервер</string>
+
+    <string name="add_server_item_by_url_title">Добавить вручную</string>
+    <string name="add_server_item_by_url_description">По доменному имени или ip адресу</string>
+
+    <string name="add_server_item_by_qr_code_title">Сканировать QR-код</string>
+    <string name="add_server_item_by_qr_code_description">QR код можно отсканировать с другого клиента</string>
+
+    <string name="add_server_item_embedded_title">Добавить локальный сервер</string>
+    <string name="add_server_item_embedded_description">Можно использовать это устройство в качестве сервера умного дома</string>
+
+    <string name="add_server_item_not_supported">Не поддерживается на вашей платформе</string>
 </resources>

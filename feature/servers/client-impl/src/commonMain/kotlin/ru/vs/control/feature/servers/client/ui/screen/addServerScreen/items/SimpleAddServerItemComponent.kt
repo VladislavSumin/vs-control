@@ -17,9 +17,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
+import org.jetbrains.compose.resources.stringResource
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerViewModel
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.uikit.paddings.defaultCardContentPadding
+import vs_control.feature.servers.client_impl.generated.resources.Res
+import vs_control.feature.servers.client_impl.generated.resources.add_server_item_by_qr_code_description
+import vs_control.feature.servers.client_impl.generated.resources.add_server_item_by_qr_code_title
+import vs_control.feature.servers.client_impl.generated.resources.add_server_item_by_url_description
+import vs_control.feature.servers.client_impl.generated.resources.add_server_item_by_url_title
+import vs_control.feature.servers.client_impl.generated.resources.add_server_item_embedded_description
+import vs_control.feature.servers.client_impl.generated.resources.add_server_item_embedded_title
+import vs_control.feature.servers.client_impl.generated.resources.add_server_item_not_supported
 
 /**
  * Простой компонент добавления сервера (без дополнительной логики), по сути просто кнопка.
@@ -54,7 +63,7 @@ internal class SimpleAddServerItemComponent(
                         )
                     } else {
                         Text(
-                            "Не поддерживается на вашей платформе",
+                            stringResource(Res.string.add_server_item_not_supported),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.error,
                         )
@@ -66,18 +75,20 @@ internal class SimpleAddServerItemComponent(
 }
 
 private val AddServerItem.Simple.title: String
+    @Composable
     get() = when (this) {
-        is AddServerItem.AddServerByUrl -> "Добавить вручную"
-        is AddServerItem.AddServerByQrCode -> "Сканировать QR-код"
-        is AddServerItem.AddEmbeddedServer -> "Добавить локальный сервер"
+        is AddServerItem.AddServerByUrl -> stringResource(Res.string.add_server_item_by_url_title)
+        is AddServerItem.AddServerByQrCode -> stringResource(Res.string.add_server_item_by_qr_code_title)
+        is AddServerItem.AddEmbeddedServer -> stringResource(Res.string.add_server_item_embedded_title)
         is AddServerItem.AddPrebuildServer -> name
     }
 
 private val AddServerItem.Simple.subtitle: String
+    @Composable
     get() = when (this) {
-        is AddServerItem.AddServerByUrl -> "По доменному имени или ip адресу"
-        is AddServerItem.AddServerByQrCode -> "QR код можно отобразить в другом клиенте"
-        is AddServerItem.AddEmbeddedServer -> "Можно использовать это устройство в качестве сервера умного дома"
+        is AddServerItem.AddServerByUrl -> stringResource(Res.string.add_server_item_by_url_description)
+        is AddServerItem.AddServerByQrCode -> stringResource(Res.string.add_server_item_by_qr_code_description)
+        is AddServerItem.AddEmbeddedServer -> stringResource(Res.string.add_server_item_embedded_description)
         is AddServerItem.AddPrebuildServer -> url
     }
 

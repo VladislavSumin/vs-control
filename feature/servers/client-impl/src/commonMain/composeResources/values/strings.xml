@@ -1,3 +1,14 @@
 <resources>
     <string name="add_server_screen_title">Add server</string>
+
+    <string name="add_server_item_by_url_title">Add manually</string>
+    <string name="add_server_item_by_url_description">By domain name or IP address</string>
+
+    <string name="add_server_item_by_qr_code_title">Scan QR-code</string>
+    <string name="add_server_item_by_qr_code_description">The QR code can be scanned at another client</string>
+
+    <string name="add_server_item_embedded_title">Add local server</string>
+    <string name="add_server_item_embedded_description">You can use this device as a smart home server</string>
+
+    <string name="add_server_item_not_supported">Not supported on your platform</string>
 </resources>
