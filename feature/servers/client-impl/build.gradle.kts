@@ -7,6 +7,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.feature.embeddedServer.clientApi)
             implementation(projects.feature.rootContentScreen.clientApi)
+            implementation(projects.feature.serverInfo.clientApi)
             implementation(projects.feature.mainScreen.clientApi)
         }
     }

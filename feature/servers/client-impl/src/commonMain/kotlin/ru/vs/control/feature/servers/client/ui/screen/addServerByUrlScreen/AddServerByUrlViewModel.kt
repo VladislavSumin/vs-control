@@ -1,16 +1,20 @@
 package ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen
 
 import androidx.compose.runtime.Stable
-import kotlinx.coroutines.delay
+import io.ktor.http.Url
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.io.IOException
+import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor
 import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 
 @Stable
 @GenerateFactory
-internal class AddServerByUrlViewModel : NavigationViewModel() {
+internal class AddServerByUrlViewModel(
+    private val serverInfoInteractor: ServerInfoInteractor,
+) : NavigationViewModel() {
 
     private val serverUrl = saveableStateFlow(SERVER_URL_KEY, "")
 
@@ -40,11 +44,13 @@ internal class AddServerByUrlViewModel : NavigationViewModel() {
         check(internalState.value == InternalState.EnterUrl)
         internalState.value = InternalState.CheckConnection
         launch {
-            // TODO тестовая задержка пока нет реальной проверки подключения
-            @Suppress("MagicNumber")
-            delay(500)
-            // internalState.value = InternalState.EnterCredentials
-            internalState.value = InternalState.SslError
+            try {
+                serverInfoInteractor.getServerInfo(Url(serverUrl.value))
+                internalState.value = InternalState.EnterCredentials
+            } catch (_: IOException) {
+                // TODO продумать общую обработку ошибок при работе с ktor клиентом.
+                internalState.value = InternalState.SslError
+            }
         }
     }
 
