@@ -1,6 +1,11 @@
 package ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,6 +17,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import org.jetbrains.compose.resources.stringResource
@@ -64,7 +70,11 @@ internal fun AddServerByUrlServerUrlField(
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         keyboardActions = KeyboardActions { onClickEnter() },
         supportingText = {
-            if (showError) {
+            AnimatedVisibility(
+                visible = showError,
+                enter = fadeIn() + expandVertically(expandFrom = Alignment.Bottom, clip = false),
+                exit = fadeOut() + shrinkVertically(shrinkTowards = Alignment.Bottom, clip = false),
+            ) {
                 Text(stringResource(Res.string.add_server_by_url_screen_server_url_error))
             }
         },
