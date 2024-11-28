@@ -25,3 +25,10 @@ sealed interface SafeResponse<T> {
 
     data class UnknownError<T>(override val error: Exception) : Error<T>
 }
+
+fun <T, R> SafeResponse<T>.mapSuccess(mapper: (T) -> R): SafeResponse<R> {
+    return when (this) {
+        is SafeResponse.UnknownError<*> -> this as SafeResponse<R>
+        is SafeResponse.Success<T> -> SafeResponse.Success(mapper(response))
+    }
+}
