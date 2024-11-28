@@ -27,6 +27,7 @@ import vs_control.feature.servers.client_impl.generated.resources.add_server_by_
  * @param onClickEnter вызывается при нажатии кнопки enter на клавиатуре при фокусе в это поле ввода.
  * @param isEnabled разрешено ли в данный момент изменять url.
  * @param showEdit показывать ли кнопку edit.
+ * @param showError показывать ли ошибку валидации url.
  */
 @Composable
 internal fun AddServerByUrlServerUrlField(
