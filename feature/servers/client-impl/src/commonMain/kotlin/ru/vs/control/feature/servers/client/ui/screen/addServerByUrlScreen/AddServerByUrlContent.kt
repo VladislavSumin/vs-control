@@ -24,9 +24,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlErrorSheet
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlNextButton
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlServerUrlField
-import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlSslError
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -60,7 +60,7 @@ internal fun AddServerByUrlContent(
                 )
 
                 is AddServerByUrlViewState.CheckingConnection,
-                is AddServerByUrlViewState.SslError,
+                is AddServerByUrlViewState.ConnectionError,
                 -> AddServerByUrlServerUrlField(state.url, isEnabled = false)
 
                 is AddServerByUrlViewState.EnterCredentials -> AddServerByUrlServerUrlField(
@@ -74,7 +74,7 @@ internal fun AddServerByUrlContent(
                 when (state) {
                     is AddServerByUrlViewState.CheckingConnection,
                     is AddServerByUrlViewState.EnterUrl,
-                    is AddServerByUrlViewState.SslError,
+                    is AddServerByUrlViewState.ConnectionError,
                     -> Unit
 
                     is AddServerByUrlViewState.EnterCredentials -> LoginPassword()
@@ -107,7 +107,7 @@ internal fun AddServerByUrlContent(
                             )
                         }
 
-                        is AddServerByUrlViewState.SslError -> AddServerByUrlSslError {
+                        is AddServerByUrlViewState.ConnectionError -> AddServerByUrlErrorSheet(state.error) {
                             AddServerByUrlNextButton(
                                 viewModel,
                                 state,

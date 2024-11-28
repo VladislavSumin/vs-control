@@ -14,4 +14,5 @@
 
     <string name="add_server_by_url_screen_server_url">Доменное имя сервера или ip адрес</string>
     <string name="add_server_by_url_screen_server_url_error">Некорректный URL</string>
+    <string name="add_server_by_url_screen_server_connecting_error">Ошибка при попытке подключения к серверу</string>
 </resources>

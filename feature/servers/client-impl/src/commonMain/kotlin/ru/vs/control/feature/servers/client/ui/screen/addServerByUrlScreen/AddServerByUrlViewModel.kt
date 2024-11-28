@@ -29,7 +29,7 @@ internal class AddServerByUrlViewModel(
             serverUrl,
         ) { state, url ->
             when (state) {
-                InternalState.EnterUrl -> {
+                is InternalState.EnterUrl -> {
                     val isUrlValid = createUrl() != null
                     AddServerByUrlViewState.EnterUrl(
                         url = url,
@@ -38,9 +38,13 @@ internal class AddServerByUrlViewModel(
                     )
                 }
 
-                InternalState.CheckConnection -> AddServerByUrlViewState.CheckingConnection(url)
-                InternalState.SslError -> AddServerByUrlViewState.SslError(url)
-                InternalState.EnterCredentials -> AddServerByUrlViewState.EnterCredentials(url)
+                is InternalState.CheckConnection -> AddServerByUrlViewState.CheckingConnection(url)
+                is InternalState.ConnectionError -> {
+                    val message = state.e.message ?: state.e.stackTraceToString().lines().firstOrNull() ?: ""
+                    AddServerByUrlViewState.ConnectionError(url, message)
+                }
+
+                is InternalState.EnterCredentials -> AddServerByUrlViewState.EnterCredentials(url)
             }
         }
             .stateIn(AddServerByUrlViewState.EnterUrl("", false, true))
@@ -63,7 +67,7 @@ internal class AddServerByUrlViewModel(
 
                 is SafeResponse.UnknownError -> {
                     logger.w(response.error) { "Error while getting server params" }
-                    internalState.value = InternalState.SslError
+                    internalState.value = InternalState.ConnectionError(response.error)
                 }
             }
         }
@@ -74,7 +78,7 @@ internal class AddServerByUrlViewModel(
     }
 
     fun onSslErrorClickBack() {
-        check(internalState.value == InternalState.SslError)
+        check(internalState.value is InternalState.ConnectionError)
         internalState.value = InternalState.EnterUrl
     }
 
@@ -86,11 +90,11 @@ internal class AddServerByUrlViewModel(
         }
     }
 
-    private enum class InternalState {
-        EnterUrl,
-        CheckConnection,
-        SslError,
-        EnterCredentials,
+    private sealed interface InternalState {
+        data object EnterUrl : InternalState
+        data object CheckConnection : InternalState
+        data class ConnectionError(val e: Exception) : InternalState
+        data object EnterCredentials : InternalState
     }
 
     companion object {

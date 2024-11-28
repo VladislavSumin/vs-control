@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.min
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlViewModel
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlViewState
 
@@ -29,7 +28,7 @@ internal fun AddServerByUrlNextButton(
         is AddServerByUrlViewState.EnterUrl -> state.isCheckConnectionButtonEnabled
         is AddServerByUrlViewState.CheckingConnection,
         is AddServerByUrlViewState.EnterCredentials,
-        is AddServerByUrlViewState.SslError,
+        is AddServerByUrlViewState.ConnectionError,
         -> true
     }
     Button(
@@ -38,7 +37,7 @@ internal fun AddServerByUrlNextButton(
                 is AddServerByUrlViewState.EnterUrl -> viewModel.onClickCheckConnection()
                 is AddServerByUrlViewState.CheckingConnection -> Unit
                 is AddServerByUrlViewState.EnterCredentials -> viewModel.onClickLogin()
-                is AddServerByUrlViewState.SslError -> viewModel.onSslErrorClickBack()
+                is AddServerByUrlViewState.ConnectionError -> viewModel.onSslErrorClickBack()
             }
         },
         modifier = modifier
@@ -60,7 +59,7 @@ internal fun AddServerByUrlNextButton(
 
                 is AddServerByUrlViewState.EnterUrl -> Text("Проверить соединение", maxLines = 1)
                 is AddServerByUrlViewState.EnterCredentials -> Text("Войти", maxLines = 1)
-                is AddServerByUrlViewState.SslError -> Text("Назад", maxLines = 1)
+                is AddServerByUrlViewState.ConnectionError -> Text("Назад", maxLines = 1)
             }
         }
     }
