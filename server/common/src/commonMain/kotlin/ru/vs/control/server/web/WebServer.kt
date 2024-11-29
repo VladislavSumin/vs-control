@@ -4,7 +4,7 @@ import io.ktor.serialization.kotlinx.protobuf.protobuf
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.application.serverConfig
-import io.ktor.server.engine.EngineSSLConnectorBuilder
+import io.ktor.server.engine.EngineConnectorBuilder
 import io.ktor.server.engine.applicationEnvironment
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -27,6 +27,7 @@ internal interface WebServer {
     suspend fun run()
 }
 
+@Suppress("UnusedPrivateProperty") // TODO enable ssl
 internal class WebServerImpl(
     private val keyStoreInteractor: KeyStoreInteractor,
     private val modules: Set<KtorServerModule>,
@@ -51,12 +52,13 @@ internal class WebServerImpl(
         rootConfig = createServerConfig(),
     ) {
         connectors.add(
-            EngineSSLConnectorBuilder(
-                keyStore = keyStoreInteractor.createKeyStore(),
-                keyAlias = "server",
-                keyStorePassword = { "".toCharArray() },
-                privateKeyPassword = { "".toCharArray() },
-            ),
+            EngineConnectorBuilder(),
+//            EngineSSLConnectorBuilder(
+//                keyStore = keyStoreInteractor.createKeyStore(),
+//                keyAlias = "server",
+//                keyStorePassword = { "".toCharArray() },
+//                privateKeyPassword = { "".toCharArray() },
+//            ),
         )
     }
 

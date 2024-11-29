@@ -25,6 +25,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
 import org.jetbrains.compose.resources.stringResource
+import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlViewModel
 import vs_control.feature.servers.client_impl.generated.resources.Res
 import vs_control.feature.servers.client_impl.generated.resources.add_server_by_url_screen_server_url
 import vs_control.feature.servers.client_impl.generated.resources.add_server_by_url_screen_server_url_error
@@ -63,7 +64,7 @@ internal fun AddServerByUrlServerUrlField(
         enabled = isEnabled,
         isError = showError,
         label = { Text(stringResource(Res.string.add_server_by_url_screen_server_url)) },
-        prefix = { Text("https://") },
+        prefix = { Text(AddServerByUrlViewModel.SCHEME) },
         placeholder = { Text("control.vs:443") },
         trailingIcon = {
             AnimatedContent(showEdit) { showEdit ->

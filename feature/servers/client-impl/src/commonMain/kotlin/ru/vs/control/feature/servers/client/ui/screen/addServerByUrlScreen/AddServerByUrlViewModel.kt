@@ -84,7 +84,7 @@ internal class AddServerByUrlViewModel(
 
     private fun createUrl(): Url? {
         return try {
-            Url("https://" + serverUrl.value)
+            Url(SCHEME + serverUrl.value)
         } catch (_: URLParserException) {
             null
         }
@@ -99,5 +99,6 @@ internal class AddServerByUrlViewModel(
 
     companion object {
         private const val SERVER_URL_KEY = "server_url"
+        const val SCHEME = "http://"
     }
 }
