@@ -17,8 +17,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
 import org.jetbrains.compose.resources.stringResource
 import vs_control.feature.servers.client_impl.generated.resources.Res
@@ -44,10 +48,17 @@ internal fun AddServerByUrlServerUrlField(
     showEdit: Boolean = false,
     showError: Boolean = false,
 ) {
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(focusRequester) {
+        focusRequester.requestFocus()
+    }
+
     OutlinedTextField(
         value = url,
         onValueChange = onUrlChange,
         modifier = Modifier
+            .focusRequester(focusRequester)
             .fillMaxWidth(),
         enabled = isEnabled,
         isError = showError,
