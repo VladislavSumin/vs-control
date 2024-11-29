@@ -1,16 +1,16 @@
 [versions]
 
 # Kotlin
-kotlin-core = "2.1.0-RC"
-kotlin-ksp = "2.1.0-RC-1.0.26"
+kotlin-core = "2.1.0"
+kotlin-ksp = "2.1.0-1.0.29"
 kotlin-coroutines = "1.9.0"
 kotlin-serialization = "1.7.3"
 kotlin-io = "0.5.4"
 kotlin-atomicfu = "0.26.0"
 
 # Compose
-jb-compose = "1.7.0"
-decompose = "3.2.0"
+jb-compose = "1.7.1"
+decompose = "3.2.2"
 
 # Gradle plugins
 gradlePlugins-android = "8.5.2" # last supported by kotlin 2.0.21
