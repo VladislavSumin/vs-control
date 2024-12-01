@@ -56,7 +56,7 @@ internal fun AddServerByUrlContent(
                     onUrlChange = viewModel::onServerUrlChanged,
                     onClickEnter = viewModel::onClickCheckConnection,
                     isEnabled = true,
-                    showError = state.isShowIncorrectUrlError,
+                    error = state.urlError,
                 )
 
                 is AddServerByUrlViewState.CheckingConnection,

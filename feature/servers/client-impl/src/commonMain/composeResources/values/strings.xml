@@ -14,5 +14,6 @@
 
     <string name="add_server_by_url_screen_server_url">Server ip or domain name</string>
     <string name="add_server_by_url_screen_server_url_error">Incorrect URL</string>
+    <string name="add_server_by_url_screen_server_url_path">Url path and query not allowed</string>
     <string name="add_server_by_url_screen_server_connecting_error">Error while trying to connect to server</string>
 </resources>

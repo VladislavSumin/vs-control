@@ -8,7 +8,7 @@ internal sealed interface AddServerByUrlViewState {
      */
     data class EnterUrl(
         override val url: String,
-        val isShowIncorrectUrlError: Boolean,
+        val urlError: UrlError,
         val isCheckConnectionButtonEnabled: Boolean,
     ) : AddServerByUrlViewState
 
@@ -26,4 +26,17 @@ internal sealed interface AddServerByUrlViewState {
      * Состояние ввода логина и пароля после первичной проверки соединения.
      */
     data class EnterCredentials(override val url: String) : AddServerByUrlViewState
+
+    sealed interface UrlError {
+        data object None : UrlError
+        data object UrlWithPathOrQuery : UrlError
+        data object MalformedUrl : UrlError
+
+        fun isError() = when (this) {
+            None -> false
+            UrlWithPathOrQuery,
+            MalformedUrl,
+            -> true
+        }
+    }
 }

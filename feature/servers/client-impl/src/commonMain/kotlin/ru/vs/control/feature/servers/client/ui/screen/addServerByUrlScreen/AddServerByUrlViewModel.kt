@@ -1,7 +1,6 @@
 package ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen
 
 import androidx.compose.runtime.Stable
-import io.ktor.http.URLParserException
 import io.ktor.http.Url
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,11 +29,11 @@ internal class AddServerByUrlViewModel(
         ) { state, url ->
             when (state) {
                 is InternalState.EnterUrl -> {
-                    val isUrlValid = createUrl() != null
+                    val urlResult = createUrl()
                     AddServerByUrlViewState.EnterUrl(
                         url = url,
-                        isShowIncorrectUrlError = !isUrlValid,
-                        isCheckConnectionButtonEnabled = isUrlValid && url.isNotEmpty(),
+                        urlError = urlResult.toUi(),
+                        isCheckConnectionButtonEnabled = urlResult.isValid(),
                     )
                 }
 
@@ -47,7 +46,7 @@ internal class AddServerByUrlViewModel(
                 is InternalState.EnterCredentials -> AddServerByUrlViewState.EnterCredentials(url)
             }
         }
-            .stateIn(AddServerByUrlViewState.EnterUrl("", false, true))
+            .stateIn(AddServerByUrlViewState.EnterUrl("", AddServerByUrlViewState.UrlError.None, true))
 
     fun onClickBack() = close()
 
@@ -59,7 +58,8 @@ internal class AddServerByUrlViewModel(
         check(internalState.value == InternalState.EnterUrl)
         internalState.value = InternalState.CheckConnection
         launch {
-            val response = serverInfoInteractor.getServerInfo(createUrl() ?: return@launch)
+            val url = (createUrl() as UrlResult.SuccessUrl?)?.url ?: return@launch
+            val response = serverInfoInteractor.getServerInfo(url)
             when (response) {
                 is SafeResponse.Success -> {
                     internalState.value = InternalState.EnterCredentials
@@ -82,12 +82,50 @@ internal class AddServerByUrlViewModel(
         internalState.value = InternalState.EnterUrl
     }
 
-    private fun createUrl(): Url? {
-        return try {
-            Url(SCHEME + serverUrl.value)
-        } catch (_: URLParserException) {
-            null
+    private fun createUrl(): UrlResult {
+        val stringUrl = serverUrl.value
+        if (stringUrl.isEmpty()) {
+            return UrlResult.EmptyUrl
         }
+        return runCatching { Url(SCHEME + stringUrl) }
+            .map { url ->
+                if (url.encodedPathAndQuery.isEmpty()) {
+                    UrlResult.SuccessUrl(url)
+                } else {
+                    UrlResult.UrlWithPathOrQuery
+                }
+            }
+            .getOrElse { UrlResult.MalformedUrl }
+    }
+
+    private fun UrlResult.toUi() = when (this) {
+        is UrlResult.EmptyUrl,
+        is UrlResult.SuccessUrl,
+        -> AddServerByUrlViewState.UrlError.None
+
+        is UrlResult.UrlWithPathOrQuery -> AddServerByUrlViewState.UrlError.UrlWithPathOrQuery
+        is UrlResult.MalformedUrl -> AddServerByUrlViewState.UrlError.MalformedUrl
+    }
+
+    private fun UrlResult.isValid() = when (this) {
+        is UrlResult.SuccessUrl -> true
+        is UrlResult.EmptyUrl,
+        is UrlResult.UrlWithPathOrQuery,
+        is UrlResult.MalformedUrl,
+        -> false
+    }
+
+    /**
+     * @property EmptyUrl пустой урл.
+     * @property SuccessUrl успешная проверка.
+     * @property UrlWithPathOrQuery url содержит path что не допустимо как адрес сервера.
+     * @property MalformedUrl не валидный url.
+     */
+    private sealed interface UrlResult {
+        data object EmptyUrl : UrlResult
+        data class SuccessUrl(val url: Url) : UrlResult
+        data object UrlWithPathOrQuery : UrlResult
+        data object MalformedUrl : UrlResult
     }
 
     private sealed interface InternalState {
