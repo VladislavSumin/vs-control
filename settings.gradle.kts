@@ -64,6 +64,7 @@ include(":core:uikit:paddings")
 include(":core:utils")
 
 sharedFeature("server-info")
+sharedFeature("auth")
 
 clientFeature("app-info")
 clientFeature("debug-screen")

@@ -8,6 +8,7 @@ import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.direct
 import ru.vs.control.feature.appInfo.client.featureAppInfo
+import ru.vs.control.feature.auth.client.featureAuth
 import ru.vs.control.feature.debugScreen.client.featureDebugScreen
 import ru.vs.control.feature.embeddedServer.client.featureEmbeddedServer
 import ru.vs.control.feature.embeddedServer.client.service.EmbeddedServerQueriesProvider
@@ -57,6 +58,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
         importOnce(Modules.coreDatabase())
         importOnce(Modules.coreKtorClient())
 
+        importOnce(Modules.featureAuth())
         importOnce(Modules.featureDebugScreen())
         importOnce(Modules.featureEmbeddedServer())
         importOnce(Modules.featureInitializedRootScreen())

@@ -115,6 +115,7 @@ kotlin {
 
             // Features
             implementation(projects.feature.appInfo.clientImpl)
+            implementation(projects.feature.auth.clientImpl)
             implementation(projects.feature.debugScreen.clientImpl)
             implementation(projects.feature.embeddedServer.clientImpl)
             implementation(projects.feature.initialization.clientImpl)
