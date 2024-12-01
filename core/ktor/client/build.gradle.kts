@@ -6,6 +6,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.ktor.client.core)
+            // TODO переписать на конфигурацию снаружи модуля.
+            implementation(libs.ktor.client.contentNegotiation)
+            // TODO переписать на конфигурацию снаружи модуля.
+            implementation(libs.ktor.core.serialization.protobuf)
             implementation(libs.ktor.client.cio)
             implementation(projects.core.di)
         }

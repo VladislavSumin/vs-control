@@ -16,6 +16,7 @@ internal class ServerInfoApiImpl(
     private val client: HttpClient,
 ) : ServerInfoApi {
     override suspend fun getServerInfo(url: Url): SafeResponse<ServerInfo> {
+        val url = Url("$url/api/info")
         return handleConnectionErrors { client.get(url).body() }
     }
 }

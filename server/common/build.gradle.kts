@@ -18,7 +18,7 @@ kotlin {
             // TODO api(libs.ktor.server.cio) cio не поддерживает ssl
             api(libs.ktor.server.netty)
             api(libs.ktor.server.contentNegotiation)
-            api(libs.ktor.server.serialization.protobuf)
+            api(libs.ktor.core.serialization.protobuf)
 
             api(libs.logging.slf4j)
             api(libs.logging.log4j.slf4j)
