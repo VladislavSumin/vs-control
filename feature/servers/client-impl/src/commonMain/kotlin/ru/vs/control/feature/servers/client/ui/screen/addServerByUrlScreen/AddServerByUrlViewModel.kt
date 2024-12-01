@@ -55,6 +55,10 @@ internal class AddServerByUrlViewModel(
         serverUrl.value = url
     }
 
+    fun onClickEdit() {
+        internalState.value = InternalState.EnterUrl
+    }
+
     fun onClickCheckConnection() {
         check(internalState.value == InternalState.EnterUrl)
         internalState.value = InternalState.CheckConnection

@@ -88,7 +88,12 @@ private fun ServerUrlContent(
         is AddServerByUrlViewState.ConnectionError,
         -> AddServerByUrlServerUrlField(state.url, isEnabled = false)
 
-        is AddServerByUrlViewState.EnterCredentials -> AddServerByUrlServerInfo(state.serverInfo, state.url)
+        is AddServerByUrlViewState.EnterCredentials -> AddServerByUrlServerInfo(
+            state.serverInfo,
+            state.url,
+            Modifier.fillMaxWidth(),
+            onClickEdit = viewModel::onClickEdit,
+        )
     }
 }
 
