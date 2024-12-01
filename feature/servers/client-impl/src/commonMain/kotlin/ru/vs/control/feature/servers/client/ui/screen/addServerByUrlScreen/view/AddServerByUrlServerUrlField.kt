@@ -1,6 +1,5 @@
 package ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -9,10 +8,6 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -51,7 +46,6 @@ internal fun AddServerByUrlServerUrlField(
     onUrlChange: (String) -> Unit = {},
     onClickEnter: () -> Unit = {},
     isEnabled: Boolean,
-    showEdit: Boolean = false,
     error: AddServerByUrlViewState.UrlError = AddServerByUrlViewState.UrlError.None,
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -73,15 +67,6 @@ internal fun AddServerByUrlServerUrlField(
         label = { Text(stringResource(Res.string.add_server_by_url_screen_server_url)) },
         prefix = { Text(AddServerByUrlViewModel.SCHEME) },
         placeholder = { Text("control.vs:443") },
-        trailingIcon = {
-            AnimatedContent(showEdit) { showEdit ->
-                if (showEdit) {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Default.Edit, null)
-                    }
-                }
-            }
-        },
         maxLines = 1,
         colors = OutlinedTextFieldDefaults.colors().copy(
             disabledTrailingIconColor = OutlinedTextFieldDefaults.colors().unfocusedTrailingIconColor,

@@ -26,11 +26,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlErrorSheet
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlNextButton
+import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlServerInfo
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.view.AddServerByUrlServerUrlField
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-@Suppress("LongMethod") // TODO fix
 internal fun AddServerByUrlContent(
     viewModel: AddServerByUrlViewModel,
     modifier: Modifier,
@@ -50,25 +50,7 @@ internal fun AddServerByUrlContent(
                 .fillMaxSize(),
         ) {
             val state = viewModel.state.collectAsState().value
-            when (state) {
-                is AddServerByUrlViewState.EnterUrl -> AddServerByUrlServerUrlField(
-                    state.url,
-                    onUrlChange = viewModel::onServerUrlChanged,
-                    onClickEnter = viewModel::onClickCheckConnection,
-                    isEnabled = true,
-                    error = state.urlError,
-                )
-
-                is AddServerByUrlViewState.CheckingConnection,
-                is AddServerByUrlViewState.ConnectionError,
-                -> AddServerByUrlServerUrlField(state.url, isEnabled = false)
-
-                is AddServerByUrlViewState.EnterCredentials -> AddServerByUrlServerUrlField(
-                    state.url,
-                    isEnabled = false,
-                    showEdit = true,
-                )
-            }
+            ServerUrlContent(viewModel, state)
 
             AnimatedContent(state, contentKey = { it::class }) { state ->
                 when (state) {
@@ -83,42 +65,73 @@ internal fun AddServerByUrlContent(
 
             Spacer(modifier.weight(1f))
 
-            SharedTransitionLayout(Modifier.fillMaxWidth()) {
-                AnimatedContent(
-                    state,
-                    Modifier.fillMaxWidth(),
-                    contentKey = { it::class },
-                ) { state ->
-                    val animatedScope = this
-                    when (state) {
-                        is AddServerByUrlViewState.CheckingConnection,
-                        is AddServerByUrlViewState.EnterCredentials,
-                        is AddServerByUrlViewState.EnterUrl,
-                        -> Box(Modifier.fillMaxWidth()) {
-                            AddServerByUrlNextButton(
-                                viewModel,
-                                state,
-                                Modifier
-                                    .sharedElement(
-                                        rememberSharedContentState(NEXT_BUTTON_SHARED_TRANSITION_KEY),
-                                        animatedScope,
-                                    )
-                                    .align(Alignment.Center),
-                            )
-                        }
+            NextButtonContent(viewModel, state)
+        }
+    }
+}
 
-                        is AddServerByUrlViewState.ConnectionError -> AddServerByUrlErrorSheet(state.error) {
-                            AddServerByUrlNextButton(
-                                viewModel,
-                                state,
-                                Modifier
-                                    .sharedElement(
-                                        rememberSharedContentState(NEXT_BUTTON_SHARED_TRANSITION_KEY),
-                                        animatedScope,
-                                    ),
+@Composable
+private fun ServerUrlContent(
+    viewModel: AddServerByUrlViewModel,
+    state: AddServerByUrlViewState,
+) {
+    when (state) {
+        is AddServerByUrlViewState.EnterUrl -> AddServerByUrlServerUrlField(
+            state.url,
+            onUrlChange = viewModel::onServerUrlChanged,
+            onClickEnter = viewModel::onClickCheckConnection,
+            isEnabled = true,
+            error = state.urlError,
+        )
+
+        is AddServerByUrlViewState.CheckingConnection,
+        is AddServerByUrlViewState.ConnectionError,
+        -> AddServerByUrlServerUrlField(state.url, isEnabled = false)
+
+        is AddServerByUrlViewState.EnterCredentials -> AddServerByUrlServerInfo(state.serverInfo, state.url)
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Composable
+private fun NextButtonContent(
+    viewModel: AddServerByUrlViewModel,
+    state: AddServerByUrlViewState,
+) {
+    SharedTransitionLayout(Modifier.fillMaxWidth()) {
+        AnimatedContent(
+            state,
+            Modifier.fillMaxWidth(),
+            contentKey = { it::class },
+        ) { state ->
+            val animatedScope = this
+            when (state) {
+                is AddServerByUrlViewState.CheckingConnection,
+                is AddServerByUrlViewState.EnterCredentials,
+                is AddServerByUrlViewState.EnterUrl,
+                -> Box(Modifier.fillMaxWidth()) {
+                    AddServerByUrlNextButton(
+                        viewModel,
+                        state,
+                        Modifier
+                            .sharedElement(
+                                rememberSharedContentState(NEXT_BUTTON_SHARED_TRANSITION_KEY),
+                                animatedScope,
                             )
-                        }
-                    }
+                            .align(Alignment.Center),
+                    )
+                }
+
+                is AddServerByUrlViewState.ConnectionError -> AddServerByUrlErrorSheet(state.error) {
+                    AddServerByUrlNextButton(
+                        viewModel,
+                        state,
+                        Modifier
+                            .sharedElement(
+                                rememberSharedContentState(NEXT_BUTTON_SHARED_TRANSITION_KEY),
+                                animatedScope,
+                            ),
+                    )
                 }
             }
         }

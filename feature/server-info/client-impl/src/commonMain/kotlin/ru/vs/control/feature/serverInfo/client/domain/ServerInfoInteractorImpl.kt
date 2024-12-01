@@ -10,6 +10,6 @@ internal class ServerInfoInteractorImpl(
 ) : ServerInfoInteractor {
     override suspend fun getServerInfo(url: Url): SafeResponse<ServerInfo> {
         return serverInfoApi.getServerInfo(url)
-            .mapSuccess { ServerInfo(it.version) }
+            .mapSuccess { ServerInfo(it.name, it.version) }
     }
 }

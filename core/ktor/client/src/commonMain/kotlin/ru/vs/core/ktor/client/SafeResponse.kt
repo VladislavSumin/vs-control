@@ -17,7 +17,7 @@ suspend inline fun <T> handleConnectionErrors(
 }
 
 sealed interface SafeResponse<T> {
-    data class Success<T>(val response: T) : SafeResponse<T>
+    data class Success<T>(val value: T) : SafeResponse<T>
 
     sealed interface Error<T> : SafeResponse<T> {
         val error: Exception
@@ -29,6 +29,6 @@ sealed interface SafeResponse<T> {
 fun <T, R> SafeResponse<T>.mapSuccess(mapper: (T) -> R): SafeResponse<R> {
     return when (this) {
         is SafeResponse.UnknownError<*> -> this as SafeResponse<R>
-        is SafeResponse.Success<T> -> SafeResponse.Success(mapper(response))
+        is SafeResponse.Success<T> -> SafeResponse.Success(mapper(value))
     }
 }

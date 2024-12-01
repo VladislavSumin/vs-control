@@ -1,5 +1,7 @@
 package ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen
 
+import ru.vs.control.feature.serverInfo.client.domain.ServerInfo
+
 internal sealed interface AddServerByUrlViewState {
     val url: String
 
@@ -25,7 +27,10 @@ internal sealed interface AddServerByUrlViewState {
     /**
      * Состояние ввода логина и пароля после первичной проверки соединения.
      */
-    data class EnterCredentials(override val url: String) : AddServerByUrlViewState
+    data class EnterCredentials(
+        override val url: String,
+        val serverInfo: ServerInfo,
+    ) : AddServerByUrlViewState
 
     sealed interface UrlError {
         data object None : UrlError

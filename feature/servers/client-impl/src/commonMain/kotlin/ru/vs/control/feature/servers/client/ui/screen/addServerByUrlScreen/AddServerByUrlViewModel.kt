@@ -5,6 +5,7 @@ import io.ktor.http.Url
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import ru.vs.control.feature.serverInfo.client.domain.ServerInfo
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor
 import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.ktor.client.SafeResponse
@@ -43,7 +44,7 @@ internal class AddServerByUrlViewModel(
                     AddServerByUrlViewState.ConnectionError(url, message)
                 }
 
-                is InternalState.EnterCredentials -> AddServerByUrlViewState.EnterCredentials(url)
+                is InternalState.EnterCredentials -> AddServerByUrlViewState.EnterCredentials(url, state.serverInfo)
             }
         }
             .stateIn(AddServerByUrlViewState.EnterUrl("", AddServerByUrlViewState.UrlError.None, true))
@@ -62,7 +63,7 @@ internal class AddServerByUrlViewModel(
             val response = serverInfoInteractor.getServerInfo(url)
             when (response) {
                 is SafeResponse.Success -> {
-                    internalState.value = InternalState.EnterCredentials
+                    internalState.value = InternalState.EnterCredentials(response.value)
                 }
 
                 is SafeResponse.UnknownError -> {
@@ -132,7 +133,7 @@ internal class AddServerByUrlViewModel(
         data object EnterUrl : InternalState
         data object CheckConnection : InternalState
         data class ConnectionError(val e: Exception) : InternalState
-        data object EnterCredentials : InternalState
+        data class EnterCredentials(val serverInfo: ServerInfo) : InternalState
     }
 
     companion object {

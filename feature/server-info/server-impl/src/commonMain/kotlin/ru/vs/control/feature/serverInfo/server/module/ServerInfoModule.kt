@@ -12,7 +12,7 @@ class ServerInfoModule : KtorServerModule {
         routing {
             get("/api/info") {
                 // TODO добавить провайдер версии
-                call.respond(ServerInfo("0.0.1"))
+                call.respond(ServerInfo("Control Test Server", "0.0.1"))
             }
         }
     }
