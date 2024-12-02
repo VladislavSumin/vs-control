@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import org.jetbrains.compose.resources.stringResource
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlViewModel
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlViewState
@@ -71,7 +72,10 @@ internal fun AddServerByUrlServerUrlField(
         colors = OutlinedTextFieldDefaults.colors().copy(
             disabledTrailingIconColor = OutlinedTextFieldDefaults.colors().unfocusedTrailingIconColor,
         ),
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Next,
+            keyboardType = KeyboardType.Uri,
+        ),
         keyboardActions = KeyboardActions { onClickEnter() },
         supportingText = {
             AnimatedVisibility(
