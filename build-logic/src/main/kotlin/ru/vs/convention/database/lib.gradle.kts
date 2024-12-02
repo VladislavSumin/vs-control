@@ -28,6 +28,10 @@ kotlin {
     }
 }
 
+ksp {
+    arg("ru.vs.core.database.projectRoot", project.projectDir.absolutePath)
+}
+
 dependencies {
     add("kspCommonMainMetadata", project(":core:database:ksp"))
 }
