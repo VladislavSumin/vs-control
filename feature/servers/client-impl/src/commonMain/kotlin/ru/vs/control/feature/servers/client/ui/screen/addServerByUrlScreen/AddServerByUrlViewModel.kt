@@ -5,6 +5,7 @@ import io.ktor.http.Url
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import ru.vs.control.feature.auth.client.domain.ServerAuthInteractor
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfo
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor
 import ru.vs.core.factoryGenerator.GenerateFactory
@@ -14,12 +15,18 @@ import ru.vs.core.navigation.viewModel.NavigationViewModel
 
 @Stable
 @GenerateFactory
+@Suppress("UnusedPrivateProperty") // TODO убрать
 internal class AddServerByUrlViewModel(
     private val serverInfoInteractor: ServerInfoInteractor,
+    private val serverAuthInteractor: ServerAuthInteractor,
 ) : NavigationViewModel() {
     private val logger = logger("AddServerByUrl")
 
     private val serverUrl = saveableStateFlow(SERVER_URL_KEY, "")
+    private val login = saveableStateFlow(LOGIN_KEY, "")
+
+    // Пароль не сохраняем
+    private val password = MutableStateFlow("")
 
     private val internalState = MutableStateFlow<InternalState>(InternalState.EnterUrl)
 
@@ -27,7 +34,9 @@ internal class AddServerByUrlViewModel(
         combine(
             internalState,
             serverUrl,
-        ) { state, url ->
+            login,
+            password,
+        ) { state, url, login, password ->
             when (state) {
                 is InternalState.EnterUrl -> {
                     val urlResult = createUrl()
@@ -44,7 +53,14 @@ internal class AddServerByUrlViewModel(
                     AddServerByUrlViewState.ConnectionError(url, message)
                 }
 
-                is InternalState.EnterCredentials -> AddServerByUrlViewState.EnterCredentials(url, state.serverInfo)
+                is InternalState.EnterCredentials -> {
+                    AddServerByUrlViewState.EnterCredentials(
+                        url = url,
+                        serverInfo = state.serverInfo,
+                        login = login,
+                        password = password,
+                    )
+                }
             }
         }
             .stateIn(AddServerByUrlViewState.EnterUrl("", AddServerByUrlViewState.UrlError.None, true))
@@ -53,6 +69,14 @@ internal class AddServerByUrlViewModel(
 
     fun onServerUrlChanged(url: String) {
         serverUrl.value = url
+    }
+
+    fun onLoginChanged(login: String) {
+        this.login.value = login
+    }
+
+    fun onPasswordChanged(password: String) {
+        this.password.value = password
     }
 
     fun onClickEdit() {
@@ -142,6 +166,7 @@ internal class AddServerByUrlViewModel(
 
     companion object {
         private const val SERVER_URL_KEY = "server_url"
+        private const val LOGIN_KEY = "login"
         const val SCHEME = "http://"
     }
 }

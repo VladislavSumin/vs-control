@@ -11,5 +11,5 @@ import ru.vs.core.di.i
 
 fun Modules.featureAuth() = DI.Module("feature-auth") {
     bindSingleton<ServerAuthApi> { ServerAuthApiImpl(i()) }
-    bindSingleton<ServerAuthInteractor> { ServerAuthInteractorImpl() }
+    bindSingleton<ServerAuthInteractor> { ServerAuthInteractorImpl(i()) }
 }

@@ -30,6 +30,8 @@ internal sealed interface AddServerByUrlViewState {
     data class EnterCredentials(
         override val url: String,
         val serverInfo: ServerInfo,
+        val login: String,
+        val password: String,
     ) : AddServerByUrlViewState
 
     sealed interface UrlError {

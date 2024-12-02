@@ -5,6 +5,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.feature.auth.clientApi)
             implementation(projects.feature.embeddedServer.clientApi)
             implementation(projects.feature.rootContentScreen.clientApi)
             implementation(projects.feature.serverInfo.clientApi)
