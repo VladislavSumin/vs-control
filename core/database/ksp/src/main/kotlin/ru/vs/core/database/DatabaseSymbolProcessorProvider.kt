@@ -9,6 +9,10 @@ class DatabaseSymbolProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
         val projectRoot = environment.options["ru.vs.core.database.projectRoot"]
         check(projectRoot != null) { "Required params not provided" }
-        return DatabaseSymbolProcessor(environment.codeGenerator, Path(projectRoot))
+        return DatabaseSymbolProcessor(
+            environment.codeGenerator,
+            environment.logger,
+            Path(projectRoot),
+        )
     }
 }
