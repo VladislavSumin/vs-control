@@ -12,8 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlViewModel
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlViewState
+import vs_control.feature.servers.client_impl.generated.resources.Res
+import vs_control.feature.servers.client_impl.generated.resources.add_server_by_url_screen_server_back
+import vs_control.feature.servers.client_impl.generated.resources.add_server_by_url_screen_server_check_connection
+import vs_control.feature.servers.client_impl.generated.resources.add_server_by_url_screen_server_login_button
 
 /**
  * Многофункциональная кнопка далее, умеет рисовать свое состояние в зависимости от переданного в нее [state]
@@ -57,9 +62,20 @@ internal fun AddServerByUrlNextButton(
                     color = MaterialTheme.colorScheme.onPrimary,
                 )
 
-                is AddServerByUrlViewState.EnterUrl -> Text("Проверить соединение", maxLines = 1)
-                is AddServerByUrlViewState.EnterCredentials -> Text("Войти", maxLines = 1)
-                is AddServerByUrlViewState.ConnectionError -> Text("Назад", maxLines = 1)
+                is AddServerByUrlViewState.EnterUrl -> Text(
+                    stringResource(Res.string.add_server_by_url_screen_server_check_connection),
+                    maxLines = 1,
+                )
+
+                is AddServerByUrlViewState.EnterCredentials -> Text(
+                    stringResource(Res.string.add_server_by_url_screen_server_login_button),
+                    maxLines = 1,
+                )
+
+                is AddServerByUrlViewState.ConnectionError -> Text(
+                    stringResource(Res.string.add_server_by_url_screen_server_back),
+                    maxLines = 1,
+                )
             }
         }
     }
