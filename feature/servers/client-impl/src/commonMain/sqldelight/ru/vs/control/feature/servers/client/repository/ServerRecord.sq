@@ -1,0 +1,17 @@
+CREATE TABLE serverRecord(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    accessToken TEXT NOT NULL
+);
+
+selectAll:
+SELECT * FROM serverRecord;
+
+get:
+SELECT * FROM serverRecord WHERE id = ?;
+
+insert:
+INSERT INTO serverRecord(name, accessToken) VALUES (?,?);
+
+delete:
+DELETE FROM serverRecord WHERE id = ?;
