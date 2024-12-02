@@ -10,6 +10,7 @@ import kotlin.io.path.relativeTo
 import kotlin.io.path.walk
 
 @Suppress("UnusedPrivateProperty")
+// TODO тут так то вообще ksp не нужен, переписать на таски gradle
 internal class DatabaseSymbolProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
