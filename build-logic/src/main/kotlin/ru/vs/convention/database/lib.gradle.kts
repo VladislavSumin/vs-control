@@ -22,8 +22,7 @@ sqldelight {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            // TODO разделить бд на api/impl
-            implementation(project(":core:database"))
+            implementation(project(":core:database:api"))
         }
     }
 }
