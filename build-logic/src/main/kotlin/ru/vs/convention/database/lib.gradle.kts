@@ -9,6 +9,7 @@ import ru.vs.utils.pathSequence
 plugins {
     id("kotlin-multiplatform")
     id("app.cash.sqldelight")
+    id("ru.vs.convention.ksp-kmp-hack")
 }
 
 sqldelight {
@@ -25,6 +26,10 @@ kotlin {
             implementation(project(":core:database:api"))
         }
     }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", project(":core:database:ksp"))
 }
 
 fun Project.fullName(): String = pathSequence()
