@@ -1,15 +1,6 @@
 plugins {
     id("ru.vs.convention.preset.feature-client-impl-ui")
-    id("app.cash.sqldelight")
-}
-
-// TODO вынести в конвеншен
-sqldelight {
-    databases {
-        register("Database") {
-            packageName.set("ru.vs.control.feature.embeddedServer.repository")
-        }
-    }
+    id("ru.vs.convention.database.lib")
 }
 
 kotlin {
@@ -33,8 +24,6 @@ kotlin {
         nativeMain.get().dependsOn(nonKtorMain)
 
         commonMain.dependencies {
-            // TODO разделить бд на api/impl
-            implementation(projects.core.database)
             implementation(projects.feature.rootContentScreen.clientApi)
         }
     }
