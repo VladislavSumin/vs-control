@@ -21,6 +21,7 @@ import ru.vs.control.feature.rootContentScreen.client.featureRootContentScreen
 import ru.vs.control.feature.rootScreen.client.featureRootScreen
 import ru.vs.control.feature.serverInfo.client.featureServerInfo
 import ru.vs.control.feature.servers.client.featureServers
+import ru.vs.control.feature.servers.client.repository.ServerQueriesProvider
 import ru.vs.control.feature.settingsScreen.client.featureSettingsScreen
 import ru.vs.control.feature.splashScreen.client.featureSplashScreen
 import ru.vs.control.feature.welcomeScreen.client.featureWelcomeScreen
@@ -72,6 +73,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
 
         bindSingleton { DatabaseService(i()) }
         bindProvider<EmbeddedServerQueriesProvider> { i<DatabaseService>() }
+        bindProvider<ServerQueriesProvider> { i<DatabaseService>() }
     }
 
     // Граф инициализируется до создания ui блокируя главный поток.

@@ -1,23 +1,15 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import ru.vs.core.database.plugin.registerDatabase
 
 plugins {
     id("ru.vs.convention.kmp.all-non-android")
     id("ru.vs.convention.kmp.android-application")
     id("ru.vs.convention.compose")
-    id("app.cash.sqldelight")
+    id("ru.vs.convention.database.host")
 }
 
-// TODO вынести в конвеншен
-// TODO сделать dsl
-evaluationDependsOn(":feature:embedded-server:client-impl")
-sqldelight {
-    databases {
-        register("Database") {
-            packageName.set("ru.vs.control.repository")
-            dependency(projects.feature.embeddedServer.clientImpl)
-        }
-    }
-}
+registerDatabase(projects.feature.embeddedServer.clientImpl)
+registerDatabase(projects.feature.servers.clientImpl)
 
 compose.experimental.web.application {}
 
@@ -97,9 +89,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // TODO вынести в конвеншен
-            implementation(projects.core.database.impl)
-
             implementation(projects.core.logger.api)
             implementation(projects.core.logger.platform)
 
