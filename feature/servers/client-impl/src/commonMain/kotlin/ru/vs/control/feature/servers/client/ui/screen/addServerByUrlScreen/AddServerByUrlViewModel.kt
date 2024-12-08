@@ -63,6 +63,15 @@ internal class AddServerByUrlViewModel(
                         password = password,
                     )
                 }
+
+                is InternalState.CheckCredentials -> {
+                    AddServerByUrlViewState.CheckingCredentials(
+                        url = url,
+                        serverInfo = state.serverInfo,
+                        login = login,
+                        password = password,
+                    )
+                }
             }
         }
             .stateIn(AddServerByUrlViewState.EnterUrl("", AddServerByUrlViewState.UrlError.None, true))
@@ -105,7 +114,9 @@ internal class AddServerByUrlViewModel(
     }
 
     fun onClickLogin() {
-        // TODO добавить логин.
+        val state = internalState.value
+        check(state is InternalState.EnterCredentials)
+        internalState.value = InternalState.CheckCredentials(state.serverInfo)
     }
 
     fun onSslErrorClickBack() {
@@ -164,6 +175,7 @@ internal class AddServerByUrlViewModel(
         data object CheckConnection : InternalState
         data class ConnectionError(val e: Exception) : InternalState
         data class EnterCredentials(val serverInfo: ServerInfo) : InternalState
+        data class CheckCredentials(val serverInfo: ServerInfo) : InternalState
     }
 
     companion object {

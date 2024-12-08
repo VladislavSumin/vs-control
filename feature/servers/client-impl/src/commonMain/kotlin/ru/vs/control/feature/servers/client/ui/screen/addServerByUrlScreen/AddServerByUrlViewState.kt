@@ -24,15 +24,29 @@ internal sealed interface AddServerByUrlViewState {
      */
     data class ConnectionError(override val url: String, val error: String) : AddServerByUrlViewState
 
+    sealed interface ServerInfoProvider : AddServerByUrlViewState {
+        val serverInfo: ServerInfo
+    }
+
     /**
      * Состояние ввода логина и пароля после первичной проверки соединения.
      */
     data class EnterCredentials(
         override val url: String,
-        val serverInfo: ServerInfo,
+        override val serverInfo: ServerInfo,
         val login: String,
         val password: String,
-    ) : AddServerByUrlViewState
+    ) : AddServerByUrlViewState, ServerInfoProvider
+
+    /**
+     * Состояние отправки запроса на получение токена по учетным данным.
+     */
+    data class CheckingCredentials(
+        override val url: String,
+        override val serverInfo: ServerInfo,
+        val login: String,
+        val password: String,
+    ) : AddServerByUrlViewState, ServerInfoProvider
 
     sealed interface UrlError {
         data object None : UrlError

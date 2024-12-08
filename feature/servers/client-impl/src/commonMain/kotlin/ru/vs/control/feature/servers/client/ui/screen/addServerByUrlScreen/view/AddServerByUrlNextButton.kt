@@ -34,15 +34,18 @@ internal fun AddServerByUrlNextButton(
         is AddServerByUrlViewState.CheckingConnection,
         is AddServerByUrlViewState.EnterCredentials,
         is AddServerByUrlViewState.ConnectionError,
+        is AddServerByUrlViewState.CheckingCredentials,
         -> true
     }
     Button(
         onClick = {
             when (state) {
                 is AddServerByUrlViewState.EnterUrl -> viewModel.onClickCheckConnection()
-                is AddServerByUrlViewState.CheckingConnection -> Unit
                 is AddServerByUrlViewState.EnterCredentials -> viewModel.onClickLogin()
                 is AddServerByUrlViewState.ConnectionError -> viewModel.onSslErrorClickBack()
+                is AddServerByUrlViewState.CheckingConnection,
+                is AddServerByUrlViewState.CheckingCredentials,
+                -> Unit
             }
         },
         modifier = modifier
@@ -56,7 +59,9 @@ internal fun AddServerByUrlNextButton(
             contentKey = { it::class },
         ) { state ->
             when (state) {
-                is AddServerByUrlViewState.CheckingConnection -> CircularProgressIndicator(
+                is AddServerByUrlViewState.CheckingConnection,
+                is AddServerByUrlViewState.CheckingCredentials,
+                -> CircularProgressIndicator(
                     modifier = Modifier.size(24.dp),
                     strokeWidth = 3.dp,
                     color = MaterialTheme.colorScheme.onPrimary,

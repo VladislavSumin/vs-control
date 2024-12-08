@@ -15,6 +15,7 @@ internal fun AddServerByUrlLoginPassword(
     viewModel: AddServerByUrlViewModel,
     login: String,
     password: String,
+    enabled: Boolean,
 ) {
     Column {
         OutlinedTextField(
@@ -24,6 +25,7 @@ internal fun AddServerByUrlLoginPassword(
                 .padding(8.dp)
                 .fillMaxWidth(),
             label = { Text("Login") },
+            enabled = enabled,
         )
         OutlinedTextField(
             value = password,
@@ -32,6 +34,7 @@ internal fun AddServerByUrlLoginPassword(
                 .padding(8.dp)
                 .fillMaxWidth(),
             label = { Text("Password") },
+            enabled = enabled,
         )
     }
 }

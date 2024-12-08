@@ -79,7 +79,7 @@ private fun ServerUrlContent(
         is AddServerByUrlViewState.ConnectionError,
         -> AddServerByUrlServerUrlField(state.url, isEnabled = false)
 
-        is AddServerByUrlViewState.EnterCredentials -> AddServerByUrlServerInfo(
+        is AddServerByUrlViewState.ServerInfoProvider -> AddServerByUrlServerInfo(
             state.serverInfo,
             state.url,
             Modifier.fillMaxWidth(),
@@ -105,6 +105,7 @@ private fun NextButtonContent(
                 is AddServerByUrlViewState.CheckingConnection,
                 is AddServerByUrlViewState.EnterCredentials,
                 is AddServerByUrlViewState.EnterUrl,
+                is AddServerByUrlViewState.CheckingCredentials,
                 -> Box(Modifier.fillMaxWidth()) {
                     AddServerByUrlNextButton(
                         viewModel,
@@ -147,6 +148,14 @@ private fun LoginPasswordContent(viewModel: AddServerByUrlViewModel, state: AddS
                 viewModel,
                 state.login,
                 state.password,
+                enabled = true,
+            )
+
+            is AddServerByUrlViewState.CheckingCredentials -> AddServerByUrlLoginPassword(
+                viewModel,
+                state.login,
+                state.password,
+                enabled = false,
             )
         }
     }
