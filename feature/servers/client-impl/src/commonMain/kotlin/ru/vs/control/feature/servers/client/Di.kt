@@ -2,6 +2,9 @@ package ru.vs.control.feature.servers.client
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
+import ru.vs.control.feature.servers.client.domain.ServersInteractor
+import ru.vs.control.feature.servers.client.domain.ServersInteractorImpl
+import ru.vs.control.feature.servers.client.repository.ServersRepositoryImpl
 import ru.vs.control.feature.servers.client.ui.screen.NavigationRegistrarImpl
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlScreenFactory
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlViewModelFactory
@@ -16,6 +19,10 @@ import ru.vs.core.navigation.registration.bindNavigation
 fun Modules.featureServers() = DI.Module("feature-servers") {
     bindNavigation { NavigationRegistrarImpl(i(), i(), i()) }
 
+    bindSingleton<ServersInteractor> {
+        ServersInteractorImpl(ServersRepositoryImpl(i(), i()))
+    }
+
     bindSingleton {
         val viewModelFactory = ServersViewModelFactory()
         ServersScreenFactory(viewModelFactory, i())
@@ -27,7 +34,7 @@ fun Modules.featureServers() = DI.Module("feature-servers") {
     }
 
     bindSingleton {
-        val viewModelFactory = AddServerByUrlViewModelFactory(i(), i())
+        val viewModelFactory = AddServerByUrlViewModelFactory(i(), i(), i())
         AddServerByUrlScreenFactory(viewModelFactory)
     }
 }

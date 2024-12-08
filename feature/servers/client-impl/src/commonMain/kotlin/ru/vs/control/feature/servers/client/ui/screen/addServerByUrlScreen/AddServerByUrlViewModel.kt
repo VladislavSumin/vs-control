@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.combine
 import ru.vs.control.feature.auth.client.domain.ServerAuthInteractor
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfo
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor
+import ru.vs.control.feature.servers.client.domain.ServersInteractor
 import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.ktor.client.SafeResponse
 import ru.vs.core.logger.api.logger
@@ -19,6 +20,7 @@ import ru.vs.core.navigation.viewModel.NavigationViewModel
 internal class AddServerByUrlViewModel(
     private val serverInfoInteractor: ServerInfoInteractor,
     private val serverAuthInteractor: ServerAuthInteractor,
+    private val serversInteractor: ServersInteractor,
 ) : NavigationViewModel() {
     private val logger = logger("AddServerByUrl")
 
