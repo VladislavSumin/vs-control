@@ -13,4 +13,5 @@ gradlePlugin {
 
 dependencies {
     implementation(libs.kotlinpoet.core)
+    implementation(libs.gradlePlugins.kotlin.core)
 }
