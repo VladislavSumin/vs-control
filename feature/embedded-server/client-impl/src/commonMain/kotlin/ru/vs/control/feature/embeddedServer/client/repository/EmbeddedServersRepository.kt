@@ -42,11 +42,11 @@ internal class EmbeddedServersRepositoryImpl(
 }
 
 @JvmInline
-value class EmbeddedServerId(val raw: Long)
+internal value class EmbeddedServerId(val raw: Long)
 
-data class EmbeddedServer(val id: EmbeddedServerId = EmbeddedServerId(0), val name: String)
+internal data class EmbeddedServer(val id: EmbeddedServerId = EmbeddedServerId(0), val name: String)
 
 // TODO попробовать сделать генерацию этих методов.
-fun EmbeddedServer.toRecord() = EmbeddedServerRecord(id.raw, name)
-fun EmbeddedServerRecord.toModel() = EmbeddedServer(EmbeddedServerId(id), name)
-fun List<EmbeddedServerRecord>.toModels() = map { it.toModel() }
+private fun EmbeddedServer.toRecord() = EmbeddedServerRecord(id.raw, name)
+private fun EmbeddedServerRecord.toModel() = EmbeddedServer(EmbeddedServerId(id), name)
+private fun List<EmbeddedServerRecord>.toModels() = map { it.toModel() }
