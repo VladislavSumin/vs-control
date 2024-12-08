@@ -1,5 +1,6 @@
 package ru.vs.core.database.plugin
 
+import com.squareup.kotlinpoet.FileSpec
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
@@ -24,16 +25,32 @@ abstract class GenerateDatabaseQueriesProvidersTask : DefaultTask() {
 
     @TaskAction
     fun action() {
+        generatedCodeDir.asFile.deleteRecursively()
+
         // Проходимся по всем sq файлам с объявлениями таблиц.
         val sqlRootDir = sourceDir.asFile
         sqlRootDir
             .walk()
             .filter { it.isFile }
-            .map { it.relativeTo(sqlRootDir).toString() }
+            .map {
+                it
+                    .relativeTo(sqlRootDir)
+                    .toString()
+                    .dropLast(".sq".length)
+                    .replace("/", ".")
+            }
             .forEach(::generateQueriesProvider)
     }
 
-    private fun generateQueriesProvider(className: String) {
-        println("QWQW file = $className")
+    private fun generateQueriesProvider(recordClassFullName: String) {
+        val classPackage = recordClassFullName.dropLastWhile { it != '.' }.dropLast(1)
+        val className = recordClassFullName
+            .takeLastWhile { it != '.' }
+            .dropLast("Record".length) + "QueriesProvider"
+
+        // Записываем полученный провайдер в файл
+        FileSpec.builder(classPackage, className)
+            .build()
+            .writeTo(generatedCodeDir.asFile)
     }
 }

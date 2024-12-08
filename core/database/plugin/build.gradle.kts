@@ -10,3 +10,7 @@ gradlePlugin {
         }
     }
 }
+
+dependencies {
+    implementation(libs.kotlinpoet.core)
+}
