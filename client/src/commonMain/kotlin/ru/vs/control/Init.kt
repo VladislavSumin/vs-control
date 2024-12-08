@@ -11,7 +11,7 @@ import ru.vs.control.feature.appInfo.client.featureAppInfo
 import ru.vs.control.feature.auth.client.featureAuth
 import ru.vs.control.feature.debugScreen.client.featureDebugScreen
 import ru.vs.control.feature.embeddedServer.client.featureEmbeddedServer
-import ru.vs.control.feature.embeddedServer.client.service.EmbeddedServerQueriesProvider
+import ru.vs.control.feature.embeddedServer.client.repository.EmbeddedServerQueriesProvider
 import ru.vs.control.feature.initialization.client.domain.InitializedDependenciesBuilder
 import ru.vs.control.feature.initialization.client.featureInitialization
 import ru.vs.control.feature.initializedRootScreen.client.featureInitializedRootScreen

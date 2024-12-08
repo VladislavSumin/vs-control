@@ -9,6 +9,7 @@ import ru.vs.utils.pathSequence
 plugins {
     id("kotlin-multiplatform")
     id("app.cash.sqldelight")
+    id("ru.vs.core.database")
 }
 
 sqldelight {

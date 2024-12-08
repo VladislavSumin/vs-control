@@ -7,6 +7,8 @@ dependencies {
     // version catalogs. Поэтому используем костыль отсюда - https://github.com/gradle/gradle/issues/15383
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 
+    implementation(projects.core.database.plugin)
+
     implementation(libs.gradlePlugins.kotlin.core)
     implementation(libs.gradlePlugins.kotlin.ksp)
     implementation(libs.gradlePlugins.kotlin.compose.compiler)
