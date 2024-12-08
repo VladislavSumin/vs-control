@@ -1,6 +1,11 @@
 package ru.vs.core.database.plugin
 
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.TypeSpec
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
@@ -43,13 +48,26 @@ abstract class GenerateDatabaseQueriesProvidersTask : DefaultTask() {
     }
 
     private fun generateQueriesProvider(recordClassFullName: String) {
-        val classPackage = recordClassFullName.dropLastWhile { it != '.' }.dropLast(1)
-        val className = recordClassFullName
+        val recordClassName = recordClassFullName
             .takeLastWhile { it != '.' }
-            .dropLast("Record".length) + "QueriesProvider"
+        val classPackage = recordClassFullName.dropLastWhile { it != '.' }.dropLast(1)
+        val className = recordClassName.dropLast("Record".length) + "QueriesProvider"
+        val queriesClassName = recordClassName + "Queries"
+
+        // Генерируем функцию геттер
+        val function = FunSpec.builder("provide$queriesClassName")
+            .returns(ClassName(classPackage, queriesClassName))
+            .addModifiers(KModifier.SUSPEND, KModifier.ABSTRACT)
+            .build()
+
+        // Генерируем интерфейс провайдера
+        val provider = TypeSpec.interfaceBuilder(className)
+            .addFunction(function)
+            .build()
 
         // Записываем полученный провайдер в файл
         FileSpec.builder(classPackage, className)
+            .addType(provider)
             .build()
             .writeTo(generatedCodeDir.asFile)
     }
