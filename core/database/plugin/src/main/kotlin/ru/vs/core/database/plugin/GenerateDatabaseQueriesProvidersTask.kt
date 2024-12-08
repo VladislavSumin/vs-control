@@ -54,7 +54,7 @@ abstract class GenerateDatabaseQueriesProvidersTask : DefaultTask() {
         val queriesClassName = recordClassName + "Queries"
 
         // Генерируем функцию геттер
-        val function = FunSpec.builder("provide$queriesClassName")
+        val function = FunSpec.builder("get$queriesClassName")
             .returns(ClassName(classPackage, queriesClassName))
             .addModifiers(KModifier.SUSPEND, KModifier.ABSTRACT)
             .build()
