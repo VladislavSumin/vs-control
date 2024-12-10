@@ -24,7 +24,7 @@ fun Modules.featureServers() = DI.Module("feature-servers") {
     }
 
     bindSingleton {
-        val viewModelFactory = ServersViewModelFactory()
+        val viewModelFactory = ServersViewModelFactory(i())
         ServersScreenFactory(viewModelFactory, i())
     }
 
