@@ -130,6 +130,18 @@ private fun NextButtonContent(
                             ),
                     )
                 }
+
+                is AddServerByUrlViewState.LoginError -> AddServerByUrlErrorSheet(state.error) {
+                    AddServerByUrlNextButton(
+                        viewModel,
+                        state,
+                        Modifier
+                            .sharedElement(
+                                rememberSharedContentState(NEXT_BUTTON_SHARED_TRANSITION_KEY),
+                                animatedScope,
+                            ),
+                    )
+                }
             }
         }
     }
@@ -152,6 +164,13 @@ private fun LoginPasswordContent(viewModel: AddServerByUrlViewModel, state: AddS
             )
 
             is AddServerByUrlViewState.CheckingCredentials -> AddServerByUrlLoginPassword(
+                viewModel,
+                state.login,
+                state.password,
+                enabled = false,
+            )
+
+            is AddServerByUrlViewState.LoginError -> AddServerByUrlLoginPassword(
                 viewModel,
                 state.login,
                 state.password,

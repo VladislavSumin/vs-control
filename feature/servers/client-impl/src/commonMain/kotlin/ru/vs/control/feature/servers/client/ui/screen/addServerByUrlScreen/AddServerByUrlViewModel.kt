@@ -6,17 +6,19 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import ru.vs.control.feature.auth.client.domain.ServerAuthInteractor
+import ru.vs.control.feature.auth.client.domain.ServerAuthResult
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfo
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor
 import ru.vs.control.feature.servers.client.domain.ServersInteractor
+import ru.vs.control.feature.servers.client.repository.Server
 import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.ktor.client.SafeResponse
 import ru.vs.core.logger.api.logger
 import ru.vs.core.navigation.viewModel.NavigationViewModel
+import kotlin.error
 
 @Stable
 @GenerateFactory
-@Suppress("UnusedPrivateProperty") // TODO убрать
 internal class AddServerByUrlViewModel(
     private val serverInfoInteractor: ServerInfoInteractor,
     private val serverAuthInteractor: ServerAuthInteractor,
@@ -72,6 +74,16 @@ internal class AddServerByUrlViewModel(
                         password = password,
                     )
                 }
+
+                is InternalState.LoginError -> {
+                    AddServerByUrlViewState.LoginError(
+                        url = url,
+                        serverInfo = state.serverInfo,
+                        login = login,
+                        password = password,
+                        error = state.e.message ?: state.e.stackTraceToString().lines().firstOrNull() ?: "",
+                    )
+                }
             }
         }
             .stateIn(AddServerByUrlViewState.EnterUrl("", AddServerByUrlViewState.UrlError.None, true))
@@ -98,7 +110,7 @@ internal class AddServerByUrlViewModel(
         check(internalState.value == InternalState.EnterUrl)
         internalState.value = InternalState.CheckConnection
         launch {
-            val url = (createUrl() as UrlResult.SuccessUrl?)?.url ?: return@launch
+            val url = (createUrl() as UrlResult.SuccessUrl?)?.url ?: error("Can't parse server url")
             val response = serverInfoInteractor.getServerInfo(url)
             when (response) {
                 is SafeResponse.Success -> {
@@ -117,6 +129,26 @@ internal class AddServerByUrlViewModel(
         val state = internalState.value
         check(state is InternalState.EnterCredentials)
         internalState.value = InternalState.CheckCredentials(state.serverInfo)
+
+        launch {
+            val url = (createUrl() as UrlResult.SuccessUrl?)?.url ?: error("Can't parse server url")
+            val loginResult = serverAuthInteractor.login(url, login.value, password.value)
+            when (loginResult) {
+                ServerAuthResult.IncorrectLoginOrPassword -> TODO()
+                is ServerAuthResult.NetworkError -> {
+                    internalState.value = InternalState.LoginError(state.serverInfo, loginResult.error)
+                }
+
+                is ServerAuthResult.Success -> {
+                    val server = Server(
+                        name = state.serverInfo.name,
+                        accessToken = loginResult.accessToken,
+                    )
+                    serversInteractor.add(server)
+                    close()
+                }
+            }
+        }
     }
 
     fun onSslErrorClickBack() {
@@ -157,6 +189,12 @@ internal class AddServerByUrlViewModel(
         -> false
     }
 
+    fun onLoginErrorClickBack() {
+        val state = internalState.value
+        check(state is InternalState.LoginError)
+        internalState.value = InternalState.EnterCredentials(state.serverInfo)
+    }
+
     /**
      * @property EmptyUrl пустой урл.
      * @property SuccessUrl успешная проверка.
@@ -176,6 +214,7 @@ internal class AddServerByUrlViewModel(
         data class ConnectionError(val e: Exception) : InternalState
         data class EnterCredentials(val serverInfo: ServerInfo) : InternalState
         data class CheckCredentials(val serverInfo: ServerInfo) : InternalState
+        data class LoginError(val serverInfo: ServerInfo, val e: Exception) : InternalState
     }
 
     companion object {

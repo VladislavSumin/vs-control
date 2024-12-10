@@ -35,6 +35,7 @@ internal fun AddServerByUrlNextButton(
         is AddServerByUrlViewState.EnterCredentials,
         is AddServerByUrlViewState.ConnectionError,
         is AddServerByUrlViewState.CheckingCredentials,
+        is AddServerByUrlViewState.LoginError,
         -> true
     }
     Button(
@@ -43,6 +44,7 @@ internal fun AddServerByUrlNextButton(
                 is AddServerByUrlViewState.EnterUrl -> viewModel.onClickCheckConnection()
                 is AddServerByUrlViewState.EnterCredentials -> viewModel.onClickLogin()
                 is AddServerByUrlViewState.ConnectionError -> viewModel.onSslErrorClickBack()
+                is AddServerByUrlViewState.LoginError -> viewModel.onLoginErrorClickBack()
                 is AddServerByUrlViewState.CheckingConnection,
                 is AddServerByUrlViewState.CheckingCredentials,
                 -> Unit
@@ -77,7 +79,9 @@ internal fun AddServerByUrlNextButton(
                     maxLines = 1,
                 )
 
-                is AddServerByUrlViewState.ConnectionError -> Text(
+                is AddServerByUrlViewState.ConnectionError,
+                is AddServerByUrlViewState.LoginError,
+                -> Text(
                     stringResource(Res.string.add_server_by_url_screen_server_back),
                     maxLines = 1,
                 )

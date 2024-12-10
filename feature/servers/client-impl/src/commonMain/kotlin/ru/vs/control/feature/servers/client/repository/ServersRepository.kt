@@ -44,7 +44,7 @@ internal class ServersRepositoryImpl(
 @JvmInline
 internal value class ServerId(val raw: Long)
 
-internal data class Server(val id: ServerId, val name: String, val accessToken: String)
+internal data class Server(val id: ServerId = ServerId(0), val name: String, val accessToken: String)
 
 private fun ServerRecord.toModel() = Server(ServerId(id), name, accessToken)
 private fun List<ServerRecord>.toModels() = map { it.toModel() }

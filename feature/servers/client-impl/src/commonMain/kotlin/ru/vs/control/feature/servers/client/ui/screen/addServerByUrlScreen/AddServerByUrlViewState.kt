@@ -38,6 +38,14 @@ internal sealed interface AddServerByUrlViewState {
         val password: String,
     ) : AddServerByUrlViewState, ServerInfoProvider
 
+    data class LoginError(
+        override val url: String,
+        override val serverInfo: ServerInfo,
+        val login: String,
+        val password: String,
+        val error: String,
+    ) : AddServerByUrlViewState, ServerInfoProvider
+
     /**
      * Состояние отправки запроса на получение токена по учетным данным.
      */
