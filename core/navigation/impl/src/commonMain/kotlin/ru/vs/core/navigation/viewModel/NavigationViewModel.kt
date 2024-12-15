@@ -1,7 +1,7 @@
 package ru.vs.core.navigation.viewModel
 
 import kotlinx.coroutines.channels.Channel
-import ru.vs.core.decompose.ViewModel
+import ru.vladislavsumin.core.decompose.components.ViewModel
 import ru.vs.core.navigation.ScreenParams
 
 /**

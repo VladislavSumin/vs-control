@@ -10,6 +10,7 @@ dependencyResolutionManagement {
         }
     }
 }
+includeBuild("../vs-core")
 
 pluginManagement {
     includeBuild("build-logic")

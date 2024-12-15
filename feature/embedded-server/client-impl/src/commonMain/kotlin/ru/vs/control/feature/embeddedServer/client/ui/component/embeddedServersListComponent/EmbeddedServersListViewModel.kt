@@ -1,8 +1,8 @@
 package ru.vs.control.feature.embeddedServer.client.ui.component.embeddedServersListComponent
 
+import ru.vladislavsumin.core.decompose.components.ViewModel
 import ru.vs.control.feature.embeddedServer.client.domain.EmbeddedServersInteractor
 import ru.vs.control.feature.embeddedServer.client.repository.EmbeddedServer
-import ru.vs.core.decompose.ViewModel
 import ru.vs.core.factoryGenerator.GenerateFactory
 
 @GenerateFactory
