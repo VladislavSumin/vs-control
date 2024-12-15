@@ -4,8 +4,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
+import ru.vladislavsumin.core.decompose.components.Component
 import ru.vs.control.feature.servers.client.repository.Server
-import ru.vs.core.decompose.Component
 import ru.vs.core.decompose.ComposeComponent
 
 /**

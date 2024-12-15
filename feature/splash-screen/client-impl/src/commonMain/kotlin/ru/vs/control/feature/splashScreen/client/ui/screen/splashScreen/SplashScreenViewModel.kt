@@ -3,7 +3,7 @@ package ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen
 import androidx.compose.runtime.Stable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
-import ru.vs.core.decompose.ViewModel
+import ru.vladislavsumin.core.decompose.components.ViewModel
 import ru.vs.core.factoryGenerator.GenerateFactory
 
 @Stable

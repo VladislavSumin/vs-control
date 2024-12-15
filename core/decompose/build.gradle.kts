@@ -6,6 +6,9 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            // TODO добавлять через каталог версий
+            api("ru.vladislavsumin.core.decompose:components")
+
             api(libs.decompose.core)
             api(libs.decompose.extensions.compose)
             api(libs.decompose.extensions.composeExperimental)

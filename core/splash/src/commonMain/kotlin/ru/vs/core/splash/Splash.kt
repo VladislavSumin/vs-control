@@ -12,7 +12,7 @@ import com.arkivanov.essenty.statekeeper.SerializableContainer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.vs.core.decompose.createCoroutineScope
+import ru.vladislavsumin.core.decompose.components.utils.createCoroutineScope
 
 /**
  * Компонент навигации для реализации splash экрана.

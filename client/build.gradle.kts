@@ -3,7 +3,7 @@ import ru.vs.core.database.plugin.registerDatabase
 
 plugins {
     id("ru.vs.convention.kmp.all-non-android")
-    id("ru.vs.convention.kmp.android-application")
+    id("ru.vladislavsumin.convention.kmp.android-application")
     id("ru.vs.convention.compose")
     id("ru.vs.convention.database.host")
 }

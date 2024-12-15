@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
  */
 
 plugins {
-    id("ru.vs.convention.kmp.common")
+    id("ru.vladislavsumin.convention.kmp.common")
 }
 
 kotlin {

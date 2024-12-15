@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.first
+import ru.vladislavsumin.core.decompose.components.Component
 import ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen.SplashScreenFactory
-import ru.vs.core.decompose.Component
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.sharedElementTransition.ProvideLocalSharedElementTransition
 import ru.vs.core.splash.Children
