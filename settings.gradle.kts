@@ -2,6 +2,15 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 apply { from("build-logic/common-settings.gradle.kts") }
 
+// TODO вынести в общий код
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("vsCoreLibs") {
+            from(files("../vs-core/libs.versions.toml"))
+        }
+    }
+}
+
 pluginManagement {
     includeBuild("build-logic")
 }

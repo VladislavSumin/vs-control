@@ -6,5 +6,5 @@ package ru.vs.convention.kmp
 
 plugins {
     id("com.android.application")
-    id("ru.vs.convention.kmp.android-common")
+    id("ru.vladislavsumin.convention.kmp.android-common")
 }

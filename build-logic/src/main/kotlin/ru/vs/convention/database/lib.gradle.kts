@@ -1,6 +1,6 @@
 package ru.vs.convention.database
 
-import ru.vs.utils.pathSequence
+import ru.vladislavsumin.utils.pathSequence
 
 /**
  * Базовая настройка базы данных для библиотечного модуля.
@@ -15,6 +15,7 @@ plugins {
 sqldelight {
     databases {
         register("Database") {
+            // TODO поичинить п
             packageName.set("ru.vs.${project.fullName()}.repository")
         }
     }

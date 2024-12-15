@@ -7,7 +7,7 @@ import ru.vs.utils.libs
  */
 
 plugins {
-    id("ru.vs.convention.kmp.common")
+    id("ru.vladislavsumin.convention.kmp.common")
 }
 
 kotlin {
