@@ -6,8 +6,8 @@ package ru.vs.convention.kmp
  */
 
 plugins {
-    id("ru.vs.convention.kmp.js")
-    id("ru.vs.convention.kmp.jvm")
+    id("ru.vladislavsumin.convention.kmp.js")
+    id("ru.vladislavsumin.convention.kmp.jvm")
 
     // TODO включить обратно
     // не поддерживается ktor cio
