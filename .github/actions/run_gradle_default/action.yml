@@ -1,0 +1,44 @@
+# Usage:
+# - name: Run gradle default
+#   uses: ./.github/actions/run_gradle_default
+#   with:
+#     key: "cache_key"
+#     gradle_command: ->
+#       :exampleGradleTask
+
+name: run_gradle
+description: Run gradle
+inputs:
+  key:
+    required: true
+    description: primary cache key
+  gradle_command:
+    required: true
+    description: part of gradle command including tasks && properties
+runs:
+  using: composite
+  steps:
+    - name: Clone vs-control repository
+      uses: actions/checkout@v4
+      with:
+        path: vs-control
+
+    - name: Clone vs-core repository
+      uses: actions/checkout@v4
+      with:
+        repository: VladislavSumin/vs-core
+        path: vs-core
+
+    - name: Setup java
+      uses: ./vs-core/.github/actions/setup_java
+
+    - name: Gradle cache
+      uses: ./vs-core/.github/actions/gradle_cache
+      with:
+        key: { { inputs.key } }
+
+    - name: Run gradle
+      uses: ./vs-core/.github/actions/run_gradle
+      with:
+        working-directory: ./vs-control
+        gradle_command: { { inputs.gradle_command } }

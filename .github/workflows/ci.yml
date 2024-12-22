@@ -13,29 +13,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone vs-control repository
-        uses: actions/checkout@v4
-        with:
-          path: vs-control
-
-      - name: Clone vs-core repository
-        uses: actions/checkout@v4
-        with:
-          repository: VladislavSumin/vs-core
-          path: vs-core
-
-      - name: Setup java
-        uses: ./vs-core/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-core/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "check_gradle_modules_graph"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           gradle_command: :assertModuleGraph
 
   check-detekt:
@@ -43,29 +24,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone vs-control repository
-        uses: actions/checkout@v4
-        with:
-          path: vs-control
-
-      - name: Clone vs-core repository
-        uses: actions/checkout@v4
-        with:
-          repository: VladislavSumin/vs-core
-          path: vs-core
-
-      - name: Setup java
-        uses: ./vs-core/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-core/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "check_detekt"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           gradle_command: >-
             :detektBuildLogic
             detekt  
@@ -75,29 +37,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone vs-control repository
-        uses: actions/checkout@v4
-        with:
-          path: vs-control
-
-      - name: Clone vs-core repository
-        uses: actions/checkout@v4
-        with:
-          repository: VladislavSumin/vs-core
-          path: vs-core
-
-      - name: Setup java
-        uses: ./vs-core/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-core/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "assemble_android_debug_client"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           gradle_command: :client:assembleDebug
 
   assemble-jvm-client:
@@ -105,29 +48,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone vs-control repository
-        uses: actions/checkout@v4
-        with:
-          path: vs-control
-
-      - name: Clone vs-core repository
-        uses: actions/checkout@v4
-        with:
-          repository: VladislavSumin/vs-core
-          path: vs-core
-
-      - name: Setup java
-        uses: ./vs-core/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-core/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "assemble_jvm_client"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           gradle_command: :client:jvmJar
 
   unit-tests:
@@ -135,29 +59,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone vs-control repository
-        uses: actions/checkout@v4
-        with:
-          path: vs-control
-
-      - name: Clone vs-core repository
-        uses: actions/checkout@v4
-        with:
-          repository: VladislavSumin/vs-core
-          path: vs-core
-
-      - name: Setup java
-        uses: ./vs-core/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-core/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "unit_tests"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           # allTest (not working by wasm target)
           gradle_command: >-
             jvmTest
