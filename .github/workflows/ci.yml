@@ -13,8 +13,16 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone repository
+      - name: Clone vs-control repository
         uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
 
       - name: Setup java
         uses: ./.github/actions/setup_java
@@ -26,6 +34,7 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
+        working-directory: ./vs-control
         with:
           gradle_command: :assertModuleGraph
 
@@ -34,8 +43,16 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone repository
+      - name: Clone vs-control repository
         uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
 
       - name: Setup java
         uses: ./.github/actions/setup_java
@@ -47,6 +64,7 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
+        working-directory: ./vs-control
         with:
           gradle_command: >-
             :detektBuildLogic
@@ -57,8 +75,16 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone repository
+      - name: Clone vs-control repository
         uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
 
       - name: Setup java
         uses: ./.github/actions/setup_java
@@ -70,6 +96,7 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
+        working-directory: ./vs-control
         with:
           gradle_command: :client:assembleDebug
 
@@ -78,8 +105,16 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone repository
+      - name: Clone vs-control repository
         uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
 
       - name: Setup java
         uses: ./.github/actions/setup_java
@@ -91,39 +126,25 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
+        working-directory: ./vs-control
         with:
           gradle_command: :client:jvmJar
-
-# MaсOs сборки слишком долгие
-#  assemble-macos-client:
-#    name: Assemble macos client
-#    runs-on: macos-14
-#    timeout-minutes: 30
-#    steps:
-#      - name: Clone repository
-#        uses: actions/checkout@v4
-#
-#      - name: Setup java
-#        uses: ./.github/actions/setup_java
-#
-#      - name: Gradle cache
-#        uses: ./.github/actions/gradle_cache
-#        with:
-#          key: "assemble_macos_client"
-#
-#      - name: Run gradle
-#        uses: ./.github/actions/run_gradle
-#        with:
-#          gradle_command: >-
-#            :client:macosArm64Binaries
 
   unit-tests:
     name: Unit tests
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Clone repository
+      - name: Clone vs-control repository
         uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
 
       - name: Setup java
         uses: ./.github/actions/setup_java
@@ -135,6 +156,7 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
+        working-directory: ./vs-control
         with:
           # allTest (not working by wasm target)
           gradle_command: >-
