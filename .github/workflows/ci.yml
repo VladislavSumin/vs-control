@@ -25,10 +25,10 @@ jobs:
           path: vs-core
 
       - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
+        uses: ./vs-core/.github/actions/setup_java
 
       - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+        uses: ./vs-core/.github/actions/gradle_cache
         with:
           key: "check_gradle_modules_graph"
 
@@ -55,10 +55,10 @@ jobs:
           path: vs-core
 
       - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
+        uses: ./vs-core/.github/actions/setup_java
 
       - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+        uses: ./vs-core/.github/actions/gradle_cache
         with:
           key: "check_detekt"
 
@@ -87,10 +87,10 @@ jobs:
           path: vs-core
 
       - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
+        uses: ./vs-core/.github/actions/setup_java
 
       - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+        uses: ./vs-core/.github/actions/gradle_cache
         with:
           key: "assemble_android_debug_client"
 
@@ -117,10 +117,10 @@ jobs:
           path: vs-core
 
       - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
+        uses: ./vs-core/.github/actions/setup_java
 
       - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+        uses: ./vs-core/.github/actions/gradle_cache
         with:
           key: "assemble_jvm_client"
 
@@ -147,10 +147,10 @@ jobs:
           path: vs-core
 
       - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
+        uses: ./vs-core/.github/actions/setup_java
 
       - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+        uses: ./vs-core/.github/actions/gradle_cache
         with:
           key: "unit_tests"
 
