@@ -1,20 +1,15 @@
 plugins {
-    id("ru.vs.convention.kmp.jvm")
-    id("ru.vs.convention.kmp.linux")
-    id("ru.vs.convention.kmp.macos")
-
-    id("ru.vs.convention.serialization.json")
+    id("ru.vs.convention.kmp.ktor")
+    kotlin("plugin.serialization")
 }
 
 kotlin {
     sourceSets {
-        named("commonMain") {
-            dependencies {
-                api(projects.rsub.core)
+        commonMain.dependencies {
+            api(projects.rsub.core)
 
-                implementation(coreLibs.vs.core.coroutines)
-                implementation(coreLibs.vs.core.logging)
-            }
+            implementation(projects.core.coroutines)
+            implementation(projects.core.logger.api)
         }
     }
 }

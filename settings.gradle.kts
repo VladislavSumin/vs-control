@@ -76,6 +76,7 @@ include(":core:utils")
 
 include("rsub:client")
 include("rsub:core")
+include("rsub:server")
 
 sharedFeature("server-info")
 sharedFeature("auth")
