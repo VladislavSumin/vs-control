@@ -74,6 +74,7 @@ include(":core:uikit:icons")
 include(":core:uikit:paddings")
 include(":core:utils")
 
+include("rsub:client")
 include("rsub:core")
 
 sharedFeature("server-info")
