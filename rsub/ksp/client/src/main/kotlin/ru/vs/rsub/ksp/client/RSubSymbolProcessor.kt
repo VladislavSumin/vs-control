@@ -24,7 +24,7 @@ import ru.vs.rsub.RSubConnector
 
 class RSubSymbolProcessor(
     private val codeGenerator: CodeGenerator,
-    logger: KSPLogger
+    logger: KSPLogger,
 ) : SymbolProcessor {
     private val proxyGenerator = RSubInterfaceProxyGenerator(logger)
 
@@ -78,22 +78,22 @@ class RSubSymbolProcessor(
             .addParameter(
                 ParameterSpec.builder("reconnectInterval", Long::class)
                     .defaultValue("%L", 3000)
-                    .build()
+                    .build(),
             )
             .addParameter(
                 ParameterSpec.builder("connectionKeepAliveTime", Long::class)
                     .defaultValue("%L", 6000)
-                    .build()
+                    .build(),
             )
             .addParameter(
                 ParameterSpec.builder("json", Json::class)
                     .defaultValue("%T", Json::class.asTypeName())
-                    .build()
+                    .build(),
             )
             .addParameter(
                 ParameterSpec.builder("scope", CoroutineScope::class)
                     .defaultValue("%T", GlobalScope::class.asTypeName())
-                    .build()
+                    .build(),
             )
             .build()
     }

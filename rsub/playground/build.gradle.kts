@@ -3,13 +3,13 @@ plugins {
     // id("com.google.devtools.ksp")
 }
 
-//sourceSets {
+// sourceSets {
 //    main {
 //        java {
 //            srcDir("build/generated/ksp/main/kotlin")
 //        }
 //    }
-//}
+// }
 
 dependencies {
     implementation(projects.rsub.connector.ktorWebsocket.client)

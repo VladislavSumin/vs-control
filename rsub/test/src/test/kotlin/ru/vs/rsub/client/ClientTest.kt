@@ -50,7 +50,7 @@ class ClientTest : BaseClientTest() {
 
     private suspend inline fun <reified T : Any> testSuspend(
         testData: T,
-        noinline method: suspend () -> T
+        noinline method: suspend () -> T,
     ) = coroutineScope {
         val resultDeferred = async { method() }
 

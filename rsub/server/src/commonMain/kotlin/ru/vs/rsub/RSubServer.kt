@@ -42,7 +42,7 @@ class RSubServer(
     }
 
     private inner class ConnectionHandler(
-        private val connection: RSubConnection
+        private val connection: RSubConnection,
     ) {
         /**
          * Map of active subscriptions
@@ -116,13 +116,15 @@ class RSubServer(
 
         private fun parseArguments(
             impl: RSubServerSubscription,
-            arguments: List<JsonElement?>
+            arguments: List<JsonElement?>,
         ): List<Any?> {
             check(impl.argumentTypes.size == arguments.size)
             return impl.argumentTypes.zip(arguments) { type, instance ->
-                if (instance != null)
+                if (instance != null) {
                     json.decodeFromJsonElement(json.serializersModule.serializer(type), instance)
-                else null
+                } else {
+                    null
+                }
             }
         }
 

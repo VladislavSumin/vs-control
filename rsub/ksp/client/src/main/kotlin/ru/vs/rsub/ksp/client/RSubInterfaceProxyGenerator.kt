@@ -19,18 +19,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KType
 
 class RSubInterfaceProxyGenerator(
-    private val logger: KSPLogger
+    private val logger: KSPLogger,
 ) {
 
     fun TypeSpec.Builder.generateProxyClassesWithProxyInstances(
-        supperInterface: KSClassDeclaration
+        supperInterface: KSClassDeclaration,
     ): TypeSpec.Builder {
         supperInterface.getAllProperties().forEach { generateProxyClassWithProxyInstance(it) }
         return this
     }
 
     private fun TypeSpec.Builder.generateProxyClassWithProxyInstance(
-        superProperty: KSPropertyDeclaration
+        superProperty: KSPropertyDeclaration,
     ) {
         // Check interface property return type it must be another interface market with RSubInterface annotation
         val superInterface = superProperty.type.resolve().declaration as KSClassDeclaration
@@ -50,15 +50,15 @@ class RSubInterfaceProxyGenerator(
      */
     private fun TypeSpec.Builder.generateProxyHolder(
         superProperty: KSPropertyDeclaration,
-        superInterface: KSClassDeclaration
+        superInterface: KSClassDeclaration,
     ) = addProperty(
         PropertySpec.builder(
             superProperty.simpleName.asString(),
             superInterface.toClassName(),
-            KModifier.OVERRIDE
+            KModifier.OVERRIDE,
         )
             .initializer("${superInterface.simpleName.asString()}Impl()")
-            .build()
+            .build(),
     )
 
     /**
@@ -75,7 +75,7 @@ class RSubInterfaceProxyGenerator(
             .addModifiers(KModifier.PRIVATE, KModifier.INNER)
             .addSuperinterface(superInterface.toClassName())
             .generateProxyFunctions(superInterface)
-            .build()
+            .build(),
     )
 
     /**
@@ -97,7 +97,7 @@ class RSubInterfaceProxyGenerator(
      */
     private fun TypeSpec.Builder.generateProxyFunction(
         interfaceName: String,
-        function: KSFunctionDeclaration
+        function: KSFunctionDeclaration,
     ): TypeSpec.Builder = when {
         function.modifiers.contains(Modifier.SUSPEND) -> {
             generateSuspendProxyFunction(interfaceName, function)
@@ -115,7 +115,7 @@ class RSubInterfaceProxyGenerator(
 
     private fun TypeSpec.Builder.generateSuspendProxyFunction(
         interfaceName: String,
-        function: KSFunctionDeclaration
+        function: KSFunctionDeclaration,
     ): TypeSpec.Builder = addFunction(
         FunSpec.builder(function.simpleName.asString())
             .addModifiers(KModifier.OVERRIDE, KModifier.SUSPEND)
@@ -130,12 +130,12 @@ class RSubInterfaceProxyGenerator(
                 ARGUMENTS_TYPES_NAME,
                 ARGUMENTS_NAME,
             )
-            .build()
+            .build(),
     )
 
     private fun TypeSpec.Builder.generateFlowProxyFunction(
         interfaceName: String,
-        function: KSFunctionDeclaration
+        function: KSFunctionDeclaration,
     ) = addFunction(
         FunSpec.builder(function.simpleName.asString())
             .addModifiers(KModifier.OVERRIDE)
@@ -150,7 +150,7 @@ class RSubInterfaceProxyGenerator(
                 ARGUMENTS_TYPES_NAME,
                 ARGUMENTS_NAME,
             )
-            .build()
+            .build(),
     )
 
     private fun FunSpec.Builder.addArgumentsStatement(function: KSFunctionDeclaration): FunSpec.Builder {
@@ -163,7 +163,7 @@ class RSubInterfaceProxyGenerator(
                     paramsTypes.forEach { addStatement("%M<%T>(),", typeOfMember, it) }
                 }
                 .addStatement(")")
-                .build()
+                .build(),
         )
         addStatement("val $ARGUMENTS_NAME = listOf<Any>($params)")
         return this

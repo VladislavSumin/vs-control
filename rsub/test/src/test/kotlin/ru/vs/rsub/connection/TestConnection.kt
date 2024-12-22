@@ -13,7 +13,7 @@ import ru.vs.rsub.RSubConnection
 data class TestConnection(
     val connection: RSubConnection,
     val sendChannel: SendChannel<String>,
-    val receiveChannel: ReceiveChannel<String>
+    val receiveChannel: ReceiveChannel<String>,
 )
 
 fun createTestConnection(): TestConnection {

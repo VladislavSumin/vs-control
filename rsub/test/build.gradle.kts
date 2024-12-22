@@ -3,20 +3,20 @@ plugins {
     // id("com.google.devtools.ksp")
 }
 
-//sourceSets {
+// sourceSets {
 //    main {
 //        java {
 //            srcDir("build/generated/ksp/main/kotlin")
 //        }
 //    }
-//}
+// }
 //
-//tasks.named<Test>("test") {
+// tasks.named<Test>("test") {
 //    useJUnitPlatform()
 //    this.testLogging {
 //        showStandardStreams = true
 //    }
-//}
+// }
 
 dependencies {
 //    implementation(project(":rsub:client"))

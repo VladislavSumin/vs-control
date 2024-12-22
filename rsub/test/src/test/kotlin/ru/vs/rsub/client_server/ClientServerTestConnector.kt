@@ -28,7 +28,7 @@ class ClientServerTestConnector(private val server: RSubServer, private val scop
 
     private class Connection(
         private val receiveChannel: ReceiveChannel<String>,
-        private val sendChannel: SendChannel<String>
+        private val sendChannel: SendChannel<String>,
     ) : RSubConnection {
         override val receive: Flow<String> = receiveChannel.receiveAsFlow()
 

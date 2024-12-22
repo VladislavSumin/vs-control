@@ -21,7 +21,7 @@ import ru.vs.rsub.RSubServerSubscription
 import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
 class RSubSubscriptionWrapperGenerator(
-    private val logger: KSPLogger
+    private val logger: KSPLogger,
 ) {
     fun generateWrappers(impls: List<KSType>): List<TypeSpec> {
         return impls.map(this::generateWrapper)
@@ -85,7 +85,7 @@ class RSubSubscriptionWrapperGenerator(
             .addStatement(
                 "arguments -> %L.%L(",
                 PARAM_NAME,
-                methodName
+                methodName,
             )
             .apply {
                 method.parameters

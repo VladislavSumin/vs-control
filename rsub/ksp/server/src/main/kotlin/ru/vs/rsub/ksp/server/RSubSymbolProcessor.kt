@@ -25,7 +25,7 @@ import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
 class RSubSymbolProcessor(
     private val codeGenerator: CodeGenerator,
-    logger: KSPLogger
+    logger: KSPLogger,
 ) : SymbolProcessor {
     private val subscriptionWrapperGenerator = RSubSubscriptionWrapperGenerator(logger)
 

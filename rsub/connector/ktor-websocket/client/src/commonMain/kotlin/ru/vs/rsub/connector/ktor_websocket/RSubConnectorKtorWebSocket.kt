@@ -15,7 +15,7 @@ class RSubConnectorKtorWebSocket(
     private val client: HttpClient,
     private val host: String = "localhost",
     private val path: String = "/rSub",
-    private val port: Int = 8080
+    private val port: Int = 8080,
 ) : RSubConnector {
     @Suppress("TooGenericExceptionCaught", "InstanceOfCheckForException")
     override suspend fun connect(): RSubConnection {

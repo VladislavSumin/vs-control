@@ -131,9 +131,9 @@ open class RSubClientAbstract(
             scope + CoroutineName("RSubClient::connection"),
             SharingStarted.WhileSubscribed(
                 stopTimeoutMillis = connectionKeepAliveTime,
-                replayExpirationMillis = 0
+                replayExpirationMillis = 0,
             ),
-            1
+            1,
         )
 
     /**
@@ -170,7 +170,8 @@ open class RSubClientAbstract(
             } catch (e: Exception) {
                 when (e) {
                     is CancellationException,
-                    is RSubServerException -> throw e
+                    is RSubServerException,
+                    -> throw e
 
                     else -> throw RSubException("Unknown exception", e)
                 }
@@ -249,7 +250,7 @@ open class RSubClientAbstract(
                 .map { json.decodeFromString<RSubServerMessage>(it) }
                 .onEach { logger.trace { "Received message: $it" } }
                 // Hot observable, subscribe immediately, shared, no buffer, connection scoped
-                .shareIn(scope, SharingStarted.Eagerly)
+                .shareIn(scope, SharingStarted.Eagerly),
         )
     }
 
@@ -263,7 +264,7 @@ open class RSubClientAbstract(
     @Suppress("TooGenericExceptionThrown")
     private suspend fun <T> withConnection(
         throwOnDisconnect: Boolean = true,
-        block: suspend (connection: ConnectionState.Connected) -> T
+        block: suspend (connection: ConnectionState.Connected) -> T,
     ): T {
         return connection
             // Filtering initial connecting state and check connection failed state
@@ -273,8 +274,11 @@ open class RSubClientAbstract(
                     is ConnectionState.Connected -> true
                     is ConnectionState.ConnectionFailed ->
                         // Check if we need throw exception on connection error
-                        if (throwOnDisconnect) throw RSubException("Connection in state DISCONNECTED")
-                        else false
+                        if (throwOnDisconnect) {
+                            throw RSubException("Connection in state DISCONNECTED")
+                        } else {
+                            false
+                        }
                 }
             }
             // Filter can be passing only connection state, we don't need using filterInstance
@@ -332,7 +336,7 @@ open class RSubClientAbstract(
         object Connecting : ConnectionState(RSubConnectionStatus.Connecting)
         class Connected(
             val send: suspend (message: RSubMessage) -> Unit,
-            val incoming: Flow<RSubServerMessage>
+            val incoming: Flow<RSubServerMessage>,
         ) : ConnectionState(RSubConnectionStatus.Connected)
 
         class ConnectionFailed(error: Exception) : ConnectionState(RSubConnectionStatus.Reconnecting(error))

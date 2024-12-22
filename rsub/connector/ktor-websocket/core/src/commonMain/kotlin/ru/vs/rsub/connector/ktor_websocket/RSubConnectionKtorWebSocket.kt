@@ -14,7 +14,7 @@ import ru.vs.rsub.RSubException
 import ru.vs.rsub.RSubExpectedExceptionOnConnectionException
 
 class RSubConnectionKtorWebSocket(
-    private val session: DefaultWebSocketSession
+    private val session: DefaultWebSocketSession,
 ) : RSubConnection {
     override val receive: Flow<String>
         get() = session.incoming.receiveAsFlow()
@@ -24,7 +24,7 @@ class RSubConnectionKtorWebSocket(
                 throw when (exception) {
                     is EOFException -> RSubExpectedExceptionOnConnectionException(
                         exception.message ?: "Expected exception while receiving messages",
-                        exception
+                        exception,
                     )
 
                     else -> RSubException("Unknown exception while receiving message", exception)

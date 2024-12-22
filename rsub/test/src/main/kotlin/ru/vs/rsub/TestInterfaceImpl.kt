@@ -45,7 +45,7 @@ class TestInterfaceImpl : TestInterface {
         return flowOf(
             listOf("string1", "string2", "string3"),
             listOf("string4", "string5", "string6"),
-            listOf("string7", "string8", "string9")
+            listOf("string7", "string8", "string9"),
         )
     }
 
