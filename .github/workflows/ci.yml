@@ -13,6 +13,17 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
+      - name: Clone vs-control repository
+        uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
+
       - name: Run gradle
         uses: ./vs-control/.github/actions/run_gradle_default
         with:
@@ -24,6 +35,17 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
+      - name: Clone vs-control repository
+        uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
+
       - name: Run gradle
         uses: ./vs-control/.github/actions/run_gradle_default
         with:
@@ -37,6 +59,17 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
+      - name: Clone vs-control repository
+        uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
+
       - name: Run gradle
         uses: ./vs-control/.github/actions/run_gradle_default
         with:
@@ -48,6 +81,17 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
+      - name: Clone vs-control repository
+        uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
+
       - name: Run gradle
         uses: ./vs-control/.github/actions/run_gradle_default
         with:
@@ -59,6 +103,17 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
+      - name: Clone vs-control repository
+        uses: actions/checkout@v4
+        with:
+          path: vs-control
+
+      - name: Clone vs-core repository
+        uses: actions/checkout@v4
+        with:
+          repository: VladislavSumin/vs-core
+          path: vs-core
+
       - name: Run gradle
         uses: ./vs-control/.github/actions/run_gradle_default
         with:
