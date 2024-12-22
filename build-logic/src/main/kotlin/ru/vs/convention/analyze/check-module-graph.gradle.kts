@@ -18,6 +18,9 @@ moduleGraphAssert {
         // Общие для всех проектов настройки
         ".* -> :core:.*",
 
+        // Настройки для rSub
+        ":rsub:.* -> :rsub:.*",
+
         // Настройки специфичные для Control
         ":feature:.*:client-impl -> :feature:.*:client-api",
         ":feature:.*:server-impl -> :feature:.*:server-api",
