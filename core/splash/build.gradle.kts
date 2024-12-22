@@ -17,3 +17,16 @@ kotlin {
         }
     }
 }
+
+android {
+    testOptions {
+        unitTests {
+            all {
+                // Compose тесты сейчас не работают в android(local) режиме.
+                // TODO дождаться поддержки
+                // https://slack-chats.kotlinlang.org/t/18784429/hi-there-i-m-trying-to-run-an-ui-test-in-shared-commontest-a
+                it.exclude("**/*Ui*")
+            }
+        }
+    }
+}
