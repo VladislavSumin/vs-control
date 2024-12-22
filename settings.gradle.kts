@@ -75,6 +75,9 @@ include(":core:uikit:paddings")
 include(":core:utils")
 
 include("rsub:client")
+include("rsub:connector:ktor-websocket:client")
+include("rsub:connector:ktor-websocket:core")
+include("rsub:connector:ktor-websocket:server")
 include("rsub:core")
 include("rsub:server")
 
