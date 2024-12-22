@@ -24,18 +24,10 @@ jobs:
           repository: VladislavSumin/vs-core
           path: vs-core
 
-      - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "check_gradle_modules_graph"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           gradle_command: :assertModuleGraph
 
   check-detekt:
@@ -54,18 +46,10 @@ jobs:
           repository: VladislavSumin/vs-core
           path: vs-core
 
-      - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "check_detekt"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           gradle_command: >-
             :detektBuildLogic
             detekt  
@@ -86,18 +70,10 @@ jobs:
           repository: VladislavSumin/vs-core
           path: vs-core
 
-      - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "assemble_android_debug_client"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           gradle_command: :client:assembleDebug
 
   assemble-jvm-client:
@@ -116,18 +92,10 @@ jobs:
           repository: VladislavSumin/vs-core
           path: vs-core
 
-      - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "assemble_jvm_client"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           gradle_command: :client:jvmJar
 
   unit-tests:
@@ -146,18 +114,10 @@ jobs:
           repository: VladislavSumin/vs-core
           path: vs-core
 
-      - name: Setup java
-        uses: ./vs-control/.github/actions/setup_java
-
-      - name: Gradle cache
-        uses: ./vs-control/.github/actions/gradle_cache
+      - name: Run gradle
+        uses: ./vs-control/.github/actions/run_gradle_default
         with:
           key: "unit_tests"
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle
-        with:
-          working-directory: ./vs-control
           # allTest (not working by wasm target)
           gradle_command: >-
             jvmTest
