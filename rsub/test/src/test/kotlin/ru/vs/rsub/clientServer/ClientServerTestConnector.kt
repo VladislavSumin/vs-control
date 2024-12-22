@@ -1,4 +1,4 @@
-package ru.vs.rsub.client_server
+package ru.vs.rsub.clientServer
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel

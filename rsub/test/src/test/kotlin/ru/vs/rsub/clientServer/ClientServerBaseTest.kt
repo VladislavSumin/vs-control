@@ -1,4 +1,4 @@
-package ru.vs.rsub.client_server
+package ru.vs.rsub.clientServer
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.CoroutineName

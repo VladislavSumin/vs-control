@@ -1,4 +1,4 @@
-package ru.vs.rsub.connector.ktor_websocket
+package ru.vs.rsub.connector.ktorWebsocket
 
 import io.ktor.websocket.DefaultWebSocketSession
 import io.ktor.websocket.Frame

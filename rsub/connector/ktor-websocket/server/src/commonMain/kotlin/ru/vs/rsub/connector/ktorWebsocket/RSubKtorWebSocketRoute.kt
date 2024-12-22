@@ -1,4 +1,4 @@
-package ru.vs.rsub.connector.ktor_websocket
+package ru.vs.rsub.connector.ktorWebsocket
 
 import io.ktor.server.routing.Route
 import io.ktor.server.websocket.webSocket

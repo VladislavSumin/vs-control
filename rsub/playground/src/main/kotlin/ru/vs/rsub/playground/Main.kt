@@ -11,8 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import ru.vs.rsub.RSubServer
-import ru.vs.rsub.connector.ktor_websocket.RSubConnectorKtorWebSocket
-import ru.vs.rsub.connector.ktor_websocket.rSubWebSocket
+import ru.vs.rsub.connector.ktorWebsocket.RSubConnectorKtorWebSocket
+import ru.vs.rsub.connector.ktorWebsocket.rSubWebSocket
 import ru.vs.rsub.playground.TestClient
 import ru.vs.rsub.playground.TestClientImpl
 import ru.vs.rsub.playground.TestInterfaceImpl

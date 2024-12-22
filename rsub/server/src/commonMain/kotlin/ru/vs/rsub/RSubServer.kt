@@ -11,11 +11,11 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.serializer
+import ru.vs.core.logger.api.logger
+import ru.vs.core.logger.common.Logger
 import ru.vs.rsub.RSubMessage.RSubClientMessage
 import ru.vs.rsub.RSubMessage.RSubServerMessage
 import kotlin.reflect.KType
-import ru.vs.core.logger.api.logger
-import ru.vs.core.logger.common.Logger
 
 /**
  * Entry point for rSub server code.
@@ -107,7 +107,9 @@ class RSubServer(
                     return@launch
                 }
 
-                logger.t { "Complete subscription id=${request.id} to ${request.interfaceName}::${request.functionName}" }
+                logger.t {
+                    "Complete subscription id=${request.id} to ${request.interfaceName}::${request.functionName}"
+                }
                 activeSubscriptions.remove(request.id)
             }
             activeSubscriptions[request.id] = job

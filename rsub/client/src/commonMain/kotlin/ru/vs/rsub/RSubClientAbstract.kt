@@ -29,12 +29,12 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.serializer
+import ru.vs.core.logger.api.logger
+import ru.vs.core.logger.common.Logger
 import ru.vs.rsub.RSubMessage.RSubClientMessage
 import ru.vs.rsub.RSubMessage.RSubServerMessage
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
-import ru.vs.core.logger.api.logger
-import ru.vs.core.logger.common.Logger
 
 /**
  * Basic implementation for any RSub client.

@@ -1,9 +1,7 @@
-package ru.vs.rsub.client_server
+package ru.vs.rsub.clientServer
 
 import app.cash.turbine.test
 import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
