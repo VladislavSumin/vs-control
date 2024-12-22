@@ -1,29 +1,29 @@
 plugins {
     kotlin("jvm")
-    // id("com.google.devtools.ksp")
+    id("com.google.devtools.ksp")
 }
 
-// sourceSets {
-//    main {
-//        java {
-//            srcDir("build/generated/ksp/main/kotlin")
-//        }
-//    }
-// }
-//
-// tasks.named<Test>("test") {
-//    useJUnitPlatform()
-//    this.testLogging {
-//        showStandardStreams = true
-//    }
-// }
+sourceSets {
+    main {
+        java {
+            srcDir("build/generated/ksp/main/kotlin")
+        }
+    }
+}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+    this.testLogging {
+        showStandardStreams = true
+    }
+}
 
 dependencies {
     implementation(projects.rsub.client)
     implementation(projects.rsub.server)
 //
-//    ksp(project(":rsub:ksp:client"))
-//    ksp(project(":rsub:ksp:server"))
+    ksp(projects.rsub.ksp.client)
+    ksp(projects.rsub.ksp.server)
 //
     implementation(projects.core.coroutines)
 //    implementation(coreLibs.kotlin.coroutines.core)

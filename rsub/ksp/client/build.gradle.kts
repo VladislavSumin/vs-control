@@ -4,8 +4,6 @@ plugins {
 
 dependencies {
     implementation(projects.rsub.client)
-
-    // implementation(coreLibs.vs.core.coroutines)
-    // implementation(coreLibs.kotlin.serialization.core)
-    // implementation(coreLibs.kotlin.serialization.json)
+    implementation(projects.core.coroutines)
+    implementation(libs.kotlin.serialization.json)
 }
