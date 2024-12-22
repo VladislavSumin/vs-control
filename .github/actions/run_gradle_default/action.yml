@@ -24,10 +24,10 @@ runs:
     - name: Gradle cache
       uses: ./vs-core/.github/actions/gradle_cache
       with:
-        key: { { inputs.key } }
+        key: {{ inputs.key }}
 
     - name: Run gradle
       uses: ./vs-core/.github/actions/run_gradle
       with:
         working-directory: ./vs-control
-        gradle_command: { { inputs.gradle_command } }
+        gradle_command: {{ inputs.gradle_command }}
