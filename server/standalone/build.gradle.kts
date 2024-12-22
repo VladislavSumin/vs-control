@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-    id("ru.vs.convention.kmp.jvm")
+    id("ru.vladislavsumin.convention.kmp.jvm")
 }
 
 kotlin {

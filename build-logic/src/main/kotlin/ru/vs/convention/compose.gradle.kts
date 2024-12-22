@@ -7,7 +7,7 @@ import org.jetbrains.compose.ExperimentalComposeLibrary
  */
 
 plugins {
-    id("ru.vs.convention.kmp.common")
+    id("ru.vladislavsumin.convention.kmp.common")
     id("org.jetbrains.compose")
     id("org.jetbrains.kotlin.plugin.compose")
 }

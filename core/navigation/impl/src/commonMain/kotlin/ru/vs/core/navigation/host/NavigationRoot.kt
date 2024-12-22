@@ -4,8 +4,8 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import ru.vladislavsumin.core.decompose.components.utils.createCoroutineScope
 import ru.vs.core.decompose.ComposeComponent
-import ru.vs.core.decompose.createCoroutineScope
 import ru.vs.core.navigation.Navigation
 import ru.vs.core.navigation.Navigation.NavigationEvent
 import ru.vs.core.navigation.NavigationLogger
