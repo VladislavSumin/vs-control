@@ -34,8 +34,8 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
-        working-directory: ./vs-control
         with:
+          working-directory: ./vs-control
           gradle_command: :assertModuleGraph
 
   check-detekt:
@@ -64,8 +64,8 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
-        working-directory: ./vs-control
         with:
+          working-directory: ./vs-control
           gradle_command: >-
             :detektBuildLogic
             detekt  
@@ -96,8 +96,8 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
-        working-directory: ./vs-control
         with:
+          working-directory: ./vs-control
           gradle_command: :client:assembleDebug
 
   assemble-jvm-client:
@@ -126,8 +126,8 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
-        working-directory: ./vs-control
         with:
+          working-directory: ./vs-control
           gradle_command: :client:jvmJar
 
   unit-tests:
@@ -156,8 +156,8 @@ jobs:
 
       - name: Run gradle
         uses: ./.github/actions/run_gradle
-        working-directory: ./vs-control
         with:
+          working-directory: ./vs-control
           # allTest (not working by wasm target)
           gradle_command: >-
             jvmTest

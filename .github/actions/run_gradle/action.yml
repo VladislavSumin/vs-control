@@ -8,6 +8,10 @@
 name: run_gradle
 description: Run gradle
 inputs:
+  working-directory:
+    required: false
+    default: ./
+    description: working directory
   gradle_command:
     required: true
     description: part of gradle command including tasks && properties
@@ -15,6 +19,7 @@ runs:
   using: composite
   steps:
     - shell: sh
+      working-directory: ${{ inputs.working-directory }}
       run: >-
         ./gradlew
         -Pru.vs.core.ci=true
