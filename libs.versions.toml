@@ -61,13 +61,16 @@ kotlin-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "ko
 # Ktor
 ktor-core-serialization-protobuf = { module = "io.ktor:ktor-serialization-kotlinx-protobuf", version.ref = "ktor" }
 ktor-network-tlsCertificates = { module = "io.ktor:ktor-network-tls-certificates", version.ref = "ktor" }
+ktor-websockets = { module = "io.ktor:ktor-websockets", version.ref = "ktor" }
 
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor-server-cio = { module = "io.ktor:ktor-server-cio", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+ktor-server-websocket = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
 ktor-server-contentNegotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-websocket = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
 ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 

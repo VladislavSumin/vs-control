@@ -1,6 +1,5 @@
 package ru.vs.rsub.connector.ktor_websocket
 
-import io.ktor.utils.io.core.EOFException
 import io.ktor.websocket.DefaultWebSocketSession
 import io.ktor.websocket.Frame
 import io.ktor.websocket.close
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import ru.vs.rsub.RSubConnection
 import ru.vs.rsub.RSubException
-import ru.vs.rsub.RSubExpectedExceptionOnConnectionException
 
 class RSubConnectionKtorWebSocket(
     private val session: DefaultWebSocketSession,
@@ -22,10 +20,11 @@ class RSubConnectionKtorWebSocket(
             .map { it.readText() }
             .catch { exception ->
                 throw when (exception) {
-                    is EOFException -> RSubExpectedExceptionOnConnectionException(
-                        exception.message ?: "Expected exception while receiving messages",
-                        exception,
-                    )
+                    // TODO в новом ktor больше нет этой ошибки, разобраться
+//                    is EOFException -> RSubExpectedExceptionOnConnectionException(
+//                        exception.message ?: "Expected exception while receiving messages",
+//                        exception,
+//                    )
 
                     else -> RSubException("Unknown exception while receiving message", exception)
                 }

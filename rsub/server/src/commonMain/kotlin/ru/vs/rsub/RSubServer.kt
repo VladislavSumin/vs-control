@@ -1,7 +1,5 @@
 package ru.vs.rsub
 
-import io.github.oshai.kotlinlogging.KLogger
-import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -16,6 +14,8 @@ import kotlinx.serialization.serializer
 import ru.vs.rsub.RSubMessage.RSubClientMessage
 import ru.vs.rsub.RSubMessage.RSubServerMessage
 import kotlin.reflect.KType
+import ru.vs.core.logger.api.logger
+import ru.vs.core.logger.common.Logger
 
 /**
  * Entry point for rSub server code.
@@ -30,7 +30,7 @@ import kotlin.reflect.KType
 class RSubServer(
     private val rSubServerSubscriptions: RSubServerSubscriptionsAbstract,
     private val json: Json = Json,
-    private val logger: KLogger = KotlinLogging.logger("RSubServer"),
+    private val logger: Logger = logger("RSubServer"),
 ) {
 
     /**
@@ -53,7 +53,7 @@ class RSubServer(
 
         suspend fun handle() {
             coroutineScope {
-                logger.debug { "Handle new connection" }
+                logger.d { "Handle new connection" }
                 connection.receive.collect { rawRequest ->
                     when (val request = Json.decodeFromString<RSubClientMessage>(rawRequest)) {
                         is RSubClientMessage.Subscribe -> processSubscribe(request, this)
@@ -63,7 +63,7 @@ class RSubServer(
             }
             activeSubscriptions.forEach { (_, v) -> v.cancel() }
             connection.close()
-            logger.debug { "Connection closed" }
+            logger.d { "Connection closed" }
         }
 
         /**
@@ -79,7 +79,7 @@ class RSubServer(
         @Suppress("TooGenericExceptionCaught", "InstanceOfCheckForException")
         private suspend fun processSubscribe(request: RSubClientMessage.Subscribe, scope: CoroutineScope) {
             val job = scope.launch(start = CoroutineStart.LAZY) {
-                logger.trace { "Subscribe id=${request.id} to ${request.interfaceName}::${request.functionName}" }
+                logger.t { "Subscribe id=${request.id} to ${request.interfaceName}::${request.functionName}" }
 
                 val impl = rSubServerSubscriptions.getImpl(request.interfaceName, request.functionName)
 
@@ -101,13 +101,13 @@ class RSubServer(
                     activeSubscriptions.remove(request.id)
 
                     if (e is CancellationException) throw e
-                    logger.warn(e) {
+                    logger.w(e) {
                         "Error on subscription id=${request.id} to ${request.interfaceName}::${request.functionName}"
                     }
                     return@launch
                 }
 
-                logger.trace { "Complete subscription id=${request.id} to ${request.interfaceName}::${request.functionName}" }
+                logger.t { "Complete subscription id=${request.id} to ${request.interfaceName}::${request.functionName}" }
                 activeSubscriptions.remove(request.id)
             }
             activeSubscriptions[request.id] = job
@@ -129,7 +129,7 @@ class RSubServer(
         }
 
         private fun processUnsubscribe(request: RSubClientMessage.Unsubscribe) {
-            logger.trace { "Cancel subscription id=${request.id}" }
+            logger.t { "Cancel subscription id=${request.id}" }
             activeSubscriptions.remove(request.id)?.cancel()
         }
 

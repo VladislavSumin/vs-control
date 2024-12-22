@@ -1,7 +1,5 @@
 package ru.vs.rsub
 
-import io.github.oshai.kotlinlogging.KLogger
-import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineName
@@ -35,6 +33,8 @@ import ru.vs.rsub.RSubMessage.RSubClientMessage
 import ru.vs.rsub.RSubMessage.RSubServerMessage
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
+import ru.vs.core.logger.api.logger
+import ru.vs.core.logger.common.Logger
 
 /**
  * Basic implementation for any RSub client.
@@ -55,7 +55,7 @@ open class RSubClientAbstract(
 
     private val json: Json = Json,
     scope: CoroutineScope = GlobalScope,
-    private val logger: KLogger = KotlinLogging.logger("RSubClient"),
+    private val logger: Logger = logger("RSubClient"),
 ) {
     /**
      * Contains next id, using to create new subscription with uncial id
@@ -68,7 +68,7 @@ open class RSubClientAbstract(
      */
     @Suppress("TooGenericExceptionCaught")
     private val connection: Flow<ConnectionState> = channelFlow {
-        logger.debug { "Start observe connection" }
+        logger.d { "Start observe connection" }
 
         // Holder for [RSubConnection]
         // In any exception, or scope cancellation we must call [RSubConnection.close] to close connection correctly
@@ -98,11 +98,11 @@ open class RSubClientAbstract(
                         // Handle known RSubExpectedExceptionOnConnectionException
                         // These exceptions not dramatically failed all scope, but triggers reconnect
                         is RSubExpectedExceptionOnConnectionException -> {
-                            logger.debug { "Connection or listening failed with checked exception: ${e.message}" }
+                            logger.d { "Connection or listening failed with checked exception: ${e.message}" }
                             send(ConnectionState.ConnectionFailed(e))
                             connectionGlobal?.close()
                             delay(reconnectInterval)
-                            logger.debug { "Reconnecting..." }
+                            logger.d { "Reconnecting..." }
                         }
 
                         is CancellationException -> throw e
@@ -111,22 +111,22 @@ open class RSubClientAbstract(
                         else -> {
                             val message = "Unknown exception on connection or listening"
                             val exception = RSubException(message, e)
-                            logger.error(exception) { message }
+                            logger.e(exception) { message }
                             throw exception
                         }
                     }
                 }
             }
         } finally {
-            logger.debug { "Stopping observe connection" }
+            logger.d { "Stopping observe connection" }
             withContext(NonCancellable) {
                 connectionGlobal?.close()
-                logger.debug { "Stop observe connection" }
+                logger.d { "Stop observe connection" }
             }
         }
     }
         .distinctUntilChanged()
-        .onEach { logger.debug { "New connection status: ${it.status}" } }
+        .onEach { logger.d { "New connection status: ${it.status}" } }
         .shareIn(
             scope + CoroutineName("RSubClient::connection"),
             SharingStarted.WhileSubscribed(
@@ -248,7 +248,7 @@ open class RSubClientAbstract(
             send = { connection.send(json.encodeToString(it)) },
             incoming = connection.receive
                 .map { json.decodeFromString<RSubServerMessage>(it) }
-                .onEach { logger.trace { "Received message: $it" } }
+                .onEach { logger.t { "Received message: $it" } }
                 // Hot observable, subscribe immediately, shared, no buffer, connection scoped
                 .shareIn(scope, SharingStarted.Eagerly),
         )
@@ -296,7 +296,7 @@ open class RSubClientAbstract(
                     throwOnDisconnect -> false
 //                    it is SocketException -> true
                     else -> {
-                        logger.error(it) { "Unexpected exception" }
+                        logger.e(it) { "Unexpected exception" }
                         false
                     }
                 }

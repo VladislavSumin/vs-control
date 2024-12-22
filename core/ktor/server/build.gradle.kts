@@ -6,6 +6,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.ktor.server.core)
+            api(libs.ktor.server.websocket)
             implementation(projects.core.di)
         }
     }
