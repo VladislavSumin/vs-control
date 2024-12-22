@@ -32,7 +32,13 @@ logging-log4j = "2.24.1"
 logging-slf4j = "2.0.16"
 
 # Testing
-mockk = "1.13.13"
+testing-mockk = "1.13.13"
+testing-junit5-core = "5.10.0"
+testing-junit5-platformSuite = "1.10.0"
+# TODO заменить на mockk
+testing-mockito-core = "5.5.0"
+testing-mockito-kotlin = "5.1.0"
+testing-turbine = "1.0.0"
 
 [libraries]
 
@@ -113,4 +119,12 @@ logging-log4j-slf4j = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", v
 logging-slf4j = { module = "org.slf4j:slf4j-api", version.ref = "logging-slf4j" }
 
 # Testing
-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+testing-mockk = { module = "io.mockk:mockk", version.ref = "testing-mockk" }
+testing-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "testing-junit5-core" }
+testing-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "testing-junit5-core" }
+testing-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "testing-junit5-core" }
+testing-jupiter-platformSuite = { module = "org.junit.platform:junit-platform-suite", version.ref = "testing-junit5-platformSuite" }
+testing-mockito-core = { module = "org.mockito:mockito-core", version.ref = "testing-mockito-core" }
+testing-mockito-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "testing-mockito-core" }
+testing-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "testing-mockito-kotlin" }
+testing-turbine = { module = "app.cash.turbine:turbine", version.ref = "testing-turbine" }
