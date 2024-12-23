@@ -21,20 +21,16 @@ tasks.named<Test>("test") {
 dependencies {
     implementation(projects.rsub.client)
     implementation(projects.rsub.server)
-//
+
     ksp(projects.rsub.ksp.client)
     ksp(projects.rsub.ksp.server)
-//
+
     implementation(projects.core.coroutines)
-//    implementation(coreLibs.kotlin.coroutines.core)
-//    implementation(coreLibs.vs.core.coroutines)
-//    implementation(coreLibs.vs.core.logging)
-//    implementation(coreLibs.kotlin.serialization.core)
-//    implementation(coreLibs.kotlin.serialization.json)
-//
-//    testImplementation(coreLibs.kotlin.coroutines.test)
-//    testImplementation(coreLibs.testing.turbine)
-//
+    implementation(projects.core.serialization.json)
+    implementation(projects.core.logger.api)
+
+    testImplementation(projects.core.coroutinesTest)
+    testImplementation(libs.testing.turbine)
     testImplementation(libs.testing.jupiter.api)
     testRuntimeOnly(libs.testing.jupiter.engine)
     testRuntimeOnly(libs.testing.jupiter.params)

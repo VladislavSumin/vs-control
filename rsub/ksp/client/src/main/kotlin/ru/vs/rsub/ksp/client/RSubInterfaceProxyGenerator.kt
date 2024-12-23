@@ -10,6 +10,7 @@ import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
@@ -17,6 +18,7 @@ import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KType
+import ru.vs.rsub.RSubClientAbstract
 
 class RSubInterfaceProxyGenerator(
     private val logger: KSPLogger,
@@ -103,7 +105,8 @@ class RSubInterfaceProxyGenerator(
             generateSuspendProxyFunction(interfaceName, function)
         }
 
-        function.returnType!!.resolve().toClassName() == Flow::class.asClassName() -> {
+        (function.returnType!!.resolve().toTypeName() as? ParameterizedTypeName)
+            ?.rawType == Flow::class.asClassName() -> {
             generateFlowProxyFunction(interfaceName, function)
         }
 
@@ -123,8 +126,7 @@ class RSubInterfaceProxyGenerator(
             .returns(function.returnType!!.toTypeName())
             .addArgumentsStatement(function)
             .addCode(
-                "return %M(%S, %S, %N, %N)",
-                processSuspend,
+                "return processSuspend(%S, %S, %N, %N)",
                 interfaceName,
                 function.simpleName.asString(),
                 ARGUMENTS_TYPES_NAME,
@@ -143,8 +145,7 @@ class RSubInterfaceProxyGenerator(
             .returns(function.returnType!!.toTypeName())
             .addArgumentsStatement(function)
             .addCode(
-                "return %M(%S, %S, %N, %N)",
-                processFlow,
+                "return processFlow(%S, %S, %N, %N)",
                 interfaceName,
                 function.simpleName.asString(),
                 ARGUMENTS_TYPES_NAME,
@@ -170,8 +171,6 @@ class RSubInterfaceProxyGenerator(
     }
 
     companion object {
-        private val processSuspend = MemberName("", "processSuspend")
-        private val processFlow = MemberName("", "processFlow")
         private val typeOfMember = MemberName("kotlin.reflect", "typeOf")
         private const val ARGUMENTS_NAME = "arguments"
         private const val ARGUMENTS_TYPES_NAME = "argumentsTypes"

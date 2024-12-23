@@ -12,6 +12,7 @@ import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.MemberName.Companion.member
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.toClassName
@@ -54,7 +55,8 @@ class RSubSubscriptionWrapperGenerator(
     private fun CodeBlock.Builder.generateInitializer(method: KSFunctionDeclaration) {
         when {
             method.modifiers.contains(Modifier.SUSPEND) -> generateInitializerTyped(createSuspend, method)
-            method.returnType!!.resolve().toClassName() == flowClassName -> generateInitializerTyped(createFlow, method)
+            (method.returnType!!.resolve().toTypeName() as? ParameterizedTypeName)
+                ?.rawType == flowClassName -> generateInitializerTyped(createFlow, method)
             else -> {
                 logger.error("Cannot generate wrapper for this function", method)
             }
@@ -65,8 +67,7 @@ class RSubSubscriptionWrapperGenerator(
         val methodName = method.simpleName.asString()
         this
             .addStatement(
-                "%M[%S] = %M(",
-                methodImpls,
+                "methodImpls[%S] = %M(",
                 methodName,
                 wrapperFunction,
             )
@@ -112,7 +113,6 @@ class RSubSubscriptionWrapperGenerator(
         private val createFlow = RSubServerSubscription::class.asClassName()
             .nestedClass("Companion")
             .member("createFlow")
-        private val methodImpls = MemberName("", "methodImpls")
         private val flowClassName = Flow::class.asClassName()
         private val typeOfMember = MemberName("kotlin.reflect", "typeOf")
     }
