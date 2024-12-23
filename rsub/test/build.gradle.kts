@@ -28,6 +28,7 @@ dependencies {
     implementation(projects.core.coroutines)
     implementation(projects.core.serialization.json)
     implementation(projects.core.logger.api)
+    implementation(projects.core.logger.platform)
 
     testImplementation(projects.core.coroutinesTest)
     testImplementation(libs.testing.turbine)

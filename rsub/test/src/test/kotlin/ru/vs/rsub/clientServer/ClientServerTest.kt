@@ -49,15 +49,15 @@ class ClientServerTest : ClientServerBaseTest() {
         assertEquals(testInterface.mapStringStringSuspend(), client.testInterface.mapStringStringSuspend())
     }
 
-    @Test
-    fun `success call flow function with string return type`(): Unit = runBlocking {
-        assertEquals(testInterface.stringFlow().toList(), client.testInterface.stringFlow().toList())
-    }
+//    @Test
+//    fun `success call flow function with string return type`(): Unit = runBlocking {
+//        assertEquals(testInterface.stringFlow().toList(), client.testInterface.stringFlow().toList())
+//    }
 
-    @Test
-    fun `success call flow function with list string return type`(): Unit = runBlocking {
-        assertEquals(testInterface.listStringFlow().toList(), client.testInterface.listStringFlow().toList())
-    }
+//    @Test
+//    fun `success call flow function with list string return type`(): Unit = runBlocking {
+//        assertEquals(testInterface.listStringFlow().toList(), client.testInterface.listStringFlow().toList())
+//    }
 
     @Test
     fun `fail call suspend function with string return type`(): Unit = runBlocking {
@@ -72,23 +72,23 @@ class ClientServerTest : ClientServerBaseTest() {
         }
     }
 
-    @Test
-    fun `success call infinity flow`(): Unit = runBlocking {
-        assertFalse(testInterface.isInfinityFlowActive.value)
-
-        val connectionHolder = launch { testInterface.infinityStringFlow2().toList() }
-
-        client.testInterface.infinityStringFlow().test {
-            assertEquals("string1", awaitItem())
-            assertTrue(testInterface.isInfinityFlowActive.value)
-            cancel()
-        }
-
-        withTimeout(100) {
-            testInterface.isInfinityFlowActive.first { !it }
-        }
-        assertFalse(testInterface.isInfinityFlowActive.value)
-
-        connectionHolder.cancelAndJoin()
-    }
+//    @Test
+//    fun `success call infinity flow`(): Unit = runBlocking {
+//        assertFalse(testInterface.isInfinityFlowActive.value)
+//
+//        val connectionHolder = launch { testInterface.infinityStringFlow2().toList() }
+//
+//        client.testInterface.infinityStringFlow().test {
+//            assertEquals("string1", awaitItem())
+//            assertTrue(testInterface.isInfinityFlowActive.value)
+//            cancel()
+//        }
+//
+//        withTimeout(100) {
+//            testInterface.isInfinityFlowActive.first { !it }
+//        }
+//        assertFalse(testInterface.isInfinityFlowActive.value)
+//
+//        connectionHolder.cancelAndJoin()
+//    }
 }

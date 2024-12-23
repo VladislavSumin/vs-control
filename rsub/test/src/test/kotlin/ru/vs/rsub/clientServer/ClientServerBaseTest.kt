@@ -1,6 +1,5 @@
 package ru.vs.rsub.clientServer
 
-import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancelAndJoin
@@ -20,6 +19,7 @@ import ru.vs.rsub.client.TestClient
 import ru.vs.rsub.client.TestClientImpl
 import ru.vs.rsub.server.TestServerSubscriptionsImpl
 import java.util.concurrent.TimeUnit
+import ru.vs.rsub.log.LoggerInit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension::class)
@@ -36,6 +36,7 @@ open class ClientServerBaseTest {
 
     @BeforeEach
     fun beforeEach(): Unit = runBlocking {
+        LoggerInit
         scope = CoroutineScope(CoroutineName("test-scope"))
         server = RSubServer(testServerSubscriptions)
         connector = ClientServerTestConnector(server, scope)
@@ -44,7 +45,6 @@ open class ClientServerBaseTest {
 
     @AfterEach
     fun afterEach(): Unit = runBlocking {
-        KotlinLogging.logger { }.info("Closing test context...")
         scope.coroutineContext.job.cancelAndJoin()
     }
 }

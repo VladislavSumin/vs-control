@@ -23,6 +23,7 @@ import ru.vs.rsub.RSubConnection
 import ru.vs.rsub.RSubConnector
 import ru.vs.rsub.connection.createTestConnection
 import java.util.concurrent.TimeUnit
+import ru.vs.rsub.log.LoggerInit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension::class)
@@ -45,6 +46,7 @@ open class BaseClientTest {
 
     @BeforeEach
     fun beforeEach(): Unit = runBlocking {
+        LoggerInit
         val testConnection = createTestConnection()
         connection = testConnection.connection
         sendChannel = testConnection.sendChannel

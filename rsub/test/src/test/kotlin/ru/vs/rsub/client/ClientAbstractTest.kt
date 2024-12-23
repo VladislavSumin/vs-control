@@ -20,8 +20,8 @@ class ClientAbstractTest : BaseClientTest() {
     @Test
     fun `normal connect and then disconnect`(): Unit = runBlocking {
         client.observeConnectionStatus().test {
-            assertEquals(RSubConnectionStatus.CONNECTING, awaitItem())
-            assertEquals(RSubConnectionStatus.CONNECTED, awaitItem())
+            assertEquals(RSubConnectionStatus.Connecting, awaitItem())
+            assertEquals(RSubConnectionStatus.Connected, awaitItem())
             cancel()
         }
 
@@ -41,10 +41,9 @@ class ClientAbstractTest : BaseClientTest() {
             .doReturn(connection)
 
         client.observeConnectionStatus().test {
-            assertEquals(RSubConnectionStatus.CONNECTING, awaitItem())
-            assertEquals(RSubConnectionStatus.DISCONNECTED, awaitItem())
-            assertEquals(RSubConnectionStatus.CONNECTING, awaitItem())
-            assertEquals(RSubConnectionStatus.CONNECTED, awaitItem())
+            assertEquals(RSubConnectionStatus.Connecting, awaitItem())
+            assert(awaitItem() is RSubConnectionStatus.Reconnecting)
+            assertEquals(RSubConnectionStatus.Connected, awaitItem())
             cancel()
         }
 

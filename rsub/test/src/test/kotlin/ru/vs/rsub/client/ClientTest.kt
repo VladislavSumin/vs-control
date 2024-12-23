@@ -56,10 +56,10 @@ class ClientTest : BaseClientTest() {
 
         val rawSubscribeMessage = receiveChannel.receive()
         val subscribeMessage = Json.decodeFromString<RSubMessage>(rawSubscribeMessage)
-        assertInstanceOf(RSubMessage.Subscribe::class.java, subscribeMessage)
-        assertEquals(0, (subscribeMessage as RSubMessage.Subscribe).id)
+        assertInstanceOf(RSubMessage.RSubClientMessage.Subscribe::class.java, subscribeMessage)
+        assertEquals(0, (subscribeMessage as RSubMessage.RSubClientMessage.Subscribe).id)
 
-        val message = RSubMessage.Data(0, Json.encodeToJsonElement(testData))
+        val message = RSubMessage.RSubServerMessage.Data(0, Json.encodeToJsonElement(testData))
         sendChannel.send(Json.encodeToString<RSubMessage>(message))
 
         val result = resultDeferred.await()
