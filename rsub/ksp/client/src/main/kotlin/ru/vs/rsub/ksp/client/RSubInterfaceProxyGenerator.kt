@@ -18,7 +18,6 @@ import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KType
-import ru.vs.rsub.RSubClientAbstract
 
 class RSubInterfaceProxyGenerator(
     private val logger: KSPLogger,

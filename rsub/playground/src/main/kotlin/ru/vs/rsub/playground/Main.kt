@@ -11,11 +11,11 @@ private fun runClientSever() {
 //
 //    runBlocking {
 //        withContext(Dispatchers.IO) {
-////        val job = launch {
-////            rSubClient.observeConnection().collect {
-////                println("New status $it")
-////            }
-////        }
+// //        val job = launch {
+// //            rSubClient.observeConnection().collect {
+// //                println("New status $it")
+// //            }
+// //        }
 //
 //            println(rSubClient.test.testString())
 //        }
@@ -25,7 +25,7 @@ private fun runClientSever() {
 //    server.stop(100L, 100L)
 }
 
-//private fun startServer(): ApplicationEngine {
+// private fun startServer(): ApplicationEngine {
 //    val impls = TestServerSubscriptionsImpl(TestInterfaceImpl())
 //    val rSubServer = RSubServer(impls)
 //    return embeddedServer(CIO, port = 8080) {
@@ -34,14 +34,14 @@ private fun runClientSever() {
 //            rSubWebSocket(rSubServer)
 //        }
 //    }.start(false)
-//}
+// }
 //
-//private fun createHttpClient(): HttpClient {
+// private fun createHttpClient(): HttpClient {
 //    return HttpClient {
 //        install(io.ktor.client.plugins.websocket.WebSockets)
 //    }
-//}
+// }
 //
-//private fun createRSubClient(client: HttpClient): TestClient {
+// private fun createRSubClient(client: HttpClient): TestClient {
 //    return TestClientImpl(RSubConnectorKtorWebSocket(client))
-//}
+// }

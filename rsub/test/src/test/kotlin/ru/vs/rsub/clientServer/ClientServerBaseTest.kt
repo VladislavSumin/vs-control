@@ -17,9 +17,9 @@ import ru.vs.rsub.RSubServer
 import ru.vs.rsub.TestInterfaceImpl
 import ru.vs.rsub.client.TestClient
 import ru.vs.rsub.client.TestClientImpl
+import ru.vs.rsub.log.LoggerInit
 import ru.vs.rsub.server.TestServerSubscriptionsImpl
 import java.util.concurrent.TimeUnit
-import ru.vs.rsub.log.LoggerInit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension::class)
