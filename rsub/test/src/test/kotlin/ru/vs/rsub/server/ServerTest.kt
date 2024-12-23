@@ -55,12 +55,12 @@ class ServerTest : BaseServerTest() {
 
     private suspend inline fun <reified T> parseResponse(): T {
         val rawResponse = receiveChannel.receive()
-        val responseMsg = Json.decodeFromString<RSubMessage>(rawResponse) as RSubMessage.Data
-        return Json.decodeFromJsonElement(responseMsg.data!!)
+        val responseMsg = Json.decodeFromString<RSubMessage>(rawResponse) as RSubMessage.RSubServerMessage.Data
+        return Json.decodeFromJsonElement(responseMsg.data)
     }
 
     private fun getSubscribeMessage(functionName: String): String {
-        val msg = RSubMessage.Subscribe(0, "TestInterface", functionName)
+        val msg = RSubMessage.RSubClientMessage.Subscribe(0, "TestInterface", functionName, emptyList())
         return Json.encodeToString<RSubMessage>(msg)
     }
 }

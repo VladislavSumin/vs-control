@@ -120,5 +120,6 @@ jobs:
           key: "unit_tests"
           # allTest (not working by wasm target)
           gradle_command: >-
+            test
             jvmTest
             testDebugUnitTest

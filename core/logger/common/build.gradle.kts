@@ -6,7 +6,7 @@ kotlin {
     sourceSets {
         jvmTest.dependencies {
             // TODO
-            implementation(libs.mockk)
+            implementation(libs.testing.mockk)
         }
     }
 }
