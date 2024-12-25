@@ -17,7 +17,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
-import kotlinx.coroutines.flow.Flow
+import ru.vs.core.ksp.Types
 import ru.vs.rsub.RSubServerSubscription
 import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
@@ -56,7 +56,7 @@ class RSubSubscriptionWrapperGenerator(
         when {
             method.modifiers.contains(Modifier.SUSPEND) -> generateInitializerTyped(createSuspend, method)
             (method.returnType!!.resolve().toTypeName() as? ParameterizedTypeName)
-                ?.rawType == flowClassName -> generateInitializerTyped(createFlow, method)
+                ?.rawType == Types.Coroutines.Flow -> generateInitializerTyped(createFlow, method)
             else -> {
                 logger.error("Cannot generate wrapper for this function", method)
             }
@@ -113,7 +113,6 @@ class RSubSubscriptionWrapperGenerator(
         private val createFlow = RSubServerSubscription::class.asClassName()
             .nestedClass("Companion")
             .member("createFlow")
-        private val flowClassName = Flow::class.asClassName()
         private val typeOfMember = MemberName("kotlin.reflect", "typeOf")
     }
 }

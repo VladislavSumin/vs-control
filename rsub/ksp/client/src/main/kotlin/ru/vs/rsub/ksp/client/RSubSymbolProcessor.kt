@@ -6,18 +6,15 @@ import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.TypeSpec
-import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
-import com.squareup.kotlinpoet.ksp.writeTo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.serialization.protobuf.ProtoBuf
+import ru.vs.core.ksp.Types
+import ru.vs.core.ksp.processAnnotated
+import ru.vs.core.ksp.writeTo
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnector
@@ -29,22 +26,10 @@ class RSubSymbolProcessor(
     private val proxyGenerator = RSubInterfaceProxyGenerator(logger)
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        // Getting all classes and interfaces annotated with @RSubClient
-        resolver.getSymbolsWithAnnotation(RSubClient::class.qualifiedName!!)
-            .forEach(this::processRSubClients)
-
-        // Always process all elements
-        return emptyList()
-    }
-
-    /**
-     * Processing client rSub definition annotated with [RSubClient]
-     */
-    private fun processRSubClients(client: KSAnnotated) {
-        check(client is KSClassDeclaration) {
-            "Only KSClassDeclaration supported, but $client was received"
+        return resolver.processAnnotated<RSubClient> {
+            check(it is KSClassDeclaration) { "Only KSClassDeclaration supported, but $it was received" }
+            generateRSubClientImpl(it)
         }
-        generateRSubClientImpl(client)
     }
 
     /**
@@ -53,7 +38,7 @@ class RSubSymbolProcessor(
     private fun generateRSubClientImpl(client: KSClassDeclaration) {
         val name = client.simpleName.asString() + "Impl"
         val constructor = generateConstructor()
-        val clazz = with(proxyGenerator) {
+        with(proxyGenerator) {
             TypeSpec.classBuilder(name)
                 .addOriginatingKSFile(client.containingFile!!)
                 .addModifiers(KModifier.INTERNAL)
@@ -63,12 +48,7 @@ class RSubSymbolProcessor(
                 .addSuperclassConstructorParameter(constructor.parameters.joinToString { it.name })
                 .generateProxyClassesWithProxyInstances(client)
                 .build()
-        }
-
-        FileSpec.builder(client.packageName.asString(), name)
-            .addType(clazz)
-            .build()
-            .writeTo(codeGenerator, false)
+        }.writeTo(codeGenerator, client.packageName.asString())
     }
 
     @Suppress("MagicNumber")
@@ -86,13 +66,13 @@ class RSubSymbolProcessor(
                     .build(),
             )
             .addParameter(
-                ParameterSpec.builder("protobuf", ProtoBuf::class)
-                    .defaultValue("%T", ProtoBuf::class.asTypeName())
+                ParameterSpec.builder("protobuf", Types.Serialization.ProtoBuf)
+                    .defaultValue("%T", Types.Serialization.ProtoBuf)
                     .build(),
             )
             .addParameter(
-                ParameterSpec.builder("scope", CoroutineScope::class)
-                    .defaultValue("%T", GlobalScope::class.asTypeName())
+                ParameterSpec.builder("scope", Types.Coroutines.CoroutineScope)
+                    .defaultValue("%T", Types.Coroutines.GlobalScope)
                     .build(),
             )
             .build()

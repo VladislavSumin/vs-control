@@ -4,6 +4,5 @@ plugins {
 
 dependencies {
     implementation(projects.rsub.client)
-    implementation(projects.core.coroutines)
-    implementation(libs.kotlin.serialization.protobuf)
+    implementation(projects.core.ksp)
 }
