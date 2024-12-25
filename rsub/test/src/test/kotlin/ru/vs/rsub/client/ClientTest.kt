@@ -3,10 +3,9 @@ package ru.vs.rsub.client
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToJsonElement
+import kotlinx.serialization.decodeFromByteArray
+import kotlinx.serialization.encodeToByteArray
+import kotlinx.serialization.protobuf.ProtoBuf
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Test
@@ -55,12 +54,12 @@ class ClientTest : BaseClientTest() {
         val resultDeferred = async { method() }
 
         val rawSubscribeMessage = receiveChannel.receive()
-        val subscribeMessage = Json.decodeFromString<RSubMessage>(rawSubscribeMessage)
+        val subscribeMessage = ProtoBuf.decodeFromByteArray<RSubMessage>(rawSubscribeMessage)
         assertInstanceOf(RSubMessage.RSubClientMessage.Subscribe::class.java, subscribeMessage)
         assertEquals(0, (subscribeMessage as RSubMessage.RSubClientMessage.Subscribe).id)
 
-        val message = RSubMessage.RSubServerMessage.Data(0, Json.encodeToJsonElement(testData))
-        sendChannel.send(Json.encodeToString<RSubMessage>(message))
+        val message = RSubMessage.RSubServerMessage.Data(0, ProtoBuf.encodeToByteArray(testData))
+        sendChannel.send(ProtoBuf.encodeToByteArray<RSubMessage>(message))
 
         val result = resultDeferred.await()
         assertEquals(testData, result)

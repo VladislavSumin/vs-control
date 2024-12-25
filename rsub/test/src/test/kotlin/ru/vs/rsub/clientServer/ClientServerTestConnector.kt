@@ -13,8 +13,8 @@ import ru.vs.rsub.RSubServer
 
 class ClientServerTestConnector(private val server: RSubServer, private val scope: CoroutineScope) : RSubConnector {
     override suspend fun connect(): RSubConnection {
-        val channel1 = Channel<String>()
-        val channel2 = Channel<String>()
+        val channel1 = Channel<ByteArray>()
+        val channel2 = Channel<ByteArray>()
 
         val connection1 = Connection(channel1, channel2)
         val connection2 = Connection(channel2, channel1)
@@ -27,12 +27,12 @@ class ClientServerTestConnector(private val server: RSubServer, private val scop
     }
 
     private class Connection(
-        private val receiveChannel: ReceiveChannel<String>,
-        private val sendChannel: SendChannel<String>,
+        private val receiveChannel: ReceiveChannel<ByteArray>,
+        private val sendChannel: SendChannel<ByteArray>,
     ) : RSubConnection {
-        override val receive: Flow<String> = receiveChannel.receiveAsFlow()
+        override val receive: Flow<ByteArray> = receiveChannel.receiveAsFlow()
 
-        override suspend fun send(data: String) {
+        override suspend fun send(data: ByteArray) {
             sendChannel.send(data)
         }
 

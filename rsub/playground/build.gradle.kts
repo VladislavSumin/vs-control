@@ -21,7 +21,7 @@ dependencies {
     implementation(projects.core.ktor.server)
     implementation(projects.core.ktor.client)
 
-    implementation(projects.core.serialization.json)
+    implementation(projects.core.serialization.protobuf)
     implementation(projects.core.logger.api)
     implementation(projects.core.logger.platform)
 

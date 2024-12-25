@@ -31,9 +31,9 @@ import java.util.concurrent.TimeUnit
 @Timeout(10, unit = TimeUnit.SECONDS)
 open class BaseClientTest {
 
-    lateinit var sendChannel: SendChannel<String>
+    lateinit var sendChannel: SendChannel<ByteArray>
 
-    lateinit var receiveChannel: ReceiveChannel<String>
+    lateinit var receiveChannel: ReceiveChannel<ByteArray>
 
     lateinit var connection: RSubConnection
 

@@ -17,7 +17,7 @@ import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.writeTo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.protobuf.ProtoBuf
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubClientAbstract
 import ru.vs.rsub.RSubConnector
@@ -86,8 +86,8 @@ class RSubSymbolProcessor(
                     .build(),
             )
             .addParameter(
-                ParameterSpec.builder("json", Json::class)
-                    .defaultValue("%T", Json::class.asTypeName())
+                ParameterSpec.builder("protobuf", ProtoBuf::class)
+                    .defaultValue("%T", ProtoBuf::class.asTypeName())
                     .build(),
             )
             .addParameter(

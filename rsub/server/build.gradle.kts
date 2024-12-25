@@ -10,7 +10,7 @@ kotlin {
 
             implementation(projects.core.coroutines)
             implementation(projects.core.logger.api)
-            implementation(libs.kotlin.serialization.json)
+            implementation(libs.kotlin.serialization.protobuf)
         }
     }
 }

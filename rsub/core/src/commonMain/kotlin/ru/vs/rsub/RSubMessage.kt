@@ -2,7 +2,6 @@ package ru.vs.rsub
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonElement
 
 /**
  * Set of messages to communicate between client and server.
@@ -28,7 +27,7 @@ sealed interface RSubMessage {
             override val id: Int,
             val interfaceName: String,
             val functionName: String,
-            val arguments: List<JsonElement?>,
+            val arguments: List<ByteArray?>,
         ) : RSubClientMessage
 
         /**
@@ -55,7 +54,7 @@ sealed interface RSubMessage {
         @SerialName("data")
         data class Data(
             override val id: RSubSubscriptionId,
-            val data: JsonElement,
+            val data: ByteArray,
         ) : RSubServerMessage
 
         /**

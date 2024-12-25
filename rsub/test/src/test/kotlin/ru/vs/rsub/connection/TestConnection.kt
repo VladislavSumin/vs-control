@@ -12,17 +12,17 @@ import ru.vs.rsub.RSubConnection
 
 data class TestConnection(
     val connection: RSubConnection,
-    val sendChannel: SendChannel<String>,
-    val receiveChannel: ReceiveChannel<String>,
+    val sendChannel: SendChannel<ByteArray>,
+    val receiveChannel: ReceiveChannel<ByteArray>,
 )
 
 fun createTestConnection(): TestConnection {
-    val sendChannel = Channel<String>()
-    val receiveChannel = Channel<String>()
+    val sendChannel = Channel<ByteArray>()
+    val receiveChannel = Channel<ByteArray>()
 
     val connection = mock<RSubConnection> {
         on { receive } doReturn sendChannel.receiveAsFlow()
-        onBlocking { send(any()) } doSuspendableAnswer { receiveChannel.send(it.arguments[0] as String) }
+        onBlocking { send(any()) } doSuspendableAnswer { receiveChannel.send(it.arguments[0] as ByteArray) }
     }
     return TestConnection(connection, sendChannel, receiveChannel)
 }
