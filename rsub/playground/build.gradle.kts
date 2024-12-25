@@ -23,6 +23,7 @@ dependencies {
 
     implementation(projects.core.serialization.json)
     implementation(projects.core.logger.api)
+    implementation(projects.core.logger.platform)
 
     implementation(libs.ktor.server.cio)
 
