@@ -16,7 +16,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
-import kotlinx.coroutines.flow.Flow
+import ru.vs.core.ksp.Types
 import kotlin.reflect.KType
 
 class RSubInterfaceProxyGenerator(
@@ -105,7 +105,7 @@ class RSubInterfaceProxyGenerator(
         }
 
         (function.returnType!!.resolve().toTypeName() as? ParameterizedTypeName)
-            ?.rawType == Flow::class.asClassName() -> {
+            ?.rawType == Types.Coroutines.Flow -> {
             generateFlowProxyFunction(interfaceName, function)
         }
 

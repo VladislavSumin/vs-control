@@ -9,7 +9,6 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSType
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
-import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
@@ -18,7 +17,8 @@ import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
-import com.squareup.kotlinpoet.ksp.writeTo
+import ru.vs.core.ksp.processAnnotated
+import ru.vs.core.ksp.writeTo
 import ru.vs.core.utils.decapitalized
 import ru.vs.rsub.RSubServerSubscriptions
 import ru.vs.rsub.RSubServerSubscriptionsAbstract
@@ -30,9 +30,7 @@ class RSubSymbolProcessor(
     private val subscriptionWrapperGenerator = RSubSubscriptionWrapperGenerator(logger)
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        resolver.getSymbolsWithAnnotation(RSubServerSubscriptions::class.qualifiedName!!)
-            .forEach(this::processSubscriptions)
-        return emptyList()
+        return resolver.processAnnotated<RSubServerSubscriptions>(::processSubscriptions)
     }
 
     private fun processSubscriptions(subscriptions: KSAnnotated) {
@@ -50,7 +48,7 @@ class RSubSymbolProcessor(
 
         val name = subscriptions.simpleName.asString() + "Impl"
 
-        val clazz = TypeSpec.classBuilder(name)
+        TypeSpec.classBuilder(name)
             .addOriginatingKSFile(subscriptions.containingFile!!)
             .addModifiers(KModifier.INTERNAL)
             .superclass(RSubServerSubscriptionsAbstract::class)
@@ -58,12 +56,7 @@ class RSubSymbolProcessor(
             .primaryConstructor(generateConstructor(impls))
             .addTypes(subscriptionWrapperGenerator.generateWrappers(impls))
             .build()
-
-        val file = FileSpec.builder(subscriptions.packageName.asString(), name)
-            .addType(clazz)
-            .build()
-
-        file.writeTo(codeGenerator, false)
+            .writeTo(codeGenerator, subscriptions.packageName.asString())
     }
 
     private fun generateConstructor(impls: List<KSType>): FunSpec {
