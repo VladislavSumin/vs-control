@@ -1,10 +1,9 @@
 package ru.vs.rsub.server
 
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.decodeFromByteArray
+import kotlinx.serialization.encodeToByteArray
+import kotlinx.serialization.protobuf.ProtoBuf
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import ru.vs.rsub.RSubMessage
@@ -55,12 +54,12 @@ class ServerTest : BaseServerTest() {
 
     private suspend inline fun <reified T> parseResponse(): T {
         val rawResponse = receiveChannel.receive()
-        val responseMsg = Json.decodeFromString<RSubMessage>(rawResponse) as RSubMessage.RSubServerMessage.Data
-        return Json.decodeFromJsonElement(responseMsg.data)
+        val responseMsg = ProtoBuf.decodeFromByteArray<RSubMessage>(rawResponse) as RSubMessage.RSubServerMessage.Data
+        return ProtoBuf.decodeFromByteArray(responseMsg.data)
     }
 
-    private fun getSubscribeMessage(functionName: String): String {
+    private fun getSubscribeMessage(functionName: String): ByteArray {
         val msg = RSubMessage.RSubClientMessage.Subscribe(0, "TestInterface", functionName, emptyList())
-        return Json.encodeToString<RSubMessage>(msg)
+        return ProtoBuf.encodeToByteArray<RSubMessage>(msg)
     }
 }

@@ -26,7 +26,7 @@ dependencies {
     ksp(projects.rsub.ksp.server)
 
     implementation(projects.core.coroutines)
-    implementation(projects.core.serialization.json)
+    implementation(projects.core.serialization.protobuf)
     implementation(projects.core.logger.api)
     implementation(projects.core.logger.platform)
 

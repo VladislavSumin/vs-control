@@ -30,8 +30,8 @@ open class BaseServerTest {
     protected val testInterface = TestInterfaceImpl()
     private val testServerSubscriptions = TestServerSubscriptionsImpl(testInterface)
 
-    lateinit var sendChannel: SendChannel<String>
-    lateinit var receiveChannel: ReceiveChannel<String>
+    lateinit var sendChannel: SendChannel<ByteArray>
+    lateinit var receiveChannel: ReceiveChannel<ByteArray>
     lateinit var connection: RSubConnection
 
     private lateinit var scope: CoroutineScope

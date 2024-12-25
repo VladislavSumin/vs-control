@@ -6,10 +6,9 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.decodeFromByteArray
+import kotlinx.serialization.encodeToByteArray
+import kotlinx.serialization.protobuf.ProtoBuf
 import kotlinx.serialization.serializer
 import ru.vs.core.logger.api.logger
 import ru.vs.core.logger.common.Logger
@@ -29,7 +28,7 @@ import kotlin.reflect.KType
  */
 class RSubServer(
     private val rSubServerSubscriptions: RSubServerSubscriptionsAbstract,
-    private val json: Json = Json,
+    private val protobuf: ProtoBuf = ProtoBuf,
     private val logger: Logger = logger("RSubServer"),
 ) {
 
@@ -55,7 +54,7 @@ class RSubServer(
             coroutineScope {
                 logger.d { "Handle new connection" }
                 connection.receive.collect { rawRequest ->
-                    when (val request = Json.decodeFromString<RSubClientMessage>(rawRequest)) {
+                    when (val request = protobuf.decodeFromByteArray<RSubClientMessage>(rawRequest)) {
                         is RSubClientMessage.Subscribe -> processSubscribe(request, this)
                         is RSubClientMessage.Unsubscribe -> processUnsubscribe(request)
                     }
@@ -70,7 +69,7 @@ class RSubServer(
          * Encodes [message] to Json and send it to client
          */
         private suspend fun send(message: RSubMessage) {
-            connection.send(json.encodeToString(message))
+            connection.send(protobuf.encodeToByteArray(message))
         }
 
         // TODO check possible data corrupt on id error from client (add sync?)
@@ -118,12 +117,12 @@ class RSubServer(
 
         private fun parseArguments(
             impl: RSubServerSubscription,
-            arguments: List<JsonElement?>,
+            arguments: List<ByteArray?>,
         ): List<Any?> {
             check(impl.argumentTypes.size == arguments.size)
             return impl.argumentTypes.zip(arguments) { type, instance ->
                 if (instance != null) {
-                    json.decodeFromJsonElement(json.serializersModule.serializer(type), instance)
+                    protobuf.decodeFromByteArray(protobuf.serializersModule.serializer(type), instance)
                 } else {
                     null
                 }
@@ -136,7 +135,7 @@ class RSubServer(
         }
 
         private suspend fun sendData(id: Int, data: Any?, type: KType) {
-            val responsePayload = json.encodeToJsonElement(json.serializersModule.serializer(type), data)
+            val responsePayload = protobuf.encodeToByteArray(protobuf.serializersModule.serializer(type), data)
             val message = RSubServerMessage.Data(id, responsePayload)
             send(message)
         }

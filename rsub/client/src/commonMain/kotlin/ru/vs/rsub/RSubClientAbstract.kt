@@ -24,10 +24,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToJsonElement
+import kotlinx.serialization.decodeFromByteArray
+import kotlinx.serialization.encodeToByteArray
+import kotlinx.serialization.protobuf.ProtoBuf
 import kotlinx.serialization.serializer
 import ru.vs.core.logger.api.logger
 import ru.vs.core.logger.common.Logger
@@ -53,7 +52,7 @@ open class RSubClientAbstract(
     private val reconnectInterval: Long = 3000,
     connectionKeepAliveTime: Long = 6000,
 
-    private val json: Json = Json,
+    private val protobuf: ProtoBuf = ProtoBuf,
     scope: CoroutineScope = GlobalScope,
     private val logger: Logger = logger("RSubClient"),
 ) {
@@ -245,9 +244,9 @@ open class RSubClientAbstract(
      */
     private fun crateConnectedState(connection: RSubConnection, scope: CoroutineScope): ConnectionState.Connected {
         return ConnectionState.Connected(
-            send = { connection.send(json.encodeToString(it)) },
+            send = { connection.send(protobuf.encodeToByteArray(it)) },
             incoming = connection.receive
-                .map { json.decodeFromString<RSubServerMessage>(it) }
+                .map { protobuf.decodeFromByteArray<RSubServerMessage>(it) }
                 .onEach { logger.t { "Received message: $it" } }
                 // Hot observable, subscribe immediately, shared, no buffer, connection scoped
                 .shareIn(scope, SharingStarted.Eagerly),
@@ -307,7 +306,7 @@ open class RSubClientAbstract(
     @Suppress("ThrowsCount")
     private fun <T : Any> parseServerMessage(message: RSubServerMessage, type: KType): T = when (message) {
         is RSubServerMessage.Data -> {
-            json.decodeFromJsonElement(json.serializersModule.serializer(type), message.data) as T
+            protobuf.decodeFromByteArray(protobuf.serializersModule.serializer(type), message.data) as T
         }
 
         is RSubServerMessage.FlowComplete -> throw FlowCompleted()
@@ -323,7 +322,7 @@ open class RSubClientAbstract(
     ) {
         val serializedArguments = arguments
             .zip(argumentsTypes)
-            .map { (value, type) -> json.encodeToJsonElement(json.serializersModule.serializer(type), value) }
+            .map { (value, type) -> protobuf.encodeToByteArray(protobuf.serializersModule.serializer(type), value) }
         send(RSubClientMessage.Subscribe(id, name, methodName, serializedArguments))
     }
 

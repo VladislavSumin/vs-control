@@ -3,7 +3,6 @@ package ru.vs.rsub.connector.ktorWebsocket
 import io.ktor.websocket.DefaultWebSocketSession
 import io.ktor.websocket.Frame
 import io.ktor.websocket.close
-import io.ktor.websocket.readText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -14,10 +13,10 @@ import ru.vs.rsub.RSubException
 class RSubConnectionKtorWebSocket(
     private val session: DefaultWebSocketSession,
 ) : RSubConnection {
-    override val receive: Flow<String>
+    override val receive: Flow<ByteArray>
         get() = session.incoming.receiveAsFlow()
-            .map { it as Frame.Text }
-            .map { it.readText() }
+            .map { it as Frame.Binary }
+            .map { it.data }
             .catch { exception ->
                 throw when (exception) {
                     // TODO в новом ktor больше нет этой ошибки, разобраться
@@ -30,7 +29,7 @@ class RSubConnectionKtorWebSocket(
                 }
             }
 
-    override suspend fun send(data: String) = session.send(Frame.Text(data))
+    override suspend fun send(data: ByteArray) = session.send(Frame.Binary(true, data))
 
     override suspend fun close() = session.close()
 }
