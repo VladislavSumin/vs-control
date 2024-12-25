@@ -26,15 +26,10 @@ class RSubSymbolProcessor(
     private val proxyGenerator = RSubInterfaceProxyGenerator(logger)
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        return resolver.processAnnotated<RSubClient>(::processRSubClients)
-    }
-
-    /**
-     * Processing client rSub definition annotated with [RSubClient]
-     */
-    private fun processRSubClients(client: KSAnnotated) {
-        check(client is KSClassDeclaration) { "Only KSClassDeclaration supported, but $client was received" }
-        generateRSubClientImpl(client)
+        return resolver.processAnnotated<RSubClient> {
+            check(it is KSClassDeclaration) { "Only KSClassDeclaration supported, but $it was received" }
+            generateRSubClientImpl(it)
+        }
     }
 
     /**

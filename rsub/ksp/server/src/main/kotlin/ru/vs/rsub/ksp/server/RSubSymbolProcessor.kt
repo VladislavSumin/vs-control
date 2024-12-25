@@ -30,11 +30,10 @@ class RSubSymbolProcessor(
     private val subscriptionWrapperGenerator = RSubSubscriptionWrapperGenerator(logger)
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        return resolver.processAnnotated<RSubServerSubscriptions>(::processSubscriptions)
-    }
-
-    private fun processSubscriptions(subscriptions: KSAnnotated) {
-        generateSubscriptions(subscriptions as KSClassDeclaration)
+        return resolver.processAnnotated<RSubServerSubscriptions> {
+            check(it is KSClassDeclaration) { "Only KSClassDeclaration supported, but $it was received" }
+            generateSubscriptions(it)
+        }
     }
 
     private fun generateSubscriptions(subscriptions: KSClassDeclaration) {
