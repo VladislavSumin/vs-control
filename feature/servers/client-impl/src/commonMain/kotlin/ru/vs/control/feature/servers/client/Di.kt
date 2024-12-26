@@ -2,6 +2,7 @@ package ru.vs.control.feature.servers.client
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
+import ru.vs.control.feature.servers.client.domain.ServerInteractorImplFactory
 import ru.vs.control.feature.servers.client.domain.ServersInteractor
 import ru.vs.control.feature.servers.client.domain.ServersInteractorImpl
 import ru.vs.control.feature.servers.client.repository.ServersRepositoryImpl
@@ -20,7 +21,9 @@ fun Modules.featureServers() = DI.Module("feature-servers") {
     bindNavigation { NavigationRegistrarImpl(i(), i(), i()) }
 
     bindSingleton<ServersInteractor> {
-        ServersInteractorImpl(ServersRepositoryImpl(i(), i()))
+        val repository = ServersRepositoryImpl(i(), i())
+        val factory = ServerInteractorImplFactory()
+        ServersInteractorImpl(repository, factory, i())
     }
 
     bindSingleton {
