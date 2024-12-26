@@ -15,10 +15,9 @@ import org.mockito.junit.jupiter.MockitoSettings
 import org.mockito.quality.Strictness
 import ru.vs.rsub.RSubServer
 import ru.vs.rsub.TestInterfaceImpl
+import ru.vs.rsub.TestInterfaceRSubServerProxy
 import ru.vs.rsub.client.TestClient
-import ru.vs.rsub.client.TestClientImpl
 import ru.vs.rsub.log.LoggerInit
-import ru.vs.rsub.server.TestServerSubscriptionsImpl
 import java.util.concurrent.TimeUnit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -27,7 +26,6 @@ import java.util.concurrent.TimeUnit
 @Timeout(10, unit = TimeUnit.SECONDS)
 open class ClientServerBaseTest {
     protected val testInterface = TestInterfaceImpl()
-    private val testServerSubscriptions = TestServerSubscriptionsImpl(testInterface)
 
     private lateinit var scope: CoroutineScope
     private lateinit var server: RSubServer
@@ -38,9 +36,9 @@ open class ClientServerBaseTest {
     fun beforeEach(): Unit = runBlocking {
         LoggerInit
         scope = CoroutineScope(CoroutineName("test-scope"))
-        server = RSubServer(testServerSubscriptions)
+        server = RSubServer(setOf(TestInterfaceRSubServerProxy(testInterface)))
         connector = ClientServerTestConnector(server, scope)
-        client = TestClientImpl(connector, scope = scope, connectionKeepAliveTime = 0, reconnectInterval = 0)
+        client = TestClient(connector, scope = scope, connectionKeepAliveTime = 0, reconnectInterval = 0)
     }
 
     @AfterEach
