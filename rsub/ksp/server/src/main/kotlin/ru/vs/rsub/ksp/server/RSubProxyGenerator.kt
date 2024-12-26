@@ -1,6 +1,7 @@
 package ru.vs.rsub.ksp.server
 
 import com.google.devtools.ksp.findActualType
+import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
@@ -13,43 +14,69 @@ import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import ru.vs.core.ksp.Types
+import ru.vs.core.ksp.writeTo
+import ru.vs.rsub.RSubServerInterface
 import ru.vs.rsub.RSubServerSubscription
-import ru.vs.rsub.RSubServerSubscriptionsAbstract
 
-class RSubSubscriptionWrapperGenerator(
+class RSubProxyGenerator(
     private val logger: KSPLogger,
+    private val codeGenerator: CodeGenerator,
 ) {
-    fun generateWrappers(impls: List<KSType>): List<TypeSpec> {
-        return impls.map(this::generateWrapper)
+    fun generateWrappers(impls: List<KSType>) {
+        impls.forEach(::generateWrapper)
     }
 
-    private fun generateWrapper(impl: KSType): TypeSpec {
-        return TypeSpec.classBuilder(impl.toClassName().simpleName + NAME_POSTFIX)
-            .addModifiers(KModifier.PRIVATE)
-            .primaryConstructor(generateConstructor(impl))
-            .superclass(RSubServerSubscriptionsAbstract.InterfaceWrapperAbstract::class)
+    private fun generateWrapper(impl: KSType) {
+        val nameProperty = PropertySpec.builder("rSubName", String::class.asClassName(), KModifier.OVERRIDE)
+            .initializer("%S", impl.toClassName().simpleName)
             .build()
+        val mapPropery = PropertySpec.builder(
+            "rSubSubscriptions",
+            Map::class.asClassName().parameterizedBy(
+                String::class.asClassName(),
+                RSubServerSubscription::class.asClassName(),
+            ),
+            KModifier.OVERRIDE,
+        )
+            .initializer(
+                CodeBlock.builder()
+                    .addStatement("mapOf(")
+                    .apply {
+                        generateInitializers(impl)
+                    }
+                    .addStatement(")")
+                    .build(),
+            )
+            .build()
+        return TypeSpec.classBuilder(impl.toClassName().simpleName + NAME_POSTFIX)
+            .addModifiers(KModifier.INTERNAL)
+            .primaryConstructor(generateConstructor(impl))
+            .addProperty(nameProperty)
+            .addProperty(mapPropery)
+            .addSuperinterface(RSubServerInterface::class)
+            .build()
+            .writeTo(codeGenerator, impl.toClassName().packageName)
     }
 
     private fun generateConstructor(impl: KSType): FunSpec {
         return FunSpec.constructorBuilder()
             .addParameter(PARAM_NAME, impl.toTypeName())
-            .addCode(generateInitializers(impl))
             .build()
     }
 
-    private fun generateInitializers(impl: KSType): CodeBlock {
-        val builder = CodeBlock.builder()
+    private fun CodeBlock.Builder.generateInitializers(impl: KSType): CodeBlock.Builder {
         (impl.declaration as KSClassDeclaration)
             .getAllFunctions()
             .filter { it.isAbstract }
-            .forEach { builder.generateInitializer(it) }
-        return builder.build()
+            .forEach { generateInitializer(it) }
+        return this
     }
 
     private fun CodeBlock.Builder.generateInitializer(method: KSFunctionDeclaration) {
@@ -57,6 +84,7 @@ class RSubSubscriptionWrapperGenerator(
             method.modifiers.contains(Modifier.SUSPEND) -> generateInitializerTyped(createSuspend, method)
             (method.returnType!!.resolve().toTypeName() as? ParameterizedTypeName)
                 ?.rawType == Types.Coroutines.Flow -> generateInitializerTyped(createFlow, method)
+
             else -> {
                 logger.error("Cannot generate wrapper for this function", method)
             }
@@ -67,7 +95,7 @@ class RSubSubscriptionWrapperGenerator(
         val methodName = method.simpleName.asString()
         this
             .addStatement(
-                "methodImpls[%S] = %M(",
+                "%S to %M(",
                 methodName,
                 wrapperFunction,
             )
@@ -102,11 +130,12 @@ class RSubSubscriptionWrapperGenerator(
             }
             .addStatement(")")
             .endControlFlow()
+            .addStatement(",")
     }
 
     companion object {
-        private const val NAME_POSTFIX = "Wrapper"
-        private const val PARAM_NAME = "impl"
+        private const val NAME_POSTFIX = "RSubServerProxy"
+        private const val PARAM_NAME = "origin"
         private val createSuspend = RSubServerSubscription::class.asClassName()
             .nestedClass("Companion")
             .member("createSuspend")

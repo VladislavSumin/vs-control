@@ -19,6 +19,7 @@ import org.mockito.quality.Strictness
 import ru.vs.rsub.RSubConnection
 import ru.vs.rsub.RSubServer
 import ru.vs.rsub.TestInterfaceImpl
+import ru.vs.rsub.TestInterfaceRSubServerProxy
 import ru.vs.rsub.connection.createTestConnection
 import java.util.concurrent.TimeUnit
 
@@ -28,7 +29,6 @@ import java.util.concurrent.TimeUnit
 @Timeout(10, unit = TimeUnit.SECONDS)
 open class BaseServerTest {
     protected val testInterface = TestInterfaceImpl()
-    private val testServerSubscriptions = TestServerSubscriptionsImpl(testInterface)
 
     lateinit var sendChannel: SendChannel<ByteArray>
     lateinit var receiveChannel: ReceiveChannel<ByteArray>
@@ -40,7 +40,7 @@ open class BaseServerTest {
     @BeforeEach
     fun beforeEach(): Unit = runBlocking {
         scope = CoroutineScope(CoroutineName("test-scope"))
-        server = RSubServer(testServerSubscriptions)
+        server = RSubServer(setOf(TestInterfaceRSubServerProxy(testInterface)))
 
         val testConnection = createTestConnection()
         connection = testConnection.connection

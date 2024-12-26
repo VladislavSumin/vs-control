@@ -42,7 +42,7 @@ open class BaseClientTest {
 
     lateinit var scope: CoroutineScope
 
-    internal lateinit var client: TestClientImpl
+    internal lateinit var client: TestClient
 
     @BeforeEach
     fun beforeEach(): Unit = runBlocking {
@@ -57,7 +57,7 @@ open class BaseClientTest {
 
         scope = CoroutineScope(CoroutineName("test-scope"))
 
-        client = TestClientImpl(connector, scope = scope, connectionKeepAliveTime = 0, reconnectInterval = 0)
+        client = TestClient(connector, scope = scope, connectionKeepAliveTime = 0, reconnectInterval = 0)
     }
 
     @AfterEach

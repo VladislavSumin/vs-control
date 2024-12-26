@@ -84,6 +84,7 @@ include("rsub:ksp:server")
 include("rsub:playground")
 include("rsub:server")
 include("rsub:test")
+include("rsub:test-interface")
 
 sharedFeature("server-info")
 sharedFeature("auth")

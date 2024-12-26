@@ -21,6 +21,7 @@ tasks.named<Test>("test") {
 dependencies {
     implementation(projects.rsub.client)
     implementation(projects.rsub.server)
+    implementation(projects.rsub.testInterface)
 
     ksp(projects.rsub.ksp.client)
     ksp(projects.rsub.ksp.server)

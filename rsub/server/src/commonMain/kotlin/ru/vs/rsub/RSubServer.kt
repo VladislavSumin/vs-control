@@ -19,18 +19,18 @@ import kotlin.reflect.KType
 /**
  * Entry point for rSub server code.
  *
- * Implementation of [RSubServerSubscriptionsAbstract] may generate automatically by KSP
- * @see [RSubServerSubscriptions] annotation
- *
- * @param rSubServerSubscriptions - set of your subscriptions implementations
- * @param json - pass here custom json serializer with included your polymorphic class serializers
+ * @param rSubProxies - множество прокси файлов, генерируемых через [RSubServerInterfaces]
+ * @param protobuf - pass here custom protobuf serializer with included your polymorphic class serializers
  * @param logger - logger for internal rSub logging
  */
 class RSubServer(
-    private val rSubServerSubscriptions: RSubServerSubscriptionsAbstract,
+    rSubProxies: Set<RSubServerInterface>,
     private val protobuf: ProtoBuf = ProtoBuf,
     private val logger: Logger = logger("RSubServer"),
 ) {
+
+    // TODO добавить защиту от дублей
+    private val proxyMap = rSubProxies.associateBy { it.rSubName }
 
     /**
      * Process new [RSubConnection], this function block calling coroutine until connection open.
@@ -80,7 +80,7 @@ class RSubServer(
             val job = scope.launch(start = CoroutineStart.LAZY) {
                 logger.t { "Subscribe id=${request.id} to ${request.interfaceName}::${request.functionName}" }
 
-                val impl = rSubServerSubscriptions.getImpl(request.interfaceName, request.functionName)
+                val impl = proxyMap[request.interfaceName]!!.rSubSubscriptions[request.functionName]!!
 
                 try {
                     when (impl) {

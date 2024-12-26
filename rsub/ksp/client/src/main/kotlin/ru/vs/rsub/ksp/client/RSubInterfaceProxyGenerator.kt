@@ -1,9 +1,9 @@
 package ru.vs.rsub.ksp.client
 
+import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
-import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import com.google.devtools.ksp.symbol.Modifier
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
@@ -11,56 +11,24 @@ import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName
-import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import ru.vs.core.ksp.Types
+import ru.vs.core.ksp.primaryConstructorWithPrivateFields
+import ru.vs.core.ksp.writeTo
+import ru.vs.rsub.RSubClient
 import kotlin.reflect.KType
 
 class RSubInterfaceProxyGenerator(
     private val logger: KSPLogger,
+    private val codeGenerator: CodeGenerator,
 ) {
 
-    fun TypeSpec.Builder.generateProxyClassesWithProxyInstances(
-        supperInterface: KSClassDeclaration,
-    ): TypeSpec.Builder {
-        supperInterface.getAllProperties().forEach { generateProxyClassWithProxyInstance(it) }
-        return this
+    fun generateProxies(superInterfaces: List<KSClassDeclaration>) {
+        superInterfaces.forEach(::generateProxyClass)
     }
-
-    private fun TypeSpec.Builder.generateProxyClassWithProxyInstance(
-        superProperty: KSPropertyDeclaration,
-    ) {
-        // Check interface property return type it must be another interface market with RSubInterface annotation
-        val superInterface = superProperty.type.resolve().declaration as KSClassDeclaration
-
-        // Adds property that's implements given superInterface
-        generateProxyHolder(superProperty, superInterface)
-
-        generateProxyClass(superInterface)
-    }
-
-    /**
-     * Generate properties override holder with [generateProxyClass] impl
-     * Output example:
-     * ```
-     *  public override val entities: EntitiesRsub = EntitiesRsubImpl()
-     * ```
-     */
-    private fun TypeSpec.Builder.generateProxyHolder(
-        superProperty: KSPropertyDeclaration,
-        superInterface: KSClassDeclaration,
-    ) = addProperty(
-        PropertySpec.builder(
-            superProperty.simpleName.asString(),
-            superInterface.toClassName(),
-            KModifier.OVERRIDE,
-        )
-            .initializer("${superInterface.simpleName.asString()}Impl()")
-            .build(),
-    )
 
     /**
      * Generate proxy implementation for given [superInterface]
@@ -71,13 +39,17 @@ class RSubInterfaceProxyGenerator(
      *   }
      * ```
      */
-    private fun TypeSpec.Builder.generateProxyClass(superInterface: KSClassDeclaration) = addType(
-        TypeSpec.classBuilder("${superInterface.simpleName.asString()}Impl")
-            .addModifiers(KModifier.PRIVATE, KModifier.INNER)
+    private fun generateProxyClass(superInterface: KSClassDeclaration) {
+        TypeSpec.classBuilder("${superInterface.simpleName.asString()}RSubImpl")
+            .addModifiers(KModifier.INTERNAL)
             .addSuperinterface(superInterface.toClassName())
+            .primaryConstructorWithPrivateFields(
+                listOf("client" to RSubClient::class.asClassName()),
+            )
             .generateProxyFunctions(superInterface)
-            .build(),
-    )
+            .build()
+            .writeTo(codeGenerator, superInterface.packageName.asString())
+    }
 
     /**
      * Generates function implementation for function at given [baseInterface]
@@ -125,7 +97,7 @@ class RSubInterfaceProxyGenerator(
             .returns(function.returnType!!.toTypeName())
             .addArgumentsStatement(function)
             .addCode(
-                "return processSuspend(%S, %S, %N, %N)",
+                "return client.processSuspend(%S, %S, %N, %N)",
                 interfaceName,
                 function.simpleName.asString(),
                 ARGUMENTS_TYPES_NAME,
@@ -144,7 +116,7 @@ class RSubInterfaceProxyGenerator(
             .returns(function.returnType!!.toTypeName())
             .addArgumentsStatement(function)
             .addCode(
-                "return processFlow(%S, %S, %N, %N)",
+                "return client.processFlow(%S, %S, %N, %N)",
                 interfaceName,
                 function.simpleName.asString(),
                 ARGUMENTS_TYPES_NAME,
