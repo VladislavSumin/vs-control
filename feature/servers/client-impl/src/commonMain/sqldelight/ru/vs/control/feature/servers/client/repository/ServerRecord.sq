@@ -1,6 +1,7 @@
 CREATE TABLE serverRecord(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE,
+    host TEXT NOT NULL,
     accessToken TEXT NOT NULL
 );
 
@@ -11,7 +12,7 @@ get:
 SELECT * FROM serverRecord WHERE id = ?;
 
 insert:
-INSERT INTO serverRecord(name, accessToken) VALUES (?,?);
+INSERT INTO serverRecord(name, host, accessToken) VALUES (?,?,?);
 
 delete:
 DELETE FROM serverRecord WHERE id = ?;

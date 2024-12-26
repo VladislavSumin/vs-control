@@ -11,6 +11,8 @@ kotlin {
             implementation(projects.feature.rootContentScreen.clientApi)
             implementation(projects.feature.serverInfo.clientApi)
             implementation(projects.feature.mainScreen.clientApi)
+
+            implementation(projects.rsub.connector.ktorWebsocket.client)
         }
     }
 }

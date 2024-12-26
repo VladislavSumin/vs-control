@@ -22,7 +22,7 @@ internal class ServersRepositoryImpl(
 ) : ServersRepository {
     override suspend fun insert(server: Server) = withContext(dispatchersProvider.io) {
         check(server.id.raw == 0L)
-        serverQueriesProvider.getServerRecordQueries().insert(server.name, server.accessToken)
+        serverQueriesProvider.getServerRecordQueries().insert(server.name, server.host, server.accessToken)
     }
 
     override suspend fun delete(server: Server) = withContext(dispatchersProvider.io) {
@@ -44,7 +44,12 @@ internal class ServersRepositoryImpl(
 @JvmInline
 internal value class ServerId(val raw: Long)
 
-internal data class Server(val id: ServerId = ServerId(0), val name: String, val accessToken: String)
+internal data class Server(
+    val id: ServerId = ServerId(0),
+    val name: String,
+    val host: String,
+    val accessToken: String,
+)
 
-private fun ServerRecord.toModel() = Server(ServerId(id), name, accessToken)
+private fun ServerRecord.toModel() = Server(ServerId(id), name, host, accessToken)
 private fun List<ServerRecord>.toModels() = map { it.toModel() }

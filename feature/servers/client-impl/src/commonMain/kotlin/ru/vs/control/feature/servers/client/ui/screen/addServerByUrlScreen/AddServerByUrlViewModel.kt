@@ -142,6 +142,7 @@ internal class AddServerByUrlViewModel(
                 is ServerAuthResult.Success -> {
                     val server = Server(
                         name = state.serverInfo.name,
+                        host = url.toString(),
                         accessToken = loginResult.accessToken,
                     )
                     serversInteractor.add(server)
