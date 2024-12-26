@@ -1,4 +1,6 @@
 @file:Suppress("MagicNumber")
+@file:RSubServerInterfaces([TestInterface::class])
+@file:RSubClientInterfaces([TestInterface::class])
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.websocket.WebSockets
@@ -13,13 +15,15 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
+import ru.vs.rsub.RSubClientInterfaces
 import ru.vs.rsub.RSubServer
+import ru.vs.rsub.RSubServerInterfaces
 import ru.vs.rsub.connector.ktorWebsocket.RSubConnectorKtorWebSocket
 import ru.vs.rsub.connector.ktorWebsocket.rSubWebSocket
 import ru.vs.rsub.playground.TestClient
-import ru.vs.rsub.playground.TestClientImpl
+import ru.vs.rsub.playground.TestInterface
 import ru.vs.rsub.playground.TestInterfaceImpl
-import ru.vs.rsub.playground.TestServerSubscriptionsImpl
+import ru.vs.rsub.playground.TestInterfaceRSubServerProxy
 
 fun main() {
     runClientSever()
@@ -48,8 +52,11 @@ private fun runClientSever() {
 }
 
 private fun startServer(): EmbeddedServer<CIOApplicationEngine, CIOApplicationEngine.Configuration> {
-    val impls = TestServerSubscriptionsImpl(TestInterfaceImpl())
-    val rSubServer = RSubServer(impls)
+    val rSubServer = RSubServer(
+        setOf(
+            TestInterfaceRSubServerProxy(TestInterfaceImpl()),
+        ),
+    )
     return embeddedServer(
         factory = CIO,
         port = 8080,
@@ -69,5 +76,5 @@ private fun createHttpClient(): HttpClient {
 }
 
 private fun createRSubClient(client: HttpClient): TestClient {
-    return TestClientImpl(RSubConnectorKtorWebSocket(client))
+    return TestClient(RSubConnectorKtorWebSocket(client))
 }
