@@ -20,6 +20,7 @@ moduleGraphAssert {
 
         // Настройки для rSub
         ":rsub:.* -> :rsub:.*",
+        ":feature:.*:server-impl -> :rsub:.*server", // не опечатка, хитрый regex для разрешения любых сервер модулей
 
         // Настройки специфичные для Control
         ":feature:.*:client-impl -> :feature:.*:client-api",
