@@ -1,8 +1,12 @@
+import kotlin.Boolean;
+
 CREATE TABLE serverRecord(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL UNIQUE,
-    host TEXT NOT NULL,
-    accessToken TEXT NOT NULL
+    name TEXT NOT NULL UNIQUE, -- Произвольное уникальное имя сервера
+    isSecure INTEGER AS Boolean NOT NULL, -- Является ли соединение с сервером защищенным (https/wss)
+    host TEXT NOT NULL, -- host часть урла без протокола и тд
+    port INTEGER NOT NULL, -- порт сервера
+    accessToken TEXT NOT NULL -- токен для авторизации на сервере
 );
 
 selectAll:
@@ -12,7 +16,7 @@ get:
 SELECT * FROM serverRecord WHERE id = ?;
 
 insert:
-INSERT INTO serverRecord(name, host, accessToken) VALUES (?,?,?);
+INSERT INTO serverRecord(name, isSecure, host, port, accessToken) VALUES (?,?,?,?,?);
 
 delete:
 DELETE FROM serverRecord WHERE id = ?;

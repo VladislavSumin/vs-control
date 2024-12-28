@@ -1,6 +1,7 @@
 package ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen
 
 import androidx.compose.runtime.Stable
+import io.ktor.http.URLProtocol
 import io.ktor.http.Url
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -142,7 +143,9 @@ internal class AddServerByUrlViewModel(
                 is ServerAuthResult.Success -> {
                     val server = Server(
                         name = state.serverInfo.name,
-                        host = url.toString(),
+                        isSecure = url.protocol == URLProtocol.HTTPS,
+                        host = url.host,
+                        port = url.port,
                         accessToken = loginResult.accessToken,
                     )
                     serversInteractor.add(server)
