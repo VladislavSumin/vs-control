@@ -1,11 +1,11 @@
 package ru.vs.control.feature.servers.client.domain
 
 import io.ktor.client.HttpClient
+import io.ktor.http.URLProtocol
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import ru.vs.control.feature.servers.client.repository.Server
@@ -35,12 +35,23 @@ internal class ServerInteractorImpl(
     scope: CoroutineScope,
 ) : ServerInteractor {
 
-    val client: SharedFlow<RSubClient> = server
-        .map { it.host }
-        .distinctUntilChanged()
-        .map {
+    /**
+     * rSub клиент для соединения с сервером.
+     * Является [SharedFlow], так как при редактировании сервера может измениться его url с сохранением текущего id.
+     */
+    private val client: SharedFlow<RSubClient> = server
+        .map { server ->
             RSubClient(
-                connector = RSubConnectorKtorWebSocket(httpClient, it),
+                connector = RSubConnectorKtorWebSocket(
+                    client = httpClient,
+                    protocol = if (server.isSecure) {
+                        URLProtocol.WSS
+                    } else {
+                        URLProtocol.WS
+                    },
+                    host = server.host,
+                    port = server.port,
+                ),
             )
         }
         .share(scope)

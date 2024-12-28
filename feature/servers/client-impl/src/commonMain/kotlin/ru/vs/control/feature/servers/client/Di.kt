@@ -13,6 +13,8 @@ import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerS
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerViewModelFactory
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenFactory
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersViewModelFactory
+import ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverComponent.ServerComponentFactory
+import ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverComponent.ServerViewModelFactory
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.core.navigation.registration.bindNavigation
@@ -28,7 +30,12 @@ fun Modules.featureServers() = DI.Module("feature-servers") {
 
     bindSingleton {
         val viewModelFactory = ServersViewModelFactory(i())
-        ServersScreenFactory(viewModelFactory, i())
+        ServersScreenFactory(viewModelFactory, i(), i())
+    }
+
+    bindSingleton {
+        val viewModelFactory = ServerViewModelFactory(i())
+        ServerComponentFactory(viewModelFactory)
     }
 
     bindSingleton {
