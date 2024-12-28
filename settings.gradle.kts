@@ -86,8 +86,8 @@ include("rsub:server")
 include("rsub:test")
 include("rsub:test-interface")
 
-sharedFeature("server-info")
 sharedFeature("auth")
+sharedFeature("server-info")
 
 clientFeature("app-info")
 clientFeature("debug-screen")
@@ -102,6 +102,8 @@ clientFeature("servers")
 clientFeature("settings-screen")
 clientFeature("splash-screen")
 clientFeature("welcome-screen")
+
+serverFeature("rsub")
 
 include("client")
 

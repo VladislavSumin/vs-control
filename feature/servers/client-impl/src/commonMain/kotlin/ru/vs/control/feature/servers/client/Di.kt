@@ -2,6 +2,7 @@ package ru.vs.control.feature.servers.client
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
+import ru.vs.control.feature.servers.client.domain.ServerInteractorImplFactory
 import ru.vs.control.feature.servers.client.domain.ServersInteractor
 import ru.vs.control.feature.servers.client.domain.ServersInteractorImpl
 import ru.vs.control.feature.servers.client.repository.ServersRepositoryImpl
@@ -12,6 +13,8 @@ import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerS
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerViewModelFactory
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenFactory
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersViewModelFactory
+import ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverComponent.ServerComponentFactory
+import ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverComponent.ServerViewModelFactory
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.core.navigation.registration.bindNavigation
@@ -20,12 +23,19 @@ fun Modules.featureServers() = DI.Module("feature-servers") {
     bindNavigation { NavigationRegistrarImpl(i(), i(), i()) }
 
     bindSingleton<ServersInteractor> {
-        ServersInteractorImpl(ServersRepositoryImpl(i(), i()))
+        val repository = ServersRepositoryImpl(i(), i())
+        val factory = ServerInteractorImplFactory(i(), i())
+        ServersInteractorImpl(repository, factory, i())
     }
 
     bindSingleton {
         val viewModelFactory = ServersViewModelFactory(i())
-        ServersScreenFactory(viewModelFactory, i())
+        ServersScreenFactory(viewModelFactory, i(), i())
+    }
+
+    bindSingleton {
+        val viewModelFactory = ServerViewModelFactory(i())
+        ServerComponentFactory(viewModelFactory)
     }
 
     bindSingleton {
