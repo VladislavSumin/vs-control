@@ -19,8 +19,8 @@ import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
 import ru.vs.core.compose.advanceTimeOneFrameBeforeBy
 import ru.vs.core.coroutines.setMain
+import ru.vs.core.decompose.BaseComponentTest
 import ru.vs.core.decompose.ComposeComponent
-import ru.vs.core.decompose.ResumedTestComponentContext
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -29,7 +29,7 @@ private const val FAKE_DELAY = 10_000L
 private const val ANIMATION_DURATION = 5_000
 
 @OptIn(ExperimentalTestApi::class, ExperimentalCoroutinesApi::class)
-class SplashTestUi {
+class SplashTestUi : BaseComponentTest() {
     /**
      * Тест проверяет, что после инициализации splash сменяется контентом.
      * Данный тест не проверяет анимацию перехода между сплешем и контентом.
@@ -38,7 +38,7 @@ class SplashTestUi {
     fun testContentChange() = runTest {
         setMain()
         runComposeUiTest {
-            val splash = ResumedTestComponentContext().childSplash(
+            val splash = context.childSplash(
                 scope = this@runTest,
                 awaitInitialization = { delay(FAKE_DELAY) },
                 splashComponentFactory = { SplashScreenComponent(it) },
@@ -74,7 +74,7 @@ class SplashTestUi {
     fun testAnimatedContentChange() = runTest {
         setMain()
         runComposeUiTest {
-            val splash = ResumedTestComponentContext().childSplash(
+            val splash = context.childSplash(
                 scope = this@runTest,
                 awaitInitialization = { delay(FAKE_DELAY) },
                 splashComponentFactory = { SplashScreenComponent(it) },
@@ -139,7 +139,7 @@ class SplashTestUi {
         var randomValue: CharSequence? = null
 
         runComposeUiTest {
-            val splash = ResumedTestComponentContext().childSplash(
+            val splash = context.childSplash(
                 scope = this@runTest,
                 awaitInitialization = { delay(FAKE_DELAY) },
                 splashComponentFactory = { SplashScreenComponent(it) },
@@ -164,10 +164,12 @@ class SplashTestUi {
 
         assertTrue(data!!.isNotEmpty(), "No saved data")
 
+        recreateContext()
+
         val registry2 = SaveableStateRegistry(data) { true }
 
         runComposeUiTest {
-            val splash = ResumedTestComponentContext().childSplash(
+            val splash = context.childSplash(
                 scope = this@runTest,
                 awaitInitialization = { delay(FAKE_DELAY) },
                 splashComponentFactory = { SplashScreenComponent(it) },
