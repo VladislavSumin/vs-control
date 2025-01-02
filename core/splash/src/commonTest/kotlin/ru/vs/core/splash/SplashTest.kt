@@ -1,7 +1,5 @@
 package ru.vs.core.splash
 
-import com.arkivanov.essenty.lifecycle.destroy
-import com.arkivanov.essenty.statekeeper.SerializableContainer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.advanceTimeBy
@@ -9,7 +7,7 @@ import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.builtins.serializer
 import ru.vs.core.coroutines.setMain
-import ru.vs.core.decompose.ResumedTestComponentContext
+import ru.vs.core.decompose.BaseComponentTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -20,7 +18,7 @@ private const val TEST_KEY = "test-key"
 private const val TEST_VALUE = "test-value"
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class SplashTest {
+class SplashTest : BaseComponentTest() {
     /**
      * Тест проверяет очередность переключения состояний сплеша.
      */
@@ -30,7 +28,7 @@ class SplashTest {
 
         var leakingOnContentReady: (() -> Unit)? = null
 
-        val splash = ResumedTestComponentContext().childSplash(
+        val splash = context.childSplash(
             scope = this,
             awaitInitialization = { delay(FAKE_DELAY) },
             splashComponentFactory = { },
@@ -57,7 +55,7 @@ class SplashTest {
     fun testImmediatelyInitialize() = runTest {
         setMain()
 
-        val splash = ResumedTestComponentContext().childSplash(
+        val splash = context.childSplash(
             scope = this,
             awaitInitialization = { /* мгновенно возвращаем управление */ },
             splashComponentFactory = { },
@@ -79,8 +77,6 @@ class SplashTest {
     fun testStateRestore() = runTest {
         setMain()
 
-        val context = ResumedTestComponentContext()
-
         context.childSplash(
             scope = this,
             awaitInitialization = { /* мгновенно возвращаем управление */ },
@@ -94,14 +90,11 @@ class SplashTest {
         // Что бы вызвалось переключение на content.
         runCurrent()
 
-        val savedState: SerializableContainer = context.stateKeeperDispatcher.save()
-        context.lifecycleRegistry.destroy()
-
-        val context2 = ResumedTestComponentContext(savedState)
+        recreateContext(RecreateContextType.ProcessDeath)
 
         var isContentComponentFactoryCalled = false
 
-        context2.childSplash(
+        context.childSplash(
             scope = this,
             awaitInitialization = { delay(FAKE_DELAY) },
             splashComponentFactory = { },
