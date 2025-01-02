@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.flow.first
 import ru.vladislavsumin.core.decompose.components.Component
 import ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen.SplashScreenFactory
+import ru.vs.core.coroutines.mapState
 import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.sharedElementTransition.ProvideLocalSharedElementTransition
 import ru.vs.core.splash.Children
@@ -24,7 +24,12 @@ internal class RootScreenComponent(
     private val viewModel = viewModel { rootScreenViewModelFactory.create() }
 
     private val splash = childSplash(
-        awaitInitialization = { viewModel.state.first { it is RootScreenState.Content } },
+        isInitialized = viewModel.state.mapState {
+            when (it) {
+                RootScreenState.Content -> true
+                RootScreenState.Splash -> false
+            }
+        },
         splashComponentFactory = splashScreenFactory::create,
         contentComponentFactory = { onContentReady, context ->
             viewModel.getContentScreenFactory().create(onContentReady, deeplink, context)

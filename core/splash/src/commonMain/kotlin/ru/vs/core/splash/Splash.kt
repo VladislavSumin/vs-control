@@ -11,6 +11,8 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.statekeeper.SerializableContainer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.vladislavsumin.core.decompose.components.utils.createCoroutineScope
 
@@ -20,7 +22,7 @@ import ru.vladislavsumin.core.decompose.components.utils.createCoroutineScope
  * @param T тип дочернего компонента.
  * @param key ключ навигации, должен быть уникальным в рамках компонента.
  * @param scope [CoroutineScope] для внутренних нужд, жц должен совпадать с lifecycle компонента.
- * @param awaitInitialization функция для ожидания завершения инициализации приложения.
+ * @param isInitialized текущее состояние инициализации приложения.
  * @param splashComponentFactory фабрика для создания компонента splash экрана.
  * @param contentComponentFactory фабрика для создания компонента экрана с контентом. onContentReady необходимо вызвать
  * после того как контентный компонент будет готов к отображению контента, до этого момента будет отображаться splash.
@@ -28,7 +30,7 @@ import ru.vladislavsumin.core.decompose.components.utils.createCoroutineScope
 fun <T : Any> ComponentContext.childSplash(
     key: String = "child-splash",
     scope: CoroutineScope = lifecycle.createCoroutineScope(),
-    awaitInitialization: suspend () -> Unit,
+    isInitialized: StateFlow<Boolean>,
     splashComponentFactory: (context: ComponentContext) -> T,
     contentComponentFactory: (onContentReady: () -> Unit, context: ComponentContext) -> T,
 ): Value<ChildSplash<T>> {
@@ -37,6 +39,8 @@ fun <T : Any> ComponentContext.childSplash(
     val onContentReady = {
         navigationSource.navigate(SplashNavEvent.ContentReady)
     }
+
+    var isInitializedAtStateRestore = false
 
     val children = children(
         source = navigationSource,
@@ -49,11 +53,20 @@ fun <T : Any> ComponentContext.childSplash(
             SerializableContainer()
         },
         restoreState = {
-            // Всегда восстанавливаемся в состояние Splash.
             // Тут следует помнить о контракте restoreState, количество и порядок child в конфигурации при сохранении
             // и при восстановлении должны совпадать. Поэтому мы не удаляем Splash из конфигурации в Content состоянии,
             // кажется это меньшая жертва чем другие решения (несколько разных навигаций или другие решения).
-            SplashNavState.Splash
+
+            // При восстановлении состояния не смотрим на сохраненное состояние, а восстанавливаемся синхронно
+            // в зависимости от статуса инициализации. В случае восстановления состояния при инициализированном
+            // приложении мы не можем вернуть splash тут, так как в этом случае decompose удалит инстансы для Content
+            // экрана
+            if (isInitialized.value) {
+                isInitializedAtStateRestore = true
+                SplashNavState.InitializedSplash
+            } else {
+                SplashNavState.Splash
+            }
         },
         navTransformer = { _, event ->
             when (event) {
@@ -84,9 +97,11 @@ fun <T : Any> ComponentContext.childSplash(
     // содержит буфер команд. Таким образом если разместить ожидание инициализации до создания children (который
     // подпишется на навигацию) и само ожидание, за счет Main.immediate диспатчера, окажется мгновенным, то мы потеряем
     // событие навигации.
-    scope.launch(Dispatchers.Main.immediate) {
-        awaitInitialization()
-        navigationSource.navigate(SplashNavEvent.ApplicationInitialized)
+    if (!isInitializedAtStateRestore) {
+        scope.launch(Dispatchers.Main.immediate) {
+            isInitialized.first { it } // Дожидаемся инициализации приложения.
+            navigationSource.navigate(SplashNavEvent.ApplicationInitialized)
+        }
     }
 
     return children
