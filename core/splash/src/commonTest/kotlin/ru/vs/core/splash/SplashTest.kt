@@ -1,21 +1,12 @@
 package ru.vs.core.splash
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import kotlinx.serialization.builtins.serializer
 import ru.vs.core.coroutines.setMain
 import ru.vs.core.decompose.BaseComponentTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
-
-private const val FAKE_DELAY = 1000L
-private const val TEST_KEY = "test-key"
-private const val TEST_VALUE = "test-value"
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SplashTest : BaseComponentTest() {
@@ -26,26 +17,16 @@ class SplashTest : BaseComponentTest() {
     fun testStateMachine() = runTest {
         setMain()
 
-        var leakingOnContentReady: (() -> Unit)? = null
+        val splash = context.testChildSplash(this)
 
-        val splash = context.childSplash(
-            scope = this,
-            awaitInitialization = { delay(FAKE_DELAY) },
-            splashComponentFactory = { },
-            contentComponentFactory = { onContentReady, _ ->
-                leakingOnContentReady = onContentReady
-            },
-        )
-
-        assertEquals(ChildSplashConfiguration.Splash, splash.value.child.configuration)
+        splash.assertSplash()
         testScheduler.runCurrent()
-        assertEquals(ChildSplashConfiguration.Splash, splash.value.child.configuration)
-        advanceTimeBy(FAKE_DELAY)
+        splash.assertSplash()
+        splash.initialize()
         testScheduler.runCurrent()
-        assertEquals(ChildSplashConfiguration.Splash, splash.value.child.configuration)
-        assertNotNull(leakingOnContentReady)
-        leakingOnContentReady()
-        assertEquals(ChildSplashConfiguration.Content, splash.value.child.configuration)
+        splash.assertSplash()
+        splash.onLeakingContentReady()
+        splash.assertContent()
     }
 
     /**
@@ -55,18 +36,9 @@ class SplashTest : BaseComponentTest() {
     fun testImmediatelyInitialize() = runTest {
         setMain()
 
-        val splash = context.childSplash(
-            scope = this,
-            awaitInitialization = { /* мгновенно возвращаем управление */ },
-            splashComponentFactory = { },
-            contentComponentFactory = { onContentReady, _ ->
-                onContentReady()
-            },
-        )
-
+        val splash = context.testChildSplash(this, isInitialized = true, instantContentReady = true)
         runCurrent()
-
-        assertEquals(ChildSplashConfiguration.Content, splash.value.child.configuration)
+        splash.assertContent()
     }
 
     /**
@@ -77,36 +49,29 @@ class SplashTest : BaseComponentTest() {
     fun testStateRestore() = runTest {
         setMain()
 
-        context.childSplash(
+        val splash = context.testChildSplash(
             scope = this,
-            awaitInitialization = { /* мгновенно возвращаем управление */ },
-            splashComponentFactory = { },
-            contentComponentFactory = { onContentReady, context ->
-                onContentReady()
-                context.stateKeeper.register(TEST_KEY, String.serializer()) { TEST_VALUE }
-            },
+            isInitialized = true,
+            instantContentReady = true,
         )
 
         // Что бы вызвалось переключение на content.
         runCurrent()
+        splash.assertContent()
+        val state = splash.splash.value.child.instance.keepStateUniqueValue
 
         recreateContext(RecreateContextType.ProcessDeath)
 
-        var isContentComponentFactoryCalled = false
-
-        context.childSplash(
+        val secondSplash = context.testChildSplash(
             scope = this,
-            awaitInitialization = { delay(FAKE_DELAY) },
-            splashComponentFactory = { },
-            contentComponentFactory = { _, context ->
-                assertEquals(TEST_VALUE, context.stateKeeper.consume(TEST_KEY, String.serializer()))
-                isContentComponentFactoryCalled = true
-            },
+            isInitialized = false,
+            instantContentReady = true,
         )
 
         testScheduler.runCurrent()
-        advanceTimeBy(FAKE_DELAY)
+        secondSplash.initialize()
         testScheduler.runCurrent()
-        assertTrue(isContentComponentFactoryCalled)
+        secondSplash.assertContent()
+        assertEquals(state, secondSplash.splash.value.child.instance.keepStateUniqueValue)
     }
 }

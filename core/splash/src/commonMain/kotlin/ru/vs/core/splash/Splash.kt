@@ -11,6 +11,8 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.statekeeper.SerializableContainer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.vladislavsumin.core.decompose.components.utils.createCoroutineScope
 
@@ -20,7 +22,7 @@ import ru.vladislavsumin.core.decompose.components.utils.createCoroutineScope
  * @param T тип дочернего компонента.
  * @param key ключ навигации, должен быть уникальным в рамках компонента.
  * @param scope [CoroutineScope] для внутренних нужд, жц должен совпадать с lifecycle компонента.
- * @param awaitInitialization функция для ожидания завершения инициализации приложения.
+ * @param isInitialized текущее состояние инициализации приложения.
  * @param splashComponentFactory фабрика для создания компонента splash экрана.
  * @param contentComponentFactory фабрика для создания компонента экрана с контентом. onContentReady необходимо вызвать
  * после того как контентный компонент будет готов к отображению контента, до этого момента будет отображаться splash.
@@ -28,7 +30,7 @@ import ru.vladislavsumin.core.decompose.components.utils.createCoroutineScope
 fun <T : Any> ComponentContext.childSplash(
     key: String = "child-splash",
     scope: CoroutineScope = lifecycle.createCoroutineScope(),
-    awaitInitialization: suspend () -> Unit,
+    isInitialized: StateFlow<Boolean>,
     splashComponentFactory: (context: ComponentContext) -> T,
     contentComponentFactory: (onContentReady: () -> Unit, context: ComponentContext) -> T,
 ): Value<ChildSplash<T>> {
@@ -85,7 +87,7 @@ fun <T : Any> ComponentContext.childSplash(
     // подпишется на навигацию) и само ожидание, за счет Main.immediate диспатчера, окажется мгновенным, то мы потеряем
     // событие навигации.
     scope.launch(Dispatchers.Main.immediate) {
-        awaitInitialization()
+        isInitialized.first { it } // Дожидаемся инициализации приложения.
         navigationSource.navigate(SplashNavEvent.ApplicationInitialized)
     }
 
