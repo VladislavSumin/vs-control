@@ -15,7 +15,6 @@ private var counter = 0
 class ChildTestComponentContext<T : Any>(
     val data: T,
     context: ComponentContext,
-    key: String = UNIQUE_VALUE_KEY,
 ) : ComponentContext by context {
     /**
      * Уникальное число для проверки работы [InstanceKeeper]
@@ -25,10 +24,10 @@ class ChildTestComponentContext<T : Any>(
     /**
      * Уникальное числа для проверки работы [StateKeeper]
      */
-    val keepStateUniqueValue = stateKeeper.consume(key, Int.serializer()) ?: counter++
+    val keepStateUniqueValue = stateKeeper.consume(UNIQUE_VALUE_KEY, Int.serializer()) ?: counter++
 
     init {
-        stateKeeper.register(key, Int.serializer()) { keepStateUniqueValue }
+        stateKeeper.register(UNIQUE_VALUE_KEY, Int.serializer()) { keepStateUniqueValue }
     }
 
     private class RandomValue : InstanceKeeper.Instance {
