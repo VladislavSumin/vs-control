@@ -40,6 +40,8 @@ fun <T : Any> ComponentContext.childSplash(
         navigationSource.navigate(SplashNavEvent.ContentReady)
     }
 
+    var isInitializedAtStateRestore = false
+
     val children = children(
         source = navigationSource,
         key = key,
@@ -51,11 +53,20 @@ fun <T : Any> ComponentContext.childSplash(
             SerializableContainer()
         },
         restoreState = {
-            // Всегда восстанавливаемся в состояние Splash.
             // Тут следует помнить о контракте restoreState, количество и порядок child в конфигурации при сохранении
             // и при восстановлении должны совпадать. Поэтому мы не удаляем Splash из конфигурации в Content состоянии,
             // кажется это меньшая жертва чем другие решения (несколько разных навигаций или другие решения).
-            SplashNavState.Splash
+
+            // При восстановлении состояния не смотрим на сохраненное состояние, а восстанавливаемся синхронно
+            // в зависимости от статуса инициализации. В случае восстановления состояния при инициализированном
+            // приложении мы не можем вернуть splash тут, так как в этом случае decompose удалит инстансы для Content
+            // экрана
+            if (isInitialized.value) {
+                isInitializedAtStateRestore = true
+                SplashNavState.InitializedSplash
+            } else {
+                SplashNavState.Splash
+            }
         },
         navTransformer = { _, event ->
             when (event) {
@@ -86,9 +97,11 @@ fun <T : Any> ComponentContext.childSplash(
     // содержит буфер команд. Таким образом если разместить ожидание инициализации до создания children (который
     // подпишется на навигацию) и само ожидание, за счет Main.immediate диспатчера, окажется мгновенным, то мы потеряем
     // событие навигации.
-    scope.launch(Dispatchers.Main.immediate) {
-        isInitialized.first { it } // Дожидаемся инициализации приложения.
-        navigationSource.navigate(SplashNavEvent.ApplicationInitialized)
+    if (!isInitializedAtStateRestore) {
+        scope.launch(Dispatchers.Main.immediate) {
+            isInitialized.first { it } // Дожидаемся инициализации приложения.
+            navigationSource.navigate(SplashNavEvent.ApplicationInitialized)
+        }
     }
 
     return children

@@ -74,4 +74,38 @@ class SplashTest : BaseComponentTest() {
         secondSplash.assertContent()
         assertEquals(state, secondSplash.splash.value.child.instance.keepStateUniqueValue)
     }
+
+    /**
+     * Тест проверяет корректное восстановление состояние после поворота экрана или иных обстоятельствах, когда
+     * состояние полностью восстанавливается.
+     */
+    @Test
+    fun testInstanceRestore() = runTest {
+        setMain()
+
+        val splash = context.testChildSplash(
+            scope = this,
+            isInitialized = true,
+            instantContentReady = true,
+        )
+
+        // Что бы вызвалось переключение на content.
+        runCurrent()
+        splash.assertContent()
+        val state = splash.splash.value.child.instance.keepStateUniqueValue
+        val instance = splash.splash.value.child.instance.keepInstanceUniqueValue
+
+        recreateContext(RecreateContextType.ConfigurationChange)
+
+        val secondSplash = context.testChildSplash(
+            scope = this,
+            isInitialized = true,
+            instantContentReady = true,
+        )
+
+        testScheduler.runCurrent()
+        secondSplash.assertContent()
+        assertEquals(state, secondSplash.splash.value.child.instance.keepStateUniqueValue)
+        assertEquals(instance, secondSplash.splash.value.child.instance.keepInstanceUniqueValue)
+    }
 }
