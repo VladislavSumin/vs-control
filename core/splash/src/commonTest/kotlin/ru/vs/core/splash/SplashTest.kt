@@ -94,8 +94,8 @@ class SplashTest {
         // Что бы вызвалось переключение на content.
         runCurrent()
 
-        val savedState: SerializableContainer = context.save()
-        context.destroy()
+        val savedState: SerializableContainer = context.stateKeeperDispatcher.save()
+        context.lifecycleRegistry.destroy()
 
         val context2 = ResumedTestComponentContext(savedState)
 
