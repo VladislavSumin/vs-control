@@ -14,8 +14,8 @@ private var counter = 0
  */
 class ChildTestComponentContext<T : Any>(
     val data: T,
-    key: String = UNIQUE_VALUE_KEY,
     context: ComponentContext,
+    key: String = UNIQUE_VALUE_KEY,
 ) : ComponentContext by context {
     /**
      * Уникальное число для проверки работы [InstanceKeeper]

@@ -8,8 +8,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * TODO перенести тесты
- *
  * Creates list with any items has our own lifecycle and state
  * For different [C] with equal [ID] keep created [T], reuse it and update it state to new [C]
  *
