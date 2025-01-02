@@ -14,8 +14,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
 import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import ru.vs.core.compose.advanceTimeOneFrameBeforeBy
 import ru.vs.core.coroutines.setMain
@@ -25,7 +24,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-private const val FAKE_DELAY = 10_000L
 private const val ANIMATION_DURATION = 5_000
 
 @OptIn(ExperimentalTestApi::class, ExperimentalCoroutinesApi::class)
@@ -37,10 +35,11 @@ class SplashTestUi : BaseComponentTest() {
     @Test
     fun testContentChange() = runTest {
         setMain()
+        val isInitialized = MutableStateFlow(false)
         runComposeUiTest {
             val splash = context.childSplash(
                 scope = this@runTest,
-                awaitInitialization = { delay(FAKE_DELAY) },
+                isInitialized = isInitialized,
                 splashComponentFactory = { SplashScreenComponent(it) },
                 contentComponentFactory = { onContentReady, context ->
                     onContentReady()
@@ -59,7 +58,7 @@ class SplashTestUi : BaseComponentTest() {
             onNodeWithTag(ContentScreenComponent.TAG).assertDoesNotExist()
 
             // Тут крутим main часики, так как awaitInitialization запускается на Dispatchers Main.
-            advanceTimeBy(FAKE_DELAY)
+            isInitialized.value = true
 
             // Проверяем состояние Content
             onNodeWithTag(SplashScreenComponent.TAG).assertDoesNotExist()
@@ -73,10 +72,11 @@ class SplashTestUi : BaseComponentTest() {
     @Test
     fun testAnimatedContentChange() = runTest {
         setMain()
+        val isInitialized = MutableStateFlow(false)
         runComposeUiTest {
             val splash = context.childSplash(
                 scope = this@runTest,
-                awaitInitialization = { delay(FAKE_DELAY) },
+                isInitialized = isInitialized,
                 splashComponentFactory = { SplashScreenComponent(it) },
                 contentComponentFactory = { onContentReady, context ->
                     onContentReady()
@@ -99,8 +99,7 @@ class SplashTestUi : BaseComponentTest() {
             onNodeWithTag(SplashScreenComponent.TAG).assertExists()
             onNodeWithTag(ContentScreenComponent.TAG).assertDoesNotExist()
 
-            // Тут крутим main часики, так как awaitInitialization запускается на Dispatchers Main.
-            advanceTimeBy(FAKE_DELAY)
+            isInitialized.value = true
 
             //  Стартует анимация, должны быть одновременно видны оба экрана.
             mainClock.advanceTimeByFrame()
@@ -138,10 +137,12 @@ class SplashTestUi : BaseComponentTest() {
         // Тестируемое состояние, при первом запуске генерируется случайно, при повторном должно восстановиться.
         var randomValue: CharSequence? = null
 
+        val isInitialized = MutableStateFlow(false)
+
         runComposeUiTest {
             val splash = context.childSplash(
                 scope = this@runTest,
-                awaitInitialization = { delay(FAKE_DELAY) },
+                isInitialized = isInitialized,
                 splashComponentFactory = { SplashScreenComponent(it) },
                 contentComponentFactory = { onContentReady, context ->
                     onContentReady()
@@ -151,8 +152,7 @@ class SplashTestUi : BaseComponentTest() {
 
             setTestContent(splash, registry1)
 
-            // Тут крутим main часики, так как awaitInitialization запускается на Dispatchers Main.
-            advanceTimeBy(FAKE_DELAY)
+            isInitialized.value = true
 
             randomValue = onNodeWithTag(ContentScreenComponent.SAVEABLE_CONTENT_TAG)
                 .fetchSemanticsNode()
@@ -166,12 +166,13 @@ class SplashTestUi : BaseComponentTest() {
 
         val registry2 = SaveableStateRegistry(data) { true }
 
+        val isInitialized2 = MutableStateFlow(false)
         recreateContext(RecreateContextType.ProcessDeath)
 
         runComposeUiTest {
             val splash = context.childSplash(
                 scope = this@runTest,
-                awaitInitialization = { delay(FAKE_DELAY) },
+                isInitialized = isInitialized2,
                 splashComponentFactory = { SplashScreenComponent(it) },
                 contentComponentFactory = { onContentReady, context ->
                     onContentReady()
@@ -181,8 +182,7 @@ class SplashTestUi : BaseComponentTest() {
 
             setTestContent(splash, registry2)
 
-            // Тут крутим main часики, так как awaitInitialization запускается на Dispatchers Main.
-            advanceTimeBy(FAKE_DELAY)
+            isInitialized2.value = true
 
             val restoredValue = onNodeWithTag(ContentScreenComponent.SAVEABLE_CONTENT_TAG)
                 .fetchSemanticsNode()
