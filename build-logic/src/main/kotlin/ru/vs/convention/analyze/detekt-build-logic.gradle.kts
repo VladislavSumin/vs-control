@@ -8,7 +8,7 @@ import io.gitlab.arturbosch.detekt.Detekt
  */
 
 plugins {
-    id("ru.vs.convention.analyze.detekt")
+    id("ru.vladislavsumin.convention.analyze.detekt")
 }
 
 // Дополнительная проверка места подключения плагина.

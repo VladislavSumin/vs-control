@@ -16,6 +16,7 @@ decompose = "3.2.2"
 gradlePlugins-android = "8.5.2" # last supported by kotlin 2.0.21
 gradlePlugins-detekt = "1.23.7"
 gradlePlugins-modulesGraphAssert = "2.7.1"
+gradlePlugins-checkUpdates = "0.49.0"
 
 # Android
 android-activity-compose = "1.9.3"
@@ -53,6 +54,7 @@ gradlePlugins-sqldelight = { module = "app.cash.sqldelight:gradle-plugin", versi
 gradlePlugins-android = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugins-android" }
 gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "gradlePlugins-detekt" }
 gradlePlugins-modulesGraphAssert = { module = "com.jraska.module.graph.assertion:plugin", version.ref = "gradlePlugins-modulesGraphAssert" }
+gradlePlugins-checkUpdates = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradlePlugins-checkUpdates" }
 
 # Kotlin
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
