@@ -27,7 +27,7 @@ class TestChildSplash(
         isInitialized = this.isInitialized,
         splashComponentFactory = {
             splashFactoryCalls++
-            ChildTestComponentContext(Unit, "splash", it)
+            ChildTestComponentContext(Unit, it)
         },
         contentComponentFactory = { onContentReady, context ->
             contentFactoryCalls++
@@ -36,7 +36,7 @@ class TestChildSplash(
             } else {
                 onLeakingContentReady = onContentReady
             }
-            ChildTestComponentContext(Unit, "content", context)
+            ChildTestComponentContext(Unit, context)
         },
     )
 

@@ -20,5 +20,8 @@ kotlin {
         androidMain.dependencies {
             api(libs.decompose.extensions.android)
         }
+        commonTest.dependencies {
+            implementation(projects.core.decomposeTest)
+        }
     }
 }
