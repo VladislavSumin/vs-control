@@ -13,7 +13,8 @@ kotlin {
         commonTest.dependencies {
             implementation(projects.core.composeTest)
             implementation(projects.core.coroutinesTest)
-            implementation(projects.core.decomposeTest)
+            // TODO
+            implementation("ru.vladislavsumin.core.decompose:test")
         }
     }
 }
