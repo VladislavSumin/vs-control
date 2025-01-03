@@ -21,7 +21,8 @@ kotlin {
             api(libs.decompose.extensions.android)
         }
         commonTest.dependencies {
-            implementation(projects.core.decomposeTest)
+            // TODO
+            implementation("ru.vladislavsumin.core.decompose:test")
         }
     }
 }

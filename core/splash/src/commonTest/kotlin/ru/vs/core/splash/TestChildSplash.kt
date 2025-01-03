@@ -3,7 +3,7 @@ package ru.vs.core.splash
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import ru.vs.core.decompose.ChildTestComponentContext
+import ru.vladislavsumin.core.decompose.test.ChildTestComponentContext
 import kotlin.test.assertEquals
 
 class TestChildSplash(

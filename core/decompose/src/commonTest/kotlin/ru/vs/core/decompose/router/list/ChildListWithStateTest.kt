@@ -5,8 +5,8 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.resume
 import kotlinx.coroutines.flow.StateFlow
-import ru.vs.core.decompose.BaseComponentTest
-import ru.vs.core.decompose.ChildTestComponentContext
+import ru.vladislavsumin.core.decompose.test.BaseComponentTest
+import ru.vladislavsumin.core.decompose.test.ChildTestComponentContext
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
