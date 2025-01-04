@@ -8,7 +8,6 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":core:di"))
             implementation(project(":core:ktor:server"))
             implementation(project(":rsub:server"))
         }
