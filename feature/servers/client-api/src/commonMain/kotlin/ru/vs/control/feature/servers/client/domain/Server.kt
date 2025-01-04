@@ -2,6 +2,9 @@ package ru.vs.control.feature.servers.client.domain
 
 import kotlin.jvm.JvmInline
 
+/**
+ * Уникальный локальный id сервера во внутренней базе данных.
+ */
 @JvmInline
 value class ServerId(val raw: Long)
 

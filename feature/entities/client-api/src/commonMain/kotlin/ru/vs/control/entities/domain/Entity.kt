@@ -1,6 +1,7 @@
 package ru.vs.control.entities.domain
 
-import ru.vs.control.servers.domain.Server
+import ru.vs.control.feature.servers.client.domain.Server
+
 
 /**
  * Primary class for client entity.
