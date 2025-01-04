@@ -7,14 +7,14 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import ru.vs.control.entities.ui.entities.EntitiesComponentFactory
 import ru.vs.core.decompose.ComposeComponent
-import ru.vs.core.factory_generator.GenerateFactory
 
 @Stable
 internal interface EntitiesScreenComponent {
     val entitiesComponent: ComposeComponent
 }
 
-@GenerateFactory(EntitiesScreenComponentFactory::class)
+// TODO
+// @GenerateFactory(EntitiesScreenComponentFactory::class)
 internal class EntitiesScreenComponentImpl(
     entitiesComponentFactory: EntitiesComponentFactory,
     componentContext: ComponentContext,

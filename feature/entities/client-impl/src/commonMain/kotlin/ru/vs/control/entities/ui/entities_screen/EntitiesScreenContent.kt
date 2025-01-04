@@ -6,7 +6,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ru.vs.core.navigation.NavigationSupportTopAppBar
 
 @Composable
 internal fun EntitiesScreenContent(component: EntitiesScreenComponent, modifier: Modifier) {
@@ -21,7 +20,8 @@ internal fun EntitiesScreenContent(component: EntitiesScreenComponent, modifier:
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopBar() {
-    NavigationSupportTopAppBar(
-        title = { Text("Entities") },
-    )
+    // TODO
+//    NavigationSupportTopAppBar(
+//        title = { Text("Entities") },
+//    )
 }

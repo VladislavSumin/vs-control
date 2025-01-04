@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import ru.vs.control.entities.dto.toEntity
-import ru.vs.control.servers_connection.domain.ServersConnectionInteractor
 
 internal interface EntitiesInteractor {
     /**
@@ -24,31 +23,31 @@ internal interface EntitiesInteractor {
 }
 
 internal class EntitiesInteractorImpl(
-    private val serversConnectionInteractor: ServersConnectionInteractor,
+    // private val serversConnectionInteractor: ServersConnectionInteractor,
     scope: CoroutineScope,
 ) : EntitiesInteractor {
 
     /**
      * Holds connection with current selected server and keep actual entities state
      */
-    private val entitiesFlow: SharedFlow<Entities<*>> =
-        serversConnectionInteractor.observeSelectedServerConnection()
-            .flatMapLatest { connection ->
-                connection?.entities?.observeEntities()
-                    ?.map { it.toEntity(connection.server).associateBy(Entity<*>::id) }
-                    ?: flowOf(emptyMap())
-            }
-            .shareIn(
-                scope = scope,
-                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 0, replayExpirationMillis = 0),
-                replay = 1
-            )
+//    private val entitiesFlow: SharedFlow<Entities<*>> =
+//        serversConnectionInteractor.observeSelectedServerConnection()
+//            .flatMapLatest { connection ->
+//                connection?.entities?.observeEntities()
+//                    ?.map { it.toEntity(connection.server).associateBy(Entity<*>::id) }
+//                    ?: flowOf(emptyMap())
+//            }
+//            .shareIn(
+//                scope = scope,
+//                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 0, replayExpirationMillis = 0),
+//                replay = 1
+//            )
 
     override fun observeEntities(): Flow<Entities<*>> {
-        return entitiesFlow
+        return TODO()//entitiesFlow
     }
 
     override fun observeEntity(entityId: EntityId): Flow<Entity<*>?> {
-        return entitiesFlow.map { it[entityId] }
+        return TODO()// entitiesFlow.map { it[entityId] }
     }
 }

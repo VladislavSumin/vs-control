@@ -5,7 +5,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.feature.servers.clientApi)
+            api(projects.feature.servers.clientApi)
         }
     }
 }

@@ -2,7 +2,7 @@ package ru.vs.control.entities.dto
 
 import ru.vs.control.entities.domain.Entity
 import ru.vs.control.entities.domain.EntityProperties
-import ru.vs.control.servers.domain.Server
+import ru.vs.control.feature.servers.client.domain.Server
 
 internal fun EntityDto.toEntity(server: Server) = Entity(
     server = server,
