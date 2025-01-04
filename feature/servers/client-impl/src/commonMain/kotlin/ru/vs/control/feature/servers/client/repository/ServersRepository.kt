@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import ru.vs.control.feature.servers.client.domain.Server
+import ru.vs.control.feature.servers.client.domain.ServerId
 import ru.vs.core.coroutines.DispatchersProvider
-import kotlin.jvm.JvmInline
 
 internal interface ServersRepository {
     suspend fun insert(server: Server)
@@ -41,18 +42,6 @@ internal class ServersRepositoryImpl(
             }
     }
 }
-
-@JvmInline
-internal value class ServerId(val raw: Long)
-
-internal data class Server(
-    val id: ServerId = ServerId(0),
-    val name: String,
-    val isSecure: Boolean,
-    val host: String,
-    val port: Int,
-    val accessToken: String,
-)
 
 private fun ServerRecord.toModel() = Server(ServerId(id), name, isSecure, host, port.toInt(), accessToken)
 private fun List<ServerRecord>.toModels() = map { it.toModel() }
