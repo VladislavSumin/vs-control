@@ -10,13 +10,13 @@ import ru.vs.control.feature.auth.client.domain.ServerAuthInteractor
 import ru.vs.control.feature.auth.client.domain.ServerAuthResult
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfo
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor
+import ru.vs.control.feature.servers.client.domain.Server
 import ru.vs.control.feature.servers.client.domain.ServersInteractor
 import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.ktor.client.SafeResponse
 import ru.vs.core.logger.api.logger
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 import kotlin.error
-import ru.vs.control.feature.servers.client.domain.Server
 
 @Stable
 @GenerateFactory

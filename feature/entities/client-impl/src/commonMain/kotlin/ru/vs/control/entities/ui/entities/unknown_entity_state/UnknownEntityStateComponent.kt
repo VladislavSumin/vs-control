@@ -10,7 +10,7 @@ import ru.vs.control.entities.ui.entities.entity_state.BaseEntityStateComponent
 
 internal class UnknownEntityStateComponent(
     state: StateFlow<Entity<out EntityState>>,
-    context: ComponentContext
+    context: ComponentContext,
 ) : BaseEntityStateComponent<EntityState>(state, context) {
     @Composable
     override fun Render(modifier: Modifier) = UnknownEntityStateContent(this)

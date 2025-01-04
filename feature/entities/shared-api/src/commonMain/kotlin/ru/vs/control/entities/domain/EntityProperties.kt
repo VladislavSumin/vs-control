@@ -6,7 +6,7 @@ import kotlin.reflect.KClass
  * Collection of [EntityProperty].
  */
 class EntityProperties private constructor(
-    private val internalMap: Map<KClass<out EntityProperty>, EntityProperty>
+    private val internalMap: Map<KClass<out EntityProperty>, EntityProperty>,
 ) {
     val raw: Collection<EntityProperty> get() = internalMap.values
 
@@ -16,7 +16,7 @@ class EntityProperties private constructor(
     constructor(properties: Collection<EntityProperty>) : this(
         internalMap = properties
             .associateBy { it::class }
-            .also { check(it.size == properties.size) { "properties must be unique by type" } }
+            .also { check(it.size == properties.size) { "properties must be unique by type" } },
     )
 
     /**
@@ -25,7 +25,7 @@ class EntityProperties private constructor(
     constructor(vararg properties: EntityProperty) : this(
         internalMap = properties
             .associateBy { it::class }
-            .also { check(it.size == properties.size) { "properties must be unique by type" } }
+            .also { check(it.size == properties.size) { "properties must be unique by type" } },
     )
 
     constructor() : this(emptyMap())

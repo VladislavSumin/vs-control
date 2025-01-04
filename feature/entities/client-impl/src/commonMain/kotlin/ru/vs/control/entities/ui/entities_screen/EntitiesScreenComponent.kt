@@ -21,7 +21,7 @@ internal class EntitiesScreenComponentImpl(
 ) : EntitiesScreenComponent, ComposeComponent, ComponentContext by componentContext {
 
     override val entitiesComponent = entitiesComponentFactory.create(
-        componentContext = childContext("entities-component")
+        componentContext = childContext("entities-component"),
     )
 
     @Composable

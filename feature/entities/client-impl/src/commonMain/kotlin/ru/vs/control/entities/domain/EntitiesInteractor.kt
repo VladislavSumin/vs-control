@@ -2,13 +2,6 @@ package ru.vs.control.entities.domain
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.shareIn
-import ru.vs.control.entities.dto.toEntity
 
 internal interface EntitiesInteractor {
     /**
@@ -44,10 +37,10 @@ internal class EntitiesInteractorImpl(
 //            )
 
     override fun observeEntities(): Flow<Entities<*>> {
-        return TODO()//entitiesFlow
+        return TODO() // entitiesFlow
     }
 
     override fun observeEntity(entityId: EntityId): Flow<Entity<*>?> {
-        return TODO()// entitiesFlow.map { it[entityId] }
+        return TODO() // entitiesFlow.map { it[entityId] }
     }
 }

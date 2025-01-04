@@ -45,13 +45,13 @@ internal class EntitiesInteractorImpl(
     override suspend fun <T : EntityState> holdConstantEntity(
         id: EntityId,
         primaryState: T,
-        properties: EntityProperties
+        properties: EntityProperties,
     ): Nothing {
         holdEntityInternal(
             id = id,
             primaryState = primaryState,
             isMutable = false,
-            properties = properties
+            properties = properties,
         ) { delay(Long.MAX_VALUE) }
         error("unreachable code")
     }

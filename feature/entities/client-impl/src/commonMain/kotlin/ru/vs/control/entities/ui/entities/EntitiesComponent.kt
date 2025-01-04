@@ -11,7 +11,7 @@ import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.router.list.childListWithState
 
 // TODO
-//@GenerateFactory(EntitiesComponentFactory::class)
+// @GenerateFactory(EntitiesComponentFactory::class)
 internal class EntitiesComponent(
     private val entityStateComponentFactoryRegistry: EntityStateComponentFactoryRegistry,
     entitiesViewModelFactory: EntitiesViewModelFactory,
@@ -24,7 +24,7 @@ internal class EntitiesComponent(
         idSelector = { it.id },
         childFactory = { entityState, context ->
             entityStateComponentFactoryRegistry.create(entityState, context)
-        }
+        },
     )
 
     @Composable

@@ -3,16 +3,11 @@ package ru.vs.control.entities
 import org.kodein.di.DI
 import org.kodein.di.bindSet
 import org.kodein.di.bindSingleton
-import org.kodein.di.inBindSet
-import org.kodein.di.singleton
 import ru.vs.control.entities.domain.EntitiesInteractor
 import ru.vs.control.entities.domain.EntitiesInteractorImpl
-import ru.vs.control.entities.ui.entities.EntitiesComponentFactory
-import ru.vs.control.entities.ui.entities.EntitiesViewModelFactory
 import ru.vs.control.entities.ui.entities.entity_state.EntityStateComponentFactory
 import ru.vs.control.entities.ui.entities.entity_state.EntityStateComponentFactoryRegistry
 import ru.vs.control.entities.ui.entities.entity_state.EntityStateComponentFactoryRegistryImpl
-import ru.vs.control.entities.ui.entities_screen.EntitiesScreenComponentFactory
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 

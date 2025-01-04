@@ -19,7 +19,7 @@ import kotlin.reflect.KClass
  */
 data class ExternalEntityPropertySerializer<T : EntityProperty>(
     val kClass: KClass<T>,
-    val kSerializer: KSerializer<T>
+    val kSerializer: KSerializer<T>,
 ) {
     companion object {
         inline operator fun <reified T : EntityProperty> invoke(): ExternalEntityPropertySerializer<T> {

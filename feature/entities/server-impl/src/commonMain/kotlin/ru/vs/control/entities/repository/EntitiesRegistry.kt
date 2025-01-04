@@ -31,9 +31,9 @@ internal interface EntitiesRegistry {
         initialValue: EntityImpl<T>,
         block: suspend (
             update: suspend (
-                (entity: Entity<T>) -> T
-            ) -> Unit
-        ) -> Unit
+                (entity: Entity<T>) -> T,
+            ) -> Unit,
+        ) -> Unit,
     )
 }
 
@@ -46,7 +46,7 @@ internal class EntitiesRegistryImpl : EntitiesRegistry {
 
     override suspend fun <T : EntityState> holdEntity(
         initialValue: EntityImpl<T>,
-        block: suspend (update: suspend ((entity: Entity<T>) -> T) -> Unit) -> Unit
+        block: suspend (update: suspend ((entity: Entity<T>) -> T) -> Unit) -> Unit,
     ) {
         val id = initialValue.id
         var currentEntity: EntityImpl<T> = initialValue

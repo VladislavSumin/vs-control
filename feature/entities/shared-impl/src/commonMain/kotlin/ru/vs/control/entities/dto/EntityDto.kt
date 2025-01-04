@@ -11,7 +11,7 @@ data class EntityDto(
     val id: EntityId,
     val primaryState: EntityState,
     val isMutable: Boolean,
-    val properties: Collection<EntityProperty>
+    val properties: Collection<EntityProperty>,
 )
 
 fun BaseEntity<*>.toDto() = EntityDto(

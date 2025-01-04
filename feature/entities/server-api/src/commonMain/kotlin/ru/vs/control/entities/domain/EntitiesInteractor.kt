@@ -25,9 +25,9 @@ interface EntitiesInteractor {
         properties: EntityProperties = EntityProperties(),
         block: suspend (
             update: suspend (
-                (entity: Entity<T>) -> T
-            ) -> Unit
-        ) -> Unit
+                (entity: Entity<T>) -> T,
+            ) -> Unit,
+        ) -> Unit,
     )
 
     /**
@@ -49,9 +49,9 @@ interface EntitiesInteractor {
         onUserRequestUpdatePrimaryState: (requestedPrimaryState: T) -> Boolean,
         block: suspend (
             update: suspend (
-                (entity: Entity<T>) -> T
-            ) -> Unit
-        ) -> Unit
+                (entity: Entity<T>) -> T,
+            ) -> Unit,
+        ) -> Unit,
     )
 
     /**
