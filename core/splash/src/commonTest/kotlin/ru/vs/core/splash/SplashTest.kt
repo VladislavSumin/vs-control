@@ -3,8 +3,8 @@ package ru.vs.core.splash
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
+import ru.vladislavsumin.core.decompose.test.BaseComponentTest
 import ru.vs.core.coroutines.setMain
-import ru.vs.core.decompose.BaseComponentTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
