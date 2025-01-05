@@ -1,4 +1,4 @@
-package ru.vs.control.entities.domain
+package ru.vs.control.feature.entities.server.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.update

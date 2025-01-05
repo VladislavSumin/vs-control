@@ -1,4 +1,4 @@
-package ru.vs.control.entities.domain
+package ru.vs.control.feature.entities.server.domain
 
 import ru.vs.control.feature.entities.domain.BaseEntity
 import ru.vs.control.feature.entities.domain.EntityId

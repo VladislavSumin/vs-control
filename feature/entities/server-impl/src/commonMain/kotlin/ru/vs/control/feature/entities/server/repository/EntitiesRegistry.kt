@@ -1,4 +1,4 @@
-package ru.vs.control.entities.repository
+package ru.vs.control.feature.entities.server.repository
 
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import ru.vs.control.entities.domain.Entities
-import ru.vs.control.entities.domain.Entity
-import ru.vs.control.entities.domain.EntityImpl
 import ru.vs.control.feature.entities.domain.EntityId
 import ru.vs.control.feature.entities.domain.EntityState
+import ru.vs.control.feature.entities.server.domain.Entities
+import ru.vs.control.feature.entities.server.domain.Entity
+import ru.vs.control.feature.entities.server.domain.EntityImpl
 
 internal interface EntitiesRegistry {
     fun observeEntities(): Flow<Entities<*>>
