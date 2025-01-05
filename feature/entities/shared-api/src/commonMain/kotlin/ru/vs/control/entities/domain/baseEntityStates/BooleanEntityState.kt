@@ -1,4 +1,4 @@
-package ru.vs.control.entities.domain.base_entity_states
+package ru.vs.control.entities.domain.baseEntityStates
 
 import kotlinx.serialization.Serializable
 import ru.vs.control.entities.domain.EntityState

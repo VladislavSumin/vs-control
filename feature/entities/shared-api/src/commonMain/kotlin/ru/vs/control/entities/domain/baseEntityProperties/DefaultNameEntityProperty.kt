@@ -1,4 +1,4 @@
-package ru.vs.control.entities.domain.base_entity_properties
+package ru.vs.control.entities.domain.baseEntityProperties
 
 import kotlinx.serialization.Serializable
 import ru.vs.control.entities.domain.EntityProperty

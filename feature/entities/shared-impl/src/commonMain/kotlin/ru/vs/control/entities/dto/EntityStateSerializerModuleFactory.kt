@@ -6,7 +6,7 @@ import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import ru.vs.control.entities.domain.EntityState
 import ru.vs.control.entities.domain.ExternalEntityStateSerializer
-import ru.vs.control.entities.domain.base_entity_states.BooleanEntityState
+import ru.vs.control.entities.domain.baseEntityStates.BooleanEntityState
 
 /**
  * Factory to create [SerializersModule] for polymorphic [EntityState] serialization.
