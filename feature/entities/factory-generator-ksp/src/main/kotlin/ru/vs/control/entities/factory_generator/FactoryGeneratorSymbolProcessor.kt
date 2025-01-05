@@ -21,6 +21,7 @@ import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
 import kotlin.reflect.KClass
 
+// TODO переписать с базовыми расширениями
 internal class FactoryGeneratorSymbolProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger
