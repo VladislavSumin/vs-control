@@ -87,6 +87,7 @@ include("rsub:test")
 include("rsub:test-interface")
 
 sharedFeature("auth")
+sharedFeature("entities")
 sharedFeature("server-info")
 
 clientFeature("app-info")

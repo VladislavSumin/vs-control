@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.StateFlow
-import ru.vs.control.feature.servers.client.repository.Server
+import ru.vs.control.feature.servers.client.domain.Server
 import ru.vs.core.uikit.paddings.defaultCardContentPadding
 
 @Composable
