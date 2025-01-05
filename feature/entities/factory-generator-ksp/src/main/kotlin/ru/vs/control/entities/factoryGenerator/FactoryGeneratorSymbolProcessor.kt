@@ -1,4 +1,4 @@
-package ru.vs.control.entities.factory_generator
+package ru.vs.control.entities.factoryGenerator
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
 // TODO переписать с базовыми расширениями
 internal class FactoryGeneratorSymbolProcessor(
     private val codeGenerator: CodeGenerator,
-    private val logger: KSPLogger
+    private val logger: KSPLogger,
 ) : SymbolProcessor {
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
@@ -64,6 +64,8 @@ internal class FactoryGeneratorSymbolProcessor(
      * @param instance instance for creation
      * @param suffix factory name suffix
      */
+    // TODO
+    @Suppress("LongMethod")
     private fun generateFactoryInterfaceAndImpl(
         instance: KSClassDeclaration,
         suffix: String = "Factory",
@@ -78,8 +80,8 @@ internal class FactoryGeneratorSymbolProcessor(
 
         val stateType = STATE_FLOW.parameterizedBy(
             ENTITY.parameterizedBy(
-                superClassGenericTypeName
-            )
+                superClassGenericTypeName,
+            ),
         )
 
         val codeBlock = CodeBlock.builder()
@@ -100,7 +102,7 @@ internal class FactoryGeneratorSymbolProcessor(
 
         val property = PropertySpec.builder(
             name = "entityStateType",
-            type = KClass::class.asTypeName().parameterizedBy(superClassGenericTypeName)
+            type = KClass::class.asTypeName().parameterizedBy(superClassGenericTypeName),
         )
             .addModifiers(KModifier.OVERRIDE)
             .initializer("%T::class", superClassGenericTypeName)
@@ -113,14 +115,14 @@ internal class FactoryGeneratorSymbolProcessor(
             .addParameter(
                 ParameterSpec.builder(
                     name = "state",
-                    type = stateType
-                ).build()
+                    type = stateType,
+                ).build(),
             )
             .addParameter(
                 ParameterSpec.builder(
                     name = "context",
-                    type = COMPOSE_CONTEXT
-                ).build()
+                    type = COMPOSE_CONTEXT,
+                ).build(),
             )
             .returns(instance.toClassName())
             .build()
@@ -158,7 +160,7 @@ internal class FactoryGeneratorSymbolProcessor(
                             PropertySpec.builder(name, it.type.toTypeName())
                                 .initializer(name)
                                 .addModifiers(KModifier.PRIVATE)
-                                .build()
+                                .build(),
                         )
                     }
             }

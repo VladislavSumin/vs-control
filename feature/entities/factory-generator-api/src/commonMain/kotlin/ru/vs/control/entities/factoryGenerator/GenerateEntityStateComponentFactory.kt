@@ -1,4 +1,4 @@
-package ru.vs.control.entities.factory_generator
+package ru.vs.control.entities.factoryGenerator
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)
