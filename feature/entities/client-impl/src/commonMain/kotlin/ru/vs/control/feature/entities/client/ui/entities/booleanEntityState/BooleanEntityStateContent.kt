@@ -11,7 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.vs.control.entities.domain.baseEntityProperties.DefaultNameEntityProperty
+import ru.vs.control.feature.entities.domain.baseEntityProperties.DefaultNameEntityProperty
 
 @Composable
 internal fun BooleanEntityStateContent(component: BooleanEntityStateComponent) {

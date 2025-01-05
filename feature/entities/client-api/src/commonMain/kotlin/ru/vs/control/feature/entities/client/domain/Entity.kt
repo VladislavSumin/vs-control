@@ -1,9 +1,9 @@
 package ru.vs.control.feature.entities.client.domain
 
-import ru.vs.control.entities.domain.BaseEntity
-import ru.vs.control.entities.domain.EntityId
-import ru.vs.control.entities.domain.EntityProperties
-import ru.vs.control.entities.domain.EntityState
+import ru.vs.control.feature.entities.domain.BaseEntity
+import ru.vs.control.feature.entities.domain.EntityId
+import ru.vs.control.feature.entities.domain.EntityProperties
+import ru.vs.control.feature.entities.domain.EntityState
 import ru.vs.control.feature.servers.client.domain.Server
 
 /**

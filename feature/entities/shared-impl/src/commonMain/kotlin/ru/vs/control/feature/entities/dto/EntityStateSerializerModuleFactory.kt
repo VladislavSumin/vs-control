@@ -1,12 +1,12 @@
-package ru.vs.control.entities.dto
+package ru.vs.control.feature.entities.dto
 
 import kotlinx.serialization.modules.PolymorphicModuleBuilder
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
-import ru.vs.control.entities.domain.EntityState
-import ru.vs.control.entities.domain.ExternalEntityStateSerializer
-import ru.vs.control.entities.domain.baseEntityStates.BooleanEntityState
+import ru.vs.control.feature.entities.domain.EntityState
+import ru.vs.control.feature.entities.domain.ExternalEntityStateSerializer
+import ru.vs.control.feature.entities.domain.baseEntityStates.BooleanEntityState
 
 /**
  * Factory to create [SerializersModule] for polymorphic [EntityState] serialization.

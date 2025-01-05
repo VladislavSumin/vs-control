@@ -1,4 +1,4 @@
-package ru.vs.control.entities.domain
+package ru.vs.control.feature.entities.domain
 
 /**
  * Base interface for any Entity, contains shared entity part for client and server,

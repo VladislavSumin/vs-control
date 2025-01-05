@@ -2,6 +2,9 @@ package ru.vs.control.entities.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.update
+import ru.vs.control.feature.entities.domain.EntityId
+import ru.vs.control.feature.entities.domain.EntityProperties
+import ru.vs.control.feature.entities.domain.EntityState
 
 interface EntitiesInteractor {
     /**

@@ -1,7 +1,7 @@
-package ru.vs.control.entities.domain.baseEntityProperties
+package ru.vs.control.feature.entities.domain.baseEntityProperties
 
 import kotlinx.serialization.Serializable
-import ru.vs.control.entities.domain.EntityProperty
+import ru.vs.control.feature.entities.domain.EntityProperty
 
 /**
  * Default human-readable name for Entity

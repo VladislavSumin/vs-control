@@ -6,8 +6,9 @@ import ru.vs.control.entities.domain.EntitiesInteractor
 import ru.vs.control.entities.domain.EntitiesInteractorImpl
 import ru.vs.control.entities.repository.EntitiesRegistry
 import ru.vs.control.entities.repository.EntitiesRegistryImpl
-import ru.vs.control.entities.rsub.EntitiesRsub
 import ru.vs.control.entities.rsub.EntitiesRsubImpl
+import ru.vs.control.feature.entities.featureEntitiesShared
+import ru.vs.control.feature.entities.rsub.EntitiesRsub
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 

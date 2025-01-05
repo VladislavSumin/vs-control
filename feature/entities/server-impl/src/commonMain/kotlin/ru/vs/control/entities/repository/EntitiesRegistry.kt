@@ -10,9 +10,9 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import ru.vs.control.entities.domain.Entities
 import ru.vs.control.entities.domain.Entity
-import ru.vs.control.entities.domain.EntityId
 import ru.vs.control.entities.domain.EntityImpl
-import ru.vs.control.entities.domain.EntityState
+import ru.vs.control.feature.entities.domain.EntityId
+import ru.vs.control.feature.entities.domain.EntityState
 
 internal interface EntitiesRegistry {
     fun observeEntities(): Flow<Entities<*>>

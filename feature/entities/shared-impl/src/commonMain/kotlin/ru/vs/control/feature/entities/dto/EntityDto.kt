@@ -1,10 +1,10 @@
-package ru.vs.control.entities.dto
+package ru.vs.control.feature.entities.dto
 
 import kotlinx.serialization.Serializable
-import ru.vs.control.entities.domain.BaseEntity
-import ru.vs.control.entities.domain.EntityId
-import ru.vs.control.entities.domain.EntityProperty
-import ru.vs.control.entities.domain.EntityState
+import ru.vs.control.feature.entities.domain.BaseEntity
+import ru.vs.control.feature.entities.domain.EntityId
+import ru.vs.control.feature.entities.domain.EntityProperty
+import ru.vs.control.feature.entities.domain.EntityState
 
 @Serializable
 data class EntityDto(

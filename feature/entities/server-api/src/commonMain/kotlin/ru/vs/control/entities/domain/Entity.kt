@@ -1,5 +1,9 @@
 package ru.vs.control.entities.domain
 
+import ru.vs.control.feature.entities.domain.BaseEntity
+import ru.vs.control.feature.entities.domain.EntityId
+import ru.vs.control.feature.entities.domain.EntityState
+
 /**
  * Primary interface for server entity
  * @param T - primary state type

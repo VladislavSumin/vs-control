@@ -1,4 +1,4 @@
-package ru.vs.control.entities.domain
+package ru.vs.control.feature.entities.domain
 
 import ru.vs.control.id.Id
 

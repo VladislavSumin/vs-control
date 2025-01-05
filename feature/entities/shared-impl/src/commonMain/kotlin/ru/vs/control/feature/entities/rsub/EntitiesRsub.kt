@@ -1,9 +1,9 @@
-package ru.vs.control.entities.rsub
+package ru.vs.control.feature.entities.rsub
 
 import kotlinx.coroutines.flow.Flow
-import ru.vs.control.entities.domain.EntityId
-import ru.vs.control.entities.domain.EntityState
-import ru.vs.control.entities.dto.EntityDto
+import ru.vs.control.feature.entities.domain.EntityId
+import ru.vs.control.feature.entities.domain.EntityState
+import ru.vs.control.feature.entities.dto.EntityDto
 import ru.vs.rsub.RSubInterface
 
 @RSubInterface

@@ -2,7 +2,7 @@ package ru.vs.control.feature.entities.client.domain
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import ru.vs.control.entities.domain.EntityId
+import ru.vs.control.feature.entities.domain.EntityId
 
 internal interface EntitiesInteractor {
     /**

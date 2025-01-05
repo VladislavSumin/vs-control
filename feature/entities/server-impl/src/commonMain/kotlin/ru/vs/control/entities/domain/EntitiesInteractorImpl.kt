@@ -3,6 +3,9 @@ package ru.vs.control.entities.domain
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import ru.vs.control.entities.repository.EntitiesRegistry
+import ru.vs.control.feature.entities.domain.EntityId
+import ru.vs.control.feature.entities.domain.EntityProperties
+import ru.vs.control.feature.entities.domain.EntityState
 
 internal class EntitiesInteractorImpl(
     private val entitiesRegistry: EntitiesRegistry,
