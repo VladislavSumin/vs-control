@@ -37,7 +37,7 @@ class ModuleRootPackage(config: Config = Config.empty) : Rule(config) {
         // TODO пока проверяем пакет только для feature модулей
         if (featurePath.parent.name != "feature") return
 
-        val moduleType = ModuleType.fromModuleName(modulePath.name)
+        val moduleType = ModuleType.fromModuleName(modulePath.name) ?: return
         val featurePackage = featurePath.name.dashToLowerCamelCase()
 
         val expectedPackage = rootPackage
@@ -67,13 +67,13 @@ class ModuleRootPackage(config: Config = Config.empty) : Rule(config) {
         ;
 
         companion object {
-            fun fromModuleName(name: String): ModuleType {
+            fun fromModuleName(name: String): ModuleType? {
                 val type = name.split("-", limit = 2).first()
                 return when (type) {
                     "client" -> Client
                     "server" -> Server
                     "shared" -> Shared
-                    else -> error("Unknown module type $type")
+                    else -> null
                 }
             }
         }

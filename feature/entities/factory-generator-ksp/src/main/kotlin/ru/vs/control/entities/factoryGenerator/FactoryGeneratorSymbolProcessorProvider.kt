@@ -1,4 +1,4 @@
-package ru.vs.control.entities.factory_generator
+package ru.vs.control.entities.factoryGenerator
 
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment

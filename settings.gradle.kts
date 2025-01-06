@@ -87,7 +87,7 @@ include("rsub:test")
 include("rsub:test-interface")
 
 sharedFeature("auth")
-sharedFeature("entities")
+sharedFeature("entities", "factory-generator-api", "factory-generator-ksp")
 sharedFeature("server-info")
 
 clientFeature("app-info")
@@ -115,12 +115,16 @@ include(":server:standalone")
 /**
  * Подключает полную иерархию фичей клиент + сервер + shared, согласно стандартному набору модулей.
  * @param name имя фичи.
+ * @param additionalModules дополнительные модули фичи
  */
-fun sharedFeature(name: String) {
+fun sharedFeature(name: String, vararg additionalModules: String) {
     include(":feature:$name:shared-api")
     include(":feature:$name:shared-impl")
     clientFeature(name)
     serverFeature(name)
+    additionalModules.forEach {
+        include(":feature:$name:$it")
+    }
 }
 
 /**
