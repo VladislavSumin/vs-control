@@ -4,17 +4,16 @@ import io.ktor.serialization.kotlinx.protobuf.protobuf
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.application.serverConfig
+import io.ktor.server.cio.CIO
 import io.ktor.server.engine.EngineConnectorBuilder
 import io.ktor.server.engine.applicationEnvironment
 import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
-import ru.vs.control.server.domain.KeyStoreInteractor
 import ru.vs.core.ktor.server.KtorServerModule
 
 /**
@@ -29,7 +28,7 @@ internal interface WebServer {
 
 @Suppress("UnusedPrivateProperty") // TODO enable ssl
 internal class WebServerImpl(
-    private val keyStoreInteractor: KeyStoreInteractor,
+    // private val keyStoreInteractor: KeyStoreInteractor,
     private val modules: Set<KtorServerModule>,
 ) : WebServer {
     override suspend fun run(): Unit = withContext(CoroutineName("web-server")) {
@@ -48,7 +47,7 @@ internal class WebServerImpl(
     }
 
     private fun CoroutineScope.createEmbeddedServer() = embeddedServer(
-        factory = Netty,
+        factory = CIO,
         rootConfig = createServerConfig(),
     ) {
         connectors.add(
