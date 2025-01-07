@@ -19,5 +19,5 @@ internal fun createDi() = DI {
     importOnce(Modules.featureServerInfo())
 
     // bindSingleton<KeyStoreInteractor> { KeyStoreInteractorImpl() }
-    bindSingleton<WebServer> { WebServerImpl(i(), i()) }
+    bindSingleton<WebServer> { WebServerImpl(i()) }
 }
