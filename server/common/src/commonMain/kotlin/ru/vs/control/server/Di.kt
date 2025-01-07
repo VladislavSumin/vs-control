@@ -6,8 +6,6 @@ import ru.vs.control.feature.auth.server.featureAuth
 import ru.vs.control.feature.entities.server.featureEntities
 import ru.vs.control.feature.rsub.server.featureRsub
 import ru.vs.control.feature.serverInfo.server.featureServerInfo
-import ru.vs.control.server.domain.KeyStoreInteractor
-import ru.vs.control.server.domain.KeyStoreInteractorImpl
 import ru.vs.control.server.web.WebServer
 import ru.vs.control.server.web.WebServerImpl
 import ru.vs.core.di.Modules
@@ -24,6 +22,6 @@ internal fun createDi() = DI {
     importOnce(Modules.featureRsub())
     importOnce(Modules.featureServerInfo())
 
-    bindSingleton<KeyStoreInteractor> { KeyStoreInteractorImpl() }
-    bindSingleton<WebServer> { WebServerImpl(i(), i()) }
+    // bindSingleton<KeyStoreInteractor> { KeyStoreInteractorImpl() }
+    bindSingleton<WebServer> { WebServerImpl(i()) }
 }

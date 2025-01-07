@@ -17,9 +17,9 @@ kotlin {
             implementation(projects.feature.rsub.serverImpl)
             implementation(projects.feature.serverInfo.serverImpl)
 
-            api(libs.ktor.network.tlsCertificates)
-            // TODO api(libs.ktor.server.cio) cio не поддерживает ssl
-            api(libs.ktor.server.netty)
+            // TODO не поддерживается ios
+            // api(libs.ktor.network.tlsCertificates)
+            api(libs.ktor.server.cio)
             api(libs.ktor.server.contentNegotiation)
             api(libs.ktor.core.serialization.protobuf)
 
