@@ -17,9 +17,11 @@ internal fun createDi() = DI {
     importOnce(Modules.coreSerializationProtobuf())
     importOnce(Modules.coreKtorServer())
 
+    // Декларирует зависимости для rSub поэтому должен быть выше других фичей
+    importOnce(Modules.featureRsub())
+
     importOnce(Modules.featureAuth())
     importOnce(Modules.featureEntities())
-    importOnce(Modules.featureRsub())
     importOnce(Modules.featureServerInfo())
 
     // bindSingleton<KeyStoreInteractor> { KeyStoreInteractorImpl() }
