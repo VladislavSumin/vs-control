@@ -6,7 +6,9 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            api(projects.core.serialization.core)
             api(libs.kotlin.serialization.protobuf)
+            implementation(projects.core.di)
         }
     }
 }

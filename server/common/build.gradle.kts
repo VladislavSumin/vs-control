@@ -13,6 +13,7 @@ kotlin {
             api(projects.core.serialization.protobuf)
 
             implementation(projects.feature.auth.serverImpl)
+            implementation(projects.feature.entities.serverImpl)
             implementation(projects.feature.rsub.serverImpl)
             implementation(projects.feature.serverInfo.serverImpl)
 

@@ -1,19 +1,14 @@
 package ru.vs.core.serialization.json
 
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
 import org.kodein.di.DI
-import org.kodein.di.bindSet
 import org.kodein.di.bindSingleton
 import ru.vs.core.di.Modules
 import ru.vs.core.di.i
+import ru.vs.core.serialization.core.coreSerializationCore
 
 fun Modules.coreSerializationJson() = DI.Module("core-serialization-json") {
-    /**
-     * Вы можете добавить [SerializersModule] в это множество, они будут переданы в [JsonFactory] и использованы для
-     * создания default [Json] инстанса.
-     */
-    bindSet<SerializersModule>()
+    importOnce(Modules.coreSerializationCore())
 
     bindSingleton<JsonFactory> { JsonFactoryImpl(i()) }
 

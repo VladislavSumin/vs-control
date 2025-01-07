@@ -3,6 +3,7 @@ package ru.vs.core.serialization.json
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.plus
+import ru.vs.core.serialization.core.SerializersModulesRepository
 
 interface JsonFactory {
     /**
@@ -16,19 +17,10 @@ interface JsonFactory {
  * по умолчанию через [createDefault].
  */
 internal class JsonFactoryImpl(
-    private val serializersModulesSet: Set<SerializersModule>,
+    private val serializersModulesRepository: SerializersModulesRepository,
 ) : JsonFactory {
 
-    private val mergedModule: SerializersModule by lazy {
-        /**
-         * Конкатенирует все [serializersModulesSet] в один [SerializersModule].
-         */
-        serializersModulesSet.fold(null as SerializersModule?) { m1, m2 ->
-            m1?.plus(m2) ?: m2
-        } ?: SerializersModule { }
-    }
-
     override fun createDefault() = Json {
-        serializersModule = mergedModule
+        serializersModule = serializersModulesRepository.serializerModule
     }
 }
