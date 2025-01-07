@@ -10,6 +10,7 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":core:ktor:server"))
             implementation(project(":rsub:server"))
+            implementation(project(":rsub:server-di"))
         }
     }
 }

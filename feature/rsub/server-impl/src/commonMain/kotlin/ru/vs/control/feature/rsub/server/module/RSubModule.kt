@@ -7,16 +7,18 @@ import io.ktor.server.websocket.WebSockets
 import kotlinx.serialization.protobuf.ProtoBuf
 import ru.vs.core.ktor.server.KtorServerModule
 import ru.vs.rsub.RSubServer
+import ru.vs.rsub.RSubServerInterface
 import ru.vs.rsub.connector.ktorWebsocket.rSubWebSocket
 
 internal class RSubModule(
     private val protobuf: ProtoBuf,
+    private val rsubInterfaces: Set<RSubServerInterface>,
 ) : KtorServerModule {
     override fun Application.module() {
         install(WebSockets)
 
         val rSubServer = RSubServer(
-            rSubProxies = emptySet(),
+            rSubProxies = rsubInterfaces,
             protobuf = protobuf,
         )
 

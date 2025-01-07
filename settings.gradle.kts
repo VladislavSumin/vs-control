@@ -84,6 +84,7 @@ include("rsub:ksp:client")
 include("rsub:ksp:server")
 include("rsub:playground")
 include("rsub:server")
+include("rsub:server-di")
 include("rsub:test")
 include("rsub:test-interface")
 
