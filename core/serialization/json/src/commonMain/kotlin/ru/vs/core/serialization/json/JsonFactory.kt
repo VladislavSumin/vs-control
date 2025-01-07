@@ -12,10 +12,6 @@ interface JsonFactory {
     fun createDefault(): Json
 }
 
-/**
- * @param serializersModulesSet - множество глобальных [SerializersModule], используется для создания Json инстанса
- * по умолчанию через [createDefault].
- */
 internal class JsonFactoryImpl(
     private val serializersModulesRepository: SerializersModulesRepository,
 ) : JsonFactory {
