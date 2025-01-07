@@ -12,6 +12,7 @@ import ru.vs.control.feature.auth.client.featureAuth
 import ru.vs.control.feature.debugScreen.client.featureDebugScreen
 import ru.vs.control.feature.embeddedServer.client.featureEmbeddedServer
 import ru.vs.control.feature.embeddedServer.client.repository.EmbeddedServerQueriesProvider
+import ru.vs.control.feature.entities.client.featureEntities
 import ru.vs.control.feature.initialization.client.domain.InitializedDependenciesBuilder
 import ru.vs.control.feature.initialization.client.featureInitialization
 import ru.vs.control.feature.initializedRootScreen.client.featureInitializedRootScreen
@@ -38,6 +39,7 @@ import ru.vs.core.logger.manager.LoggerManager
 import ru.vs.core.logger.platform.initDefault
 import ru.vs.core.navigation.coreNavigation
 import ru.vs.core.properties.coreProperties
+import ru.vs.core.serialization.protobuf.coreSerializationProtobuf
 
 /**
  * Вызывается на самом раннем этапе старта приложения.
@@ -58,10 +60,12 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
         importOnce(Modules.coreNavigation())
         importOnce(Modules.coreDatabase())
         importOnce(Modules.coreKtorClient())
+        importOnce(Modules.coreSerializationProtobuf())
 
         importOnce(Modules.featureAuth())
         importOnce(Modules.featureDebugScreen())
         importOnce(Modules.featureEmbeddedServer())
+        importOnce(Modules.featureEntities())
         importOnce(Modules.featureInitializedRootScreen())
         importOnce(Modules.featureMainScreen())
         importOnce(Modules.featureNavigationRootScreen())
