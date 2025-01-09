@@ -21,8 +21,8 @@ moduleGraphAssert {
         // Настройки для rSub
         ":rsub:.* -> :rsub:.*",
         ":feature:.* -> :rsub:core",
-        ":feature:.*:server-impl -> :rsub:.*server", // не опечатка, хитрый regex для разрешения любых сервер модулей
-        ":feature:.*:client-impl -> :rsub:.*client",
+        ":feature:.*:server-impl -> :rsub:.*server.*", // не опечатка, хитрый regex для разрешения любых сервер модулей
+        ":feature:.*:client-impl -> :rsub:.*client.*",
 
         // Настройка для entities
         ":feature:entities:factory-generator-ksp -> :feature:entities:factory-generator-api",
