@@ -1,5 +1,3 @@
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
 includeBuild("../../vs-core/build-scripts")
 
 apply { from("common-settings.gradle.kts") }

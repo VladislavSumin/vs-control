@@ -22,7 +22,7 @@ kotlin {
             api(compose.desktop.currentOs)
 
             // Реализует Dispatchers.Main для Swing.
-            implementation(libs.kotlin.coroutines.swing)
+            implementation(vsCoreLibs.kotlin.coroutines.swing)
         }
 
         androidMain.dependencies {

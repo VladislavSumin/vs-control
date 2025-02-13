@@ -2,14 +2,10 @@
  * Общая для проекта и build-logc часть settings.gradle.kts
  */
 
-@Suppress("UnstableApiUsage")
+apply { from("../../vs-core/build-scripts/common-settings.gradle.kts") }
+
 dependencyResolutionManagement {
-    // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-        gradlePluginPortal()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         maven("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
     }
@@ -22,10 +18,6 @@ dependencyResolutionManagement {
 
 pluginManagement {
     repositories {
-        mavenLocal()
-        gradlePluginPortal()
-        google()
-        mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         maven("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
     }

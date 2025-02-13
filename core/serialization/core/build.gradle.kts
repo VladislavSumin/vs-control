@@ -6,7 +6,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            api(libs.kotlin.serialization.core)
+            api(vsCoreLibs.kotlin.serialization.core)
             implementation(projects.core.di)
         }
     }

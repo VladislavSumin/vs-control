@@ -11,14 +11,14 @@ dependencies {
 
     implementation(projects.core.database.plugin)
 
-    implementation(libs.gradlePlugins.kotlin.core)
-    implementation(libs.gradlePlugins.kotlin.ksp)
-    implementation(libs.gradlePlugins.kotlin.compose.compiler)
-    implementation(libs.gradlePlugins.kotlin.serialization)
+    implementation(vsCoreLibs.gradlePlugins.kotlin.core)
+    implementation(vsCoreLibs.gradlePlugins.kotlin.ksp)
+    implementation(vsCoreLibs.gradlePlugins.kotlin.compose.compiler)
+    implementation(vsCoreLibs.gradlePlugins.kotlin.serialization)
     implementation(libs.gradlePlugins.kotlin.atomicfu)
     implementation(libs.gradlePlugins.jb.compose)
     implementation(libs.gradlePlugins.sqldelight)
-    implementation(libs.gradlePlugins.android)
+    implementation(vsCoreLibs.gradlePlugins.android)
     implementation(libs.gradlePlugins.detekt)
     implementation(libs.gradlePlugins.modulesGraphAssert)
 }

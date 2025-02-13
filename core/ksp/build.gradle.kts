@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    api(libs.kotlin.ksp)
+    api(vsCoreLibs.kotlin.ksp)
     api(libs.kotlinpoet.core)
     api(libs.kotlinpoet.ksp)
     api(projects.core.factoryGenerator.api)

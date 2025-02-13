@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core.coroutines)
-            implementation(libs.kotlin.serialization.protobuf)
+            implementation(vsCoreLibs.kotlin.serialization.protobuf)
         }
     }
 }
