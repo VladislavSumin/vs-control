@@ -1,7 +1,7 @@
 package ru.vs.core.navigation.ui.debug.uml
 
+import ru.vladislavsumin.core.collections.tree.LinkedTreeNode
 import ru.vladislavsumin.core.decompose.components.ViewModel
-import ru.vs.core.collections.tree.LinkedTreeNode
 import ru.vs.core.navigation.Navigation
 import ru.vs.core.navigation.tree.NavigationTree
 import ru.vs.core.navigation.tree.ScreenInfo

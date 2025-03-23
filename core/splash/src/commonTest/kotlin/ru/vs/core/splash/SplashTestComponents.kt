@@ -7,7 +7,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import com.arkivanov.decompose.ComponentContext
-import ru.vs.core.decompose.ComposeComponent
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import kotlin.random.Random
 
 internal class SplashScreenComponent(

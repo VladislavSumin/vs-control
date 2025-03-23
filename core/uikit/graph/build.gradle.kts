@@ -6,7 +6,8 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.collections.tree)
+            // TODO добавлять через каталог версий
+            implementation("ru.vladislavsumin.core.collections:tree")
             implementation(projects.core.compose)
         }
     }

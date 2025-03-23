@@ -28,7 +28,6 @@ gradleEnterprise {
 include(":custom-detekt-rules")
 
 include(":core:autoload")
-include(":core:collections:tree")
 include(":core:compose")
 include(":core:compose-test")
 include(":core:coroutines")

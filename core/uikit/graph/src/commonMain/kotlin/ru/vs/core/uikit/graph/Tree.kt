@@ -15,14 +15,13 @@ import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ru.vs.core.collections.tree.TreeNode
+import ru.vladislavsumin.core.collections.tree.TreeNode
 import kotlin.math.max
 
 /**
  * Рисует древовидную структуру. Сверху вниз, соединяет корневую node со всеми дочерними и рисует соединительные линии.
  *
  * @param rootNode голова дерева.
- * @param childSelector селектор для поиска дочерних нод в родительской.
  * @param content контент одной ноды.
  * @param verticalSpace вертикальное расстояние между родительской нодой и дочерними.
  * @param horizontalSpace горизонтальное расстояние между дочерними нодами.

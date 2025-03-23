@@ -1,9 +1,9 @@
 package ru.vs.core.navigation.navigator
 
-import ru.vs.core.collections.tree.LinkedTreeNode
-import ru.vs.core.collections.tree.asSequenceUp
-import ru.vs.core.collections.tree.findByPath
-import ru.vs.core.collections.tree.path
+import ru.vladislavsumin.core.collections.tree.LinkedTreeNode
+import ru.vladislavsumin.core.collections.tree.asSequenceUp
+import ru.vladislavsumin.core.collections.tree.findByPath
+import ru.vladislavsumin.core.collections.tree.path
 import ru.vs.core.navigation.Navigation
 import ru.vs.core.navigation.NavigationLogger
 import ru.vs.core.navigation.ScreenParams

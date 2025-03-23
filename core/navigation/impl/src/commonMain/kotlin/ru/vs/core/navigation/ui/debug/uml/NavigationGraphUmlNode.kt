@@ -1,7 +1,7 @@
 package ru.vs.core.navigation.ui.debug.uml
 
 import androidx.compose.runtime.Stable
-import ru.vs.core.collections.tree.TreeNode
+import ru.vladislavsumin.core.collections.tree.TreeNode
 
 @Stable
 data class NavigationGraphUmlNode(

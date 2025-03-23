@@ -16,10 +16,10 @@ import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vladislavsumin.core.decompose.test.BaseComponentTest
 import ru.vs.core.compose.advanceTimeOneFrameBeforeBy
 import ru.vs.core.coroutines.setMain
-import ru.vs.core.decompose.ComposeComponent
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
