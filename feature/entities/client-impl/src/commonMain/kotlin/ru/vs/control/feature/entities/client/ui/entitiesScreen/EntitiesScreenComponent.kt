@@ -5,8 +5,8 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.control.feature.entities.client.ui.entities.EntitiesComponentFactory
-import ru.vs.core.decompose.ComposeComponent
 
 @Stable
 internal interface EntitiesScreenComponent {

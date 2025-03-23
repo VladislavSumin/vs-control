@@ -2,9 +2,9 @@ package ru.vs.control.feature.entities.client.ui.entities.entityState
 
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.flow.StateFlow
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.control.feature.entities.client.domain.Entity
 import ru.vs.control.feature.entities.domain.EntityState
-import ru.vs.core.decompose.ComposeComponent
 
 /**
  * Base component for render [Entity] with some [EntityState]

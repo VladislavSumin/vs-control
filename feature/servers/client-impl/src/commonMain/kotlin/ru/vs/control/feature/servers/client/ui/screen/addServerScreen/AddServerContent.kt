@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.value.Value
 import org.jetbrains.compose.resources.stringResource
-import ru.vs.core.decompose.ComposeComponent
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import vs_control.feature.servers.client_impl.generated.resources.Res
 import vs_control.feature.servers.client_impl.generated.resources.add_server_screen_title
 

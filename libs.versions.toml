@@ -4,9 +4,6 @@
 kotlin-io = "0.6.0"
 kotlin-atomicfu = "0.26.1"
 
-# Compose
-jb-compose = "1.7.1"
-
 # Gradle plugins
 gradlePlugins-detekt = "1.23.7"
 gradlePlugins-modulesGraphAssert = "2.7.1"
@@ -38,7 +35,6 @@ testing-turbine = "1.2.0"
 
 # Gradle plugins
 gradlePlugins-kotlin-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "kotlin-atomicfu" }
-gradlePlugins-jb-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jb-compose" }
 gradlePlugins-sqldelight = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "sqldelight" }
 gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "gradlePlugins-detekt" }
 gradlePlugins-modulesGraphAssert = { module = "com.jraska.module.graph.assertion:plugin", version.ref = "gradlePlugins-modulesGraphAssert" }

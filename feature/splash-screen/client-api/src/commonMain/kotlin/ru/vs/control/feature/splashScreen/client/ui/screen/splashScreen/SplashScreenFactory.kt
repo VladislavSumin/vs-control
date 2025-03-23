@@ -1,7 +1,7 @@
 package ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen
 
 import com.arkivanov.decompose.ComponentContext
-import ru.vs.core.decompose.ComposeComponent
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 
 /**
  * Фабрика для создания Splash экрана.

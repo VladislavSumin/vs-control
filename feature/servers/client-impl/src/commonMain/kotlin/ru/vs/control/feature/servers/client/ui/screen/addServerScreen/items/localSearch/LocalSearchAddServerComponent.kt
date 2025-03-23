@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
-import ru.vs.core.decompose.ComposeComponent
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.core.uikit.paddings.defaultCardContentPadding
 
 class LocalSearchAddServerComponent(

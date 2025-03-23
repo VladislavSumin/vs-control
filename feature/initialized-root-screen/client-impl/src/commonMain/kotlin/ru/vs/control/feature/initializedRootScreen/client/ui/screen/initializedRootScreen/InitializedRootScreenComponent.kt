@@ -6,7 +6,7 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import ru.vladislavsumin.core.decompose.components.Component
-import ru.vs.core.decompose.ComposeComponent
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.core.navigation.host.childNavigationRoot
 
 /**

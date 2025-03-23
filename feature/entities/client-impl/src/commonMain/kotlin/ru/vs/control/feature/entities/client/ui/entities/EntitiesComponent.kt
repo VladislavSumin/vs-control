@@ -5,9 +5,9 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.Value
 import ru.vladislavsumin.core.decompose.components.Component
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.control.feature.entities.client.ui.entities.entityState.EntityStateComponent
 import ru.vs.control.feature.entities.client.ui.entities.entityState.EntityStateComponentFactoryRegistry
-import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.decompose.router.list.childListWithState
 
 // TODO

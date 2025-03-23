@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ComponentContext
 import ru.vladislavsumin.core.decompose.components.Component
-import ru.vs.core.decompose.ComposeComponent
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 
 class NavigationGraphUmlDiagramComponentFactory internal constructor(
     private val viewModelFactory: NavigationGraphUmlDiagramViewModelFactory,

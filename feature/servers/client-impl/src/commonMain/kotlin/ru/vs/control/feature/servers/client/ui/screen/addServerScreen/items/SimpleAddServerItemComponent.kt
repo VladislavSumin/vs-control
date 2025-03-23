@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
 import org.jetbrains.compose.resources.stringResource
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerViewModel
-import ru.vs.core.decompose.ComposeComponent
 import ru.vs.core.uikit.paddings.defaultCardContentPadding
 import vs_control.feature.servers.client_impl.generated.resources.Res
 import vs_control.feature.servers.client_impl.generated.resources.add_server_item_by_qr_code_description

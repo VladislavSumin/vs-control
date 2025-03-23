@@ -2,7 +2,7 @@ package ru.vs.control.feature.initializedRootScreen.client.ui.screen.initialized
 
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
-import ru.vs.core.decompose.ComposeComponent
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 
 internal class InitializedRootScreenFactoryImpl(
     private val viewModelFactory: InitializedRootViewModelFactory,

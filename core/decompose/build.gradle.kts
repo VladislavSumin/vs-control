@@ -8,6 +8,8 @@ kotlin {
         commonMain.dependencies {
             // TODO добавлять через каталог версий
             api("ru.vladislavsumin.core.decompose:components")
+            // TODO добавлять через каталог версий
+            api("ru.vladislavsumin.core.decompose:compose")
 
             api(vsCoreLibs.decompose.core)
             api(vsCoreLibs.decompose.extensions.compose)

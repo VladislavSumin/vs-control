@@ -2,7 +2,7 @@ package ru.vs.core.navigation.screen
 
 import ru.vladislavsumin.core.decompose.components.Component
 import ru.vladislavsumin.core.decompose.components.ViewModel
-import ru.vs.core.decompose.ComposeComponent
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 
 /**
