@@ -3,8 +3,8 @@ package ru.vs.rsub.client
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.serialization.protobuf.ProtoBuf
-import ru.vs.core.logger.api.logger
-import ru.vs.core.logger.common.Logger
+import ru.vladislavsumin.core.logger.api.logger
+import ru.vladislavsumin.core.logger.common.Logger
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubConnector
 import ru.vs.rsub.TestInterface

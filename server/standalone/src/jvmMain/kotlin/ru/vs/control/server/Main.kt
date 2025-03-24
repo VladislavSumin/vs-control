@@ -1,9 +1,9 @@
 package ru.vs.control.server
 
 import kotlinx.coroutines.runBlocking
-import ru.vs.core.logger.api.logger
-import ru.vs.core.logger.manager.LoggerManager
-import ru.vs.core.logger.platform.initDefault
+import ru.vladislavsumin.core.logger.api.logger
+import ru.vladislavsumin.core.logger.manager.LoggerManager
+import ru.vladislavsumin.core.logger.platform.initDefault
 
 fun main() {
     LoggerManager.initDefault()

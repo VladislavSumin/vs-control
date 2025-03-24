@@ -13,8 +13,8 @@ import io.ktor.server.routing.routing
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import ru.vs.core.logger.manager.LoggerManager
-import ru.vs.core.logger.platform.initDefault
+import ru.vladislavsumin.core.logger.manager.LoggerManager
+import ru.vladislavsumin.core.logger.platform.initDefault
 import ru.vs.rsub.RSubClientInterfaces
 import ru.vs.rsub.RSubServer
 import ru.vs.rsub.RSubServerInterfaces
