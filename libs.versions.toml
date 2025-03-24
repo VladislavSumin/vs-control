@@ -1,4 +1,5 @@
 [versions]
+vs-core = "0.0.1"
 
 # Kotlin
 kotlin-io = "0.6.0"
@@ -38,6 +39,10 @@ gradlePlugins-kotlin-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu-gradl
 gradlePlugins-sqldelight = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "sqldelight" }
 gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "gradlePlugins-detekt" }
 gradlePlugins-modulesGraphAssert = { module = "com.jraska.module.graph.assertion:plugin", version.ref = "gradlePlugins-modulesGraphAssert" }
+
+# VS Core
+vs-core-logger-api = { module = "ru.vladislavsumin.core.logger:api", version.ref = "vs-core" }
+vs-core-logger-platform = { module = "ru.vladislavsumin.core.logger:platform", version.ref = "vs-core" }
 
 # Kotlin
 kotlin-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlin-io" }

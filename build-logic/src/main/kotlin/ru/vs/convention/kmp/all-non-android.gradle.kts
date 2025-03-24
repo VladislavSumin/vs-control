@@ -6,7 +6,8 @@ package ru.vs.convention.kmp
  */
 
 plugins {
-    id("ru.vladislavsumin.convention.kmp.js")
+    // Из-за старого котлина нет CIO для js
+    // id("ru.vladislavsumin.convention.kmp.js")
     id("ru.vladislavsumin.convention.kmp.jvm")
     id("ru.vladislavsumin.convention.kmp.ios")
 

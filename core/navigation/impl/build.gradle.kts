@@ -12,7 +12,7 @@ kotlin {
             implementation(projects.core.compose)
             implementation(projects.core.decompose)
             implementation(projects.core.di)
-            implementation(projects.core.logger.api)
+            implementation(libs.vs.core.logger.api)
             implementation(projects.core.serialization.json)
             implementation(projects.core.uikit.graph)
             implementation(projects.core.uikit.paddings)

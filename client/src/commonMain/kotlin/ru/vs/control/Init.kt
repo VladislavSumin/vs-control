@@ -7,6 +7,8 @@ import org.kodein.di.bindInstance
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.direct
+import ru.vladislavsumin.core.logger.manager.LoggerManager
+import ru.vladislavsumin.core.logger.platform.initDefault
 import ru.vs.control.feature.appInfo.client.featureAppInfo
 import ru.vs.control.feature.auth.client.featureAuth
 import ru.vs.control.feature.debugScreen.client.featureDebugScreen
@@ -35,8 +37,6 @@ import ru.vs.core.di.Modules
 import ru.vs.core.di.i
 import ru.vs.core.fs.coreFs
 import ru.vs.core.ktor.client.coreKtorClient
-import ru.vs.core.logger.manager.LoggerManager
-import ru.vs.core.logger.platform.initDefault
 import ru.vs.core.navigation.coreNavigation
 import ru.vs.core.properties.coreProperties
 import ru.vs.core.serialization.protobuf.coreSerializationProtobuf

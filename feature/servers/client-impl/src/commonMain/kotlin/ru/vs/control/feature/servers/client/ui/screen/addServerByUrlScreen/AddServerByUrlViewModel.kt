@@ -14,9 +14,9 @@ import ru.vs.control.feature.servers.client.domain.Server
 import ru.vs.control.feature.servers.client.domain.ServersInteractor
 import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.ktor.client.SafeResponse
-import ru.vs.core.logger.api.logger
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 import kotlin.error
+import ru.vladislavsumin.core.logger.api.logger
 
 @Stable
 @GenerateFactory

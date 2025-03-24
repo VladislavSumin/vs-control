@@ -1,6 +1,6 @@
 package ru.vs.control
 
-import ru.vs.core.logger.api.logger
+import ru.vladislavsumin.core.logger.api.logger
 
 /**
  * Логер для логирования процесса инициализации приложения.

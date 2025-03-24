@@ -1,6 +1,6 @@
 package ru.vs.core.navigation
 
-import ru.vs.core.logger.api.logger
+import ru.vladislavsumin.core.logger.api.logger
 
 /**
  * Логер для логирования событий навигации.

@@ -49,15 +49,15 @@ kotlin {
         }
     }
 
-    js {
-        binaries.executable()
-
-        browser {
-            commonWebpackConfig {
-                outputFileName = "main.js"
-            }
-        }
-    }
+//    js {
+//        binaries.executable()
+//
+//        browser {
+//            commonWebpackConfig {
+//                outputFileName = "main.js"
+//            }
+//        }
+//    }
 
 // TODO Включить обратно
 //    @OptIn(ExperimentalWasmDsl::class)
@@ -89,8 +89,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.logger.api)
-            implementation(projects.core.logger.platform)
+            implementation(libs.vs.core.logger.api)
+            implementation(libs.vs.core.logger.platform)
 
             implementation(projects.core.autoload)
             implementation(projects.core.coroutines)
