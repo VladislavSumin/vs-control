@@ -6,6 +6,7 @@ import io.ktor.http.Url
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import ru.vladislavsumin.core.logger.api.logger
 import ru.vs.control.feature.auth.client.domain.ServerAuthInteractor
 import ru.vs.control.feature.auth.client.domain.ServerAuthResult
 import ru.vs.control.feature.serverInfo.client.domain.ServerInfo
@@ -16,7 +17,6 @@ import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.core.ktor.client.SafeResponse
 import ru.vs.core.navigation.viewModel.NavigationViewModel
 import kotlin.error
-import ru.vladislavsumin.core.logger.api.logger
 
 @Stable
 @GenerateFactory
