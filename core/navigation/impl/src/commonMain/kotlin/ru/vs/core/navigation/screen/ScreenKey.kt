@@ -1,6 +1,6 @@
 package ru.vs.core.navigation.screen
 
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.ScreenParams
 import kotlin.jvm.JvmInline
 import kotlin.reflect.KClass
 

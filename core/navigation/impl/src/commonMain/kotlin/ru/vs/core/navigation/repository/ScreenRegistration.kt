@@ -1,7 +1,7 @@
 package ru.vs.core.navigation.repository
 
-import ru.vs.core.navigation.NavigationHost
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenFactory
 

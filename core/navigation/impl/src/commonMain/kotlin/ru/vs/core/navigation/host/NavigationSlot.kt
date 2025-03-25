@@ -5,8 +5,8 @@ import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.navigate
 import com.arkivanov.decompose.value.Value
-import ru.vs.core.navigation.NavigationHost
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.HostNavigator
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext

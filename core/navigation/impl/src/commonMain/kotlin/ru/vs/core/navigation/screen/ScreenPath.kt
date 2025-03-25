@@ -1,6 +1,6 @@
 package ru.vs.core.navigation.screen
 
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.ScreenPath.PathElement
 import ru.vs.core.navigation.screen.ScreenPath.PathElement.Params
 

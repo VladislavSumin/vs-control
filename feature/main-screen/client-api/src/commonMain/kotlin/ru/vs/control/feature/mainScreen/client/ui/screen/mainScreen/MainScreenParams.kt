@@ -1,7 +1,7 @@
 package ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen
 
 import kotlinx.serialization.Serializable
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.ScreenParams
 
 /**
  * Главный экран приложения (с основной навигацией).

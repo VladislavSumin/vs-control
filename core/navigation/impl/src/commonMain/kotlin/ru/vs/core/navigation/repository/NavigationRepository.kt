@@ -1,8 +1,8 @@
 package ru.vs.core.navigation.repository
 
 import kotlinx.serialization.KSerializer
-import ru.vs.core.navigation.NavigationHost
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.registration.NavigationRegistrar
 import ru.vs.core.navigation.registration.NavigationRegistry
 import ru.vs.core.navigation.screen.Screen

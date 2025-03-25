@@ -3,8 +3,8 @@ package ru.vs.core.navigation.registration
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import ru.vs.core.navigation.NavigationHost
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenFactory
 import ru.vs.core.navigation.screen.ScreenKey

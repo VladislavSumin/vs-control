@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.pages.PagesScrollAnimation
 import com.arkivanov.decompose.router.pages.ChildPages
 import com.arkivanov.decompose.value.Value
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.Screen
 
 @Composable

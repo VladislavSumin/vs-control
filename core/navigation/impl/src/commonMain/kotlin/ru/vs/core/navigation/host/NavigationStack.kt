@@ -4,8 +4,8 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
-import ru.vs.core.navigation.NavigationHost
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.navigator.HostNavigator
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext

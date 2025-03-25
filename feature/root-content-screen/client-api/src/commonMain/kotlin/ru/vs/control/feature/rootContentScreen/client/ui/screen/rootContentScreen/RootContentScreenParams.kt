@@ -1,7 +1,7 @@
 package ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen
 
 import kotlinx.serialization.Serializable
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.ScreenParams
 
 /**
  * Корневой экран с основным контентом приложения.

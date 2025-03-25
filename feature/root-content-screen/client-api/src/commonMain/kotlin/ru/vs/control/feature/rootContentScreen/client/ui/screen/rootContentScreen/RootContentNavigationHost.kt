@@ -1,6 +1,6 @@
 package ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen
 
-import ru.vs.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.NavigationHost
 
 /**
  * Навигационный хост главного экрана приложения, реализует навигацию по типа stack.

@@ -2,6 +2,7 @@ package ru.vs.core.navigation
 
 import kotlinx.coroutines.channels.Channel
 import ru.vladislavsumin.core.collections.tree.asSequence
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.serializer.NavigationSerializer
 import ru.vs.core.navigation.tree.NavigationTree
 

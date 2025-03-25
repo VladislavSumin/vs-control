@@ -43,6 +43,7 @@ gradlePlugins-modulesGraphAssert = { module = "com.jraska.module.graph.assertion
 # VS Core
 vs-core-logger-api = { module = "ru.vladislavsumin.core.logger:api", version.ref = "vs-core" }
 vs-core-logger-platform = { module = "ru.vladislavsumin.core.logger:platform", version.ref = "vs-core" }
+vs-core-navigation-api = { module = "ru.vladislavsumin.core.navigation:api", version.ref = "vs-core" }
 
 # Kotlin
 kotlin-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlin-io" }

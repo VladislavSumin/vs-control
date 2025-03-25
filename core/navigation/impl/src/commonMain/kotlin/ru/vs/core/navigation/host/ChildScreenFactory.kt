@@ -1,7 +1,7 @@
 package ru.vs.core.navigation.host
 
 import com.arkivanov.decompose.ComponentContext
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.asErasedKey

@@ -2,7 +2,7 @@ package ru.vs.core.navigation.viewModel
 
 import kotlinx.coroutines.channels.Channel
 import ru.vladislavsumin.core.decompose.components.ViewModel
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.ScreenParams
 
 /**
  * Расширение [ViewModel] с поддержкой навигации внутри вью модели без необходимости писать связку явно.

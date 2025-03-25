@@ -6,9 +6,9 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import kotlinx.serialization.KSerializer
 import ru.vladislavsumin.core.collections.tree.LinkedTreeNode
-import ru.vs.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.ScreenParams
 import ru.vs.core.navigation.NavigationLogger
-import ru.vs.core.navigation.ScreenParams
 import ru.vs.core.navigation.screen.Screen
 import ru.vs.core.navigation.screen.ScreenContext
 import ru.vs.core.navigation.screen.ScreenFactory

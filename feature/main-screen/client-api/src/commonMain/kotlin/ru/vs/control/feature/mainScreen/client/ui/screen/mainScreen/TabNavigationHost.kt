@@ -1,6 +1,6 @@
 package ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen
 
-import ru.vs.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.NavigationHost
 
 /**
  * Хост экранов нижних навигационных табов.

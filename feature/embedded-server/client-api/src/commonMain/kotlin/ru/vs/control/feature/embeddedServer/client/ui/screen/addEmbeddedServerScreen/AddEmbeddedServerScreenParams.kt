@@ -1,7 +1,7 @@
 package ru.vs.control.feature.embeddedServer.client.ui.screen.addEmbeddedServerScreen
 
 import kotlinx.serialization.Serializable
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.ScreenParams
 
 /**
  * Экран добавления embedded сервера.

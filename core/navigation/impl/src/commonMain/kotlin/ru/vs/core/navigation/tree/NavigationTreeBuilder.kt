@@ -3,7 +3,7 @@ package ru.vs.core.navigation.tree
 import ru.vladislavsumin.core.collections.tree.LinkedTreeNode
 import ru.vladislavsumin.core.collections.tree.LinkedTreeNodeImpl
 import ru.vladislavsumin.core.collections.tree.linkedNodeOf
-import ru.vs.core.navigation.NavigationHost
+import ru.vladislavsumin.core.navigation.NavigationHost
 import ru.vs.core.navigation.repository.NavigationRepository
 import ru.vs.core.navigation.screen.ScreenKey
 import ru.vs.core.utils.joinToStingFormatted
