@@ -15,9 +15,9 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
-import ru.vs.core.ksp.Types
-import ru.vs.core.ksp.primaryConstructorWithPrivateFields
-import ru.vs.core.ksp.writeTo
+import ru.vladislavsumin.core.ksp.utils.Types
+import ru.vladislavsumin.core.ksp.utils.primaryConstructorWithPrivateFields
+import ru.vladislavsumin.core.ksp.utils.writeTo
 import ru.vs.rsub.RSubClient
 import kotlin.reflect.KType
 

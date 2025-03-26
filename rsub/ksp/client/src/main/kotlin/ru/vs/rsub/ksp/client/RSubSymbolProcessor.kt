@@ -8,7 +8,7 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSType
 import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.toTypeName
-import ru.vs.core.ksp.processAnnotated
+import ru.vladislavsumin.core.ksp.utils.processAnnotated
 import ru.vs.rsub.RSubClientInterfaces
 
 class RSubSymbolProcessor(
