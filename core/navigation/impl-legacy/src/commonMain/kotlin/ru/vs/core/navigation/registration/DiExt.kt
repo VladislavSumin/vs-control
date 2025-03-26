@@ -4,6 +4,7 @@ import org.kodein.di.DI
 import org.kodein.di.DirectDIAware
 import org.kodein.di.inBindSet
 import org.kodein.di.provider
+import ru.vladislavsumin.core.navigation.registration.NavigationRegistrar
 
 /**
  * Синтаксический сахар для регистрации навигации.

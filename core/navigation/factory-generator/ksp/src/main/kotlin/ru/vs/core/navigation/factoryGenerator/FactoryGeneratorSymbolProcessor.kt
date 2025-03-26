@@ -105,8 +105,8 @@ internal class FactoryGeneratorSymbolProcessor(
     }
 
     companion object {
-        private val SCREEN_CONTEXT_CLASS = ClassName("ru.vs.core.navigation.screen", "ScreenContext")
-        private val SCREEN_FACTORY_CLASS = ClassName("ru.vs.core.navigation.screen", "ScreenFactory")
+        private val SCREEN_CONTEXT_CLASS = ClassName("ru.vladislavsumin.core.navigation.screen", "ScreenContext")
+        private val SCREEN_FACTORY_CLASS = ClassName("ru.vladislavsumin.core.navigation.screen", "ScreenFactory")
         private val SCREEN_PARAMS_CLASS = ClassName("ru.vladislavsumin.core.navigation", "ScreenParams")
     }
 }

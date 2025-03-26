@@ -7,7 +7,7 @@ import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import ru.vladislavsumin.core.decompose.components.Component
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
-import ru.vs.core.navigation.host.childNavigationRoot
+import ru.vladislavsumin.core.navigation.host.childNavigationRoot
 
 /**
  * @param onContentReady необходимо вызвать после готовности к отображению контента. Таким образом можно придержать

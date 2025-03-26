@@ -99,7 +99,7 @@ kotlin {
             implementation(projects.core.di)
             implementation(projects.core.ktor.client)
             implementation(projects.core.fs.impl)
-            implementation(projects.core.navigation.impl)
+            implementation(projects.core.navigation.implLegacy)
             implementation(projects.core.properties.impl)
             implementation(projects.core.serialization.protobuf)
 

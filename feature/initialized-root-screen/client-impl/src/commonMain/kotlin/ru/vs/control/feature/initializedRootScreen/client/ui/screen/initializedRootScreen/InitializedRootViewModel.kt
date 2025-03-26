@@ -2,7 +2,7 @@ package ru.vs.control.feature.initializedRootScreen.client.ui.screen.initialized
 
 import ru.vladislavsumin.core.decompose.components.ViewModel
 import ru.vladislavsumin.core.logger.api.logger
-import ru.vs.core.navigation.Navigation
+import ru.vladislavsumin.core.navigation.Navigation
 
 internal class InitializedRootViewModelFactory(private val navigation: Navigation) {
     fun create(): InitializedRootViewModel {

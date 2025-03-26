@@ -3,7 +3,6 @@ package ru.vs.core.navigation.ui.debug.uml
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,10 +11,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.graphicsLayer
-import ru.vs.core.uikit.graph.Tree
 
 @Composable
+@Suppress("UnusedParameter") // TODO
 internal fun NavigationGraphUmlDiagramContent(
     viewModel: NavigationGraphUmlDiagramViewModel,
     modifier: Modifier,
@@ -39,18 +37,19 @@ internal fun NavigationGraphUmlDiagramContent(
             .clipToBounds()
             .transformable(state = transformableState),
     ) {
-        Tree(
-            rootNode = viewModel.graph.root,
-            modifier = Modifier
-                .graphicsLayer(
-                    scaleX = scale,
-                    scaleY = scale,
-                    translationX = offset.x,
-                    translationY = offset.y,
-                )
-                .fillMaxSize(),
-        ) {
-            NavigationGraphUmlDiagramElementContent(it)
-        }
+        // TODO
+//        Tree(
+//            rootNode = viewModel.graph.root,
+//            modifier = Modifier
+//                .graphicsLayer(
+//                    scaleX = scale,
+//                    scaleY = scale,
+//                    translationX = offset.x,
+//                    translationY = offset.y,
+//                )
+//                .fillMaxSize(),
+//        ) {
+//            NavigationGraphUmlDiagramElementContent(it)
+//        }
     }
 }

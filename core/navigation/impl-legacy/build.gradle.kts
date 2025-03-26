@@ -7,6 +7,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.vs.core.navigation.api)
+            api(libs.vs.core.navigation.impl)
             // TODO добавлять через каталог версий
             implementation("ru.vladislavsumin.core.collections:tree")
             implementation(projects.core.compose)

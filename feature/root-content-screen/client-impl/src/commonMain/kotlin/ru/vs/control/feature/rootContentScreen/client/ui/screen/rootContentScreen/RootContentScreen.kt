@@ -8,11 +8,11 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
+import ru.vladislavsumin.core.navigation.host.childNavigationStack
+import ru.vladislavsumin.core.navigation.screen.Screen
+import ru.vladislavsumin.core.navigation.screen.ScreenContext
 import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.MainScreenParams
 import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
-import ru.vs.core.navigation.host.childNavigationStack
-import ru.vs.core.navigation.screen.Screen
-import ru.vs.core.navigation.screen.ScreenContext
 
 @GenerateScreenFactory
 internal class RootContentScreen(context: ScreenContext) : Screen(context) {

@@ -1,10 +1,10 @@
 package ru.vs.control.feature.debugScreen.client.ui.screen
 
+import ru.vladislavsumin.core.navigation.registration.NavigationRegistrar
+import ru.vladislavsumin.core.navigation.registration.NavigationRegistry
 import ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen.DebugScreenFactory
 import ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen.DebugScreenParams
 import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentNavigationHost
-import ru.vs.core.navigation.registration.NavigationRegistrar
-import ru.vs.core.navigation.registration.NavigationRegistry
 
 internal class NavigationRegistrarImpl(
     private val debugScreenFactory: DebugScreenFactory,

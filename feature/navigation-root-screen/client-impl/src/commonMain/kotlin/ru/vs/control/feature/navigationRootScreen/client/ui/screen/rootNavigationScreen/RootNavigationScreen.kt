@@ -8,11 +8,11 @@ import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import ru.vladislavsumin.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.host.childNavigationSlot
+import ru.vladislavsumin.core.navigation.screen.Screen
+import ru.vladislavsumin.core.navigation.screen.ScreenContext
 import ru.vs.control.feature.navigationRootScreen.client.ui.screen.RootNavigationHost
 import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
-import ru.vs.core.navigation.host.childNavigationSlot
-import ru.vs.core.navigation.screen.Screen
-import ru.vs.core.navigation.screen.ScreenContext
 
 @GenerateScreenFactory
 internal class RootNavigationScreen(

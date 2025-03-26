@@ -16,7 +16,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core:compose"))
-            implementation(project(":core:navigation:impl"))
+            implementation(project(":core:navigation:impl-legacy"))
             implementation(project(":core:shared-element-transition"))
             implementation(project(":core:uikit:icons"))
             implementation(project(":core:uikit:paddings"))

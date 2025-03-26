@@ -1,5 +1,7 @@
 package ru.vs.control.feature.servers.client.ui.screen
 
+import ru.vladislavsumin.core.navigation.registration.NavigationRegistrar
+import ru.vladislavsumin.core.navigation.registration.NavigationRegistry
 import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.TabNavigationHost
 import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentNavigationHost
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlScreenFactory
@@ -8,8 +10,6 @@ import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerS
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerScreenParams
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenFactory
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenParams
-import ru.vs.core.navigation.registration.NavigationRegistrar
-import ru.vs.core.navigation.registration.NavigationRegistry
 
 internal class NavigationRegistrarImpl(
     private val serversScreenFactory: ServersScreenFactory,
