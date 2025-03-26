@@ -15,9 +15,9 @@ import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
-import ru.vs.core.ksp.primaryConstructorWithPrivateFields
-import ru.vs.core.ksp.processAnnotated
-import ru.vs.core.ksp.writeTo
+import ru.vladislavsumin.core.ksp.utils.primaryConstructorWithPrivateFields
+import ru.vladislavsumin.core.ksp.utils.processAnnotated
+import ru.vladislavsumin.core.ksp.utils.writeTo
 
 internal class FactoryGeneratorSymbolProcessor(
     private val codeGenerator: CodeGenerator,

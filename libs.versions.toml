@@ -45,6 +45,7 @@ vs-core-logger-api = { module = "ru.vladislavsumin.core.logger:api", version.ref
 vs-core-logger-platform = { module = "ru.vladislavsumin.core.logger:platform", version.ref = "vs-core" }
 vs-core-navigation-api = { module = "ru.vladislavsumin.core.navigation:api", version.ref = "vs-core" }
 vs-core-navigation-impl = { module = "ru.vladislavsumin.core.navigation:impl", version.ref = "vs-core" }
+vs-core-ksp-utils = { module = "ru.vladislavsumin.core.ksp:utils", version.ref = "vs-core" }
 
 # Kotlin
 kotlin-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlin-io" }

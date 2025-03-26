@@ -4,5 +4,4 @@ plugins {
 
 dependencies {
     implementation(projects.rsub.client)
-    implementation(projects.core.ksp)
 }
