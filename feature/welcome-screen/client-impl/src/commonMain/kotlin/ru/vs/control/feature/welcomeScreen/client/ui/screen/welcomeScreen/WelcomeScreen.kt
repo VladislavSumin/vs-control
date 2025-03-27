@@ -2,9 +2,9 @@ package ru.vs.control.feature.welcomeScreen.client.ui.screen.welcomeScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vladislavsumin.core.navigation.screen.Screen
 import ru.vladislavsumin.core.navigation.screen.ScreenContext
-import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
 
 @GenerateScreenFactory
 internal class WelcomeScreen(
