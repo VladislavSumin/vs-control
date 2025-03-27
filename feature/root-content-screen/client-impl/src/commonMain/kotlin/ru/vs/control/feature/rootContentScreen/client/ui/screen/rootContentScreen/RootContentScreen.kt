@@ -12,7 +12,7 @@ import ru.vladislavsumin.core.navigation.host.childNavigationStack
 import ru.vladislavsumin.core.navigation.screen.Screen
 import ru.vladislavsumin.core.navigation.screen.ScreenContext
 import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.MainScreenParams
-import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
+import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
 
 @GenerateScreenFactory
 internal class RootContentScreen(context: ScreenContext) : Screen(context) {

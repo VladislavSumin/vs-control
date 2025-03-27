@@ -7,7 +7,7 @@ import ru.vladislavsumin.core.navigation.host.childNavigationPages
 import ru.vladislavsumin.core.navigation.screen.Screen
 import ru.vladislavsumin.core.navigation.screen.ScreenContext
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenParams
-import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
+import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
 
 @GenerateScreenFactory
 internal class MainScreen(
