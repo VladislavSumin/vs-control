@@ -51,7 +51,7 @@ internal class FlowCachingStateProcessing<T, K, R>(
 
         // К этому состоянию безопасно обращаться из transformLatest, так как данный блок гарантирует отмену предыдущей
         // обработки перед началом следующей
-        var oldState = State<T, K, R>()
+        var oldState: State<T, K, R>? = null
         var newState: State<T, K, R>
 
         upstream.transformLatest { newItems ->
@@ -59,7 +59,7 @@ internal class FlowCachingStateProcessing<T, K, R>(
 
             val newWithCache: List<Flow<R>> = newItems.map { item ->
                 val key = keySelector(item)
-                val cachedItem: CacheData<T, R> = oldState.cache.remove(key) ?: let {
+                val cachedItem: CacheData<T, R> = oldState?.cache?.remove(key) ?: let {
                     val inputState = MutableStateFlow(item)
                     val outputState: MutableStateFlow<R?> = MutableStateFlow(null)
                     val job = scope.launch {
@@ -74,7 +74,7 @@ internal class FlowCachingStateProcessing<T, K, R>(
                 cachedItem.out
             }
 
-            oldState.cache.values.forEach { it.job.cancel() }
+            oldState?.cache?.values?.forEach { it.job.cancel() }
             oldState = newState
 
             combiner(newWithCache).collect(this)
