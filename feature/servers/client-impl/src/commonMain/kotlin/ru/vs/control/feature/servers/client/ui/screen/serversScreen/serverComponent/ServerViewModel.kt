@@ -3,10 +3,10 @@ package ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverCompo
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import ru.vladislavsumin.core.decompose.components.ViewModel
+import ru.vladislavsumin.core.factoryGenerator.ByCreate
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vs.control.feature.servers.client.domain.ServerId
 import ru.vs.control.feature.servers.client.domain.ServersInteractor
-import ru.vs.core.factoryGenerator.ByCreate
-import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.rsub.RSubConnectionStatus
 
 @GenerateFactory

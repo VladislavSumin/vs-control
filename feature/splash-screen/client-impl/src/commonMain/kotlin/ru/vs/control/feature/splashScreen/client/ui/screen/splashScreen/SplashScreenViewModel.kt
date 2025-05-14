@@ -4,7 +4,7 @@ import androidx.compose.runtime.Stable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import ru.vladislavsumin.core.decompose.components.ViewModel
-import ru.vs.core.factoryGenerator.GenerateFactory
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 
 @Stable
 @GenerateFactory

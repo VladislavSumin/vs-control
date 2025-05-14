@@ -6,9 +6,9 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.flow.StateFlow
 import ru.vladislavsumin.core.decompose.components.Component
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
+import ru.vladislavsumin.core.factoryGenerator.ByCreate
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vs.control.feature.servers.client.domain.Server
-import ru.vs.core.factoryGenerator.ByCreate
-import ru.vs.core.factoryGenerator.GenerateFactory
 
 /**
  * Отображает информацию о конкретном сервере.

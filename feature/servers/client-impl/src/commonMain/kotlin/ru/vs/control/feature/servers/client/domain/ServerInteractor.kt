@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import ru.vladislavsumin.core.factoryGenerator.ByCreate
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vs.core.coroutines.share
-import ru.vs.core.factoryGenerator.ByCreate
-import ru.vs.core.factoryGenerator.GenerateFactory
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubConnectionStatus
 import ru.vs.rsub.connector.ktorWebsocket.RSubConnectorKtorWebSocket

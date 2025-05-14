@@ -3,12 +3,12 @@ package ru.vs.control.feature.servers.client.ui.screen.addServerScreen
 import androidx.compose.runtime.Stable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vladislavsumin.core.navigation.viewModel.NavigationViewModel
 import ru.vs.control.feature.embeddedServer.client.domain.EmbeddedServerSupportInteractor
 import ru.vs.control.feature.embeddedServer.client.ui.screen.addEmbeddedServerScreen.AddEmbeddedServerScreenParams
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlScreenParams
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.items.AddServerItem
-import ru.vs.core.factoryGenerator.GenerateFactory
 
 @Stable
 @GenerateFactory

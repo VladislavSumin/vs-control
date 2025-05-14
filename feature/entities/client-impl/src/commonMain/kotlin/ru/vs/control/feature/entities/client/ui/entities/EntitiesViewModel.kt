@@ -2,8 +2,8 @@ package ru.vs.control.feature.entities.client.ui.entities
 
 import kotlinx.coroutines.flow.map
 import ru.vladislavsumin.core.decompose.components.ViewModel
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vs.control.feature.entities.client.domain.EntitiesInteractor
-import ru.vs.core.factoryGenerator.GenerateFactory
 
 @GenerateFactory
 internal class EntitiesViewModel(

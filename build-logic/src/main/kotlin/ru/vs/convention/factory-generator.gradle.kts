@@ -1,5 +1,7 @@
 package ru.vs.convention
 
+import ru.vs.utils.libs
+
 /**
  * Настройка по умолчанию для подключения генерации фабрик из модуля factory-generator
  */
@@ -12,11 +14,11 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":core:factory-generator:api"))
+            implementation(libs.vs.core.factoryGenerator.api)
         }
     }
 }
 
 dependencies {
-    add("kspCommonMainMetadata", project(":core:factory-generator:ksp"))
+    add("kspCommonMainMetadata", libs.vs.core.factoryGenerator.ksp)
 }

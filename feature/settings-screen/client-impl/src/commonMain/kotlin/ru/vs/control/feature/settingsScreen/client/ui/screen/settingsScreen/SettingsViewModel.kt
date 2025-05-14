@@ -2,7 +2,7 @@ package ru.vs.control.feature.settingsScreen.client.ui.screen.settingsScreen
 
 import androidx.compose.runtime.Stable
 import ru.vladislavsumin.core.decompose.components.ViewModel
-import ru.vs.core.factoryGenerator.GenerateFactory
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 
 @Stable
 @GenerateFactory

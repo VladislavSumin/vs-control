@@ -4,9 +4,9 @@ import kotlinx.coroutines.flow.flow
 import org.kodein.di.DirectDI
 import org.kodein.di.instance
 import ru.vladislavsumin.core.decompose.components.ViewModel
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vs.control.feature.initialization.client.domain.InitializationInteractor
 import ru.vs.control.feature.initializedRootScreen.client.ui.screen.initializedRootScreen.InitializedRootScreenFactory
-import ru.vs.core.factoryGenerator.GenerateFactory
 
 @GenerateFactory
 internal class RootScreenViewModel(

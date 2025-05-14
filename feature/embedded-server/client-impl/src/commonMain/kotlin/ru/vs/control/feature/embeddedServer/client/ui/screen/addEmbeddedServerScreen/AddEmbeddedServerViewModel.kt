@@ -1,10 +1,10 @@
 package ru.vs.control.feature.embeddedServer.client.ui.screen.addEmbeddedServerScreen
 
 import androidx.compose.runtime.Stable
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vladislavsumin.core.navigation.viewModel.NavigationViewModel
 import ru.vs.control.feature.embeddedServer.client.domain.EmbeddedServersInteractor
 import ru.vs.control.feature.embeddedServer.client.repository.EmbeddedServer
-import ru.vs.core.factoryGenerator.GenerateFactory
 
 @Stable
 @GenerateFactory
