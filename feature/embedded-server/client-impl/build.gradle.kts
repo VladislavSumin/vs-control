@@ -22,9 +22,5 @@ kotlin {
         jsMain.get().dependsOn(nonKtorMain)
         wasmJsMain.get().dependsOn(nonKtorMain)
         nativeMain.get().dependsOn(nonKtorMain)
-
-        commonMain.dependencies {
-            implementation(projects.feature.rootContentScreen.clientApi)
-        }
     }
 }

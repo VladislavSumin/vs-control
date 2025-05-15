@@ -8,9 +8,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.feature.auth.clientApi)
             implementation(projects.feature.embeddedServer.clientApi)
-            implementation(projects.feature.rootContentScreen.clientApi)
             implementation(projects.feature.serverInfo.clientApi)
-            implementation(projects.feature.mainScreen.clientApi)
 
             implementation(projects.rsub.connector.ktorWebsocket.client)
         }

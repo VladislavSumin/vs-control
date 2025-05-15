@@ -5,8 +5,6 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.feature.navigationRootScreen.clientApi)
-            implementation(projects.feature.navigationRootScreen.clientApi)
             implementation(projects.feature.rootContentScreen.clientApi)
             implementation(projects.feature.splashScreen.clientApi)
         }

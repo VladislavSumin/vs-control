@@ -5,7 +5,7 @@ import ru.vladislavsumin.core.navigation.registration.NavigationRegistry
 import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.MainScreenFactory
 import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.MainScreenParams
 import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.TabNavigationHost
-import ru.vs.control.feature.rootContentScreen.client.ui.screen.rootContentScreen.RootContentNavigationHost
+import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenParams
 
 internal class NavigationRegistrarImpl(
     private val mainScreenFactory: MainScreenFactory,
@@ -14,9 +14,11 @@ internal class NavigationRegistrarImpl(
         registerScreen(
             factory = mainScreenFactory,
             defaultParams = MainScreenParams,
-            opensIn = setOf(RootContentNavigationHost),
-            navigationHosts = setOf(TabNavigationHost),
             description = "Главный экран приложения. С табиками и тд.",
-        )
+        ) {
+            TabNavigationHost opens setOf(
+                ServersScreenParams::class,
+            )
+        }
     }
 }
