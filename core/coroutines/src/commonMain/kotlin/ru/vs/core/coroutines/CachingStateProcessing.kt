@@ -51,32 +51,31 @@ internal class FlowCachingStateProcessing<T, K, R>(
 
         // К этому состоянию безопасно обращаться из transformLatest, так как данный блок гарантирует отмену предыдущей
         // обработки перед началом следующей
-        var oldState: State<K, R>
-        var newState = State<K, R>()
+        var oldState: State<T, K, R>? = null
+        var newState: State<T, K, R>
 
         upstream.transformLatest { newItems ->
-            oldState = newState
             newState = State()
 
             val newWithCache: List<Flow<R>> = newItems.map { item ->
                 val key = keySelector(item)
-                val cachedItem: CacheData<R> = oldState.cache.remove(key) ?: let {
+                val cachedItem: CacheData<T, R> = oldState?.cache?.remove(key) ?: let {
                     val inputState = MutableStateFlow(item)
                     val outputState: MutableStateFlow<R?> = MutableStateFlow(null)
                     val job = scope.launch {
                         flow { block(inputState) }
                             .collect { outputState.value = it }
                     }
-                    CacheData(outputState.mapNotNull { it }, job)
+                    CacheData(inputState, outputState.mapNotNull { it }, job)
                 }
+                newState.input.update { item }
                 newState.cache[key] = cachedItem
 
                 cachedItem.out
             }
 
-            oldState.cache.forEach { (_, v) ->
-                v.job.cancel()
-            }
+            oldState?.cache?.values?.forEach { it.job.cancel() }
+            oldState = newState
 
             combiner(newWithCache).collect(this)
         }
@@ -88,7 +87,8 @@ private class State<K, R>(
     val cache: MutableMap<K, CacheData<R>> = mutableMapOf(),
 )
 
-private class CacheData<R>(
+private class CacheData<T, R>(
+    val input: MutableStateFlow<T>,
     val out: Flow<R>,
     val job: Job,
 )
