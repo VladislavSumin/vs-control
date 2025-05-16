@@ -5,6 +5,10 @@ plugins {
 
 kotlin {
     sourceSets {
+        all {
+            languageSettings.optIn("ru.vladislavsumin.core.navigation.InternalNavigationApi")
+        }
+
         commonMain.dependencies {
             api(libs.vs.core.navigation.api)
             api(libs.vs.core.navigation.impl)
@@ -15,7 +19,8 @@ kotlin {
             implementation(projects.core.di)
             implementation(libs.vs.core.logger.api)
             implementation(projects.core.serialization.json)
-            implementation(projects.core.uikit.graph)
+            // TODO добавлять через каталог версий
+            implementation("ru.vladislavsumin.core.uikit:graph")
             implementation(projects.core.uikit.paddings)
             implementation(projects.core.utils)
         }

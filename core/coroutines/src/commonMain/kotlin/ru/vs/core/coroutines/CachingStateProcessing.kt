@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.transformLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
@@ -68,7 +69,7 @@ internal class FlowCachingStateProcessing<T, K, R>(
                     }
                     CacheData(inputState, outputState.mapNotNull { it }, job)
                 }
-                newState.input.update { item }
+                cachedItem.input.update { item }
                 newState.cache[key] = cachedItem
 
                 cachedItem.out
@@ -83,8 +84,8 @@ internal class FlowCachingStateProcessing<T, K, R>(
     }
 }
 
-private class State<K, R>(
-    val cache: MutableMap<K, CacheData<R>> = mutableMapOf(),
+private class State<T, K, R>(
+    val cache: MutableMap<K, CacheData<T, R>> = mutableMapOf(),
 )
 
 private class CacheData<T, R>(

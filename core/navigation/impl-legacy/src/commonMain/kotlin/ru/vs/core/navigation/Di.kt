@@ -11,10 +11,10 @@ import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFact
 import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramViewModelFactory
 
 fun Modules.coreNavigation() = DI.Module("core-navigation") {
-    // Декларируем множество в которое будут собраны все регистраторы навигации в приложении.
+    // Декларируем множество, в которое будут собраны все регистраторы навигации в приложении.
     bindSet<NavigationRegistrar>()
 
-    // Я не нашел как нормально разорвать цикл зависимостей в kodein поэтому пришлось добавить такой костыль.
+    // Я не нашел, как нормально разорвать цикл зависимостей в kodein, поэтому пришлось добавить такой костыль.
     var navigation: Navigation? = null
 
     bindSingleton { Navigation(registrars = i()).also { navigation = it } }

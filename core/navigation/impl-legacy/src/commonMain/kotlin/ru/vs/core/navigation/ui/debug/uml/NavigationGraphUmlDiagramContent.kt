@@ -3,6 +3,7 @@ package ru.vs.core.navigation.ui.debug.uml
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -11,9 +12,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.graphicsLayer
+import ru.vladislavsumin.core.uikit.graph.Tree
 
 @Composable
-@Suppress("UnusedParameter") // TODO
 internal fun NavigationGraphUmlDiagramContent(
     viewModel: NavigationGraphUmlDiagramViewModel,
     modifier: Modifier,
@@ -29,27 +31,26 @@ internal fun NavigationGraphUmlDiagramContent(
         offset += offsetChange
     }
 
-    // Корневой Box нужен, чтобы ограничить дочерний контент пределами этого элемента, а так же для обработки касаний.
+    // Корневой Box нужен, чтобы ограничить дочерний контент пределами этого элемента, а также для обработки касаний.
     Box(
         modifier
             // Обрезаем дочерний контент границами этой ноды иначе при движении дочерний контент будет выходить за
-            // пределы это ноды.
+            // пределы этой ноды.
             .clipToBounds()
             .transformable(state = transformableState),
     ) {
-        // TODO
-//        Tree(
-//            rootNode = viewModel.graph.root,
-//            modifier = Modifier
-//                .graphicsLayer(
-//                    scaleX = scale,
-//                    scaleY = scale,
-//                    translationX = offset.x,
-//                    translationY = offset.y,
-//                )
-//                .fillMaxSize(),
-//        ) {
-//            NavigationGraphUmlDiagramElementContent(it)
-//        }
+        Tree(
+            rootNode = viewModel.graph.root,
+            modifier = Modifier
+                .graphicsLayer(
+                    scaleX = scale,
+                    scaleY = scale,
+                    translationX = offset.x,
+                    translationY = offset.y,
+                )
+                .fillMaxSize(),
+        ) {
+            NavigationGraphUmlDiagramElementContent(it)
+        }
     }
 }
