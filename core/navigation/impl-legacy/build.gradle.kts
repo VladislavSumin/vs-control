@@ -21,6 +21,7 @@ kotlin {
             implementation(projects.core.serialization.json)
             // TODO добавлять через каталог версий
             implementation("ru.vladislavsumin.core.uikit:graph")
+            api("ru.vladislavsumin.core.navigation:debug")
             implementation(projects.core.uikit.paddings)
             implementation(projects.core.utils)
         }

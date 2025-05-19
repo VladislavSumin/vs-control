@@ -6,7 +6,7 @@ import com.arkivanov.decompose.childContext
 import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vladislavsumin.core.navigation.screen.Screen
 import ru.vladislavsumin.core.navigation.screen.ScreenContext
-import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFactory
+import ru.vladislavsumin.core.navigation.ui.debug.uml.NavigationGraphUmlDiagramComponentFactory
 
 @GenerateScreenFactory
 internal class DebugScreen(

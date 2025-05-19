@@ -2,8 +2,8 @@ package ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen
 
 import androidx.compose.runtime.Stable
 import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
+import ru.vladislavsumin.core.navigation.ui.debug.uml.NavigationGraphUmlNode
 import ru.vladislavsumin.core.navigation.viewModel.NavigationViewModel
-import ru.vs.core.navigation.ui.debug.uml.NavigationGraphUmlNode
 
 @Stable
 @GenerateFactory
