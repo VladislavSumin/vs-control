@@ -41,15 +41,27 @@ gradlePlugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plu
 gradlePlugins-modulesGraphAssert = { module = "com.jraska.module.graph.assertion:plugin", version.ref = "gradlePlugins-modulesGraphAssert" }
 
 # VS Core
-vs-core-logger-api = { module = "ru.vladislavsumin.core.logger:api", version.ref = "vs-core" }
-vs-core-logger-platform = { module = "ru.vladislavsumin.core.logger:platform", version.ref = "vs-core" }
+vs-core-collections-tree = { module = "ru.vladislavsumin.core.collections:tree", version.ref = "vs-core" }
+
+vs-core-decompose-components = { module = "ru.vladislavsumin.core.decompose:components", version.ref = "vs-core" }
+vs-core-decompose-compose = { module = "ru.vladislavsumin.core.decompose:compose", version.ref = "vs-core" }
+vs-core-decompose-test = { module = "ru.vladislavsumin.core.decompose:test", version.ref = "vs-core" }
+
 vs-core-factoryGenerator-api = { module = "ru.vladislavsumin.core.factory-generator:api", version.ref = "vs-core" }
 vs-core-factoryGenerator-ksp = { module = "ru.vladislavsumin.core.factory-generator:ksp", version.ref = "vs-core" }
+
+vs-core-ksp-utils = { module = "ru.vladislavsumin.core.ksp:utils", version.ref = "vs-core" }
+
+vs-core-logger-api = { module = "ru.vladislavsumin.core.logger:api", version.ref = "vs-core" }
+vs-core-logger-platform = { module = "ru.vladislavsumin.core.logger:platform", version.ref = "vs-core" }
+
 vs-core-navigation-api = { module = "ru.vladislavsumin.core.navigation:api", version.ref = "vs-core" }
 vs-core-navigation-impl = { module = "ru.vladislavsumin.core.navigation:impl", version.ref = "vs-core" }
+vs-core-navigation-debug = { module = "ru.vladislavsumin.core.navigation:debug", version.ref = "vs-core" }
 vs-core-navigation-factoryGenerator-api = { module = "ru.vladislavsumin.core.navigation.factory-generator:api", version.ref = "vs-core" }
 vs-core-navigation-factoryGenerator-ksp = { module = "ru.vladislavsumin.core.navigation.factory-generator:ksp", version.ref = "vs-core" }
-vs-core-ksp-utils = { module = "ru.vladislavsumin.core.ksp:utils", version.ref = "vs-core" }
+
+vs-core-uikit-graph = { module = "ru.vladislavsumin.core.uikit:graph", version.ref = "vs-core" }
 
 # Kotlin
 kotlin-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlin-io" }
