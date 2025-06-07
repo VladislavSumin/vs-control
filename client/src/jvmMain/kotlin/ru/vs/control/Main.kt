@@ -12,11 +12,14 @@ import org.kodein.di.instance
 import ru.vs.control.feature.appInfo.client.domain.AppInfoInteractor
 import ru.vs.control.feature.rootScreen.client.ui.screen.rootScreen.RootScreenFactory
 import javax.swing.SwingUtilities
+import kotlin.system.exitProcess
 
 /**
  * Точка входа в приложение.
  */
 fun main() {
+    setExitOnUncaughtException()
+
     val di = preInit()
     val appName = di.instance<AppInfoInteractor>().appName
 
@@ -69,4 +72,13 @@ internal fun <T> runOnUiThread(block: () -> T): T {
 
     @Suppress("UNCHECKED_CAST")
     return result as T
+}
+
+fun setExitOnUncaughtException() {
+    val handler = Thread.getDefaultUncaughtExceptionHandler()
+    Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+        handler?.uncaughtException(thread, throwable)
+        throwable.printStackTrace()
+        exitProcess(1)
+    }
 }
