@@ -1,9 +1,9 @@
 package ru.vs.control.feature.rsub.server
 
 import org.kodein.di.DI
+import ru.vladislavsumin.core.di.Modules
+import ru.vladislavsumin.core.di.i
 import ru.vs.control.feature.rsub.server.module.RSubModule
-import ru.vs.core.di.Modules
-import ru.vs.core.di.i
 import ru.vs.core.ktor.server.bindKtorServerModule
 import ru.vs.rsub.server.di.rsubServer
 

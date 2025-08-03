@@ -3,14 +3,14 @@ package ru.vs.control.feature.entities.client
 import org.kodein.di.DI
 import org.kodein.di.bindSet
 import org.kodein.di.bindSingleton
+import ru.vladislavsumin.core.di.Modules
+import ru.vladislavsumin.core.di.i
 import ru.vs.control.feature.entities.client.domain.EntitiesInteractor
 import ru.vs.control.feature.entities.client.domain.EntitiesInteractorImpl
 import ru.vs.control.feature.entities.client.ui.entities.entityState.EntityStateComponentFactory
 import ru.vs.control.feature.entities.client.ui.entities.entityState.EntityStateComponentFactoryRegistry
 import ru.vs.control.feature.entities.client.ui.entities.entityState.EntityStateComponentFactoryRegistryImpl
 import ru.vs.control.feature.entities.featureEntitiesShared
-import ru.vs.core.di.Modules
-import ru.vs.core.di.i
 
 fun Modules.featureEntities() = DI.Module("feature-entities") {
     importOnce(Modules.featureEntitiesShared())

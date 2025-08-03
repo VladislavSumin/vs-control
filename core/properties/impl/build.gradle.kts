@@ -7,7 +7,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.core.properties.api)
             implementation(projects.core.coroutines)
-            implementation(projects.core.di)
+            implementation(libs.vs.core.di)
 
             implementation(libs.multiplatformSettings.core)
             implementation(libs.multiplatformSettings.coroutines)

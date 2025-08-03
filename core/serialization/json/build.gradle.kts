@@ -8,7 +8,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.core.serialization.core)
             api(vsCoreLibs.kotlin.serialization.json)
-            implementation(projects.core.di)
+            implementation(libs.vs.core.di)
         }
     }
 }

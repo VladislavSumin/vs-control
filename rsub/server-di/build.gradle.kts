@@ -6,7 +6,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.rsub.server)
-            implementation(projects.core.di)
+            implementation(libs.vs.core.di)
         }
     }
 }

@@ -1,5 +1,7 @@
 package ru.vs.convention.preset
 
+import ru.vs.utils.libs
+
 plugins {
     id("ru.vs.convention.preset.feature-common-api")
     id("ru.vs.convention.impl-to-api-dependency")
@@ -8,7 +10,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":core:di"))
+            implementation(libs.vs.core.di)
         }
     }
 }

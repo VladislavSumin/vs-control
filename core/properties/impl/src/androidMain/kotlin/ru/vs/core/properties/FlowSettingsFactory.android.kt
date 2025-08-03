@@ -4,7 +4,7 @@ import android.content.Context
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.kodein.di.DirectDI
-import ru.vs.core.di.i
+import ru.vladislavsumin.core.di.i
 
 private class FlowSettingsFactoryImpl(context: Context) : FlowSettingsFactory {
     private val factory = SharedPreferencesSettings.Factory(context)

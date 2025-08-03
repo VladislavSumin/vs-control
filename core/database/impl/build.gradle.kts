@@ -9,7 +9,7 @@ kotlin {
             api(projects.core.database.api)
 
             implementation(projects.core.coroutines)
-            implementation(projects.core.di)
+            implementation(libs.vs.core.di)
         }
 
         androidMain.dependencies {

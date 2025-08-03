@@ -7,7 +7,7 @@ kotlin {
         commonMain.dependencies {
             api(libs.ktor.server.core)
             api(libs.ktor.server.websocket)
-            implementation(projects.core.di)
+            implementation(libs.vs.core.di)
         }
     }
 }

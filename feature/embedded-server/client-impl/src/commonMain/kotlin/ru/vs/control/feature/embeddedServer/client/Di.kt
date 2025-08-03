@@ -2,6 +2,8 @@ package ru.vs.control.feature.embeddedServer.client
 
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
+import ru.vladislavsumin.core.di.Modules
+import ru.vladislavsumin.core.di.i
 import ru.vs.control.feature.embeddedServer.client.domain.EmbeddedServerInteractorFactory
 import ru.vs.control.feature.embeddedServer.client.domain.EmbeddedServerSupportInteractor
 import ru.vs.control.feature.embeddedServer.client.domain.EmbeddedServerSupportInteractorImpl
@@ -16,8 +18,6 @@ import ru.vs.control.feature.embeddedServer.client.ui.screen.NavigationRegistrar
 import ru.vs.control.feature.embeddedServer.client.ui.screen.addEmbeddedServerScreen.AddEmbeddedServerScreenFactory
 import ru.vs.control.feature.embeddedServer.client.ui.screen.addEmbeddedServerScreen.AddEmbeddedServerViewModelFactory
 import ru.vs.core.autoload.bindAutoload
-import ru.vs.core.di.Modules
-import ru.vs.core.di.i
 import ru.vs.core.navigation.registration.bindNavigation
 
 fun Modules.featureEmbeddedServer() = DI.Module("feature-embedded-server") {

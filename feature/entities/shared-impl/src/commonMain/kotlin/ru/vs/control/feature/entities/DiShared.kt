@@ -6,6 +6,8 @@ import org.kodein.di.bindSet
 import org.kodein.di.bindSingleton
 import org.kodein.di.inBindSet
 import org.kodein.di.singleton
+import ru.vladislavsumin.core.di.Modules
+import ru.vladislavsumin.core.di.i
 import ru.vs.control.feature.entities.domain.EntityProperty
 import ru.vs.control.feature.entities.domain.EntityState
 import ru.vs.control.feature.entities.domain.ExternalEntityPropertySerializer
@@ -14,8 +16,6 @@ import ru.vs.control.feature.entities.dto.EntityPropertySerializerModuleFactory
 import ru.vs.control.feature.entities.dto.EntityPropertySerializerModuleFactoryImpl
 import ru.vs.control.feature.entities.dto.EntityStateSerializerModuleFactory
 import ru.vs.control.feature.entities.dto.EntityStateSerializerModuleFactoryImpl
-import ru.vs.core.di.Modules
-import ru.vs.core.di.i
 
 fun Modules.featureEntitiesShared() = DI.Module("feature-entities-shared") {
     bindSet<ExternalEntityStateSerializer<out EntityState>>()

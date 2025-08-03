@@ -7,7 +7,7 @@ kotlin {
         commonMain.dependencies {
             api(vsCoreLibs.kotlin.coroutines.core)
 
-            implementation(projects.core.di)
+            implementation(libs.vs.core.di)
         }
     }
 }

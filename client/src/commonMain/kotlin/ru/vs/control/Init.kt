@@ -7,6 +7,8 @@ import org.kodein.di.bindInstance
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.direct
+import ru.vladislavsumin.core.di.Modules
+import ru.vladislavsumin.core.di.i
 import ru.vladislavsumin.core.logger.manager.LoggerManager
 import ru.vladislavsumin.core.logger.platform.initDefault
 import ru.vs.control.feature.appInfo.client.featureAppInfo
@@ -33,8 +35,6 @@ import ru.vs.core.autoload.coreAutoload
 import ru.vs.core.coroutines.DispatchersProvider
 import ru.vs.core.coroutines.coreCoroutines
 import ru.vs.core.database.coreDatabase
-import ru.vs.core.di.Modules
-import ru.vs.core.di.i
 import ru.vs.core.fs.coreFs
 import ru.vs.core.ktor.client.coreKtorClient
 import ru.vs.core.navigation.coreNavigation

@@ -15,7 +15,7 @@ kotlin {
             implementation(libs.vs.core.collections.tree)
             implementation(projects.core.compose)
             implementation(projects.core.decompose)
-            implementation(projects.core.di)
+            implementation(libs.vs.core.di)
             implementation(libs.vs.core.logger.api)
             implementation(projects.core.serialization.json)
             implementation(libs.vs.core.uikit.graph)

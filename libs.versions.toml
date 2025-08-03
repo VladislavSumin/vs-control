@@ -47,6 +47,8 @@ vs-core-decompose-components = { module = "ru.vladislavsumin.core.decompose:comp
 vs-core-decompose-compose = { module = "ru.vladislavsumin.core.decompose:compose", version.ref = "vs-core" }
 vs-core-decompose-test = { module = "ru.vladislavsumin.core.decompose:test", version.ref = "vs-core" }
 
+vs-core-di = { module = "ru.vladislavsumin.core:di", version.ref = "vs-core" }
+
 vs-core-factoryGenerator-api = { module = "ru.vladislavsumin.core.factory-generator:api", version.ref = "vs-core" }
 vs-core-factoryGenerator-ksp = { module = "ru.vladislavsumin.core.factory-generator:ksp", version.ref = "vs-core" }
 

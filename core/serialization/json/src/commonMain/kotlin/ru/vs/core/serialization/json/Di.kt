@@ -3,8 +3,8 @@ package ru.vs.core.serialization.json
 import kotlinx.serialization.json.Json
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
-import ru.vs.core.di.Modules
-import ru.vs.core.di.i
+import ru.vladislavsumin.core.di.Modules
+import ru.vladislavsumin.core.di.i
 import ru.vs.core.serialization.core.coreSerializationCore
 
 fun Modules.coreSerializationJson() = DI.Module("core-serialization-json") {

@@ -5,7 +5,7 @@ import android.content.Context
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.bindProvider
-import ru.vs.core.di.Modules
+import ru.vladislavsumin.core.di.Modules
 
 class App : Application(), DIAware {
     private var _di: DI? = null

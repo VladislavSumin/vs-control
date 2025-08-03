@@ -13,7 +13,7 @@ kotlin {
             // TODO переписать на конфигурацию снаружи модуля.
             implementation(libs.ktor.core.serialization.protobuf)
             implementation(libs.ktor.client.cio)
-            implementation(projects.core.di)
+            implementation(libs.vs.core.di)
         }
     }
 }

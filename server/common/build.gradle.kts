@@ -8,7 +8,7 @@ kotlin {
         commonMain.dependencies {
             // TODO поменять на impl все что возможно
             api(libs.vs.core.logger.api)
-            api(projects.core.di)
+            api(libs.vs.core.di)
             api(projects.core.ktor.server)
             api(projects.core.serialization.protobuf)
 
