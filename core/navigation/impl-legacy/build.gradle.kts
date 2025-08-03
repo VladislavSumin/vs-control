@@ -19,7 +19,7 @@ kotlin {
             implementation(libs.vs.core.logger.api)
             implementation(projects.core.serialization.json)
             implementation(libs.vs.core.uikit.graph)
-            implementation(libs.vs.core.navigation.debug)
+            api(libs.vs.core.navigation.debug)
             implementation(projects.core.uikit.paddings)
             implementation(projects.core.utils)
         }
