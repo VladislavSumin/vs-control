@@ -92,6 +92,8 @@ kotlin {
             implementation(libs.vs.core.logger.api)
             implementation(libs.vs.core.logger.platform)
             implementation(libs.vs.core.di)
+            implementation(libs.vs.core.navigation.impl)
+            implementation(libs.vs.core.navigation.di)
 
             implementation(projects.core.autoload)
             implementation(projects.core.coroutines)
@@ -99,7 +101,6 @@ kotlin {
             implementation(projects.core.decompose)
             implementation(projects.core.ktor.client)
             implementation(projects.core.fs.impl)
-            implementation(projects.core.navigation.implLegacy)
             implementation(projects.core.properties.impl)
             implementation(projects.core.serialization.protobuf)
 

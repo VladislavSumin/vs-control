@@ -60,6 +60,7 @@ vs-core-logger-platform = { module = "ru.vladislavsumin.core.logger:platform", v
 vs-core-navigation-api = { module = "ru.vladislavsumin.core.navigation:api", version.ref = "vs-core" }
 vs-core-navigation-impl = { module = "ru.vladislavsumin.core.navigation:impl", version.ref = "vs-core" }
 vs-core-navigation-debug = { module = "ru.vladislavsumin.core.navigation:debug", version.ref = "vs-core" }
+vs-core-navigation-di = { module = "ru.vladislavsumin.core.navigation:di", version.ref = "vs-core" }
 vs-core-navigation-factoryGenerator-api = { module = "ru.vladislavsumin.core.navigation.factory-generator:api", version.ref = "vs-core" }
 vs-core-navigation-factoryGenerator-ksp = { module = "ru.vladislavsumin.core.navigation.factory-generator:ksp", version.ref = "vs-core" }
 
