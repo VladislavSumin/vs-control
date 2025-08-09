@@ -2,6 +2,7 @@ package ru.vs.control.feature.navigationRootScreen.client.ui.screen.rootNavigati
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
@@ -10,13 +11,12 @@ import kotlinx.coroutines.sync.withLock
 import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vladislavsumin.core.navigation.host.childNavigationSlot
 import ru.vladislavsumin.core.navigation.screen.Screen
-import ru.vladislavsumin.core.navigation.screen.ScreenContext
 import ru.vs.control.feature.navigationRootScreen.client.ui.screen.RootNavigationHost
 
 @GenerateScreenFactory
 internal class RootNavigationScreen(
     viewModelFactory: RootNavigationScreenViewModelFactory,
-    context: ScreenContext,
+    context: ComponentContext,
 ) : Screen(context) {
     private val viewModel = viewModel { viewModelFactory.create() }
 

@@ -1,6 +1,6 @@
 package ru.vs.core.decompose.router.list
 
-import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.GenericComponentContext
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.operator.map
 import com.arkivanov.essenty.lifecycle.doOnDestroy
@@ -19,11 +19,11 @@ import kotlinx.coroutines.flow.StateFlow
  *
  * TODO write performance tests to it
  */
-fun <C : Any, ID : Any, T : ComponentContext> ComponentContext.childListWithState(
+fun <Ctx : GenericComponentContext<Ctx>, C : Any, ID : Any, T : Any> Ctx.childListWithState(
     state: Value<List<C>>,
     idSelector: (C) -> ID,
     key: String = "DefaultChildList",
-    childFactory: (state: StateFlow<C>, ComponentContext) -> T,
+    childFactory: (state: StateFlow<C>, Ctx) -> T,
 ): Value<List<T>> {
     val cache = mutableMapOf<ID, MutableStateFlow<C>>()
 
@@ -44,7 +44,7 @@ fun <C : Any, ID : Any, T : ComponentContext> ComponentContext.childListWithStat
         childFactory = { id, context ->
             val stateFlow = cache[id]!!
             val childComponent = childFactory(stateFlow, context)
-            childComponent.lifecycle.doOnDestroy { cache.remove(id) }
+            context.lifecycle.doOnDestroy { cache.remove(id) }
             childComponent
         },
     )

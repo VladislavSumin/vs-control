@@ -36,7 +36,7 @@ internal class InitializedRootScreenComponent(
 
     // Вызывается после блока init выше так как мы хотим сначала обработать стартовый диплинк и только потом
     // инициализировать навигацию.
-    private val rootNavigation = childNavigationRoot(
+    private val rootNavigation = context.childNavigationRoot(
         navigation = viewModel.navigation,
         onContentReady = onContentReady,
     )

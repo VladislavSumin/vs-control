@@ -19,7 +19,7 @@ internal class EntitiesComponent(
 ) : Component(context), ComposeComponent {
     private val viewModel: EntitiesViewModel = viewModel { entitiesViewModelFactory.create() }
 
-    val entitiesList: Value<List<EntityStateComponent<*>>> = childListWithState(
+    val entitiesList: Value<List<EntityStateComponent<*>>> = context.childListWithState(
         state = viewModel.state.asValue(),
         idSelector = { it.id },
         childFactory = { entityState, context ->

@@ -7,7 +7,6 @@ import com.arkivanov.decompose.value.operator.map
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vladislavsumin.core.navigation.screen.Screen
-import ru.vladislavsumin.core.navigation.screen.ScreenContext
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.items.AddServerItem
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.items.SimpleAddServerItemComponent
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.items.localSearch.LocalSearchAddServerComponent
@@ -16,7 +15,7 @@ import ru.vs.core.decompose.router.list.childList
 @GenerateScreenFactory
 internal class AddServerScreen(
     viewModelFactory: AddServerViewModelFactory,
-    context: ScreenContext,
+    context: ComponentContext,
 ) : Screen(context) {
     @Suppress("UnusedPrivateProperty")
     private val viewModel = viewModel { viewModelFactory.create() }
@@ -24,7 +23,7 @@ internal class AddServerScreen(
     /**
      * Список способов подключения к серверу.
      */
-    private val list = childList(
+    private val list = context.childList(
         state = viewModel.state.asValue().map { it.items },
         childFactory = ::createConnectToServerComponent,
     )

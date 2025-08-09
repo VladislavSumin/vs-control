@@ -23,7 +23,7 @@ internal class RootScreenComponent(
 ) : Component(context), ComposeComponent {
     private val viewModel = viewModel { rootScreenViewModelFactory.create() }
 
-    private val splash = childSplash(
+    private val splash = context.childSplash(
         isInitialized = viewModel.state.mapState {
             when (it) {
                 RootScreenState.Content -> true

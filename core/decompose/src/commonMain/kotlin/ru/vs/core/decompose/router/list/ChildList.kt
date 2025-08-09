@@ -1,7 +1,7 @@
 package ru.vs.core.decompose.router.list
 
 import com.arkivanov.decompose.Child
-import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.GenericComponentContext
 import com.arkivanov.decompose.router.children.ChildNavState
 import com.arkivanov.decompose.router.children.NavState
 import com.arkivanov.decompose.router.children.SimpleChildNavState
@@ -18,10 +18,10 @@ import ru.vs.core.decompose.router.asNavigationSource
  * @param C тип конфигурации.
  * @param T тип компонента.
  */
-fun <C : Any, T : Any> ComponentContext.childList(
+fun <Ctx : GenericComponentContext<Ctx>, C : Any, T : Any> Ctx.childList(
     state: Value<List<C>>,
     key: String = "DefaultChildList",
-    childFactory: (configuration: C, ComponentContext) -> T,
+    childFactory: (configuration: C, Ctx) -> T,
 ): Value<List<T>> = children(
     source = state.asNavigationSource(),
     key = key,
