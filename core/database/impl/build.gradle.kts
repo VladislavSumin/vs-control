@@ -9,6 +9,7 @@ kotlin {
             api(projects.core.database.api)
 
             implementation(projects.core.coroutines)
+            implementation(projects.core.fs.api)
             implementation(libs.vs.core.di)
         }
 

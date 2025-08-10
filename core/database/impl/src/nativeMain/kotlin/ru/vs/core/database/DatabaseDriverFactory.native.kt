@@ -8,6 +8,7 @@ import org.kodein.di.DirectDI
 
 private class NativeDatabaseDriverFactory : DatabaseDriverFactory {
     override suspend fun create(name: String, schema: SqlSchema<QueryResult.Value<Unit>>): SqlDriver {
+        TODO("Not correctly implemented")
         return NativeSqliteDriver(schema, "$name.db")
     }
 }

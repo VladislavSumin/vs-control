@@ -16,7 +16,15 @@ internal class FileSystemServiceImpl : FileSystemService {
         fs.resolve(path)
     }
 
+    private val databaseDir by lazy {
+        val path = Path(currentDir, "databases")
+        fs.createDirectories(path)
+        fs.resolve(path)
+    }
+
     override fun getPreferencesPath(name: String): Path {
         return Path(preferencesDir, name)
     }
+
+    override fun getDatabaseDirPath(): Path = databaseDir
 }

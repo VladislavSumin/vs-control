@@ -10,6 +10,7 @@ import org.kodein.di.instance
 
 private class AndroidDatabaseDriverFactory(private val context: Context) : DatabaseDriverFactory {
     override suspend fun create(name: String, schema: SqlSchema<QueryResult.Value<Unit>>): SqlDriver {
+        TODO("Not correctly implemented")
         return AndroidSqliteDriver(schema, context, "$name.db")
     }
 }

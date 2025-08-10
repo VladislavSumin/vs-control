@@ -11,4 +11,9 @@ interface FileSystemService {
      * @param name имя + расширение.
      */
     fun getPreferencesPath(name: String): Path
+
+    /**
+     * Возвращает путь к папке с базами данных.
+     */
+    fun getDatabaseDirPath(): Path
 }
