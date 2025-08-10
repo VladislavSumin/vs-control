@@ -1,32 +1,27 @@
 package ru.vs.core.properties
 
-import com.russhwolf.settings.ExperimentalSettingsApi
-import com.russhwolf.settings.coroutines.FlowSettings
-import kotlin.reflect.KType
-import kotlin.reflect.typeOf
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-@OptIn(ExperimentalSettingsApi::class)
 internal class PropertiesImpl(
-    private val settings: FlowSettings,
-) : Properties() {
+    private val dataStore: DataStore<Preferences>,
+) : Properties {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T> getProperty(
-        propertyKey: PropertyKey,
+        propertyKey: PropertyKey<T>,
         defaultValue: T,
-        type: KType,
     ): Property<T> {
-        val key = propertyKey.key
-        return when {
-            type == BOOLEAN_TYPE -> {
-                val flow = settings.getBooleanFlow(key, defaultValue as Boolean)
-                PropertyImpl(flow) { settings.putBoolean(key, it) } as Property<T>
+        return when (propertyKey.type) {
+            PropertyType.Boolean -> {
+                val dataStoreKey = booleanPreferencesKey(propertyKey.key)
+                val flow: Flow<Boolean> = dataStore.data.map { it[dataStoreKey] ?: defaultValue as Boolean }
+                PropertyImpl(flow) { value -> dataStore.edit { it[dataStoreKey] = value } } as Property<T>
             }
-            else -> error("Unsupported")
         }
-    }
-
-    private companion object {
-        private val BOOLEAN_TYPE = typeOf<Boolean>()
     }
 }

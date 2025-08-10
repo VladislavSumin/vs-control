@@ -6,6 +6,7 @@ import ru.vs.core.properties.PropertiesKey
 import ru.vs.core.properties.PropertiesService
 import ru.vs.core.properties.Property
 import ru.vs.core.properties.PropertyKey
+import ru.vs.core.properties.PropertyType
 
 internal interface WelcomeInteractorInternal : WelcomeInteractor {
     /**
@@ -18,7 +19,8 @@ internal class WelcomeInteractorImpl(
     propertiesService: PropertiesService,
 ) : WelcomeInteractorInternal {
     private val properties: Properties = propertiesService.getProperties(PropertiesKey("welcome_screen"))
-    private val isPassedOnce: Property<Boolean> = properties.getProperty(PropertyKey("is_passed_once"), false)
+    private val isPassedOnce: Property<Boolean> =
+        properties.getProperty(PropertyKey(PropertyType.Boolean, "is_passed_once"), false)
 
     override suspend fun isNeedToShowWelcomeScreen(): Boolean = !isPassedOnce.first()
 

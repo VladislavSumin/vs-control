@@ -6,5 +6,8 @@ import ru.vladislavsumin.core.di.Modules
 import ru.vladislavsumin.core.di.i
 
 fun Modules.coreProperties() = DI.Module("core-properties") {
-    bindSingleton<PropertiesService> { PropertiesServiceImpl(createSettingsFactory(), i()) }
+    bindSingleton<PropertiesService> {
+        val dataStorePreferencesFactory = DataStorePreferencesFactoryImpl(i(), i())
+        PropertiesServiceImpl(dataStorePreferencesFactory)
+    }
 }

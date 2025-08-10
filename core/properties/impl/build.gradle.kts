@@ -8,9 +8,10 @@ kotlin {
             api(projects.core.properties.api)
             implementation(projects.core.coroutines)
             implementation(libs.vs.core.di)
+            implementation(projects.core.fs.api)
 
-            implementation(libs.multiplatformSettings.core)
-            implementation(libs.multiplatformSettings.coroutines)
+            implementation(libs.android.datastore.core)
+            implementation(libs.android.datastore.preferences)
         }
     }
 }

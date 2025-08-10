@@ -11,13 +11,13 @@ gradlePlugins-modulesGraphAssert = "2.7.1"
 
 # Android
 android-activity-compose = "1.10.0"
+android-datastore = "1.1.7"
 
 # Other
 kodein = "7.23.1"
 kotlinpoet = "2.0.0"
 ktor = "3.0.2"
 sqldelight = "2.0.2"
-multiplatformSettings = "1.3.0"
 
 # Logging
 logging-log4j = "2.24.3"
@@ -94,6 +94,8 @@ sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", 
 
 # Android
 android-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "android-activity-compose" }
+android-datastore-core = { module = "androidx.datastore:datastore", version.ref = "android-datastore" }
+android-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "android-datastore" }
 
 # Code generation
 kotlinpoet-core = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
@@ -102,8 +104,6 @@ kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlin
 # Other
 kodein-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
 kodein-android = { module = "org.kodein.di:kodein-di-framework-android-x", version.ref = "kodein" }
-multiplatformSettings-core = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
-multiplatformSettings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
 
 # Checkstyle
 detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "gradlePlugins-detekt" }

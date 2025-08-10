@@ -1,14 +1,11 @@
 package ru.vs.core.properties
 
-import com.russhwolf.settings.coroutines.toFlowSettings
-import ru.vs.core.coroutines.DispatchersProvider
-
 internal class PropertiesServiceImpl(
-    private val flowSettingsFactory: FlowSettingsFactory,
-    private val dispatchersProvider: DispatchersProvider,
+    private val dataStorePreferencesFactory: DataStorePreferencesFactory,
 ) : PropertiesService {
     override fun getProperties(propertiesKey: PropertiesKey): Properties {
-        val settings = flowSettingsFactory.createSettings(propertiesKey.key)
-        return PropertiesImpl(settings.toFlowSettings(dispatchersProvider.io))
+        // TODO нужно сюда скоуп пробрасывать. И всякие штуки для работы с ошибками
+        val dataStore = dataStorePreferencesFactory.create(propertiesKey.key)
+        return PropertiesImpl(dataStore)
     }
 }
