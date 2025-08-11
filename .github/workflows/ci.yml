@@ -23,7 +23,6 @@ jobs:
         with:
           repository: VladislavSumin/vs-core
           path: vs-core
-          ref: sumin/support-generic-context-pt1
 
       - name: Run gradle
         uses: ./vs-control/.github/actions/run_gradle_default
