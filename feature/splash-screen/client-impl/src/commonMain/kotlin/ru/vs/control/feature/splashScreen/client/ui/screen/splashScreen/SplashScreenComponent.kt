@@ -2,14 +2,14 @@ package ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ComponentContext
-import ru.vladislavsumin.core.decompose.components.Component
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
+import ru.vs.core.decompose.context.VsComponent
+import ru.vs.core.decompose.context.VsComponentContext
 
 internal class SplashScreenComponent(
     splashScreenViewModelFactory: SplashScreenViewModelFactory,
-    context: ComponentContext,
-) : Component(context), ComposeComponent {
+    context: VsComponentContext,
+) : VsComponent(context), ComposeComponent {
     private val viewModel = viewModel { splashScreenViewModelFactory.create() }
 
     @Composable

@@ -1,8 +1,8 @@
 package ru.vs.control.feature.initializedRootScreen.client.ui.screen.initializedRootScreen
 
-import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
+import ru.vs.core.decompose.context.VsComponentContext
 
 interface InitializedRootScreenFactory {
     /**
@@ -13,6 +13,6 @@ interface InitializedRootScreenFactory {
     fun create(
         onContentReady: () -> Unit,
         deeplink: ReceiveChannel<String>,
-        componentContext: ComponentContext,
+        componentContext: VsComponentContext,
     ): ComposeComponent
 }

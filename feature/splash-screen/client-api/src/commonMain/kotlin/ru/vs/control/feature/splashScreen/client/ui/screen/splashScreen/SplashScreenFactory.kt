@@ -1,7 +1,7 @@
 package ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen
 
-import com.arkivanov.decompose.ComponentContext
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
+import ru.vs.core.decompose.context.VsComponentContext
 
 /**
  * Фабрика для создания Splash экрана.
@@ -9,5 +9,5 @@ import ru.vladislavsumin.core.decompose.compose.ComposeComponent
  * время необходимое для полной инициализации приложения.
  */
 interface SplashScreenFactory {
-    fun create(context: ComponentContext): ComposeComponent
+    fun create(context: VsComponentContext): ComposeComponent
 }

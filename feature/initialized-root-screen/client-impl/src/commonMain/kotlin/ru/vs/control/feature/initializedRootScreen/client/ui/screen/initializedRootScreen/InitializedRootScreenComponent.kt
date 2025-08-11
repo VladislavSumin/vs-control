@@ -2,12 +2,13 @@ package ru.vs.control.feature.initializedRootScreen.client.ui.screen.initialized
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.DefaultComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
-import ru.vladislavsumin.core.decompose.components.Component
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vladislavsumin.core.navigation.host.childNavigationRoot
+import ru.vs.core.decompose.context.VsComponent
+import ru.vs.core.decompose.context.VsComponentContext
 
 /**
  * @param onContentReady необходимо вызвать после готовности к отображению контента. Таким образом можно придержать
@@ -17,8 +18,8 @@ internal class InitializedRootScreenComponent(
     viewModelFactory: InitializedRootViewModelFactory,
     onContentReady: () -> Unit,
     deeplink: ReceiveChannel<String>,
-    context: ComponentContext,
-) : Component(context), ComposeComponent {
+    context: VsComponentContext,
+) : VsComponent(context), ComposeComponent {
 
     private val viewModel = viewModel { viewModelFactory.create() }
 
@@ -34,9 +35,17 @@ internal class InitializedRootScreenComponent(
         launch { deeplink.consumeEach(viewModel::onDeeplink) }
     }
 
+    // TODO временный мапинг на старый контекст для работы навигации.
+    private val oldContext = DefaultComponentContext(
+        context.lifecycle,
+        context.stateKeeper,
+        context.instanceKeeper,
+        context.backHandler,
+    )
+
     // Вызывается после блока init выше так как мы хотим сначала обработать стартовый диплинк и только потом
     // инициализировать навигацию.
-    private val rootNavigation = context.childNavigationRoot(
+    private val rootNavigation = oldContext.childNavigationRoot(
         navigation = viewModel.navigation,
         onContentReady = onContentReady,
     )

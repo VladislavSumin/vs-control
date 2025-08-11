@@ -11,6 +11,7 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import org.kodein.di.instance
 import ru.vs.control.feature.appInfo.client.domain.AppInfoInteractor
 import ru.vs.control.feature.rootScreen.client.ui.screen.rootScreen.RootScreenFactory
+import ru.vs.core.decompose.context.DefaultVsComponentContext
 import javax.swing.SwingUtilities
 import kotlin.system.exitProcess
 
@@ -29,8 +30,9 @@ fun main() {
     // Создаем рутовый компонент.
     val rootComponent = runOnUiThread {
         val defaultContext = DefaultComponentContext(lifecycle)
+        val vsContext = DefaultVsComponentContext(defaultContext, "jvm")
         val rootComponentFactory = di.instance<RootScreenFactory>()
-        rootComponentFactory.create(defaultContext)
+        rootComponentFactory.create(vsContext)
     }
 
     application {

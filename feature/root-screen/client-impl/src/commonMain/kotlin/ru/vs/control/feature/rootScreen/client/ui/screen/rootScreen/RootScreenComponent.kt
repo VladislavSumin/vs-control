@@ -5,12 +5,12 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
-import ru.vladislavsumin.core.decompose.components.Component
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen.SplashScreenFactory
 import ru.vs.core.coroutines.mapState
+import ru.vs.core.decompose.context.VsComponent
+import ru.vs.core.decompose.context.VsComponentContext
 import ru.vs.core.sharedElementTransition.ProvideLocalSharedElementTransition
 import ru.vs.core.splash.Children
 import ru.vs.core.splash.childSplash
@@ -18,9 +18,9 @@ import ru.vs.core.splash.childSplash
 internal class RootScreenComponent(
     private val rootScreenViewModelFactory: RootScreenViewModelFactory,
     splashScreenFactory: SplashScreenFactory,
-    context: ComponentContext,
+    context: VsComponentContext,
     private val deeplink: ReceiveChannel<String>,
-) : Component(context), ComposeComponent {
+) : VsComponent(context), ComposeComponent {
     private val viewModel = viewModel { rootScreenViewModelFactory.create() }
 
     private val splash = context.childSplash(

@@ -1,7 +1,7 @@
 package ru.vs.core.splash
 
 import com.arkivanov.decompose.Child
-import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.GenericComponentContext
 import com.arkivanov.decompose.router.children.ChildNavState
 import com.arkivanov.decompose.router.children.NavState
 import com.arkivanov.decompose.router.children.SimpleChildNavState
@@ -27,12 +27,12 @@ import ru.vladislavsumin.core.decompose.components.utils.createCoroutineScope
  * @param contentComponentFactory фабрика для создания компонента экрана с контентом. onContentReady необходимо вызвать
  * после того как контентный компонент будет готов к отображению контента, до этого момента будет отображаться splash.
  */
-fun <T : Any> ComponentContext.childSplash(
+fun <Ctx : GenericComponentContext<Ctx>, T : Any> Ctx.childSplash(
     key: String = "child-splash",
     scope: CoroutineScope = lifecycle.createCoroutineScope(),
     isInitialized: StateFlow<Boolean>,
-    splashComponentFactory: (context: ComponentContext) -> T,
-    contentComponentFactory: (onContentReady: () -> Unit, context: ComponentContext) -> T,
+    splashComponentFactory: (context: Ctx) -> T,
+    contentComponentFactory: (onContentReady: () -> Unit, context: Ctx) -> T,
 ): Value<ChildSplash<T>> {
     val navigationSource = SimpleNavigation<SplashNavEvent>()
 
