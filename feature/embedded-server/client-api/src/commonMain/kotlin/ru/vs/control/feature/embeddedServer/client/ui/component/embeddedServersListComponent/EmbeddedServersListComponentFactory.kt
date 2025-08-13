@@ -1,8 +1,8 @@
 package ru.vs.control.feature.embeddedServer.client.ui.component.embeddedServersListComponent
 
-import com.arkivanov.decompose.ComponentContext
 import ru.vs.core.decompose.LazyListComponent
+import ru.vs.core.decompose.context.VsComponentContext
 
 interface EmbeddedServersListComponentFactory {
-    fun create(context: ComponentContext): LazyListComponent
+    fun create(context: VsComponentContext): LazyListComponent
 }

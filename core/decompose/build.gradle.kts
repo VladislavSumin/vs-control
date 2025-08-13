@@ -15,6 +15,12 @@ kotlin {
             api(vsCoreLibs.decompose.extensions.compose)
             api(vsCoreLibs.decompose.extensions.composeExperimental)
 
+            // TODO вынести в другой модуль?
+            api(libs.vs.core.navigation.impl)
+            api(libs.vs.core.navigation.di)
+            // TODO вынести в другой модуль?
+            implementation(libs.vs.core.di)
+
             implementation(projects.core.compose)
             implementation(projects.core.serialization.json)
             implementation(projects.core.utils)

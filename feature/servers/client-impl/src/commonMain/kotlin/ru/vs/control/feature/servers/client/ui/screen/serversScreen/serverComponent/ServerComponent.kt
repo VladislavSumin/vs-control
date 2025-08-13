@@ -2,13 +2,13 @@ package ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverCompo
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.flow.StateFlow
-import ru.vladislavsumin.core.decompose.components.Component
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vladislavsumin.core.factoryGenerator.ByCreate
 import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vs.control.feature.servers.client.domain.Server
+import ru.vs.core.decompose.context.VsComponent
+import ru.vs.core.decompose.context.VsComponentContext
 
 /**
  * Отображает информацию о конкретном сервере.
@@ -17,8 +17,8 @@ import ru.vs.control.feature.servers.client.domain.Server
 internal class ServerComponent(
     viewModelFactory: ServerViewModelFactory,
     @ByCreate private val server: StateFlow<Server>,
-    @ByCreate context: ComponentContext,
-) : Component(context), ComposeComponent {
+    @ByCreate context: VsComponentContext,
+) : VsComponent(context), ComposeComponent {
 
     val key: Long get() = server.value.id.raw
 

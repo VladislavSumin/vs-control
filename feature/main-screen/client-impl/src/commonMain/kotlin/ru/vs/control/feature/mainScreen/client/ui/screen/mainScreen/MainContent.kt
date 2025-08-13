@@ -18,12 +18,12 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.pages.PagesScrollAnimation
 import com.arkivanov.decompose.router.pages.ChildPages
 import com.arkivanov.decompose.value.Value
-import ru.vladislavsumin.core.navigation.screen.Screen
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 
 @Composable
 internal fun MainContent(
     viewModel: MainViewModel,
-    tabNavigation: Value<ChildPages<*, Screen>>,
+    tabNavigation: Value<ChildPages<*, ComposeComponent>>,
     modifier: Modifier,
 ) {
     Scaffold(

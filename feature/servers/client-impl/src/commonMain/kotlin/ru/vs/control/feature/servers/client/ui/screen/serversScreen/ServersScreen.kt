@@ -2,12 +2,12 @@ package ru.vs.control.feature.servers.client.ui.screen.serversScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
-import ru.vladislavsumin.core.navigation.screen.Screen
 import ru.vs.control.feature.embeddedServer.client.ui.component.embeddedServersListComponent.EmbeddedServersListComponentFactory
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverComponent.ServerComponentFactory
+import ru.vs.core.decompose.context.VsComponentContext
+import ru.vs.core.decompose.context.VsScreen
 import ru.vs.core.decompose.router.list.childListWithState
 
 @GenerateScreenFactory
@@ -15,8 +15,8 @@ internal class ServersScreen(
     viewModelFactory: ServersViewModelFactory,
     embeddedServersListComponentFactory: EmbeddedServersListComponentFactory,
     serverComponentFactory: ServerComponentFactory,
-    context: ComponentContext,
-) : Screen(context) {
+    context: VsComponentContext,
+) : VsScreen(context) {
     private val viewModel = viewModel { viewModelFactory.create() }
 
     private val embeddedServers = embeddedServersListComponentFactory.create(context.childContext("embedded_servers"))

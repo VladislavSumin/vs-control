@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.arkivanov.decompose.ComponentContext
 import org.jetbrains.compose.resources.stringResource
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerViewModel
@@ -36,8 +35,7 @@ import vs_control.feature.servers.client_impl.generated.resources.add_server_ite
 internal class SimpleAddServerItemComponent(
     private val viewModel: AddServerViewModel,
     private val item: AddServerItem.Simple,
-    context: ComponentContext,
-) : ComposeComponent, ComponentContext by context {
+) : ComposeComponent {
     @Composable
     override fun Render(modifier: Modifier) {
         val isSupported = item.isSupported

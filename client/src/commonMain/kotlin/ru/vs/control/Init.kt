@@ -36,6 +36,7 @@ import ru.vs.core.autoload.coreAutoload
 import ru.vs.core.coroutines.DispatchersProvider
 import ru.vs.core.coroutines.coreCoroutines
 import ru.vs.core.database.coreDatabase
+import ru.vs.core.decompose.context.VsComponentContext
 import ru.vs.core.fs.coreFs
 import ru.vs.core.ktor.client.coreKtorClient
 import ru.vs.core.properties.coreProperties
@@ -57,7 +58,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
     // Граф инициализируется в фоне после базовой инициализации ui (во время показа splash экрана).
     val initializedDependenciesBuilder = InitializedDependenciesBuilder {
         importOnce(Modules.coreAutoload())
-        importOnce(Modules.coreNavigation())
+        importOnce(Modules.coreNavigation<VsComponentContext>())
         importOnce(Modules.coreDatabase())
         importOnce(Modules.coreKtorClient())
         importOnce(Modules.coreSerializationProtobuf())

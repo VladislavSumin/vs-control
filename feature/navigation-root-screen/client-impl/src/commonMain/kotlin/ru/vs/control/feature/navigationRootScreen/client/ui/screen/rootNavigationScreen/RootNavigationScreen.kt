@@ -2,27 +2,28 @@ package ru.vs.control.feature.navigationRootScreen.client.ui.screen.rootNavigati
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vladislavsumin.core.navigation.host.childNavigationSlot
-import ru.vladislavsumin.core.navigation.screen.Screen
 import ru.vs.control.feature.navigationRootScreen.client.ui.screen.RootNavigationHost
+import ru.vs.core.decompose.context.VsComponentContext
+import ru.vs.core.decompose.context.VsScreen
 
 @GenerateScreenFactory
 internal class RootNavigationScreen(
     viewModelFactory: RootNavigationScreenViewModelFactory,
-    context: ComponentContext,
-) : Screen(context) {
+    context: VsComponentContext,
+) : VsScreen(context) {
     private val viewModel = viewModel { viewModelFactory.create() }
 
     private val delaySplash = Mutex(true)
 
-    private val childSlotNavigation: Value<ChildSlot<*, Screen>> = childNavigationSlot(
+    private val childSlotNavigation: Value<ChildSlot<*, ComposeComponent>> = childNavigationSlot(
         initialConfiguration = { null },
         navigationHost = RootNavigationHost,
     )

@@ -13,13 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.arkivanov.decompose.ComponentContext
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.core.uikit.paddings.defaultCardContentPadding
 
-class LocalSearchAddServerComponent(
-    context: ComponentContext,
-) : ComposeComponent, ComponentContext by context {
+class LocalSearchAddServerComponent : ComposeComponent {
     @Composable
     override fun Render(modifier: Modifier) {
         Card(modifier) {

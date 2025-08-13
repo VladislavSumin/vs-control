@@ -3,14 +3,14 @@ package ru.vs.control.feature.embeddedServer.client.ui.component.embeddedServers
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import com.arkivanov.decompose.ComponentContext
-import ru.vladislavsumin.core.decompose.components.Component
 import ru.vs.core.decompose.LazyListComponent
+import ru.vs.core.decompose.context.VsComponent
+import ru.vs.core.decompose.context.VsComponentContext
 
 internal class EmbeddedServersListComponent(
     viewModelFactory: EmbeddedServersListViewModelFactory,
-    context: ComponentContext,
-) : Component(context),
+    context: VsComponentContext,
+) : VsComponent(context),
     LazyListComponent {
 
     private val viewModel = viewModel { viewModelFactory.create() }

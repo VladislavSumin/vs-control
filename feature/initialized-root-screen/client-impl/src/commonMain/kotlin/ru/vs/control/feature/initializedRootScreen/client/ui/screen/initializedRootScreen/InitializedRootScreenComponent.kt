@@ -2,7 +2,6 @@ package ru.vs.control.feature.initializedRootScreen.client.ui.screen.initialized
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.DefaultComponentContext
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
@@ -35,17 +34,9 @@ internal class InitializedRootScreenComponent(
         launch { deeplink.consumeEach(viewModel::onDeeplink) }
     }
 
-    // TODO временный мапинг на старый контекст для работы навигации.
-    private val oldContext = DefaultComponentContext(
-        context.lifecycle,
-        context.stateKeeper,
-        context.instanceKeeper,
-        context.backHandler,
-    )
-
     // Вызывается после блока init выше так как мы хотим сначала обработать стартовый диплинк и только потом
     // инициализировать навигацию.
-    private val rootNavigation = oldContext.childNavigationRoot(
+    private val rootNavigation = context.childNavigationRoot(
         navigation = viewModel.navigation,
         onContentReady = onContentReady,
     )

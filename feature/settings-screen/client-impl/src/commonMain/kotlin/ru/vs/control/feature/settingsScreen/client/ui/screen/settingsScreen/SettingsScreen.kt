@@ -2,15 +2,15 @@ package ru.vs.control.feature.settingsScreen.client.ui.screen.settingsScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ComponentContext
 import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
-import ru.vladislavsumin.core.navigation.screen.Screen
+import ru.vs.core.decompose.context.VsComponentContext
+import ru.vs.core.decompose.context.VsScreen
 
 @GenerateScreenFactory
 internal class SettingsScreen(
     viewModelFactory: SettingsViewModelFactory,
-    context: ComponentContext,
-) : Screen(context) {
+    context: VsComponentContext,
+) : VsScreen(context) {
     private val viewModel = viewModel { viewModelFactory.create() }
 
     @Composable

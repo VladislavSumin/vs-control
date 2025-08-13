@@ -2,16 +2,17 @@ package ru.vs.control.feature.initializedRootScreen.client.ui.screen.initialized
 
 import ru.vladislavsumin.core.decompose.components.ViewModel
 import ru.vladislavsumin.core.logger.api.logger
-import ru.vladislavsumin.core.navigation.Navigation
+import ru.vladislavsumin.core.navigation.GenericNavigation
+import ru.vs.core.decompose.context.VsComponentContext
 
-internal class InitializedRootViewModelFactory(private val navigation: Navigation) {
+internal class InitializedRootViewModelFactory(private val navigation: GenericNavigation<VsComponentContext>) {
     fun create(): InitializedRootViewModel {
         return InitializedRootViewModel(navigation)
     }
 }
 
 internal class InitializedRootViewModel(
-    val navigation: Navigation,
+    val navigation: GenericNavigation<VsComponentContext>,
 ) : ViewModel() {
     fun onDeeplink(deeplink: String) {
         deeplinkLogger.i { "Handle deeplink $deeplink" }

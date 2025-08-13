@@ -1,6 +1,5 @@
 package ru.vs.control.feature.servers.client.ui.screen
 
-import ru.vladislavsumin.core.navigation.registration.NavigationRegistrar
 import ru.vladislavsumin.core.navigation.registration.NavigationRegistry
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlScreenFactory
 import ru.vs.control.feature.servers.client.ui.screen.addServerByUrlScreen.AddServerByUrlScreenParams
@@ -8,13 +7,15 @@ import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerS
 import ru.vs.control.feature.servers.client.ui.screen.addServerScreen.AddServerScreenParams
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenFactory
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenParams
+import ru.vs.core.decompose.context.VsComponentContext
+import ru.vs.core.decompose.context.VsNavigationRegistrar
 
 internal class NavigationRegistrarImpl(
     private val serversScreenFactory: ServersScreenFactory,
     private val addServerScreenFactory: AddServerScreenFactory,
     private val addServerByUrlScreenFactory: AddServerByUrlScreenFactory,
-) : NavigationRegistrar {
-    override fun NavigationRegistry.register() {
+) : VsNavigationRegistrar {
+    override fun NavigationRegistry<VsComponentContext>.register() {
         // TODO сделать отдельный хост для сервер табов со своим стеком.
         registerScreen(
             factory = serversScreenFactory,

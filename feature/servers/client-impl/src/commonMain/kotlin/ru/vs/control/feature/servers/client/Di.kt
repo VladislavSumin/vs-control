@@ -4,7 +4,6 @@ import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import ru.vladislavsumin.core.di.Modules
 import ru.vladislavsumin.core.di.i
-import ru.vladislavsumin.core.navigation.registration.bindNavigation
 import ru.vs.control.feature.servers.client.domain.ServerInteractorImplFactory
 import ru.vs.control.feature.servers.client.domain.ServersInteractor
 import ru.vs.control.feature.servers.client.domain.ServersInteractorImpl
@@ -18,6 +17,7 @@ import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScree
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersViewModelFactory
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverComponent.ServerComponentFactory
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverComponent.ServerViewModelFactory
+import ru.vs.core.decompose.context.bindNavigation
 
 fun Modules.featureServers() = DI.Module("feature-servers") {
     bindNavigation { NavigationRegistrarImpl(i(), i(), i()) }
