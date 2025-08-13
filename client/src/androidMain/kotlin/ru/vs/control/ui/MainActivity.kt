@@ -14,6 +14,7 @@ import org.kodein.di.android.closestDI
 import org.kodein.di.direct
 import org.kodein.di.instance
 import ru.vs.control.feature.rootScreen.client.ui.screen.rootScreen.RootScreenFactory
+import ru.vs.core.decompose.context.DefaultVsComponentContext
 
 class MainActivity : ComponentActivity(), DIAware {
     override val di: DI by closestDI()
@@ -33,8 +34,9 @@ class MainActivity : ComponentActivity(), DIAware {
         }
 
         val defaultContext = defaultComponentContext()
+        val vsComponentContext = DefaultVsComponentContext(defaultContext, "android")
         val rootComponentFactory = di.direct.instance<RootScreenFactory>()
-        val rootComponent = rootComponentFactory.create(defaultContext, deeplinkChannel)
+        val rootComponent = rootComponentFactory.create(vsComponentContext, deeplinkChannel)
 
         setContent {
             rootComponent.Render(Modifier.fillMaxSize())
