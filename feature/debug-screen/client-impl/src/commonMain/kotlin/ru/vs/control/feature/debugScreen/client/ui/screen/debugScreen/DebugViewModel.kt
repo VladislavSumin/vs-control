@@ -1,8 +1,11 @@
 package ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen
 
 import androidx.compose.runtime.Stable
+import ru.vladislavsumin.core.collections.tree.map
+import ru.vladislavsumin.core.collections.tree.nodeOf
 import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vladislavsumin.core.navigation.ui.debug.uml.NavigationGraphUmlNode
+import ru.vladislavsumin.core.navigation.ui.debug.uml.NavigationGraphUmlNodeInfo
 import ru.vladislavsumin.core.navigation.viewModel.NavigationViewModel
 
 @Stable
@@ -16,42 +19,35 @@ internal class DebugViewModel : NavigationViewModel() {
      * добавляем их вручную.
      */
     fun generateFakeNavigationNodesFist(originalNode: NavigationGraphUmlNode): NavigationGraphUmlNode {
-        val initializedRootScreenNode = NavigationGraphUmlNode(
-            value = NavigationGraphUmlNode.Info(
-                name = "InitializedRootScreenComponent",
-                hasDefaultParams = false,
-                isPartOfMainGraph = false,
-                description = """
-                    Отображается после инициализации приложения. 
-                    Является точкой входа в полноценную навигацию.
-                """.trimIndent(),
-            ),
-            children = listOf(originalNode),
-        )
-
-        val splashScreenNode = NavigationGraphUmlNode(
-            value = NavigationGraphUmlNode.Info(
-                name = "SplashScreenComponent",
-                hasDefaultParams = false,
-                isPartOfMainGraph = false,
-                description = "Отображает splash заглушку",
-            ),
-            children = emptyList(),
-        )
-
-        val rootScreenNode = NavigationGraphUmlNode(
-            value = NavigationGraphUmlNode.Info(
+        return nodeOf(
+            value = NavigationGraphUmlNodeInfo(
                 name = "RootScreenComponent",
                 hasDefaultParams = false,
                 isPartOfMainGraph = false,
                 description = "Корневой экран, отвечает за запуск инициализации приложения",
             ),
-            children = listOf(
-                splashScreenNode,
-                initializedRootScreenNode,
+            nodeOf(
+                NavigationGraphUmlNodeInfo(
+                    name = "SplashScreenComponent",
+                    hasDefaultParams = false,
+                    isPartOfMainGraph = false,
+                    description = "Отображает splash заглушку",
+                ),
+            ),
+            nodeOf(
+                NavigationGraphUmlNodeInfo(
+                    name = "InitializedRootScreenComponent",
+                    hasDefaultParams = false,
+                    isPartOfMainGraph = false,
+                    description = """
+                    Отображается после инициализации приложения. 
+                    Является точкой входа в полноценную навигацию.
+                    """.trimIndent(),
+                ),
+                originalNode.map {
+                    it.copy(name = it.name.substringBeforeLast("ScreenParams"))
+                },
             ),
         )
-
-        return rootScreenNode
     }
 }
