@@ -8,9 +8,11 @@ import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import org.kodein.di.DirectDI
 import org.kodein.di.instance
 
-private class AndroidDatabaseDriverFactory(private val context: Context) : DatabaseDriverFactory {
+private class AndroidDatabaseDriverFactory(
+    private val context: Context,
+) : DatabaseDriverFactory {
     override suspend fun create(name: String, schema: SqlSchema<QueryResult.Value<Unit>>): SqlDriver {
-        TODO("Not correctly implemented")
+        // TODO использовать filesystemService для создания базы данных
         return AndroidSqliteDriver(schema, context, "$name.db")
     }
 }
