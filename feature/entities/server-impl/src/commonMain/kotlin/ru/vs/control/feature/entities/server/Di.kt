@@ -5,7 +5,6 @@ import org.kodein.di.bindSingleton
 import ru.vladislavsumin.core.di.Modules
 import ru.vladislavsumin.core.di.i
 import ru.vs.control.feature.entities.featureEntitiesShared
-// import ru.vs.control.feature.entities.rsub.EntitiesRsubRSubServerProxy
 import ru.vs.control.feature.entities.server.domain.EntitiesInteractor
 import ru.vs.control.feature.entities.server.domain.EntitiesInteractorImpl
 import ru.vs.control.feature.entities.server.repository.EntitiesRegistry
