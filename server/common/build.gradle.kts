@@ -23,8 +23,8 @@ kotlin {
             api(libs.ktor.server.contentNegotiation)
             api(libs.ktor.core.serialization.protobuf)
 
-            api(libs.logging.slf4j)
-            api(libs.logging.log4j.slf4j)
+            api(vsCoreLibs.logging.slf4j)
+            api(vsCoreLibs.logging.log4j.slf4j)
         }
     }
 }

@@ -1,8 +1,8 @@
 package ru.vs.core.uikit.icons
 
-import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
 val Logo: ImageVector
@@ -18,7 +18,7 @@ val Logo: ImageVector
             viewportHeight = 512.0f,
             tintColor = Color.Red,
         ).apply {
-            materialPath {
+            path {
                 moveToRelative(dx = 146.28f, dy = 300.56f)
                 lineToRelative(dx = 137.28f, dy = -137.28f)
                 lineToRelative(dx = -12.36f, dy = -12.37f)
@@ -57,7 +57,7 @@ val Logo: ImageVector
                     dy1 = -28.28f,
                 )
             }
-            materialPath {
+            path {
                 moveTo(x = 315.91f, y = 250.43f)
                 verticalLineToRelative(dy = 96.71f)
                 horizontalLineTo(x = 215.58f)

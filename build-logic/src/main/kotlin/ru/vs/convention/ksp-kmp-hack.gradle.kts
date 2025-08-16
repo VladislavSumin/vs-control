@@ -1,6 +1,6 @@
 package ru.vs.convention
 
-import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 /**
  * Hack from https://github.com/google/ksp/issues/567#issuecomment-1510477456
@@ -21,7 +21,7 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
-tasks.withType<KotlinCompile<*>>().configureEach {
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }

@@ -20,12 +20,12 @@ internal class EmbeddedServersRepositoryImpl(
     private val queriesProvider: EmbeddedServerQueriesProvider,
     private val dispatchersProvider: DispatchersProvider,
 ) : EmbeddedServersRepository {
-    override suspend fun insert(server: EmbeddedServer) = withContext(dispatchersProvider.io) {
+    override suspend fun insert(server: EmbeddedServer): Unit = withContext(dispatchersProvider.io) {
         check(server.id.raw == 0L)
         queriesProvider.getEmbeddedServerRecordQueries().insert(server.toRecord())
     }
 
-    override suspend fun delete(server: EmbeddedServer) = withContext(dispatchersProvider.io) {
+    override suspend fun delete(server: EmbeddedServer): Unit = withContext(dispatchersProvider.io) {
         check(server.id.raw != 0L)
         queriesProvider.getEmbeddedServerRecordQueries().delete(server.id.raw)
     }

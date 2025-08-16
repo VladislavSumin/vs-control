@@ -21,13 +21,13 @@ internal class ServersRepositoryImpl(
     private val serverQueriesProvider: ServerQueriesProvider,
     private val dispatchersProvider: DispatchersProvider,
 ) : ServersRepository {
-    override suspend fun insert(server: Server) = withContext(dispatchersProvider.io) {
+    override suspend fun insert(server: Server): Unit = withContext(dispatchersProvider.io) {
         check(server.id.raw == 0L)
         serverQueriesProvider.getServerRecordQueries()
             .insert(server.name, server.isSecure, server.host, server.port.toLong(), server.accessToken)
     }
 
-    override suspend fun delete(server: Server) = withContext(dispatchersProvider.io) {
+    override suspend fun delete(server: Server): Unit = withContext(dispatchersProvider.io) {
         check(server.id.raw != 0L)
         serverQueriesProvider.getServerRecordQueries().delete(server.id.raw)
     }

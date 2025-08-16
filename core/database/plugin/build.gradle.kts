@@ -12,7 +12,7 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation(libs.kotlinpoet.core)
+    implementation(vsCoreLibs.kotlinpoet.core)
     implementation(vsCoreLibs.gradlePlugins.kotlin.core)
     implementation(libs.gradlePlugins.sqldelight)
 }
