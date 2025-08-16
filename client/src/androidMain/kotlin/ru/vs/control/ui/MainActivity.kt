@@ -44,6 +44,8 @@ class MainActivity : ComponentActivity(), DIAware {
     }
 
     private fun onDeeplink(deeplink: String) {
+        // открывать диплинки можно так:
+        // -W -a android.intent.action.VIEW -d "vs-control://DebugScreenParams" ru.vs.control
         deeplinkChannel.trySend(deeplink).getOrThrow()
     }
 
