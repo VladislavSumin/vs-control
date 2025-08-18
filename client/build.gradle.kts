@@ -79,13 +79,13 @@ kotlin {
 //        }
 //    }
 //
-//    macosArm64 {
-//        binaries {
-//            executable {
-//                entryPoint = "main"
-//            }
-//        }
-//    }
+    macosArm64 {
+        binaries {
+            executable {
+                entryPoint = "main"
+            }
+        }
+    }
 
     sourceSets {
         commonMain.dependencies {
