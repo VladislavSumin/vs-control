@@ -15,6 +15,7 @@ import androidx.compose.ui.test.runComposeUiTest
 import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vladislavsumin.core.decompose.test.BaseComponentTest
@@ -59,6 +60,7 @@ class SplashTestUi : BaseComponentTest() {
 
             // Тут крутим main часики, так как awaitInitialization запускается на Dispatchers Main.
             isInitialized.value = true
+            runCurrent()
 
             // Проверяем состояние Content
             onNodeWithTag(SplashScreenComponent.TAG).assertDoesNotExist()
@@ -117,6 +119,8 @@ class SplashTestUi : BaseComponentTest() {
 
             // Проматываем последний кадр
             mainClock.advanceTimeByFrame()
+            // TODO До обновления композа этот тест работал без перемотки дополнительного кадра, а теперь вот так вот...
+            mainClock.advanceTimeByFrame()
 
             // Проверяем состояние Content
             onNodeWithTag(SplashScreenComponent.TAG).assertDoesNotExist()
@@ -153,6 +157,7 @@ class SplashTestUi : BaseComponentTest() {
             setTestContent(splash, registry1)
 
             isInitialized.value = true
+            runCurrent()
 
             randomValue = onNodeWithTag(ContentScreenComponent.SAVEABLE_CONTENT_TAG)
                 .fetchSemanticsNode()
@@ -183,6 +188,7 @@ class SplashTestUi : BaseComponentTest() {
             setTestContent(splash, registry2)
 
             isInitialized2.value = true
+            runCurrent()
 
             val restoredValue = onNodeWithTag(ContentScreenComponent.SAVEABLE_CONTENT_TAG)
                 .fetchSemanticsNode()
