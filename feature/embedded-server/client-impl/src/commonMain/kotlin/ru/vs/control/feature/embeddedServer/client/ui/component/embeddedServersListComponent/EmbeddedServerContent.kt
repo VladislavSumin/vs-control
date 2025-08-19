@@ -1,5 +1,6 @@
 package ru.vs.control.feature.embeddedServer.client.ui.component.embeddedServersListComponent
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,7 +30,14 @@ internal fun EmbeddedServerContent(
 ) {
     Card(Modifier.fillMaxWidth()) {
         Row(Modifier.defaultCardContentPadding()) {
-            Text(server.name)
+            Column {
+                Text(text = server.name, style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = "Embedded server",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.secondary,
+                )
+            }
             Spacer(Modifier.weight(1f))
             Menu(viewModel, server)
         }
