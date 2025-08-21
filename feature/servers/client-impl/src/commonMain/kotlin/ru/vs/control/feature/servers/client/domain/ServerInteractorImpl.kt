@@ -10,20 +10,11 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import ru.vladislavsumin.core.factoryGenerator.ByCreate
 import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
+import ru.vs.control.feature.servers.client.domain.ServerInteractor.ConnectionStatus
 import ru.vs.core.coroutines.share
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubConnectionStatus
 import ru.vs.rsub.connector.ktorWebsocket.RSubConnectorKtorWebSocket
-
-/**
- * Отвечает за сервер с конкретным [id].
- * Всегда создается ровно один инстанс на каждый id. При изменении другой информации о сервере не пересоздается
- */
-internal interface ServerInteractor {
-    val id: ServerId
-    val server: Flow<Server>
-    val connectionStatus: Flow<RSubConnectionStatus>
-}
 
 @GenerateFactory
 internal class ServerInteractorImpl(
@@ -35,7 +26,9 @@ internal class ServerInteractorImpl(
 
     /**
      * rSub клиент для соединения с сервером.
-     * Является [SharedFlow], так как при редактировании сервера может измениться его url с сохранением текущего id.
+     *
+     * Является [kotlinx.coroutines.flow.SharedFlow], так как при редактировании сервера может измениться его url с
+     * сохранением текущего id.
      */
     private val client: SharedFlow<RSubClient> = server
         .map { server ->
@@ -43,9 +36,9 @@ internal class ServerInteractorImpl(
                 connector = RSubConnectorKtorWebSocket(
                     client = httpClient,
                     protocol = if (server.isSecure) {
-                        URLProtocol.WSS
+                        URLProtocol.Companion.WSS
                     } else {
-                        URLProtocol.WS
+                        URLProtocol.Companion.WS
                     },
                     host = server.host,
                     port = server.port,
@@ -54,5 +47,13 @@ internal class ServerInteractorImpl(
         }
         .share(scope)
 
-    override val connectionStatus: Flow<RSubConnectionStatus> = client.flatMapLatest { it.observeConnectionStatus() }
+    override val connectionStatus: Flow<ConnectionStatus> = client
+        .flatMapLatest { it.observeConnectionStatus() }
+        .map {
+            when (it) {
+                RSubConnectionStatus.Connected -> ConnectionStatus.Connected
+                RSubConnectionStatus.Connecting -> ConnectionStatus.Connecting
+                is RSubConnectionStatus.Reconnecting -> ConnectionStatus.Reconnecting(it.connectionError)
+            }
+        }
 }

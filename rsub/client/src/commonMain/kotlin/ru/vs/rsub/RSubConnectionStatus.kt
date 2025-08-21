@@ -4,12 +4,12 @@ sealed interface RSubConnectionStatus {
     /**
      * Initial connection status, this means it's first connection attempt
      */
-    object Connecting : RSubConnectionStatus
+    data object Connecting : RSubConnectionStatus
 
     /**
      * Successfully connected
      */
-    object Connected : RSubConnectionStatus
+    data object Connected : RSubConnectionStatus
 
     /**
      * Reconnecting (or waits reconnect timeout) after connection failed

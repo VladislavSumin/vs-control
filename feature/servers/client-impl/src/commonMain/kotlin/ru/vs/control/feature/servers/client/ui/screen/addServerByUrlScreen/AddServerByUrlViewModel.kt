@@ -112,7 +112,7 @@ internal class AddServerByUrlViewModel(
         internalState.value = InternalState.CheckConnection
         launch {
             val url = (createUrl() as UrlResult.SuccessUrl?)?.url ?: error("Can't parse server url")
-            val response = serverInfoInteractor.getServerInfo(url)
+            val response = serverInfoInteractor.getInitialServerInfo(url)
             when (response) {
                 is SafeResponse.Success -> {
                     internalState.value = InternalState.EnterCredentials(response.value)

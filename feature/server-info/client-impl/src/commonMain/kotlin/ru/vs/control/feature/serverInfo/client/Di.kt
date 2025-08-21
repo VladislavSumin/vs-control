@@ -11,5 +11,5 @@ import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractorImpl
 
 fun Modules.featureServerInfo() = DI.Module("feature-server-info") {
     bindSingleton<ServerInfoApi> { ServerInfoApiImpl(i()) }
-    bindSingleton<ServerInfoInteractor> { ServerInfoInteractorImpl(i()) }
+    bindSingleton<ServerInfoInteractor> { ServerInfoInteractorImpl(i(), i()) }
 }
