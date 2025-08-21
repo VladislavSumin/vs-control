@@ -2,6 +2,7 @@ package ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverCompo
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,7 +21,12 @@ internal fun ServerContent(
     val state = viewModel.state.collectAsState().value
     Card(modifier) {
         Column(Modifier.defaultCardContentPadding()) {
-            Text("Server name = ${server.name}")
+            Text(text = server.name, style = MaterialTheme.typography.titleMedium)
+            Text(
+                text = server.fullHost,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.secondary,
+            )
             Text(state.toString())
         }
     }
