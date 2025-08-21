@@ -23,7 +23,7 @@ internal interface WebServer {
     /**
      * Запускает и удерживает сервер в запущенном состоянии до отмены корутины.
      */
-    suspend fun run()
+    suspend fun run(): Nothing
 }
 
 @Suppress("UnusedPrivateProperty") // TODO enable ssl
@@ -31,7 +31,7 @@ internal class WebServerImpl(
     // private val keyStoreInteractor: KeyStoreInteractor,
     private val modules: Set<KtorServerModule>,
 ) : WebServer {
-    override suspend fun run(): Unit = withContext(CoroutineName("web-server")) {
+    override suspend fun run(): Nothing = withContext(CoroutineName("web-server")) {
         val server = createEmbeddedServer()
         suspendCancellableCoroutine { continuation ->
             server.start()
