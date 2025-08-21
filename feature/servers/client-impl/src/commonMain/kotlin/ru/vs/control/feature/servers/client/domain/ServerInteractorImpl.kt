@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import ru.vladislavsumin.core.factoryGenerator.ByCreate
 import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
-import ru.vs.control.feature.servers.client.domain.ServerInteractor.ConnectionStatus
 import ru.vs.core.coroutines.share
 import ru.vs.rsub.RSubClient
 import ru.vs.rsub.RSubConnectionStatus
@@ -36,9 +35,9 @@ internal class ServerInteractorImpl(
                 connector = RSubConnectorKtorWebSocket(
                     client = httpClient,
                     protocol = if (server.isSecure) {
-                        URLProtocol.Companion.WSS
+                        URLProtocol.WSS
                     } else {
-                        URLProtocol.Companion.WS
+                        URLProtocol.WS
                     },
                     host = server.host,
                     port = server.port,
@@ -47,13 +46,7 @@ internal class ServerInteractorImpl(
         }
         .share(scope)
 
-    override val connectionStatus: Flow<ConnectionStatus> = client
-        .flatMapLatest { it.observeConnectionStatus() }
-        .map {
-            when (it) {
-                RSubConnectionStatus.Connected -> ConnectionStatus.Connected
-                RSubConnectionStatus.Connecting -> ConnectionStatus.Connecting
-                is RSubConnectionStatus.Reconnecting -> ConnectionStatus.Reconnecting(it.connectionError)
-            }
-        }
+    override val connectionStatus: Flow<RSubConnectionStatus> = client.flatMapLatest { it.observeConnectionStatus() }
+
+    override fun <T> rSubInterface(factory: (RSubClient) -> T): Flow<T> = client.map(factory)
 }

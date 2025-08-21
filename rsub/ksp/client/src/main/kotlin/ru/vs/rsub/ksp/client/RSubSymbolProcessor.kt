@@ -5,6 +5,7 @@ import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
+import com.google.devtools.ksp.symbol.KSFile
 import com.google.devtools.ksp.symbol.KSType
 import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.toTypeName
@@ -28,7 +29,7 @@ class RSubSymbolProcessor(
 
             val classes = impls.map { resolver.getClassDeclarationByName(it.declaration.qualifiedName!!)!! }
 
-            proxyGenerator.generateProxies(classes)
+            proxyGenerator.generateProxies(classes, it as KSFile)
         }
     }
 }

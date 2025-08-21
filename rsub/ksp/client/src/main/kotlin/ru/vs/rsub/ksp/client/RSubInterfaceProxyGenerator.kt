@@ -3,6 +3,7 @@ package ru.vs.rsub.ksp.client
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.google.devtools.ksp.symbol.KSFile
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.google.devtools.ksp.symbol.Modifier
 import com.squareup.kotlinpoet.CodeBlock
@@ -13,6 +14,7 @@ import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
+import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import ru.vladislavsumin.core.ksp.utils.Types
@@ -26,8 +28,8 @@ class RSubInterfaceProxyGenerator(
     private val codeGenerator: CodeGenerator,
 ) {
 
-    fun generateProxies(superInterfaces: List<KSClassDeclaration>) {
-        superInterfaces.forEach(::generateProxyClass)
+    fun generateProxies(superInterfaces: List<KSClassDeclaration>, originatingKSFile: KSFile) {
+        superInterfaces.forEach { generateProxyClass(it, originatingKSFile) }
     }
 
     /**
@@ -39,7 +41,7 @@ class RSubInterfaceProxyGenerator(
      *   }
      * ```
      */
-    private fun generateProxyClass(superInterface: KSClassDeclaration) {
+    private fun generateProxyClass(superInterface: KSClassDeclaration, originatingKSFile: KSFile) {
         TypeSpec.classBuilder("${superInterface.simpleName.asString()}RSubImpl")
             .addModifiers(KModifier.INTERNAL)
             .addSuperinterface(superInterface.toClassName())
@@ -47,6 +49,7 @@ class RSubInterfaceProxyGenerator(
                 listOf("client" to RSubClient::class.asClassName()),
             )
             .generateProxyFunctions(superInterface)
+            .addOriginatingKSFile(originatingKSFile)
             .build()
             .writeTo(codeGenerator, superInterface.packageName.asString())
     }

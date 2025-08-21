@@ -1,6 +1,8 @@
 package ru.vs.control.feature.servers.client.domain
 
 import kotlinx.coroutines.flow.Flow
+import ru.vs.rsub.RSubClient
+import ru.vs.rsub.RSubConnectionStatus
 
 /**
  * Отвечает за сервер с конкретным [id].
@@ -11,11 +13,6 @@ import kotlinx.coroutines.flow.Flow
 interface ServerInteractor {
     val id: ServerId
     val server: Flow<Server>
-    val connectionStatus: Flow<ConnectionStatus>
-
-    sealed interface ConnectionStatus {
-        data object Connecting : ConnectionStatus
-        data object Connected : ConnectionStatus
-        data class Reconnecting(val connectionError: Exception) : ConnectionStatus
-    }
+    val connectionStatus: Flow<RSubConnectionStatus>
+    fun <T> rSubInterface(factory: (RSubClient) -> T): Flow<T>
 }

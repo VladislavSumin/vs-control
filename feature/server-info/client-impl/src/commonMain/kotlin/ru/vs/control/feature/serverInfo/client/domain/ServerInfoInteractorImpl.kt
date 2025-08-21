@@ -2,7 +2,10 @@ package ru.vs.control.feature.serverInfo.client.domain
 
 import io.ktor.http.Url
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import ru.vs.control.feature.serverInfo.client.api.ServerInfoApi
+import ru.vs.control.feature.serverInfo.rSub.ServerInfoRsubRSubImpl
 import ru.vs.control.feature.servers.client.domain.ServerId
 import ru.vs.control.feature.servers.client.domain.ServersInteractor
 import ru.vs.core.ktor.client.SafeResponse
@@ -18,6 +21,11 @@ internal class ServerInfoInteractorImpl(
     }
 
     override fun observeServerInfo(serverId: ServerId): Flow<ServerInfo> {
+        serversInteractor.observeServerInteractor(serverId)
+            .filterNotNull()
+            .flatMapLatest { serverInteractor ->
+                serverInteractor.rSubInterface(::ServerInfoRsubRSubImpl)
+            }
         TODO("Not yet implemented")
     }
 }
