@@ -15,4 +15,10 @@ data class Server(
     val host: String,
     val port: Int,
     val accessToken: String,
-)
+) {
+    val fullHost: String by lazy { "${getProtocolString()}$host:$port" }
+
+    private fun getProtocolString(): String {
+        return if (isSecure) "https://" else "http://"
+    }
+}
