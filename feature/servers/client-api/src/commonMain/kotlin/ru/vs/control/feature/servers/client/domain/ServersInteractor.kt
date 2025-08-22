@@ -9,7 +9,7 @@ interface ServersInteractor {
 
     /**
      * Позволяет получить [ServersInteractor] связанный с конкретным id, а так же инкапсулировать
-     * его жизненный цикл внутри данного [Flow]. При удалении сервера вернет новое null значение.
+     * его жизненный цикл внутри [block]. При удалении сервера вернет новое null значение.
      */
-    fun observeServerInteractor(id: ServerId): Flow<ServerInteractor?>
+    fun <T> withServerInteractor(id: ServerId, block: ServerInteractor.() -> Flow<T>): Flow<T?>
 }

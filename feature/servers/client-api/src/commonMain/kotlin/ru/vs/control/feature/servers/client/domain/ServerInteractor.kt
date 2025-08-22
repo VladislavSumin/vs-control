@@ -14,5 +14,12 @@ interface ServerInteractor {
     val id: ServerId
     val server: Flow<Server>
     val connectionStatus: Flow<RSubConnectionStatus>
-    fun <T> rSubInterface(factory: (RSubClient) -> T): Flow<T>
+
+    /**
+     * Позволяет выполнить запросы к RSub используя определенный интерфейс [T]
+     * ```kotlin
+     * withRSub(::SomeRsubImpl) { it.observeSomeState() }
+     * ```
+     */
+    fun <T, V> withRSub(factory: (RSubClient) -> T, block: (T) -> Flow<V>): Flow<V>
 }

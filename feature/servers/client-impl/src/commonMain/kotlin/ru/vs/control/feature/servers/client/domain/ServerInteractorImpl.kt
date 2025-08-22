@@ -48,5 +48,10 @@ internal class ServerInteractorImpl(
 
     override val connectionStatus: Flow<RSubConnectionStatus> = client.flatMapLatest { it.observeConnectionStatus() }
 
-    override fun <T> rSubInterface(factory: (RSubClient) -> T): Flow<T> = client.map(factory)
+    override fun <T, V> withRSub(
+        factory: (RSubClient) -> T,
+        block: (T) -> Flow<V>,
+    ): Flow<V> {
+        return client.map(factory).flatMapLatest(block)
+    }
 }

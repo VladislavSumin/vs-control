@@ -2,7 +2,7 @@ package ru.vs.control.feature.serverInfo.client.domain
 
 import io.ktor.http.Url
 import kotlinx.coroutines.flow.Flow
-import ru.vs.control.feature.servers.client.domain.ServerId
+import ru.vs.control.feature.servers.client.domain.ServerInteractor
 import ru.vs.core.ktor.client.SafeResponse
 
 interface ServerInfoInteractor {
@@ -13,16 +13,21 @@ interface ServerInfoInteractor {
     suspend fun getInitialServerInfo(url: Url): SafeResponse<ServerInfo>
 
     /**
-     * Подписывается на информацию о сервере по [serverId].
+     * Подписывается на информацию о сервере.
      */
-    fun observeServerInfo(serverId: ServerId): Flow<ServerInfo>
+    context(serverInteractor: ServerInteractor)
+    fun observeServerInfo(): Flow<ServerInfo>
 
-    fun observeConnectionStatusWithServerInfo(serverId: ServerId): Flow<ConnectionStatusWithServerInfo>
+    /**
+     * Подписывается на информацию о состоянии подключения, для подключенного состояния так же получает
+     * информацию о сервере.
+     */
+    context(serverInteractor: ServerInteractor)
+    fun observeConnectionStatusWithServerInfo(): Flow<ConnectionStatusWithServerInfo>
 
     sealed interface ConnectionStatusWithServerInfo {
         data object Connecting : ConnectionStatusWithServerInfo
         data class Connected(val serverInfo: ServerInfo) : ConnectionStatusWithServerInfo
-        data class FailedToGetServerInfo(val error: Throwable) : ConnectionStatusWithServerInfo
         data class Reconnecting(val connectionError: Exception) : ConnectionStatusWithServerInfo
     }
 }
