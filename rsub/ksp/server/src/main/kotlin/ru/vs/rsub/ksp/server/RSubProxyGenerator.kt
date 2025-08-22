@@ -4,6 +4,7 @@ import com.google.devtools.ksp.findActualType
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.google.devtools.ksp.symbol.KSFile
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.google.devtools.ksp.symbol.KSType
 import com.google.devtools.ksp.symbol.KSTypeAlias
@@ -18,6 +19,7 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
+import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import ru.vladislavsumin.core.ksp.utils.Types
@@ -29,11 +31,11 @@ class RSubProxyGenerator(
     private val logger: KSPLogger,
     private val codeGenerator: CodeGenerator,
 ) {
-    fun generateWrappers(impls: List<KSType>) {
-        impls.forEach(::generateWrapper)
+    fun generateWrappers(impls: List<KSType>, originatingKSFile: KSFile) {
+        impls.forEach { generateWrapper(it, originatingKSFile) }
     }
 
-    private fun generateWrapper(impl: KSType) {
+    private fun generateWrapper(impl: KSType, originatingKSFile: KSFile) {
         val nameProperty = PropertySpec.builder("rSubName", String::class.asClassName(), KModifier.OVERRIDE)
             .initializer("%S", impl.toClassName().simpleName)
             .build()
@@ -61,6 +63,7 @@ class RSubProxyGenerator(
             .addProperty(nameProperty)
             .addProperty(mapPropery)
             .addSuperinterface(RSubServerInterface::class)
+            .addOriginatingKSFile(originatingKSFile)
             .build()
             .writeTo(codeGenerator, impl.toClassName().packageName)
     }

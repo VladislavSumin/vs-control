@@ -4,15 +4,17 @@ import io.ktor.server.application.Application
 import io.ktor.server.response.respond
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
-import ru.vs.control.feature.serverInfo.ServerInfo
+import kotlinx.coroutines.flow.first
+import ru.vs.control.feature.serverInfo.server.domain.ServerInfoInteractor
 import ru.vs.core.ktor.server.KtorServerModule
 
-class ServerInfoModule : KtorServerModule {
+internal class ServerInfoModule(
+    private val serverInfoInteractor: ServerInfoInteractor,
+) : KtorServerModule {
     override fun Application.module() {
         routing {
             get("/api/info") {
-                // TODO добавить провайдер версии
-                call.respond(ServerInfo("Control Test Server", "0.0.1"))
+                call.respond(serverInfoInteractor.observeServerInfo().first())
             }
         }
     }

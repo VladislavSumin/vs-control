@@ -1,22 +1,20 @@
 package ru.vs.control.feature.servers.client.ui.screen.serversScreen.serverComponent
 
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flatMapLatest
 import ru.vladislavsumin.core.decompose.components.ViewModel
 import ru.vladislavsumin.core.factoryGenerator.ByCreate
 import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
+import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor
+import ru.vs.control.feature.serverInfo.client.domain.ServerInfoInteractor.ConnectionStatusWithServerInfo
 import ru.vs.control.feature.servers.client.domain.ServerId
-import ru.vs.control.feature.servers.client.domain.ServersInteractor
-import ru.vs.rsub.RSubConnectionStatus
 
 @GenerateFactory
 internal class ServerViewModel(
-    serversInteractor: ServersInteractor,
+    serverInfoInteractor: ServerInfoInteractor,
     @ByCreate private val serverId: ServerId,
 ) : ViewModel() {
-    val state = serversInteractor
-        .observeServerInteractor(serverId)
+    val state = serverInfoInteractor
+        .observeConnectionStatusWithServerInfo(serverId)
         .filterNotNull()
-        .flatMapLatest { it.connectionStatus }
-        .stateIn(RSubConnectionStatus.Connecting)
+        .stateIn(ConnectionStatusWithServerInfo.Connecting)
 }

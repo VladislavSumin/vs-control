@@ -16,4 +16,13 @@ interface ServerInfoInteractor {
      * Подписывается на информацию о сервере по [serverId].
      */
     fun observeServerInfo(serverId: ServerId): Flow<ServerInfo>
+
+    fun observeConnectionStatusWithServerInfo(serverId: ServerId): Flow<ConnectionStatusWithServerInfo>
+
+    sealed interface ConnectionStatusWithServerInfo {
+        data object Connecting : ConnectionStatusWithServerInfo
+        data class Connected(val serverInfo: ServerInfo) : ConnectionStatusWithServerInfo
+        data class FailedToGetServerInfo(val error: Throwable) : ConnectionStatusWithServerInfo
+        data class Reconnecting(val connectionError: Exception) : ConnectionStatusWithServerInfo
+    }
 }

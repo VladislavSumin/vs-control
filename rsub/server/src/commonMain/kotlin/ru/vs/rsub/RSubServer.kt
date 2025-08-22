@@ -80,6 +80,7 @@ class RSubServer(
             val job = scope.launch(start = CoroutineStart.LAZY) {
                 logger.t { "Subscribe id=${request.id} to ${request.interfaceName}::${request.functionName}" }
 
+                // TODO возвращать ошибку при неизвестном запросе
                 val impl = proxyMap[request.interfaceName]!!.rSubSubscriptions[request.functionName]!!
 
                 try {
