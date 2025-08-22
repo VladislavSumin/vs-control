@@ -5,6 +5,7 @@ import ru.vs.utils.libs
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
+    id("ru.vs.convention.kotlin-context-parameters")
 }
 
 kotlin {
