@@ -24,7 +24,7 @@ fun Modules.featureEntities() = DI.Module("feature-entities") {
 //    }
 
     // Interactors
-    bindSingleton<EntitiesInteractor> { EntitiesInteractorImpl(i()) }
+    bindSingleton<EntitiesInteractor> { EntitiesInteractorImpl(i(), i()) }
 
     // View model factories
 //    bindSingleton<EntitiesViewModelFactory> { EntitiesViewModelFactoryImpl(i()) }

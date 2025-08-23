@@ -30,6 +30,8 @@ internal class ServersInteractorImpl(
     override suspend fun delete(server: Server) = serversRepository.delete(server)
     override fun observe(): Flow<List<Server>> = serversRepository.observe()
 
+    override fun observeServerInteractors(): Flow<List<ServerInteractor>> = serverInteractors.map { it.values.toList() }
+
     override fun <T> withServerInteractor(
         id: ServerId,
         block: ServerInteractor.() -> Flow<T>,

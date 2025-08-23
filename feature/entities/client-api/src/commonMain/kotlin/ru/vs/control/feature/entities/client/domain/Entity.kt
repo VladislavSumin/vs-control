@@ -4,7 +4,7 @@ import ru.vs.control.feature.entities.domain.BaseEntity
 import ru.vs.control.feature.entities.domain.EntityId
 import ru.vs.control.feature.entities.domain.EntityProperties
 import ru.vs.control.feature.entities.domain.EntityState
-import ru.vs.control.feature.servers.client.domain.Server
+import ru.vs.control.feature.servers.client.domain.ServerId
 
 /**
  * Primary class for client entity.
@@ -16,7 +16,7 @@ import ru.vs.control.feature.servers.client.domain.Server
  * @param T primary state type.
  */
 data class Entity<T : EntityState>(
-    val server: Server,
+    val serverId: ServerId,
     override val id: EntityId,
     override val primaryState: T,
     override val isMutable: Boolean,

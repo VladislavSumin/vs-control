@@ -8,6 +8,11 @@ interface ServersInteractor {
     fun observe(): Flow<List<Server>>
 
     /**
+     * Позволяет получить [ServerInteractor] для всех добавленных серверов.
+     */
+    fun observeServerInteractors(): Flow<List<ServerInteractor>>
+
+    /**
      * Позволяет получить [ServersInteractor] связанный с конкретным id, а так же инкапсулировать
      * его жизненный цикл внутри [block]. При удалении сервера вернет новое null значение.
      */
