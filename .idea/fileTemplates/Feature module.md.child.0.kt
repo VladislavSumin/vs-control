@@ -15,7 +15,7 @@
 package ru.vs.control.feature.${CamelCaseName}
 
 import org.kodein.di.DI
-import ru.vs.core.di.Modules
+import ru.vladislavsumin.core.di.Modules
 
 fun Modules.feature$PascalCaseName() = DI.Module("feature-$NAME") {
 }
