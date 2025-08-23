@@ -1,6 +1,5 @@
 package ru.vs.control.feature.entities.client.ui.entities.entityState
 
-import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.flow.StateFlow
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
 import ru.vs.control.feature.entities.client.domain.Entity
@@ -12,6 +11,6 @@ import ru.vs.control.feature.entities.domain.EntityState
  *
  * When implement this interface recommended to use [BaseEntityStateComponent] as parent class
  */
-interface EntityStateComponent<T : EntityState> : ComposeComponent, ComponentContext {
+interface EntityStateComponent<T : EntityState> : ComposeComponent {
     val entityState: StateFlow<Entity<out T>>
 }

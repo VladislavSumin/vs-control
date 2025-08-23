@@ -1,10 +1,10 @@
 package ru.vs.control.feature.entities.client.ui.entities.entityState
 
-import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.flow.StateFlow
 import ru.vs.control.feature.entities.client.domain.Entity
 import ru.vs.control.feature.entities.client.ui.entities.unknownEntityState.UnknownEntityStateComponent
 import ru.vs.control.feature.entities.domain.EntityState
+import ru.vs.core.decompose.context.VsComponentContext
 import kotlin.reflect.KClass
 
 internal interface EntityStateComponentFactoryRegistry {
@@ -14,7 +14,7 @@ internal interface EntityStateComponentFactoryRegistry {
      */
     fun create(
         state: StateFlow<Entity<out EntityState>>,
-        context: ComponentContext,
+        context: VsComponentContext,
     ): EntityStateComponent<*>
 }
 
@@ -24,7 +24,7 @@ internal class EntityStateComponentFactoryRegistryImpl(
     private val factories: Map<KClass<out EntityState>, EntityStateComponentFactory<*>> =
         factoriesSet.associateBy { it.entityStateType }
 
-    override fun create(state: StateFlow<Entity<out EntityState>>, context: ComponentContext): EntityStateComponent<*> {
+    override fun create(state: StateFlow<Entity<out EntityState>>, context: VsComponentContext): EntityStateComponent<*> {
         val factory = factories[state.value.primaryState::class]
         // We check types manually when registering factory, no additional check needed
         @Suppress("UNCHECKED_CAST")

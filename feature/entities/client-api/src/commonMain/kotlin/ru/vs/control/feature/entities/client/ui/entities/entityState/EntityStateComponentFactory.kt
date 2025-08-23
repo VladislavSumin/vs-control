@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.flow.StateFlow
 import ru.vs.control.feature.entities.client.domain.Entity
 import ru.vs.control.feature.entities.domain.EntityState
+import ru.vs.core.decompose.context.VsComponentContext
 import kotlin.reflect.KClass
 
 /**
@@ -26,5 +27,5 @@ interface EntityStateComponentFactory<T : EntityState> {
      * @param state - flow emits actual state for given [Entity]
      * @param context - child context to use as [ComponentContext] delegate when creating [EntityStateComponent]
      */
-    fun create(state: StateFlow<Entity<T>>, context: ComponentContext): EntityStateComponent<T>
+    fun create(state: StateFlow<Entity<T>>, context: VsComponentContext): EntityStateComponent<T>
 }

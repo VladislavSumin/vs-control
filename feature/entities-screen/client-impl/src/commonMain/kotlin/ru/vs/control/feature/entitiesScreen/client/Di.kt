@@ -14,6 +14,6 @@ fun Modules.featureEntitiesScreen() = DI.Module("feature-entities-screen") {
 
     bindSingleton {
         val viewModel = EntitiesViewModelFactory()
-        EntitiesScreenFactory(viewModel)
+        EntitiesScreenFactory(viewModel, i())
     }
 }

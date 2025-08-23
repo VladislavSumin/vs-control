@@ -1,8 +1,8 @@
 package ru.vs.control.feature.entities.client.ui.entities
 
-import com.arkivanov.decompose.ComponentContext
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
+import ru.vs.core.decompose.context.VsComponentContext
 
 interface EntitiesComponentFactory {
-    fun create(componentContext: ComponentContext): ComposeComponent
+    fun create(componentContext: VsComponentContext): ComposeComponent
 }

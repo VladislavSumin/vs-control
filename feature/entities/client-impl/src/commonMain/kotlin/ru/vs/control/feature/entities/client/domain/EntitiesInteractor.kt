@@ -2,18 +2,18 @@ package ru.vs.control.feature.entities.client.domain
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import ru.vs.control.feature.entities.domain.EntityId
+import kotlinx.coroutines.flow.emptyFlow
 
 internal interface EntitiesInteractor {
     /**
-     * Observe entities from current default server
+     * Слушает все сущности со всех добавленных серверов.
      */
     fun observeEntities(): Flow<Entities<*>>
 
     /**
      * Observe entity by [entityId] from current default server
      */
-    fun observeEntity(entityId: EntityId): Flow<Entity<*>?>
+    // fun observeEntity(entityId: EntityId): Flow<Entity<*>?>
 }
 
 // TODO
@@ -40,10 +40,10 @@ internal class EntitiesInteractorImpl(
 //            )
 
     override fun observeEntities(): Flow<Entities<*>> {
-        return TODO() // entitiesFlow
+        return emptyFlow() // TODO() // entitiesFlow
     }
 
-    override fun observeEntity(entityId: EntityId): Flow<Entity<*>?> {
-        return TODO() // entitiesFlow.map { it[entityId] }
-    }
+//    override fun observeEntity(entityId: EntityId): Flow<Entity<*>?> {
+//        return TODO() // entitiesFlow.map { it[entityId] }
+//    }
 }

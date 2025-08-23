@@ -7,6 +7,9 @@ import ru.vladislavsumin.core.di.Modules
 import ru.vladislavsumin.core.di.i
 import ru.vs.control.feature.entities.client.domain.EntitiesInteractor
 import ru.vs.control.feature.entities.client.domain.EntitiesInteractorImpl
+import ru.vs.control.feature.entities.client.ui.entities.EntitiesComponentFactory
+import ru.vs.control.feature.entities.client.ui.entities.EntitiesComponentFactoryImpl
+import ru.vs.control.feature.entities.client.ui.entities.EntitiesViewModelFactory
 import ru.vs.control.feature.entities.client.ui.entities.entityState.EntityStateComponentFactory
 import ru.vs.control.feature.entities.client.ui.entities.entityState.EntityStateComponentFactoryRegistry
 import ru.vs.control.feature.entities.client.ui.entities.entityState.EntityStateComponentFactoryRegistryImpl
@@ -27,7 +30,10 @@ fun Modules.featureEntities() = DI.Module("feature-entities") {
 //    bindSingleton<EntitiesViewModelFactory> { EntitiesViewModelFactoryImpl(i()) }
 
     // Component factories
-//    bindSingleton<EntitiesComponentFactory> { EntitiesComponentFactoryImpl(i(), i()) }
+    bindSingleton<EntitiesComponentFactory> {
+        val viewModel = EntitiesViewModelFactory(i())
+        EntitiesComponentFactoryImpl(i(), viewModel)
+    }
 //    bindSingleton<EntitiesScreenComponentFactory> { EntitiesScreenComponentFactoryImpl(i()) }
 
     // Other
