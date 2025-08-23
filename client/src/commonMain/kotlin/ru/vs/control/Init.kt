@@ -18,6 +18,7 @@ import ru.vs.control.feature.debugScreen.client.featureDebugScreen
 import ru.vs.control.feature.embeddedServer.client.featureEmbeddedServer
 import ru.vs.control.feature.embeddedServer.client.repository.EmbeddedServerQueriesProvider
 import ru.vs.control.feature.entities.client.featureEntities
+import ru.vs.control.feature.entitiesScreen.client.featureEntitiesScreen
 import ru.vs.control.feature.initialization.client.domain.InitializedDependenciesBuilder
 import ru.vs.control.feature.initialization.client.featureInitialization
 import ru.vs.control.feature.initializedRootScreen.client.featureInitializedRootScreen
@@ -67,6 +68,7 @@ fun preInit(preInitPlatformModule: DI.Module? = null): DirectDI {
         importOnce(Modules.featureDebugScreen())
         importOnce(Modules.featureEmbeddedServer())
         importOnce(Modules.featureEntities())
+        importOnce(Modules.featureEntitiesScreen())
         importOnce(Modules.featureInitializedRootScreen())
         importOnce(Modules.featureMainScreen())
         importOnce(Modules.featureNavigationRootScreen())

@@ -1,6 +1,7 @@
 package ru.vs.control.feature.mainScreen.client.ui.screen
 
 import ru.vladislavsumin.core.navigation.registration.NavigationRegistry
+import ru.vs.control.feature.entitiesScreen.client.ui.screen.entitiesScreen.EntitiesScreenParams
 import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.MainScreenFactory
 import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.MainScreenParams
 import ru.vs.control.feature.mainScreen.client.ui.screen.mainScreen.TabNavigationHost
@@ -18,6 +19,7 @@ internal class NavigationRegistrarImpl(
             description = "Главный экран приложения. С табиками и тд.",
         ) {
             TabNavigationHost opens setOf(
+                EntitiesScreenParams::class,
                 ServersScreenParams::class,
             )
         }

@@ -110,6 +110,7 @@ kotlin {
             implementation(projects.feature.debugScreen.clientImpl)
             implementation(projects.feature.embeddedServer.clientImpl)
             implementation(projects.feature.entities.clientImpl)
+            implementation(projects.feature.entitiesScreen.clientImpl)
             implementation(projects.feature.initialization.clientImpl)
             implementation(projects.feature.initializedRootScreen.clientImpl)
             implementation(projects.feature.mainScreen.clientImpl)

@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.router.pages.Pages
 import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
 import ru.vladislavsumin.core.navigation.host.childNavigationPages
+import ru.vs.control.feature.entitiesScreen.client.ui.screen.entitiesScreen.EntitiesScreenParams
 import ru.vs.control.feature.servers.client.ui.screen.serversScreen.ServersScreenParams
 import ru.vs.core.decompose.context.VsComponentContext
 import ru.vs.core.decompose.context.VsScreen
@@ -18,7 +19,7 @@ internal class MainScreen(
 
     private val tabNavigation = childNavigationPages(
         navigationHost = TabNavigationHost,
-        initialPages = { Pages(listOf(ServersScreenParams), 0) },
+        initialPages = { Pages(listOf(EntitiesScreenParams, ServersScreenParams), 0) },
     )
 
     @Composable
