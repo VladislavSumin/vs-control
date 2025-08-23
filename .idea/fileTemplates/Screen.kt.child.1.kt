@@ -1,18 +1,14 @@
 package ${PACKAGE_NAME}
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.Stable
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.StateFlow
+import ru.vladislavsumin.core.decompose.components.ViewModel
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 
-@Composable
-internal fun ${NAME}Content(
-    modifier: Modifier,
-) {
-    Box(modifier.background(Color.Cyan)) {
-        Text("${NAME}Screen", Modifier.align(Alignment.Center))
-    }
+@Stable
+@GenerateFactory
+internal class ${NAME}ViewModel : ViewModel(){
+    val state: StateFlow<${NAME}ViewState> = TODO()
+    val events: Channel<${NAME}Events> = TODO()
 }

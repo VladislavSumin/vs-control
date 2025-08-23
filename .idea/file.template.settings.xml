@@ -22,17 +22,17 @@
       <template name="Feature module.md.child.6༏ext༏.gradle.kts" file-name="${NAME}/server-impl/build" reformat="true" live-template-enabled="false" />
       <template name="Feature module.md.child.7༏ext༏.gradle.kts" file-name="${NAME}/server-api/build" reformat="true" live-template-enabled="false" />
       <template name="Screen.kt" file-name="${NAME}Screen" reformat="true" live-template-enabled="false">
-        <template name="Screen.kt.child.1.kt" file-name="${NAME}Content" reformat="true" live-template-enabled="false" />
-        <template name="Screen.kt.child.4.kt" file-name="${NAME}ViewModel" reformat="true" live-template-enabled="false" />
-        <template name="Screen.kt.child.0.kt" file-name="${NAME}Events" reformat="true" live-template-enabled="false" />
+        <template name="Screen.kt.child.0.kt" file-name="${NAME}Content" reformat="true" live-template-enabled="false" />
+        <template name="Screen.kt.child.1.kt" file-name="${NAME}ViewModel" reformat="true" live-template-enabled="false" />
+        <template name="Screen.kt.child.2.kt" file-name="${NAME}Events" reformat="true" live-template-enabled="false" />
         <template name="Screen.kt.child.3.kt" file-name="${NAME}ScreenParams" reformat="true" live-template-enabled="false" />
-        <template name="Screen.kt.child.2.kt" file-name="${NAME}ViewState" reformat="true" live-template-enabled="false" />
+        <template name="Screen.kt.child.4.kt" file-name="${NAME}ViewState" reformat="true" live-template-enabled="false" />
       </template>
-      <template name="Screen.kt.child.0.kt" file-name="${NAME}Events" reformat="true" live-template-enabled="false" />
-      <template name="Screen.kt.child.1.kt" file-name="${NAME}Content" reformat="true" live-template-enabled="false" />
-      <template name="Screen.kt.child.2.kt" file-name="${NAME}ViewState" reformat="true" live-template-enabled="false" />
+      <template name="Screen.kt.child.0.kt" file-name="${NAME}Content" reformat="true" live-template-enabled="false" />
+      <template name="Screen.kt.child.1.kt" file-name="${NAME}ViewModel" reformat="true" live-template-enabled="false" />
+      <template name="Screen.kt.child.2.kt" file-name="${NAME}Events" reformat="true" live-template-enabled="false" />
       <template name="Screen.kt.child.3.kt" file-name="${NAME}ScreenParams" reformat="true" live-template-enabled="false" />
-      <template name="Screen.kt.child.4.kt" file-name="${NAME}ViewModel" reformat="true" live-template-enabled="false" />
+      <template name="Screen.kt.child.4.kt" file-name="${NAME}ViewState" reformat="true" live-template-enabled="false" />
     </default_templates>
   </component>
 </project>

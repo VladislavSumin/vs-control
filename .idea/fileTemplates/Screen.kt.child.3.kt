@@ -1,6 +1,6 @@
 package ${PACKAGE_NAME}
 
-import ru.vs.core.navigation.ScreenParams
+import ru.vladislavsumin.core.navigation.ScreenParams
 
 /**
  * TODO написать доку.

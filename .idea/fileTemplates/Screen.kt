@@ -2,16 +2,16 @@ package ${PACKAGE_NAME}
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ru.vs.core.navigation.factoryGenerator.GenerateScreenFactory
-import ru.vs.core.navigation.screen.Screen
-import ru.vs.core.navigation.screen.ScreenContext
+import ru.vladislavsumin.core.navigation.factoryGenerator.GenerateScreenFactory
+import ru.vs.core.decompose.context.VsComponentContext
+import ru.vs.core.decompose.context.VsScreen
 
 @GenerateScreenFactory
 internal class ${NAME}Screen(
     viewModelFactory: ${NAME}ViewModelFactory,
-    context: ScreenContext,
+    context: VsComponentContext,
     params: ${NAME}ScreenParams,
-) : Screen(context), ScreenContext by context {
+) : VsScreen(context) {
     private val viewModel = viewModel { viewModelFactory.create() }
 
     @Composable
