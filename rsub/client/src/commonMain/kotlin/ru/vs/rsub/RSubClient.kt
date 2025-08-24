@@ -275,7 +275,7 @@ open class RSubClient(
                     is ConnectionState.ConnectionFailed ->
                         // Check if we need throw exception on connection error
                         if (throwOnDisconnect) {
-                            throw RSubException("Connection in state DISCONNECTED")
+                            throw RSubFlowDisconnectedException()
                         } else {
                             false
                         }

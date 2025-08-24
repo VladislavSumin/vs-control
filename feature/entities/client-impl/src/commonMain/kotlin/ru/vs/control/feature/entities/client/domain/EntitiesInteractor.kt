@@ -73,7 +73,10 @@ internal class EntitiesInteractorImpl(
      * Создает кеширующий [Flow] всех [Entities] для указанного [ServersInteractor]
      */
     private fun ServerInteractor.createEntitiesFlow(): SharedFlow<Entities<*>> {
-        return withRSub(::EntitiesRsubRSubImpl) { entitiesRsub ->
+        return withConnectedRSub(
+            factory = ::EntitiesRsubRSubImpl,
+            onConnectionError = { emptyMap() },
+        ) { entitiesRsub ->
             entitiesRsub
                 .observeEntities()
                 .map {

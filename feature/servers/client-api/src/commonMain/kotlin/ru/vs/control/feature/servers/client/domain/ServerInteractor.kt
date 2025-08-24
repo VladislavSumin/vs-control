@@ -22,4 +22,15 @@ interface ServerInteractor {
      * ```
      */
     fun <T, V> withRSub(factory: (RSubClient) -> T, block: (T) -> Flow<V>): Flow<V>
+
+    /**
+     * Метод аналогичен методу [withRSub], но в случае разрыва соединения с сервером вызывает [onConnectionError], а
+     * после восстановления соединения перезапускает [block]. Обрабатываются только ошибки соединения, все прочие ошибки
+     * будут выброшены внутри выходного [Flow]
+     */
+    fun <T, V> withConnectedRSub(
+        factory: (RSubClient) -> T,
+        onConnectionError: () -> V,
+        block: (T) -> Flow<V>,
+    ): Flow<V>
 }
