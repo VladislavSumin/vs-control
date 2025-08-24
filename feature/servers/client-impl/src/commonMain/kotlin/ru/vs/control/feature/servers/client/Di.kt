@@ -24,7 +24,7 @@ fun Modules.featureServers() = DI.Module("feature-servers") {
 
     bindSingleton<ServersInteractor> {
         val repository = ServersRepositoryImpl(i(), i())
-        val factory = ServerInteractorImplFactory(i(), i())
+        val factory = ServerInteractorImplFactory(i(), i(), i())
         ServersInteractorImpl(repository, factory, i())
     }
 

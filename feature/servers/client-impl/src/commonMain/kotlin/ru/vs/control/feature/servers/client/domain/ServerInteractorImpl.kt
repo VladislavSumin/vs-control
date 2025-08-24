@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.protobuf.ProtoBuf
 import ru.vladislavsumin.core.factoryGenerator.ByCreate
 import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vs.core.coroutines.share
@@ -19,6 +20,7 @@ import ru.vs.rsub.connector.ktorWebsocket.RSubConnectorKtorWebSocket
 internal class ServerInteractorImpl(
     @ByCreate override val id: ServerId,
     @ByCreate override val server: StateFlow<Server>,
+    protoBuf: ProtoBuf,
     httpClient: HttpClient,
     scope: CoroutineScope,
 ) : ServerInteractor {
@@ -42,6 +44,7 @@ internal class ServerInteractorImpl(
                     host = server.host,
                     port = server.port,
                 ),
+                protobuf = protoBuf,
             )
         }
         .share(scope)

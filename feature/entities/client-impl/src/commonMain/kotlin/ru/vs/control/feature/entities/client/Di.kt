@@ -22,20 +22,12 @@ fun Modules.featureEntities() = DI.Module("feature-entities") {
 //    inBindSet<EntityStateComponentFactory<*>> {
 //        add { singleton { BooleanEntityStateComponentFactory() } }
 //    }
+    bindSingleton<EntityStateComponentFactoryRegistry> { EntityStateComponentFactoryRegistryImpl(i()) }
 
-    // Interactors
     bindSingleton<EntitiesInteractor> { EntitiesInteractorImpl(i(), i()) }
 
-    // View model factories
-//    bindSingleton<EntitiesViewModelFactory> { EntitiesViewModelFactoryImpl(i()) }
-
-    // Component factories
     bindSingleton<EntitiesComponentFactory> {
         val viewModel = EntitiesViewModelFactory(i())
         EntitiesComponentFactoryImpl(i(), viewModel)
     }
-//    bindSingleton<EntitiesScreenComponentFactory> { EntitiesScreenComponentFactoryImpl(i()) }
-
-    // Other
-    bindSingleton<EntityStateComponentFactoryRegistry> { EntityStateComponentFactoryRegistryImpl(i()) }
 }
