@@ -59,6 +59,21 @@ sealed interface Id {
         }
     }
 
+    /**
+     * Represent id with 3 parts
+     */
+    @Serializable(IdSerializer::class)
+    interface TripleId : CompositeId {
+        val firstPart: SimpleId
+        val secondPart: SimpleId
+        val thirdPart: SimpleId
+
+        companion object {
+            operator fun invoke(firstPart: SimpleId, secondPart: SimpleId, thirdPart: SimpleId): TripleId =
+                TripleIdImpl(firstPart, secondPart, thirdPart)
+        }
+    }
+
     companion object {
         operator fun invoke(rawId: String): Id = IdFactory.createId(rawId)
         operator fun invoke(vararg ids: Id): Id = IdFactory.createId(ids.asIterable())

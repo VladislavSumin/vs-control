@@ -17,11 +17,13 @@ internal object IdFactory {
         return createId(simpleIds)
     }
 
+    @Suppress("MagicNumber")
     private fun createId(ids: List<Id.SimpleId>): Id {
         return when {
             ids.isEmpty() -> error("Incorrect parts count")
             ids.size == 1 -> ids[0]
             ids.size == 2 -> DoubleIdImpl(ids[0], ids[1])
+            ids.size == 3 -> TripleIdImpl(ids[0], ids[1], ids[2])
             else -> CompositeIdImpl(ids)
         }
     }

@@ -83,10 +83,23 @@ class IdTest {
         assertEquals(id2, doubleId.secondPart)
     }
 
+    @Test
+    fun testTripleId() {
+        val id1 = Id(TEST_RAW_ID_SIMPLE)
+        val id2 = Id(TEST_RAW_ID_WITH_PARTS)
+        val id3 = Id(TEST_RAW_ID_COMPLEX)
+        val doubleId = Id(TEST_RAW_ID_TRIPLE)
+        assertIs<Id.TripleId>(doubleId)
+        assertEquals(id1, doubleId.firstPart)
+        assertEquals(id2, doubleId.secondPart)
+        assertEquals(id3, doubleId.thirdPart)
+    }
+
     companion object {
         private const val TEST_RAW_ID_SIMPLE = "test_id"
         private const val TEST_RAW_ID_WITH_PARTS = "test/id/with/same/path123"
         private const val TEST_RAW_ID_COMPLEX = "test/id/with_same_path"
         private const val TEST_RAW_ID_DOUBLE = "$TEST_RAW_ID_SIMPLE#$TEST_RAW_ID_WITH_PARTS"
+        private const val TEST_RAW_ID_TRIPLE = "$TEST_RAW_ID_SIMPLE#$TEST_RAW_ID_WITH_PARTS#$TEST_RAW_ID_COMPLEX"
     }
 }
