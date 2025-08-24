@@ -30,29 +30,30 @@ jobs:
           key: "check_gradle_modules_graph"
           gradle_command: :assertModuleGraph
 
-  check-detekt:
-    name: Check detekt
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    steps:
-      - name: Clone vs-control repository
-        uses: actions/checkout@v4
-        with:
-          path: vs-control
-
-      - name: Clone vs-core repository
-        uses: actions/checkout@v4
-        with:
-          repository: VladislavSumin/vs-core
-          path: vs-core
-
-      - name: Run gradle
-        uses: ./vs-control/.github/actions/run_gradle_default
-        with:
-          key: "check_detekt"
-          gradle_command: >-
-            :detektBuildLogic
-            detekt  
+# Детект сломан из-за kotlin context parameters джем версию с поддержкой
+#  check-detekt:
+#    name: Check detekt
+#    runs-on: ubuntu-24.04
+#    timeout-minutes: 15
+#    steps:
+#      - name: Clone vs-control repository
+#        uses: actions/checkout@v4
+#        with:
+#          path: vs-control
+#
+#      - name: Clone vs-core repository
+#        uses: actions/checkout@v4
+#        with:
+#          repository: VladislavSumin/vs-core
+#          path: vs-core
+#
+#      - name: Run gradle
+#        uses: ./vs-control/.github/actions/run_gradle_default
+#        with:
+#          key: "check_detekt"
+#          gradle_command: >-
+#            :detektBuildLogic
+#            detekt
 
   assemble-android-debug-client:
     name: Assemble android debug client
