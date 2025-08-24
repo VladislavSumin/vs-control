@@ -8,10 +8,8 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
-import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
-import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
@@ -20,44 +18,30 @@ import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
-import com.squareup.kotlinpoet.ksp.writeTo
+import ru.vladislavsumin.core.ksp.utils.Types
+import ru.vladislavsumin.core.ksp.utils.primaryConstructorWithPrivateFields
+import ru.vladislavsumin.core.ksp.utils.processAnnotated
+import ru.vladislavsumin.core.ksp.utils.writeTo
 import kotlin.reflect.KClass
 
-// TODO переписать с базовыми расширениями
 internal class FactoryGeneratorSymbolProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
 ) : SymbolProcessor {
 
-    override fun process(resolver: Resolver): List<KSAnnotated> {
-        return resolver.getSymbolsWithAnnotation(GenerateEntityStateComponentFactory::class.qualifiedName!!)
-            .filterNot(this::processAnnotated)
-            .toList()
-    }
-
-    @Suppress("TooGenericExceptionCaught")
-    private fun processAnnotated(annotated: KSAnnotated): Boolean {
-        return try {
-            processGenerateFactoryAnnotation(annotated)
-            true
-        } catch (_: IllegalArgumentException) {
-            // We have cases when one generated factory using inside another generated factory,
-            // for these cases we need to processing sources with more than once iteration
-            false
-        } catch (e: Exception) {
-            logger.exception(e)
-            false
-        }
-    }
+    override fun process(resolver: Resolver): List<KSAnnotated> =
+        resolver.processAnnotated<GenerateEntityStateComponentFactory>(::processGenerateFactoryAnnotation)
 
     private fun processGenerateFactoryAnnotation(instance: KSAnnotated) {
-        check(instance is KSClassDeclaration) {
-            "Only KSClassDeclaration supported, but $instance was received"
+        // Проверяем тип объекта к которому применена аннотация
+        if (instance !is KSClassDeclaration) {
+            logger.error(
+                message = "Is not a class. @GenerateEntityStateComponentFactory applicable only to classes",
+                symbol = instance,
+            )
+            return
         }
-        val primaryConstructor = instance.primaryConstructor
-        checkNotNull(primaryConstructor)
-
-        generateFactoryInterfaceAndImpl(instance)
+        generateFactory(instance)
     }
 
     /**
@@ -66,21 +50,32 @@ internal class FactoryGeneratorSymbolProcessor(
      * @param instance instance for creation
      * @param suffix factory name suffix
      */
-    // TODO
-    @Suppress("LongMethod")
-    private fun generateFactoryInterfaceAndImpl(
+    @Suppress("LongMethod", "CyclomaticComplexMethod")
+    private fun generateFactory(
         instance: KSClassDeclaration,
         suffix: String = "Factory",
     ) {
+        val primaryConstructor = instance.primaryConstructor ?: let {
+            logger.error(
+                message = "For generate factory class must have primary constructor",
+                symbol = instance,
+            )
+            return
+        }
+
         // Find instance super class reference
         val superClass = instance.superTypes.first()
-        check((superClass.resolve().toTypeName() as? ParameterizedTypeName)?.rawType == BASE_COMPONENT_CLASS) {
-            "class must depends on BaseEntityStateComponent"
+        if ((superClass.resolve().toTypeName() as? ParameterizedTypeName)?.rawType != BASE_COMPONENT_CLASS) {
+            logger.error(
+                message = "class must depends on BaseEntityStateComponent",
+                symbol = instance,
+            )
+            return
         }
         val superClassGenericTypeName = superClass.element!!.typeArguments.single().toTypeName()
         val parametrizedFactoryInterface = FACTORY_INTERFACE.parameterizedBy(superClassGenericTypeName)
 
-        val stateType = STATE_FLOW.parameterizedBy(
+        val stateType = Types.Coroutines.StateFlow.parameterizedBy(
             ENTITY.parameterizedBy(
                 superClassGenericTypeName,
             ),
@@ -89,10 +84,10 @@ internal class FactoryGeneratorSymbolProcessor(
         val codeBlock = CodeBlock.builder()
             .add("return %T(", instance.toClassName())
             .apply {
-                instance.primaryConstructor!!.parameters.forEach { parameter ->
+                primaryConstructor.parameters.forEach { parameter ->
                     val parameterTypeName = parameter.type.toTypeName()
                     val paramName = when (parameterTypeName) {
-                        STATE_FLOW -> "state"
+                        Types.Coroutines.StateFlow -> "state"
                         COMPOSE_CONTEXT -> "context"
                         else -> parameter.name!!.getShortName()
                     }
@@ -114,71 +109,30 @@ internal class FactoryGeneratorSymbolProcessor(
         val functionImpl = FunSpec.builder("create")
             .addModifiers(KModifier.OVERRIDE)
             .addCode(codeBlock)
-            .addParameter(
-                ParameterSpec.builder(
-                    name = "state",
-                    type = stateType,
-                ).build(),
-            )
-            .addParameter(
-                ParameterSpec.builder(
-                    name = "context",
-                    type = COMPOSE_CONTEXT,
-                ).build(),
-            )
+            .addParameter(name = "state", type = stateType)
+            .addParameter(name = "context", type = COMPOSE_CONTEXT)
             .returns(instance.toClassName())
-            .build()
-
-        // Generate constructor
-        val constructor = FunSpec.constructorBuilder()
-            .apply {
-                instance.primaryConstructor!!.parameters
-                    .filter {
-                        val typeName = it.type.toTypeName()
-                        typeName != stateType && typeName != COMPOSE_CONTEXT
-                    }
-                    .forEach {
-                        addParameter(it.name!!.getShortName(), it.type.toTypeName())
-                    }
-            }
             .build()
 
         val name = instance.simpleName.getShortName() + suffix
 
+        val constructor = primaryConstructor.parameters
+            .filter {
+                val typeName = it.type.toTypeName()
+                typeName != stateType && typeName != COMPOSE_CONTEXT
+            }
+            .map { it.name!!.getShortName() to it.type.toTypeName() }
+
         // Generate class impl
-        val clazzImpl = TypeSpec.classBuilder(name)
-            .primaryConstructor(constructor)
+        TypeSpec.classBuilder(name)
+            .primaryConstructorWithPrivateFields(constructor)
             .addSuperinterface(parametrizedFactoryInterface)
             .addModifiers(KModifier.INTERNAL)
-            .apply {
-                instance.primaryConstructor!!.parameters
-                    .filter {
-                        val typeName = it.type.toTypeName()
-                        typeName != stateType && typeName != COMPOSE_CONTEXT
-                    }
-                    .forEach {
-                        val name = it.name!!.getShortName()
-                        addProperty(
-                            PropertySpec.builder(name, it.type.toTypeName())
-                                .initializer(name)
-                                .addModifiers(KModifier.PRIVATE)
-                                .build(),
-                        )
-                    }
-            }
             .addProperty(property)
             .addFunction(functionImpl)
             .addOriginatingKSFile(instance.containingFile!!)
             .build()
-
-        // Generate kotlin file
-        FileSpec.builder(
-            instance.packageName.asString(),
-            name,
-        )
-            .addType(clazzImpl)
-            .build()
-            .writeTo(codeGenerator, false)
+            .writeTo(codeGenerator, instance.packageName.asString())
     }
 
     companion object {
@@ -187,7 +141,6 @@ internal class FactoryGeneratorSymbolProcessor(
         private val BASE_COMPONENT_CLASS =
             ClassName("ru.vs.control.feature.entities.client.ui.entities.entityState", "BaseEntityStateComponent")
         private val COMPOSE_CONTEXT = ClassName("ru.vs.core.decompose.context", "VsComponentContext")
-        private val STATE_FLOW = ClassName("kotlinx.coroutines.flow", "StateFlow")
         private val ENTITY = ClassName("ru.vs.control.feature.entities.client.domain", "Entity")
     }
 }
