@@ -1,9 +1,9 @@
 package ru.vs.control.feature.entities.rsub
 
 import kotlinx.coroutines.flow.Flow
-import ru.vs.control.feature.entities.domain.EntityId
 import ru.vs.control.feature.entities.domain.EntityState
 import ru.vs.control.feature.entities.dto.EntityDto
+import ru.vs.control.id.Id
 import ru.vs.rsub.RSubInterface
 
 @RSubInterface
@@ -21,5 +21,5 @@ interface EntitiesRsub {
      *
      * @return true if entity updated successfully, false otherwise
      */
-    suspend fun updateEntity(id: EntityId, newState: EntityState): Boolean
+    suspend fun updateEntity(serverEntityId: Id.DoubleId, newState: EntityState): Boolean
 }

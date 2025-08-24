@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import ru.vs.control.feature.entities.domain.EntityId
 import ru.vs.control.feature.entities.domain.EntityState
 import ru.vs.control.feature.entities.server.domain.Entities
 import ru.vs.control.feature.entities.server.domain.Entity
+import ru.vs.control.feature.entities.server.domain.EntityId
 import ru.vs.control.feature.entities.server.domain.EntityImpl
 
 internal interface EntitiesRegistry {

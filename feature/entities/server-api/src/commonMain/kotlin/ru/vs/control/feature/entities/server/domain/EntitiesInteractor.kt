@@ -2,7 +2,6 @@ package ru.vs.control.feature.entities.server.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.update
-import ru.vs.control.feature.entities.domain.EntityId
 import ru.vs.control.feature.entities.domain.EntityProperties
 import ru.vs.control.feature.entities.domain.EntityState
 

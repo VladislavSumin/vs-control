@@ -1,6 +1,5 @@
 package ru.vs.control.feature.entities.server.domain
 
-import ru.vs.control.feature.entities.domain.EntityId
 import ru.vs.control.feature.entities.domain.EntityProperties
 import ru.vs.control.feature.entities.domain.EntityState
 

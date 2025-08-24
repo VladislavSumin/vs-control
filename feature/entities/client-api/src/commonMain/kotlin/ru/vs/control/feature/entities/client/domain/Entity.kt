@@ -1,7 +1,6 @@
 package ru.vs.control.feature.entities.client.domain
 
 import ru.vs.control.feature.entities.domain.BaseEntity
-import ru.vs.control.feature.entities.domain.EntityId
 import ru.vs.control.feature.entities.domain.EntityProperties
 import ru.vs.control.feature.entities.domain.EntityState
 import ru.vs.control.feature.servers.client.domain.ServerId
@@ -17,10 +16,11 @@ import ru.vs.control.feature.servers.client.domain.ServerId
  */
 data class Entity<T : EntityState>(
     val serverId: ServerId,
+    val serverEntityId: ServerEntityId,
     override val id: EntityId,
     override val primaryState: T,
     override val isMutable: Boolean,
     override val properties: EntityProperties,
-) : BaseEntity<T>
+) : BaseEntity<EntityId, T>
 
 typealias Entities<T> = Map<EntityId, Entity<T>>
