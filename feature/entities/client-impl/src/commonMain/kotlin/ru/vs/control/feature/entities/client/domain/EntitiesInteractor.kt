@@ -49,7 +49,7 @@ internal class EntitiesInteractorImpl(
             .shareIn(
                 scope = scope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 0, replayExpirationMillis = 0),
-                replay = 1
+                replay = 1,
             )
 
     /**
@@ -67,9 +67,8 @@ internal class EntitiesInteractorImpl(
         .shareIn(
             scope = scope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 0, replayExpirationMillis = 0),
-            replay = 1
+            replay = 1,
         )
-
 
     /**
      * Создает кеширующий [Flow] всех [Entities] для указанного [ServersInteractor]
@@ -82,11 +81,10 @@ internal class EntitiesInteractorImpl(
                     it.toEntity(this.id)
                         .associateBy(Entity<*>::id)
                 }
-
         }.shareIn(
             scope = scope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 0, replayExpirationMillis = 0),
-            replay = 1
+            replay = 1,
         )
     }
 

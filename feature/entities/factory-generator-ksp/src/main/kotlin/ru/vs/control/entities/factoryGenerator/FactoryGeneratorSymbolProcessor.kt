@@ -12,10 +12,12 @@ import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asTypeName
+import com.squareup.kotlinpoet.ksp.addOriginatingKSFile
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
@@ -72,7 +74,7 @@ internal class FactoryGeneratorSymbolProcessor(
     ) {
         // Find instance super class reference
         val superClass = instance.superTypes.first()
-        check(superClass.resolve().toClassName() == BASE_COMPONENT_CLASS) {
+        check((superClass.resolve().toTypeName() as? ParameterizedTypeName)?.rawType == BASE_COMPONENT_CLASS) {
             "class must depends on BaseEntityStateComponent"
         }
         val superClassGenericTypeName = superClass.element!!.typeArguments.single().toTypeName()
@@ -166,6 +168,7 @@ internal class FactoryGeneratorSymbolProcessor(
             }
             .addProperty(property)
             .addFunction(functionImpl)
+            .addOriginatingKSFile(instance.containingFile!!)
             .build()
 
         // Generate kotlin file
@@ -180,11 +183,11 @@ internal class FactoryGeneratorSymbolProcessor(
 
     companion object {
         private val FACTORY_INTERFACE =
-            ClassName("ru.vs.control.entities.ui.entities.entity_state", "EntityStateComponentFactory")
+            ClassName("ru.vs.control.feature.entities.client.ui.entities.entityState", "EntityStateComponentFactory")
         private val BASE_COMPONENT_CLASS =
-            ClassName("ru.vs.control.entities.ui.entities.entity_state", "BaseEntityStateComponent")
-        private val COMPOSE_CONTEXT = ClassName("com.arkivanov.decompose", "ComponentContext")
+            ClassName("ru.vs.control.feature.entities.client.ui.entities.entityState", "BaseEntityStateComponent")
+        private val COMPOSE_CONTEXT = ClassName("ru.vs.core.decompose.context", "VsComponentContext")
         private val STATE_FLOW = ClassName("kotlinx.coroutines.flow", "StateFlow")
-        private val ENTITY = ClassName("ru.vs.control.entities.domain", "Entity")
+        private val ENTITY = ClassName("ru.vs.control.feature.entities.client.domain", "Entity")
     }
 }
