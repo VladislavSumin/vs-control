@@ -194,16 +194,7 @@ open class RSubClient(
         argumentsTypes: List<KType>,
         arguments: List<Any?>,
     ): Flow<T> = channelFlow {
-        // Check reconnect policy
-        val throwException = true
-//        val throwException = when (
-//            methodName.findAnnotation<RSubFlowPolicy>()?.policy ?: RSubFlowPolicy.Policy.THROW_EXCEPTION
-//        ) {
-//            RSubFlowPolicy.Policy.THROW_EXCEPTION -> true
-//            RSubFlowPolicy.Policy.SUPPRESS_EXCEPTION_AND_RECONNECT -> false
-//        }
-
-        withConnection(throwException) { connection ->
+        withConnection { connection ->
             val id = nextId.getAndIncrement()
             try {
                 coroutineScope {
@@ -263,7 +254,6 @@ open class RSubClient(
      */
     @Suppress("TooGenericExceptionThrown")
     private suspend fun <T> withConnection(
-        throwOnDisconnect: Boolean = true,
         block: suspend (connection: ConnectionState.Connected) -> T,
     ): T {
         return connection
@@ -273,12 +263,7 @@ open class RSubClient(
                     is ConnectionState.Connecting -> false
                     is ConnectionState.Connected -> true
                     is ConnectionState.ConnectionFailed ->
-                        // Check if we need throw exception on connection error
-                        if (throwOnDisconnect) {
-                            throw RSubFlowDisconnectedException()
-                        } else {
-                            false
-                        }
+                        throw RSubFlowDisconnectedException()
                 }
             }
             // Filter can be passing only connection state, we don't need using filterInstance
@@ -293,10 +278,9 @@ open class RSubClient(
 //                        log.warn("Connection was canceled by previous connection")
 //                        true
 //                    }
-                    throwOnDisconnect -> false
 //                    it is SocketException -> true
                     else -> {
-                        logger.e(it) { "Unexpected exception" }
+                        // logger.e(it) { "Unexpected exception" }
                         false
                     }
                 }
