@@ -12,11 +12,11 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":feature:entities:factory-generator-api"))
+            implementation(project(":feature:entities:factory-generator:api"))
         }
     }
 }
 
 dependencies {
-    add("kspCommonMainMetadata", project(":feature:entities:factory-generator-ksp"))
+    add("kspCommonMainMetadata", project(":feature:entities:factory-generator:ksp"))
 }

@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.feature.entities.factoryGeneratorApi)
+    implementation(projects.feature.entities.factoryGenerator.api)
 }

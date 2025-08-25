@@ -18,14 +18,17 @@ moduleGraphAssert {
         // Общие для всех проектов настройки
         ".* -> :core:.*",
 
+        // Настройки для KSP
+        ".*generator:ksp -> .*generator:api",
+        ":feature:.*-impl -> .*generator:api",
+        ":feature:.*-impl -> .*generator:ksp",
+
         // Настройки для rSub
         ":rsub:.* -> :rsub:.*",
         ":feature:.* -> :rsub:core",
-        ":feature:.*:server-impl -> :rsub:.*server.*", // не опечатка, хитрый regex для разрешения любых сервер модулей
+        ":feature:.*:server-impl -> :rsub:.*server.*",
+        ":feature:.*:client-api -> :rsub:.*client.*",
         ":feature:.*:client-impl -> :rsub:.*client.*",
-
-        // Настройка для entities
-        ":feature:entities:factory-generator-ksp -> :feature:entities:factory-generator-api",
 
         // Настройки специфичные для Control
         ":feature:.*:client-api -> :feature:.*:client-api",

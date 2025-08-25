@@ -65,7 +65,7 @@ include("rsub:test")
 include("rsub:test-interface")
 
 sharedFeature("auth")
-sharedFeature("entities", "factory-generator-api", "factory-generator-ksp")
+sharedFeature("entities", "factory-generator:api", "factory-generator:ksp")
 sharedFeature("server-info")
 
 clientFeature("app-info")
