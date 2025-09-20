@@ -6,7 +6,7 @@ package ru.vs.convention
 
 plugins {
     id("kotlin-multiplatform")
-    id("ru.vs.convention.ksp-kmp-hack")
+    id("ru.vladislavsumin.convention.kmp.ksp-hack")
 }
 
 kotlin {
