@@ -13,6 +13,6 @@ interface InitializedRootScreenFactory {
     fun create(
         onContentReady: () -> Unit,
         deeplink: ReceiveChannel<String>,
-        componentContext: VsComponentContext,
+        context: VsComponentContext,
     ): ComposeComponent
 }

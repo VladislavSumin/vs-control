@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.channels.ReceiveChannel
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vs.control.feature.splashScreen.client.ui.screen.splashScreen.SplashScreenFactory
 import ru.vs.core.coroutines.mapState
 import ru.vs.core.decompose.context.VsComponent
@@ -15,6 +16,7 @@ import ru.vs.core.sharedElementTransition.ProvideLocalSharedElementTransition
 import ru.vs.core.splash.Children
 import ru.vs.core.splash.childSplash
 
+@GenerateFactory(RootScreenFactory::class)
 internal class RootScreenComponent(
     private val rootScreenViewModelFactory: RootScreenViewModelFactory,
     splashScreenFactory: SplashScreenFactory,

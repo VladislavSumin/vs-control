@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import ru.vladislavsumin.core.decompose.compose.ComposeComponent
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vladislavsumin.core.navigation.host.childNavigationRoot
 import ru.vs.core.decompose.context.VsComponent
 import ru.vs.core.decompose.context.VsComponentContext
@@ -13,6 +14,7 @@ import ru.vs.core.decompose.context.VsComponentContext
  * @param onContentReady необходимо вызвать после готовности к отображению контента. Таким образом можно придержать
  * splash экран на время загрузки контента.
  */
+@GenerateFactory(InitializedRootScreenFactory::class)
 internal class InitializedRootScreenComponent(
     viewModelFactory: InitializedRootViewModelFactory,
     onContentReady: () -> Unit,

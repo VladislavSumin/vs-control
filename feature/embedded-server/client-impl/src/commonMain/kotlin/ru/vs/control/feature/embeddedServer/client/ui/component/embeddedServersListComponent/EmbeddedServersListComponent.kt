@@ -3,10 +3,12 @@ package ru.vs.control.feature.embeddedServer.client.ui.component.embeddedServers
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
 import ru.vs.core.decompose.LazyListComponent
 import ru.vs.core.decompose.context.VsComponent
 import ru.vs.core.decompose.context.VsComponentContext
 
+@GenerateFactory(EmbeddedServersListComponentFactory::class)
 internal class EmbeddedServersListComponent(
     viewModelFactory: EmbeddedServersListViewModelFactory,
     context: VsComponentContext,
