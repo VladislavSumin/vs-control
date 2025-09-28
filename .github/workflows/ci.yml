@@ -11,7 +11,7 @@ jobs:
   check-gradle-modules-graph:
     name: Check gradle modules graph
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Clone vs-control repository
         uses: actions/checkout@v4
@@ -58,7 +58,7 @@ jobs:
   assemble-android-debug-client:
     name: Assemble android debug client
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Clone vs-control repository
         uses: actions/checkout@v4
@@ -80,7 +80,7 @@ jobs:
   assemble-jvm-client:
     name: Assemble jvm client
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Clone vs-control repository
         uses: actions/checkout@v4
@@ -102,7 +102,7 @@ jobs:
   unit-tests:
     name: Unit tests
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Clone vs-control repository
         uses: actions/checkout@v4
