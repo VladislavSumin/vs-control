@@ -2,7 +2,6 @@
 vs-core = "0.0.1"
 
 # Kotlin
-kotlin-io = "0.8.0"
 kotlin-atomicfu = "0.29.0"
 
 # Gradle plugins
@@ -61,7 +60,6 @@ vs-core-navigation-factoryGenerator-ksp = { module = "ru.vladislavsumin.core.nav
 vs-core-uikit-graph = { module = "ru.vladislavsumin.core.uikit:graph", version.ref = "vs-core" }
 
 # Kotlin
-kotlin-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlin-io" }
 kotlin-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "kotlin-atomicfu" }
 
 # Ktor
