@@ -22,7 +22,7 @@ kotlin {
             implementation(vsCoreLibs.vs.core.di)
 
             implementation(projects.core.compose)
-            implementation(projects.core.serialization.json)
+            implementation(vsCoreLibs.vs.core.serialization.json)
             implementation(projects.core.utils)
         }
         androidMain.dependencies {

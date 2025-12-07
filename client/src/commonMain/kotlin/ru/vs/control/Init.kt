@@ -12,6 +12,7 @@ import ru.vladislavsumin.core.di.i
 import ru.vladislavsumin.core.logger.manager.LoggerManager
 import ru.vladislavsumin.core.logger.platform.initDefault
 import ru.vladislavsumin.core.navigation.coreNavigation
+import ru.vladislavsumin.core.serialization.protobuf.coreSerializationProtobuf
 import ru.vs.control.feature.appInfo.client.featureAppInfo
 import ru.vs.control.feature.auth.client.featureAuth
 import ru.vs.control.feature.debugScreen.client.featureDebugScreen
@@ -41,7 +42,6 @@ import ru.vs.core.decompose.context.VsComponentContext
 import ru.vs.core.fs.coreFs
 import ru.vs.core.ktor.client.coreKtorClient
 import ru.vs.core.properties.coreProperties
-import ru.vs.core.serialization.protobuf.coreSerializationProtobuf
 
 /**
  * Вызывается на самом раннем этапе старта приложения.

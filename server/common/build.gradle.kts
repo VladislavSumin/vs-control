@@ -9,8 +9,8 @@ kotlin {
             // TODO поменять на impl все что возможно
             api(vsCoreLibs.vs.core.logger.api)
             api(vsCoreLibs.vs.core.di)
+            api(vsCoreLibs.vs.core.serialization.protobuf)
             api(projects.core.ktor.server)
-            api(projects.core.serialization.protobuf)
 
             implementation(projects.feature.auth.serverImpl)
             implementation(projects.feature.entities.serverImpl)

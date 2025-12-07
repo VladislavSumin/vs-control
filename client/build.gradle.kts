@@ -95,6 +95,7 @@ kotlin {
             implementation(vsCoreLibs.vs.core.di)
             implementation(vsCoreLibs.vs.core.navigation.impl)
             implementation(vsCoreLibs.vs.core.navigation.di)
+            implementation(vsCoreLibs.vs.core.serialization.protobuf)
 
             implementation(projects.core.autoload)
             implementation(projects.core.coroutines)
@@ -103,7 +104,6 @@ kotlin {
             implementation(projects.core.ktor.client)
             implementation(projects.core.fs.impl)
             implementation(projects.core.properties.impl)
-            implementation(projects.core.serialization.protobuf)
 
             // Features
             implementation(projects.feature.appInfo.clientImpl)

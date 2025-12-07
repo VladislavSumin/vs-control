@@ -12,8 +12,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(vsCoreLibs.vs.core.logger.api)
+            implementation(vsCoreLibs.vs.core.serialization.protobuf)
             implementation(project(":core:coroutines"))
-            implementation(project(":core:serialization:protobuf"))
             implementation(project(":core:utils"))
         }
     }
