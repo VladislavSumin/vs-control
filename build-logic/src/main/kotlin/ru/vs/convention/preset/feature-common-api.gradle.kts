@@ -1,6 +1,6 @@
 package ru.vs.convention.preset
 
-import ru.vs.utils.libs
+import ru.vladislavsumin.utils.vsCoreLibs
 
 plugins {
     kotlin("multiplatform")
@@ -11,7 +11,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.vs.core.logger.api)
+            implementation(vsCoreLibs.vs.core.logger.api)
             implementation(project(":core:coroutines"))
             implementation(project(":core:serialization:protobuf"))
             implementation(project(":core:utils"))

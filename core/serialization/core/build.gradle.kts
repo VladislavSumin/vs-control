@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(vsCoreLibs.kotlin.serialization.core)
-            implementation(libs.vs.core.di)
+            implementation(vsCoreLibs.vs.core.di)
         }
     }
 }

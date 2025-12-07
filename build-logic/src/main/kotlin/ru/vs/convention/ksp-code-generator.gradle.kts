@@ -1,6 +1,6 @@
 package ru.vs.convention
 
-import ru.vs.utils.libs
+import ru.vladislavsumin.utils.vsCoreLibs
 
 /**
  * Параметры по умолчанию для модулей генерации кода на основе KSP
@@ -11,5 +11,5 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.vs.core.ksp.utils)
+    implementation(vsCoreLibs.vs.core.ksp.utils)
 }

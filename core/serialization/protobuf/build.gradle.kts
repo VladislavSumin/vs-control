@@ -8,7 +8,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.core.serialization.core)
             api(vsCoreLibs.kotlin.serialization.protobuf)
-            implementation(libs.vs.core.di)
+            implementation(vsCoreLibs.vs.core.di)
         }
     }
 }

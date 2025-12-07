@@ -7,7 +7,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.core.properties.api)
             implementation(projects.core.coroutines)
-            implementation(libs.vs.core.di)
+            implementation(vsCoreLibs.vs.core.di)
             implementation(projects.core.fs.api)
 
             implementation(libs.android.datastore.core)

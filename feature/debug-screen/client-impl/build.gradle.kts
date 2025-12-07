@@ -5,7 +5,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.vs.core.navigation.debug)
+            implementation(vsCoreLibs.vs.core.navigation.debug)
         }
     }
 }

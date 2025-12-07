@@ -10,7 +10,7 @@ kotlin {
 
             implementation(projects.core.coroutines)
             implementation(projects.core.fs.api)
-            implementation(libs.vs.core.di)
+            implementation(vsCoreLibs.vs.core.di)
         }
 
         androidMain.dependencies {

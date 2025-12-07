@@ -28,8 +28,8 @@ dependencies {
 
     implementation(projects.core.coroutines)
     implementation(projects.core.serialization.protobuf)
-    implementation(libs.vs.core.logger.api)
-    implementation(libs.vs.core.logger.platform)
+    implementation(vsCoreLibs.vs.core.logger.api)
+    implementation(vsCoreLibs.vs.core.logger.platform)
 
     testImplementation(projects.core.coroutinesTest)
     testImplementation(libs.testing.turbine)

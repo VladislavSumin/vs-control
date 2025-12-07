@@ -1,6 +1,6 @@
 package ru.vs.convention
 
-import ru.vs.utils.libs
+import ru.vladislavsumin.utils.vsCoreLibs
 
 /**
  * Настройка по умолчанию для подключения генерации фабрик из модуля navigation:factory-generator
@@ -14,11 +14,11 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.vs.core.navigation.factoryGenerator.api)
+            implementation(vsCoreLibs.vs.core.navigation.factoryGenerator.api)
         }
     }
 }
 
 dependencies {
-    add("kspCommonMainMetadata", libs.vs.core.navigation.factoryGenerator.ksp)
+    add("kspCommonMainMetadata", vsCoreLibs.vs.core.navigation.factoryGenerator.ksp)
 }

@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import ru.vladislavsumin.utils.vsCoreLibs
 import ru.vs.core.database.plugin.registerDatabase
 
 plugins {
@@ -89,11 +90,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.vs.core.logger.api)
-            implementation(libs.vs.core.logger.platform)
-            implementation(libs.vs.core.di)
-            implementation(libs.vs.core.navigation.impl)
-            implementation(libs.vs.core.navigation.di)
+            implementation(vsCoreLibs.vs.core.logger.api)
+            implementation(vsCoreLibs.vs.core.logger.platform)
+            implementation(vsCoreLibs.vs.core.di)
+            implementation(vsCoreLibs.vs.core.navigation.impl)
+            implementation(vsCoreLibs.vs.core.navigation.di)
 
             implementation(projects.core.autoload)
             implementation(projects.core.coroutines)

@@ -6,7 +6,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.core.fs.api)
-            implementation(libs.vs.core.di)
+            implementation(vsCoreLibs.vs.core.di)
         }
     }
 }

@@ -15,7 +15,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.server.common)
-            implementation(libs.vs.core.logger.platform)
+            implementation(vsCoreLibs.vs.core.logger.platform)
         }
     }
 }

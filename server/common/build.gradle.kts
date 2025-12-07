@@ -7,8 +7,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // TODO поменять на impl все что возможно
-            api(libs.vs.core.logger.api)
-            api(libs.vs.core.di)
+            api(vsCoreLibs.vs.core.logger.api)
+            api(vsCoreLibs.vs.core.di)
             api(projects.core.ktor.server)
             api(projects.core.serialization.protobuf)
 

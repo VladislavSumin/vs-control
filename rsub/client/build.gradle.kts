@@ -10,7 +10,7 @@ kotlin {
             api(projects.rsub.core)
 
             implementation(projects.core.coroutines)
-            implementation(libs.vs.core.logger.api)
+            implementation(vsCoreLibs.vs.core.logger.api)
 
             implementation(vsCoreLibs.kotlin.serialization.protobuf)
         }

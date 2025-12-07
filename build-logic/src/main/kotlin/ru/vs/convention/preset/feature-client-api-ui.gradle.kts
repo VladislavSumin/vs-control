@@ -1,6 +1,6 @@
 package ru.vs.convention.preset
 
-import ru.vs.utils.libs
+import ru.vladislavsumin.utils.vsCoreLibs
 
 /**
  * Базовый пресет для всех client-api feature модулей с добавлением api ui зависимостей.
@@ -15,7 +15,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core:decompose"))
-            implementation(libs.vs.core.navigation.api)
+            implementation(vsCoreLibs.vs.core.navigation.api)
         }
     }
 }
