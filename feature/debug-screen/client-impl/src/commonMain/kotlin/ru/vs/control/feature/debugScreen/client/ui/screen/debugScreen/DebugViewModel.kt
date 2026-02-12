@@ -1,11 +1,13 @@
 package ru.vs.control.feature.debugScreen.client.ui.screen.debugScreen
 
 import androidx.compose.runtime.Stable
+import ru.vladislavsumin.core.collections.tree.TreeNodeImpl
 import ru.vladislavsumin.core.collections.tree.map
 import ru.vladislavsumin.core.collections.tree.nodeOf
 import ru.vladislavsumin.core.factoryGenerator.GenerateFactory
+import ru.vladislavsumin.core.navigation.ui.debug.uml.ExternalNavigationGraphUmlNode
+import ru.vladislavsumin.core.navigation.ui.debug.uml.InternalNavigationGraphUmlNode
 import ru.vladislavsumin.core.navigation.ui.debug.uml.NavigationGraphUmlNode
-import ru.vladislavsumin.core.navigation.ui.debug.uml.NavigationGraphUmlNodeInfo
 import ru.vladislavsumin.core.navigation.viewModel.NavigationViewModel
 
 @Stable
@@ -18,34 +20,30 @@ internal class DebugViewModel : NavigationViewModel() {
      * Не все пути навигации содержаться в графе навигации. Несколько первых экранов туда не попадают, поэтому
      * добавляем их вручную.
      */
-    fun generateFakeNavigationNodesFist(originalNode: NavigationGraphUmlNode): NavigationGraphUmlNode {
+    fun generateFakeNavigationNodesFist(
+        originalNode: TreeNodeImpl<InternalNavigationGraphUmlNode>,
+    ): TreeNodeImpl<NavigationGraphUmlNode> {
         return nodeOf(
-            value = NavigationGraphUmlNodeInfo(
+            value = ExternalNavigationGraphUmlNode(
                 name = "RootScreenComponent",
-                hasDefaultParams = false,
-                isPartOfMainGraph = false,
                 description = "Корневой экран, отвечает за запуск инициализации приложения",
             ),
             nodeOf(
-                NavigationGraphUmlNodeInfo(
+                ExternalNavigationGraphUmlNode(
                     name = "SplashScreenComponent",
-                    hasDefaultParams = false,
-                    isPartOfMainGraph = false,
                     description = "Отображает splash заглушку",
                 ),
             ),
             nodeOf(
-                NavigationGraphUmlNodeInfo(
+                ExternalNavigationGraphUmlNode(
                     name = "InitializedRootScreenComponent",
-                    hasDefaultParams = false,
-                    isPartOfMainGraph = false,
                     description = """
                     Отображается после инициализации приложения. 
                     Является точкой входа в полноценную навигацию.
                     """.trimIndent(),
                 ),
                 originalNode.map {
-                    it.copy(name = it.name.substringBeforeLast("ScreenParams"))
+                    it.externalCopy(name = it.name.substringBeforeLast("ScreenParams"))
                 },
             ),
         )

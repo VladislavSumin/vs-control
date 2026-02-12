@@ -11,7 +11,7 @@ import ru.vs.core.decompose.context.VsScreen
 @GenerateScreenFactory
 internal class DebugScreen(
     viewModelFactory: DebugViewModelFactory,
-    umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory<VsComponentContext>,
+    umlDiagramComponentFactory: NavigationGraphUmlDiagramComponentFactory,
     context: VsComponentContext,
 ) : VsScreen(context) {
 
